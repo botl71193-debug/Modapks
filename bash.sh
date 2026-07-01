@@ -25,7 +25,7 @@ termux-setup-storage
 cd /data/data/com.termux/files/usr/etc
 rm bash.bashrc
 cd $HOME
-cd T-STYLE
+cd Modapks
 cp bash.bashrc /data/data/com.termux/files/usr/etc
 
 clear
