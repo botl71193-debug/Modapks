@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2P Chat & File Share (Offline QR Code)</title>
+    <!-- Library QR Code Generator & Scanner CDN (Bisa disave offline jika perlu) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f0f2f5; color: #333; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        
+        header { 
+            background-color: #075e54; color: white; padding: 15px 20px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 10;
+        }
+        .header-title { font-size: 1.2rem; font-weight: bold; }
+        .menu-btn { font-size: 1.5rem; cursor: pointer; user-select: none; }
+        
+        .container { flex: 1; display: flex; flex-direction: column; max-width: 800px; margin: 0 auto; width: 100%; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.05); position: relative; }
+        
+        /* Sidebar Panel */
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 99; display: none; opacity: 0; transition: opacity 0.3s; }
+        .overlay.show { display: block; opacity: 1; }
+        
+        .connection-panel { 
+            position: fixed; top: 0; right: -350px; width: 340px; max-width: 100%; height: 100vh; 
+            background: #f8f9fa; box-shadow: -2px 0 10px rgba(0,0,0,0.2); 
+            transition: right 0.3s ease; z-index: 100; display: flex; flex-direction: column; padding: 20px 15px; gap: 15px; overflow-y: auto;
+        }
+        .connection-panel.open { right: 0; }
+        
+        .panel-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px; }
+        .panel-header h2 { font-size: 1.1rem; color: #075e54; }
+        .close-btn { font-size: 1.5rem; cursor: pointer; color: #555; }
+
+        .step { background: white; padding: 12px; border-radius: 8px; border: 1px solid #e0e0e0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .step h3 { font-size: 0.9rem; color: #128c7e; margin-bottom: 8px; }
+        
+        .room-display { font-size: 1.2rem; font-weight: bold; color: #ff9800; text-align: center; margin: 5px 0; letter-spacing: 2px; }
+        .qrcode-container { display: flex; justify-content: center; margin: 10px 0; }
+        #reader { width: 100%; background: black; border-radius: 8px; overflow: hidden; }
+        
+        button { background-color: #128c7e; color: white; border: none; padding: 10px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: bold; width: 100%; margin-top: 5px; }
+        button:hover { background-color: #075e54; }
+        button:disabled { background-color: #cccccc; cursor: not-allowed; }
+        
+        /* Chat & Message Area */
+        .chat-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: #e5ddd5; }
+        .messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+        .msg { max-width: 75%; padding: 8px 12px; border-radius: 8px; font-size: 0.95rem; line-height: 1.4; word-break: break-word; }
+        .msg.local { align-self: flex-end; background-color: #d9fdd3; }
+        .msg.remote { align-self: flex-start; background-color: white; }
+        .msg.system { align-self: center; background-color: rgba(0,0,0,0.05); font-size: 0.85rem; color: #555; border-radius: 4px; text-align: center; }
+        
+        /* Input Panel */
+        .input-panel { padding: 10px; background: #f0f0f0; display: flex; align-items: center; gap: 10px; border-top: 1px solid #ddd; }
+        #textInput { flex: 1; padding: 10px 15px; border: 1px solid #ccc; border-radius: 20px; outline: none; font-size: 0.95rem; }
+        .file-label { background: #007bff; color: white; padding: 10px 15px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: bold; }
+        .file-label.disabled { background: #ccc; cursor: not-allowed; }
+        #fileInput { display: none; }
+        #btnSend { width: auto; margin-top: 0; padding: 10px 15px; border-radius: 20px; }
+        
+        #progressContainer { display: none; padding: 8px 15px; background: #fff; font-size: 0.85rem; border-bottom: 1px solid #ddd; }
+        #progressBar { width: 100%; height: 8px; background: #ccc; border-radius: 4px; overflow: hidden; margin-top: 5px; }
+        #progressFill { width: 0%; height: 100%; background: #25d366; transition: width 0.1s; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-title">P2P Offline Share & Chat</div>
+    <div class="menu-btn" id="menuBtn">☰</div>
+</header>
+
+<div class="overlay" id="overlay"></div>
+
+<!-- Sidebar Menu Koneksi -->
+<div class="connection-panel" id="connectionPanel">
+    <div class="panel-header">
+        <h2>Koneksi QR Offline</h2>
+        <span class="close-btn" id="closeBtn">&times;</span>
+    </div>
+
+    <!-- USER A: Membuat Room -->
+    <div class="step">
+        <h3>USER A: Buat Room</h3>
+        <button id="btnInit">Generate Kode Room</button>
+        <div id="roomCodeDisplay" class="room-display" style="display: none;"></div>
+        <div class="qrcode-container" id="qrcode"></div>
+        <p style="font-size: 0.75rem; color: #666; text-align: center; margin-top: 5px;" id="infoUserA">Klik tombol di atas untuk memunculkan QR Code handshake.</p>
+    </div>
+    
+    <!-- USER B: Scan / Hubungkan -->
+    <div class="step">
+        <h3>USER B: Scan QR Room</h3>
+        <button id="btnStartScan">Buka Kamera & Scan</button>
+        <div id="reader" style="display: none; margin-top: 8px;"></div>
+    </div>
+</div>
+
+<div class="container">
+    <div id="progressContainer">
+        <span id="progressText">Mengirim file... 0%</span>
+        <div id="progressBar"><div id="progressFill"></div></div>
+    </div>
+
+    <div class="chat-area">
+        <div class="messages" id="messagesBox">
+            <div class="msg system">Belum terhubung.<br>Klik tombol ☰ di kanan atas untuk menyambungkan perangkat menggunakan sistem scan QR.</div>
+        </div>
+        
+        <div class="input-panel">
+            <label class="file-label disabled" for="fileInput" id="fileLabel">📎 File</label>
+            <input type="file" id="fileInput" disabled />
+            <input type="text" id="textInput" placeholder="Ketik pesan di sini..." disabled autocomplete="off" />
+            <button id="btnSend" disabled>Kirim</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- UTILITY: Pembuat Kode Acak 10 Karakter (Huruf, Angka, Simbol) ---
+    function generate10CharCode() {
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+{}[]";
+        let result = "";
+        for (let i = 0; i < 10; i++) {
+            result += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return result;
+    }
+
+    // --- LACI / SIDEBAR INTERACTION ---
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const connectionPanel = document.getElementById('connectionPanel');
+    const overlay = document.getElementById('overlay');
+    const fileLabel = document.getElementById('fileLabel');
+
+    function openMenu() { connectionPanel.classList.add('open'); overlay.classList.add('show'); }
+    function closeMenu() { connectionPanel.classList.remove('open'); overlay.classList.remove('show'); stopScanner(); }
+    
+    menuBtn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
+
+    // --- CORE WEBRTC & UI CONTROLLER ---
+    const configuration = { iceServers: [] }; // 100% Offline No-STUN
+    let pc = new RTCPeerConnection(configuration);
+    let dataChannel = null;
+    let receiveBuffer = [];
+    let receivedSize = 0;
+    let incomingFileInfo = null;
+    let html5QrcodeScanner = null;
+    let isHost = false;
+
+    // Elemen DOM
+    const btnInit = document.getElementById('btnInit');
+    const roomCodeDisplay = document.getElementById('roomCodeDisplay');
+    const qrcodeDiv = document.getElementById('qrcode');
+    const infoUserA = document.getElementById('infoUserA');
+    const btnStartScan = document.getElementById('btnStartScan');
+    const messagesBox = document.getElementById('messagesBox');
+    const textInput = document.getElementById('textInput');
+    const fileInput = document.getElementById('fileInput');
+    const btnSend = document.getElementById('btnSend');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+
+    // 1. ALUR USER A (Host Room)
+    btnInit.onclick = async () => {
+        isHost = true;
+        qrcodeDiv.innerHTML = ""; 
+        btnInit.disabled = true;
+        
+        // Buat ID Room Visual 10 Karakter acak sesuai request
+        const customRoomID = generate10CharCode();
+        roomCodeDisplay.innerText = "ROOM: " + customRoomID;
+        roomCodeDisplay.style.display = "block";
+
+        dataChannel = pc.createDataChannel("chat-file-channel");
+        setupDataChannel(dataChannel);
+
+        pc.onicecandidate = (e) => {
+            if (!e.candidate) {
+                // Saat ICE Gathering selesai, bungkus data asli (SDP) ke dalam QR Code
+                const finalSDP = btoa(JSON.stringify(pc.localDescription));
+                new QRCode(qrcodeDiv, { text: finalSDP, width: 200, height: 200 });
+                infoUserA.innerText = "Minta User B untuk men-scan QR Code di atas.";
+                appendSystemMessage("Room '" + customRoomID + "' siap. Silakan discan oleh perangkat teman.");
+            }
+        };
+
+        const offer = await pc.createOffer();
+        await pc.setLocalDescription(offer);
+    };
+
+    // 2. ALUR USER B (Scanner / Client)
+    btnStartScan.onclick = () => {
+        const readerDiv = document.getElementById('reader');
+        if (readerDiv.style.display === 'block') {
+            stopScanner();
+            return;
+        }
+        
+        readerDiv.style.display = 'block';
+        btnStartScan.innerText = "Matikan Kamera";
+
+        html5QrcodeScanner = new Html5Qrcode("reader");
+        html5QrcodeScanner.start(
+            { facingMode: "environment" }, 
+            { fps: 10, qrbox: { width: 250, height: 250 } },
+            async (decodedText) => {
+                // QR terdeteksi
+                stopScanner();
+                try {
+                    const rawData = atob(decodedText.trim());
+                    const desc = new RTCSessionDescription(JSON.parse(rawData));
+                    
+                    if (desc.type === 'offer') {
+                        // Jalur Client menerima Koneksi Host
+                        pc.ondatachannel = (e) => {
+                            dataChannel = e.channel;
+                            setupDataChannel(dataChannel);
+                        };
+                        await pc.setRemoteDescription(desc);
+                        const answer = await pc.createAnswer();
+                        await pc.setLocalDescription(answer);
+
+                        pc.onicecandidate = (e) => {
+                            if (!e.candidate) {
+                                // Balikkan sinyal balik ke User A lewat QR baru
+                                qrcodeDiv.innerHTML = "";
+                                const finalAnswer = btoa(JSON.stringify(pc.localDescription));
+                                new QRCode(qrcodeDiv, { text: finalAnswer, width: 200, height: 200 });
+                                roomCodeDisplay.innerText = "RESPONS QR READY";
+                                roomCodeDisplay.style.display = "block";
+                                infoUserA.innerText = "Sekarang gantian, User A harus men-scan QR balasan ini.";
+                                appendSystemMessage("Respons terkunci! Sekarang giliran User A men-scan QR perangkat ini.");
+                                openMenu(); // Buka menu biar keliatan QR-nya
+                            }
+                        };
+                    } else if (desc.type === 'answer' && isHost) {
+                        // Jalur Host menerima konfirmasi balik dari Client
+                        await pc.setRemoteDescription(desc);
+                        appendSystemMessage("Sinyal balasan diterima. Menghubungkan...");
+                    }
+                } catch (err) {
+                    alert('Data QR tidak valid untuk Handshake P2P!');
+                }
+            },
+            (errorMessage) => { /* Silently ignore scan errors */ }
+        ).catch(err => {
+            alert("Gagal mengakses kamera: " + err);
+            stopScanner();
+        });
+    };
+
+    function stopScanner() {
+        if (html5QrcodeScanner) {
+            html5QrcodeScanner.stop().then(() => {
+                document.getElementById('reader').style.display = 'none';
+                btnStartScan.innerText = "Buka Kamera & Scan";
+                html5QrcodeScanner = null;
+            }).catch(err => console.log(err));
+        }
+    }
+
+    // --- PENGATURAN KANAL DATA (KIRIM/TERIMA) ---
+    function setupDataChannel(channel) {
+        channel.binaryType = 'arraybuffer';
+        
+        channel.onopen = () => {
+            appendSystemMessage("⚡ TERHUBUNG! Jalur P2P Aman Terbuka.");
+            closeMenu(); 
+            textInput.disabled = false;
+            fileInput.disabled = false;
+            btnSend.disabled = false;
+            fileLabel.classList.remove('disabled');
+        };
+
+        channel.onclose = () => {
+            appendSystemMessage("Koneksi terputus.");
+            textInput.disabled = true;
+            fileInput.disabled = true;
+            btnSend.disabled = true;
+            fileLabel.classList.add('disabled');
+            btnInit.disabled = false;
+        };
+
+        channel.onmessage = (e) => {
+            if (typeof e.data === 'string') {
+                const obj = JSON.parse(e.data);
+                if (obj.type === 'text') {
+                    appendMessage(obj.data, 'remote');
+                } else if (obj.type === 'file-start') {
+                    incomingFileInfo = obj;
+                    receiveBuffer = [];
+                    receivedSize = 0;
+                    progressContainer.style.display = 'block';
+                }
+            } else {
+                receiveBuffer.push(e.data);
+                receivedSize += e.data.byteLength;
+                
+                const percentage = Math.round((receivedSize / incomingFileInfo.size) * 100);
+                progressFill.style.width = percentage + '%';
+                progressText.innerText = `Menerima ${incomingFileInfo.name}... ${percentage}%`;
+
+                if (receivedSize === incomingFileInfo.size) {
+                    const receivedBlob = new Blob(receiveBuffer);
+                    const url = URL.createObjectURL(receivedBlob);
+                    appendFileLink(incomingFileInfo.name, url);
+                    progressContainer.style.display = 'none';
+                    incomingFileInfo = null;
+                }
+            }
+        };
+    }
+
+    // Kirim Teks
+    function sendTextMessage() {
+        const text = textInput.value.trim();
+        if (!text || !dataChannel || dataChannel.readyState !== 'open') return;
+        
+        dataChannel.send(JSON.stringify({ type: 'text', data: text }));
+        appendMessage(text, 'local');
+        textInput.value = '';
+    }
+
+    btnSend.onclick = sendTextMessage;
+    textInput.onkeypress = (e) => { if (e.key === 'Enter') sendTextMessage(); };
+
+    // Kirim File Chunks (16KB)
+    fileInput.onchange = () => {
+        const file = fileInput.files[0];
+        if (!file || !dataChannel || dataChannel.readyState !== 'open') return;
+
+        dataChannel.send(JSON.stringify({
+            type: 'file-start',
+            name: file.name,
+            size: file.size
+        }));
+
+        progressContainer.style.display = 'block';
+        const chunkSize = 16384; 
+        let offset = 0;
+
+        const fileReader = new FileReader();
+        fileReader.onload = (e) => {
+            dataChannel.send(e.target.result);
+            offset += e.target.result.byteLength;
+            
+            const percentage = Math.round((offset / file.size) * 100);
+            progressFill.style.width = percentage + '%';
+            progressText.innerText = `Mengirim ${file.name}... ${percentage}%`;
+
+            if (offset < file.size) {
+                readNextChunk();
+            } else {
+                appendSystemMessage(`File "${file.name}" sukses dikirim.`);
+                progressContainer.style.display = 'none';
+                fileInput.value = '';
+            }
+        };
+
+        function readNextChunk() {
+            const slice = file.slice(offset, offset + chunkSize);
+            fileReader.readAsArrayBuffer(slice);
+        }
+        readNextChunk();
+    };
+
+    // UI Helper
+    function appendMessage(text, side) {
+        const el = document.createElement('div');
+        el.className = `msg ${side}`;
+        el.innerText = text;
+        messagesBox.appendChild(el);
+        messagesBox.scrollTop = messagesBox.scrollHeight;
+    }
+
+    function appendSystemMessage(text) {
+        const el = document.createElement('div');
+        el.className = 'msg system';
+        el.innerText = text;
+        messagesBox.appendChild(el);
+        messagesBox.scrollTop = messagesBox.scrollHeight;
+    }
+
+    function appendFileLink(fileName, url) {
+        const el = document.createElement('div');
+        el.className = 'msg remote';
+        el.innerHTML = `📁 <b>File diterima:</b> <br><a href="${url}" download="${fileName}" style="color: #007bff; font-weight: bold;">Unduh ${fileName}</a>`;
+        messagesBox.appendChild(el);
+        messagesBox.scrollTop = messagesBox.scrollHeight;
+    }
+</script>
+</body>
+</html>
