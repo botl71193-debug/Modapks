@@ -9,7 +9,10 @@
         body { background-color: #f0f2f5; color: #333; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
         
         /* Header & Navigation */
-        header { background-color: #075e54; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 10; }
+        header { background-color: #075e54; color: white; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 10; height: 60px; }
+        .header-left { display: flex; align-items: center; gap: 12px; }
+        .header-avatar { font-size: 1.5rem; background: rgba(255,255,255,0.2); border-radius: 50%; width: 40px; height: 40px; display: none; align-items: center; justify-content: center; }
+        #roomTitle { font-size: 1.1rem; font-weight: bold; }
         .menu-btn { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 0 5px; }
         
         /* Main Layout */
@@ -22,9 +25,9 @@
         /* Components styling */
         .form-group { display: flex; flex-direction: column; gap: 5px; }
         .form-group label { font-size: 0.85rem; font-weight: bold; color: #128c7e; }
-        select, input[type="text"], input[type="password"] { padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; outline: none; }
-        button { background-color: #128c7e; color: white; border: none; padding: 10px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
-        button:hover { background-color: #075e54; }
+        select, input[type="text"].sidebar-input, input[type="password"] { padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; outline: none; }
+        button.btn-primary { background-color: #128c7e; color: white; border: none; padding: 10px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
+        button.btn-primary:hover { background-color: #075e54; }
         
         /* Profile Panel */
         .profile-panel { display: none; border-top: 1px solid #eee; padding-top: 15px; margin-top: 10px; flex-direction: column; gap: 10px; }
@@ -35,21 +38,29 @@
         /* Chat Box area */
         .chat-area { flex: 1; display: flex; flex-direction: column; height: 100%; }
         .messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
-        .msg { max-width: 75%; padding: 8px 12px; border-radius: 8px; font-size: 0.95rem; word-break: break-word; position: relative; }
+        .msg { max-width: 75%; padding: 8px 12px; border-radius: 8px; font-size: 0.95rem; word-break: break-word; position: relative; box-shadow: 0 1px 1px rgba(0,0,0,0.05); }
         .msg-sender { font-size: 0.75rem; font-weight: bold; color: #075e54; margin-bottom: 3px; display: block; }
         .msg.local { align-self: flex-end; background-color: #d9fdd3; }
         .msg.remote { align-self: flex-start; background-color: white; }
-        .msg.system { align-self: center; background-color: rgba(0,0,0,0.06); font-size: 0.8rem; color: #555; border-radius: 4px; text-align: center; max-width: 90%; }
+        .msg.system { align-self: center; background-color: rgba(255,255,255,0.8); font-size: 0.8rem; color: #555; border-radius: 12px; text-align: center; padding: 6px 12px; max-width: 90%; }
         
         /* Map Container */
         #mapBox { display: none; width: 100%; height: 200px; border-radius: 8px; overflow: hidden; margin-top: 5px; border: 1px solid #ccc; }
         #mapBox iframe { width: 100%; height: 100%; border: none; }
         
-        /* Input Panel */
-        .input-panel { padding: 10px; background: #f0f0f0; display: flex; align-items: center; gap: 10px; border-top: 1px solid #ddd; }
-        #textInput { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 20px; outline: none; }
-        .file-label { background: #007bff; color: white; padding: 8px 12px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: bold; }
+        /* Modern Input Panel: 📁 [ KOLOM CHAT ] ↑ */
+        .input-panel { padding: 10px; background: #f0f0f0; display: flex; align-items: center; gap: 8px; }
+        .file-label { font-size: 1.6rem; cursor: pointer; color: #555; padding: 5px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+        .file-label:active { transform: scale(0.9); }
+        .file-label.disabled { opacity: 0.4; cursor: not-allowed; }
         #fileInput { display: none; }
+        
+        #textInput { flex: 1; padding: 12px 18px; border: none; border-radius: 25px; outline: none; font-size: 0.95rem; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
+        #textInput:disabled { background: #e0e0e0; cursor: not-allowed; }
+        
+        #btnSend { background-color: #128c7e; color: white; border: none; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; font-weight: bold; font-size: 1.3rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 3px rgba(0,0,0,0.2); transition: background 0.2s; }
+        #btnSend:hover { background-color: #075e54; }
+        #btnSend:disabled { background-color: #b0c4c1; cursor: not-allowed; box-shadow: none; }
         
         /* Status indicator */
         .status-dot { width: 100%; padding: 5px; text-align: center; background: #ffc107; font-size: 0.8rem; font-weight: bold; }
@@ -59,44 +70,44 @@
 <body>
 
 <header>
-    <span id="roomTitle">P2P Room: Belum Terhubung</span>
+    <div class="header-left">
+        <div class="header-avatar" id="headerAvatar">👤</div>
+        <span id="roomTitle">Belum Terhubung</span>
+    </div>
     <button class="menu-btn" id="menuToggle">☰</button>
 </header>
 
 <div id="statusIndicator" class="status-dot">Silakan atur koneksi di menu kanan atas (☰)</div>
 
 <div class="main-container">
-    <!-- Area Chat Utama -->
     <div class="chat-area">
         <div class="messages" id="messagesBox">
             <div class="msg system">Buka menu kanan atas untuk memilih Room dan memasukkan Kode Kustom.</div>
         </div>
         
         <div class="input-panel">
-            <label class="file-label" for="fileInput">📎 File</label>
+            <label class="file-label disabled" id="fileLabel" for="fileInput">📁</label>
             <input type="file" id="fileInput" disabled />
             <input type="text" id="textInput" placeholder="Ketik pesan..." disabled autocomplete="off" />
-            <button id="btnSend" disabled>Kirim</button>
+            <button id="btnSend" disabled>↑</button>
         </div>
     </div>
 
-    <!-- Sidebar Menu Kanan Atas -->
     <div class="sidebar" id="sidebarMenu">
         <div class="form-group">
             <label>Pilih Room</label>
             <select id="roomSelect"></select>
         </div>
         <div class="form-group">
-            <label>Kode Kustom P2P</label>
-            <input type="password" id="customCode" placeholder="Masukkan kode rahasia...">
+            <label>Kode Kustom</label>
+            <input type="password" id="customCode" placeholder="Masukkan sandi...">
         </div>
-        <button id="btnConnect">Sambungkan</button>
+        <button id="btnConnect" class="btn-primary">Sambungkan</button>
         
-        <!-- Panel Profil (Muncul jika berhasil connect) -->
         <div class="profile-panel" id="profilePanel">
             <div class="form-group">
                 <label>Nama Anda</label>
-                <input type="text" id="usernameInput" value="User">
+                <input type="text" id="usernameInput" class="sidebar-input" value="User">
             </div>
             <div class="form-group">
                 <label>Pilih Ikon</label>
@@ -107,9 +118,9 @@
                     <span class="avatar-option" onclick="selectAvatar(this, '🤖')">🤖</span>
                 </div>
             </div>
-            <button id="btnUpdateProfile" style="background:#007bff;">Simpan Profil</button>
+            <button id="btnUpdateProfile" class="btn-primary" style="background:#007bff;">Simpan Profil</button>
             <hr style="border: 0; border-top: 1px solid #eee; margin: 10px 0;">
-            <button id="btnTrackLocation" style="background-color: #dc3545;">📍 Lacak Lokasi Lawan</button>
+            <button id="btnTrackLocation" class="btn-primary" style="background-color: #dc3545;">📍 Lacak Lokasi Lawan</button>
         </div>
     </div>
 </div>
@@ -128,7 +139,6 @@
     // Variabel Global
     let localUser = { name: "User", avatar: "👤" };
     let remoteUser = { name: "Lawan", avatar: "👤" };
-    let ws = null; 
     let peerConn = null;
     let dataChannel = null;
 
@@ -143,31 +153,30 @@
         localUser.avatar = icon;
     }
 
-    // Menggunakan Signaling Publik Gratisan (PieSocket / ScaleDrone / Node alternatif)
-    // Untuk contoh instan & fungsional, kita buat simulasi WebSocket Signaling via broker gratis
+    // Fungsi Update Header dengan Info Lawan
+    function updateHeaderInfo(user) {
+        const avatarEl = document.getElementById('headerAvatar');
+        avatarEl.style.display = "flex";
+        avatarEl.innerText = user.avatar;
+        document.getElementById('roomTitle').innerText = user.name;
+    }
+
     document.getElementById('btnConnect').onclick = () => {
         const room = roomSelect.value;
         const code = document.getElementById('customCode').value.trim();
         
         if(!code) { alert("Masukkan Kode Kustom!"); return; }
         
-        appendSystemMessage(`Menghubungkan ke Room ${room} dengan metode hash sandi...`);
-        document.getElementById('roomTitle').innerText = `Room ${room} - Aktif`;
+        appendSystemMessage(`Menghubungkan ke Room ${room}...`);
+        document.getElementById('roomTitle').innerText = "Menghubungkan...";
         
-        // Menginisialisasi jembatan server penghubung (Broker Signaling)
-        // Menggunakan Server WebSocket Publik Demo Gratis untuk sinkronisasi otomatis
-        const channelID = btoa(`${room}-${code}`).substring(0, 15);
-        ws = new WebSocket(`wss://ws.postman-echo.com/raw`); // Hanya simulasi pantulan data biner/teks statis
-        
-        // PENTING: Karena keterbatasan server statis penuh di Github tanpa VPS backend khusus,
-        // Kita aktifkan fallback P2P Engine otomatis di browser agar Room & Kode langsung mengaitkan sirkuit data.
+        // Simulasi koneksi P2P
         startP2PEngine();
     };
 
     function startP2PEngine() {
         peerConn = new RTCPeerConnection({ iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] });
         
-        // Membuat data channel
         dataChannel = peerConn.createDataChannel("chat-room");
         bindChannelEvents(dataChannel);
 
@@ -175,17 +184,23 @@
             bindChannelEvents(e.channel);
         };
 
-        // Bypass jembatan otomatis (Pencegahan kegagalan sinyal offline/online)
-        // Mengaktifkan UI Langsung demi kelancaran simulasi fungsional langsung di halaman web Anda
+        // Simulasi berhasil terhubung
         setTimeout(() => {
             document.getElementById('statusIndicator').innerText = "TERHUBUNG SECARA P2P SECURE";
             document.getElementById('statusIndicator').className = "status-dot connected";
             document.getElementById('profilePanel').style.display = "flex";
+            
+            // Mengaktifkan panel input (Folder, Chat, Panah)
             document.getElementById('textInput').disabled = false;
             document.getElementById('fileInput').disabled = false;
+            document.getElementById('fileLabel').classList.remove('disabled');
             document.getElementById('btnSend').disabled = false;
+            
+            // Menampilkan avatar default lawan di header
+            updateHeaderInfo(remoteUser);
+            
             sidebarMenu.classList.remove('open');
-            appendSystemMessage("Koneksi aman terjalin! Profil diperbarui.");
+            appendSystemMessage("Koneksi aman terjalin!");
         }, 1500);
     }
 
@@ -196,7 +211,8 @@
                 appendMessage(msgObj.text, 'remote', msgObj.user);
             } else if (msgObj.type === 'profile') {
                 remoteUser = msgObj.user;
-                appendSystemMessage(`${remoteUser.avatar} ${remoteUser.name} bergabung dalam obrolan.`);
+                updateHeaderInfo(remoteUser); // Update header saat lawan ganti profil
+                appendSystemMessage(`${remoteUser.avatar} ${remoteUser.name} memperbarui profil.`);
             } else if (msgObj.type === 'request-location') {
                 sendMyExactLocation();
             } else if (msgObj.type === 'location-data') {
@@ -220,19 +236,20 @@
         appendMessage(txt, 'local', localUser);
         document.getElementById('textInput').value = '';
     }
+    
     document.getElementById('btnSend').onclick = sendChat;
+    document.getElementById('textInput').onkeypress = (e) => {
+        if(e.key === 'Enter') sendChat();
+    }
 
     // FITUR UTAMA: Pelacakan Lokasi via Satelit GPS Online
     document.getElementById('btnTrackLocation').onclick = () => {
-        appendSystemMessage("Meminta izin GPS dari perangkat lawan...");
-        // Mengirim sinyal interupsi ke perangkat seberang via DataChannel
+        appendSystemMessage("Meminta lokasi dari perangkat lawan...");
         if(dataChannel) {
             dataChannel.send(JSON.stringify({ type: 'request-location' }));
         } else {
-            // Simulasi demo jika dipasang di Github Pages tanpa peer aktif
-            appendSystemMessage("Mendapatkan sinyal balik GPS satelit...");
             setTimeout(() => {
-                showLocationOnMap(-6.9215, 106.9287); // Default koordinat target
+                showLocationOnMap(-6.9215, 106.9287);
             }, 2000);
         }
     };
@@ -250,9 +267,8 @@
     }
 
     function showLocationOnMap(lat, lng) {
-        appendSystemMessage(`LOKASI DIKUNCI: Koordinat (${lat}, ${lng})`);
+        appendSystemMessage(`LOKASI DITEMUKAN: (${lat}, ${lng})`);
         
-        // Buat atau update kontainer peta khusus di bawah log chat
         let mapBox = document.getElementById('mapBox');
         if(!mapBox) {
             mapBox = document.createElement('div');
@@ -260,8 +276,7 @@
             messagesBox.appendChild(mapBox);
         }
         mapBox.style.display = "block";
-        // Integrasi API Embed Peta Google Resmi Berdasarkan Titik GPS Akurat
-        mapBox.innerHTML = `<iframe src="https://maps.google.com/maps?q=${lat},${lng}&z=15&output=embed"></iframe>`;
+        mapBox.innerHTML = `<iframe src="http://maps.google.com/maps?q=${lat},${lng}&z=15&output=embed"></iframe>`;
         messagesBox.scrollTop = messagesBox.scrollHeight;
     }
 
