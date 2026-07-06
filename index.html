@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2P Chat & File Share (Kode Pendek)</title>
+    <!-- Menggunakan PeerJS untuk fitur Kode Pendek -->
+    <script src="https://unpkg.com/peerjs@1.5.1/dist/peerjs.min.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f0f2f5; color: #333; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        
+        header { 
+            background-color: #075e54; color: white; padding: 15px 20px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 10;
+        }
+        .header-title { font-size: 1.2rem; font-weight: bold; }
+        .menu-btn { font-size: 1.5rem; cursor: pointer; user-select: none; }
+        
+        .container { flex: 1; display: flex; flex-direction: column; max-width: 800px; margin: 0 auto; width: 100%; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.05); position: relative; }
+        
+        /* Sidebar Panel */
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 99; display: none; opacity: 0; transition: opacity 0.3s; }
+        .overlay.show { display: block; opacity: 1; }
+        
+        .connection-panel { 
+            position: fixed; top: 0; right: -350px; width: 340px; max-width: 100%; height: 100vh; 
+            background: #f8f9fa; box-shadow: -2px 0 10px rgba(0,0,0,0.2); 
+            transition: right 0.3s ease; z-index: 100; display: flex; flex-direction: column; padding: 20px 15px; gap: 15px; overflow-y: auto;
+        }
+        .connection-panel.open { right: 0; }
+        
+        .panel-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px; }
+        .panel-header h2 { font-size: 1.1rem; color: #075e54; }
+        .close-btn { font-size: 1.5rem; cursor: pointer; color: #555; }
+
+        .step { background: white; padding: 12px; border-radius: 8px; border: 1px solid #e0e0e0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .step h3 { font-size: 0.9rem; color: #128c7e; margin-bottom: 8px; }
+        
+        .room-display { font-size: 1.2rem; font-weight: bold; color: #ff9800; text-align: center; margin: 10px 0; letter-spacing: 2px; user-select: all; background: #fff3e0; padding: 10px; border-radius: 5px; border: 1px dashed #ffb74d;}
+        
+        input[type="text"].code-input { width: 100%; padding: 10px; font-size: 1rem; border: 1px solid #ccc; border-radius: 4px; text-align: center; margin-bottom: 10px; }
+        
+        button { background-color: #128c7e; color: white; border: none; padding: 10px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: bold; width: 100%; }
+        button:hover { background-color: #075e54; }
+        button:disabled { background-color: #cccccc; cursor: not-allowed; }
+        
+        /* Chat & Message Area */
+        .chat-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: #e5ddd5; }
+        .messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+        .msg { max-width: 75%; padding: 8px 12px; border-radius: 8px; font-size: 0.95rem; line-height: 1.4; word-break: break-word; }
+        .msg.local { align-self: flex-end; background-color: #d9fdd3; }
+        .msg.remote { align-self: flex-start; background-color: white; }
+        .msg.system { align-self: center; background-color: rgba(0,0,0,0.05); font-size: 0.85rem; color: #555; border-radius: 4px; text-align: center; padding: 5px 10px; }
+        
+        /* Input Panel */
+        .input-panel { padding: 10px; background: #f0f0f0; display: flex; align-items: center; gap: 10px; border-top: 1px solid #ddd; }
+        #textInput { flex: 1; padding: 10px 15px; border: 1px solid #ccc; border-radius: 20px; outline: none; font-size: 0.95rem; }
+        .file-label { background: #007bff; color: white; padding: 10px 15px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: bold; }
+        .file-label.disabled { background: #ccc; cursor: not-allowed; }
+        #fileInput { display: none; }
+        #btnSend { width: auto; padding: 10px 15px; border-radius: 20px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-title">P2P Share & Chat</div>
+    <div class="menu-btn" id="menuBtn">☰</div>
+</header>
+
+<div class="overlay" id="overlay"></div>
+
+<!-- Sidebar Menu Koneksi -->
+<div class="connection-panel" id="connectionPanel">
+    <div class="panel-header">
+        <h2>Koneksi Kode Pendek</h2>
+        <span class="close-btn" id="closeBtn">&times;</span>
+    </div>
+
+    <!-- USER A: Membuat Room -->
+    <div class="step">
+        <h3>Pilihan 1: Buat Room (Host)</h3>
+        <button id="btnCreateRoom">Generate 10 Kode Acak</button>
+        <div id="roomCodeDisplay" class="room-display" style="display: none;"></div>
+        <p style="font-size: 0.75rem; color: #666; text-align: center; margin-top: 5px;" id="infoHost">Berikan kode di atas kepada teman Anda.</p>
+    </div>
+    
+    <!-- USER B: Gabung Room -->
+    <div class="step">
+        <h3>Pilihan 2: Gabung Room (Client)</h3>
+        <input type="text" id="joinCodeInput" class="code-input" placeholder="Masukkan 10 Kode" autocomplete="off" />
+        <button id="btnJoinRoom">Hubungkan</button>
+    </div>
+</div>
+
+<div class="container">
+    <div class="chat-area">
+        <div class="messages" id="messagesBox">
+            <div class="msg system">Belum terhubung.<br>Klik tombol ☰ di kanan atas untuk membuat atau memasukkan kode room.</div>
+        </div>
+        
+        <div class="input-panel">
+            <label class="file-label disabled" for="fileInput" id="fileLabel">📎 File</label>
+            <input type="file" id="fileInput" disabled />
+            <input type="text" id="textInput" placeholder="Ketik pesan di sini..." disabled autocomplete="off" />
+            <button id="btnSend" disabled>Kirim</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- Generator 10 Karakter Acak (Huruf, Angka, Simbol) ---
+    function generate10CharCode() {
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+{}[]";
+        let result = "";
+        for (let i = 0; i < 10; i++) {
+            result += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return result;
+    }
+
+    // --- LACI / SIDEBAR UI ---
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const connectionPanel = document.getElementById('connectionPanel');
+    const overlay = document.getElementById('overlay');
+
+    function openMenu() { connectionPanel.classList.add('open'); overlay.classList.add('show'); }
+    function closeMenu() { connectionPanel.classList.remove('open'); overlay.classList.remove('show'); }
+    
+    menuBtn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
+
+    // --- VARIABEL PEERJS ---
+    let peer = null;
+    let conn = null;
+
+    // Elemen DOM
+    const btnCreateRoom = document.getElementById('btnCreateRoom');
+    const roomCodeDisplay = document.getElementById('roomCodeDisplay');
+    const btnJoinRoom = document.getElementById('btnJoinRoom');
+    const joinCodeInput = document.getElementById('joinCodeInput');
+    
+    const messagesBox = document.getElementById('messagesBox');
+    const textInput = document.getElementById('textInput');
+    const fileInput = document.getElementById('fileInput');
+    const btnSend = document.getElementById('btnSend');
+    const fileLabel = document.getElementById('fileLabel');
+
+    // 1. HOST: Membuat Room
+    btnCreateRoom.onclick = () => {
+        const roomCode = generate10CharCode();
+        btnCreateRoom.innerText = "Membuat Room...";
+        btnCreateRoom.disabled = true;
+
+        // Inisialisasi PeerJS dengan Custom ID (10 karakter)
+        peer = new Peer(roomCode);
+
+        peer.on('open', (id) => {
+            roomCodeDisplay.innerText = id;
+            roomCodeDisplay.style.display = "block";
+            btnCreateRoom.innerText = "Room Dibuat";
+            appendSystemMessage("Room berhasil dibuat. Menunggu teman bergabung...");
+        });
+
+        // Menunggu client terkoneksi
+        peer.on('connection', (connection) => {
+            conn = connection;
+            setupConnectionEvents();
+        });
+
+        peer.on('error', (err) => {
+            alert("Error: " + err.message);
+            btnCreateRoom.innerText = "Generate 10 Kode Acak";
+            btnCreateRoom.disabled = false;
+        });
+    };
+
+    // 2. CLIENT: Bergabung ke Room
+    btnJoinRoom.onclick = () => {
+        const targetCode = joinCodeInput.value.trim();
+        if (targetCode.length !== 10) {
+            alert("Kode harus tepat 10 karakter!");
+            return;
+        }
+
+        btnJoinRoom.innerText = "Menghubungkan...";
+        btnJoinRoom.disabled = true;
+
+        // Inisialisasi PeerJS tanpa ID khusus (otomatis)
+        peer = new Peer();
+
+        peer.on('open', () => {
+            // Sambungkan ke Host berdasarkan 10 karakter kode
+            conn = peer.connect(targetCode);
+            setupConnectionEvents();
+        });
+
+        peer.on('error', (err) => {
+            alert("Gagal terhubung: " + err.message);
+            btnJoinRoom.innerText = "Hubungkan";
+            btnJoinRoom.disabled = false;
+        });
+    };
+
+    // --- SETUP PENGIRIMAN PESAN & FILE ---
+    function setupConnectionEvents() {
+        conn.on('open', () => {
+            appendSystemMessage("⚡ TERHUBUNG! Jalur P2P Terbuka.");
+            closeMenu(); // Tutup menu saat berhasil
+
+            // Buka akses input
+            textInput.disabled = false;
+            fileInput.disabled = false;
+            btnSend.disabled = false;
+            fileLabel.classList.remove('disabled');
+        });
+
+        conn.on('data', (data) => {
+            if (data.type === 'text') {
+                appendMessage(data.content, 'remote');
+            } else if (data.type === 'file') {
+                // PeerJS mendukung pengiriman file secara native
+                const blob = new Blob([data.file]);
+                const url = URL.createObjectURL(blob);
+                appendFileLink(data.filename, url);
+            }
+        });
+
+        conn.on('close', () => {
+            appendSystemMessage("Koneksi terputus.");
+            textInput.disabled = true;
+            fileInput.disabled = true;
+            btnSend.disabled = true;
+            fileLabel.classList.add('disabled');
+        });
+    }
+
+    // --- FUNGSI UI CHAT & FILE ---
+    function sendTextMessage() {
+        const text = textInput.value.trim();
+        if (!text || !conn || !conn.open) return;
+        
+        conn.send({ type: 'text', content: text });
+        appendMessage(text, 'local');
+        textInput.value = '';
+    }
+
+    btnSend.onclick = sendTextMessage;
+    textInput.onkeypress = (e) => { if (e.key === 'Enter') sendTextMessage(); };
+
+    // Kirim File menggunakan built-in PeerJS chunking
+    fileInput.onchange = () => {
+        const file = fileInput.files[0];
+        if (!file || !conn || !conn.open) return;
+
+        appendSystemMessage(`Mengirim file: ${file.name} ...`);
+        
+        // PeerJS akan secara otomatis memecah file menjadi chunk di belakang layar
+        conn.send({
+            type: 'file',
+            file: file,
+            filename: file.name
+        });
+
+        appendSystemMessage(`File ${file.name} berhasil terkirim.`);
+        fileInput.value = ''; // Reset
+    };
+
+    // UI Helpers
+    function appendMessage(text, side) {
+        const el = document.createElement('div');
+        el.className = `msg ${side}`;
+        el.innerText = text;
+        messagesBox.appendChild(el);
+        messagesBox.scrollTop = messagesBox.scrollHeight;
+    }
+
+    function appendSystemMessage(text) {
+        const el = document.createElement('div');
+        el.className = 'msg system';
+        el.innerText = text;
+        messagesBox.appendChild(el);
+        messagesBox.scrollTop = messagesBox.scrollHeight;
+    }
+
+    function appendFileLink(fileName, url) {
+        const el = document.createElement('div');
+        el.className = 'msg remote';
+        el.innerHTML = `📁 <b>File diterima:</b> <br><a href="${url}" download="${fileName}" style="color: #007bff; font-weight: bold;">Unduh ${fileName}</a>`;
+        messagesBox.appendChild(el);
+        messagesBox.scrollTop = messagesBox.scrollHeight;
+    }
+</script>
+</body>
+</html>
