@@ -1,5 +1,7 @@
 {
-  "version_code": 622,
-  "latest_version": "6.2.2",
-  "release_notes": "Update terbaru dengan fitur premium."
+  "com.example.application": {
+    "version_code": 1,
+    "latest_version": "1.0",
+    "release_notes": "Update Game Mod v1.0.5 - Uang tidak terbatas."
+  }
 }
