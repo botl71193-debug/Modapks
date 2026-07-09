@@ -1,0 +1,11 @@
+{
+  "version": "4.17.6",
+  "title": "Update Available",
+  "subtitle": "Please update your App bro",
+  "update_urls": [
+    {"name": "Telegram", "url": "https://t.me/albin_mods/2327"},
+    {"name": "GDrive", "url": "https://drive.usercontent.google.com/download?id=13BbwaOAJFMT9fg2BdF3Rd8nGijTQXELw&export=download&authuser=1"},
+    {"name": "Mediafire", "url": "https://www.mediafire.com/file/r5hs4dqvj3avlww/AI_Art_Generator_%2528ALBIN_MODS%2529.apk/file"}
+  ],
+  "show_close_button": false
+}
