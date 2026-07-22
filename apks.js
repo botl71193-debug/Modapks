@@ -1,13 +1,13 @@
 const apks = [
     {
         "name": "Dongha",
-        "version": "v1.0.1",
+        "version": "v1.1.0",
         "category": "Streaming",
         "size": "43,30M",
         "android": "Android 5.0+",
         "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
         "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
-        "downloadUrl": "https://safefileku.com/download/glMW2i9jeGuWppra"
+        "downloadUrl": "https://link.adsafelink.com/3cO8"
     },
     {
         "name": "Youshort",
