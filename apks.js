@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "Joytify",
+        "version": "1.6.4",
+        "category": "Music",
+        "size": "18,43M",
+        "android": "Android 5+",
+        "description": "Aplikasi streaming musik modern tanpa batas dengan fitur premium unlocked. Strim lagu, explore playlist curated dari seluruh dunia, tanpa iklan, tanpa biaya tambahan, download musik offline, kualitas audio tinggi, dan pengalaman streaming musik optimal.",
+        "imageUrl": "https://i.ibb.co.com/fY4xyXPy/icon.webp",
+        "downloadUrl": "https://link.adsafelink.com/YPoZ"
+    },
+    {
         "name": "Dongha",
         "version": "v1.1.0",
         "category": "Streaming",
@@ -128,16 +138,6 @@ const apks = [
         "description": "Client YouTube Music open-source dan ad-free untuk Android. Strim musik tanpa iklan, tanpa subscription, download offline, background play, themes custom, dan pengalaman streaming musik uninterrupted tanpa noise. Alternatif streaming musik",
         "imageUrl": "https://i.ibb.co.com/tp0WhZg4/icon.webp",
         "downloadUrl": "https://link.adsafelink.com/Btdgah8"
-    },
-    {
-        "name": "Joytify",
-        "version": "1.6.4",
-        "category": "Music",
-        "size": "18,43M",
-        "android": "Android 5+",
-        "description": "Aplikasi streaming musik modern tanpa batas dengan fitur premium unlocked. Strim lagu, explore playlist curated dari seluruh dunia, tanpa iklan, tanpa biaya tambahan, download musik offline, kualitas audio tinggi, dan pengalaman streaming musik optimal.",
-        "imageUrl": "https://i.ibb.co.com/fY4xyXPy/icon.webp",
-        "downloadUrl": "https://link.adsafelink.com/YPoZ"
     },
     {
         "name": "MangaIndo",
