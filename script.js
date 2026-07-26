@@ -1106,4 +1106,3 @@ function executeApkSearch() {
     });
     if(alertEmpty) alertEmpty.style.display = success ? 'none' : 'block';
 }
-
