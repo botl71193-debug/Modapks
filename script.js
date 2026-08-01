@@ -1102,7 +1102,7 @@ function applyCategoryFilter(catName) {
     
     items.forEach(box => {
         const specCat = box.getAttribute('data-target-cat');
-        // LOGIKA KATEGORI YANG DIPERBAIKI (HAPUS droidName YANG ERROR)
+        // Hanya fokus mengecek kecocokan kategori aplikasi
         if (catName === 'all' || specCat === catName) { 
             box.classList.remove('hidden'); 
             totalMatch++; 
@@ -1111,9 +1111,11 @@ function applyCategoryFilter(catName) {
         }
     });
     
+    // Tampilkan pesan kosong jika tidak ada yang cocok
     if(alertEmpty) alertEmpty.style.display = totalMatch > 0 ? 'none' : 'block';
     closeActiveOverlays();
 }
+
 
 function executeApkSearch() {
     const query = document.getElementById('searchInput').value.toLowerCase();
@@ -1190,3 +1192,4 @@ function executeApkSearch() {
     if (alertEmpty) alertEmpty.style.display = success ? 'none' : 'block';
     if (loadMoreContainer) loadMoreContainer.style.display = 'none'; 
 }
+
