@@ -431,7 +431,7 @@ const rahasiaHTML = `
 document.body.insertAdjacentHTML('afterbegin', rahasiaHTML);
 
 const TOKEN_EXECUTIVE = "-..- . -.-. ..- - .. ...-";
-const TOKEN_DEVELOPER = "♚";
+const TOKEN_DEVELOPER = "--- .-- -. . .-. / -- -- -.-";
 
 let internalApksData = [];
 let apksHistory = [];
@@ -777,14 +777,14 @@ function syncSecurityAccessState() {
     const controlBoxes = document.querySelectorAll('.card-control-box');
     const devUndoRedo = document.getElementById('devUndoRedoControls'); 
 
-    if (activeRole === '♚  DEVELOPER  ♚') {
+    if (activeRole === 'DEVELOPER') {
         if(badge) { badge.textContent = "Developer Mode"; badge.className = "sidebar-sign-text dev-badge"; }
         if(triggerBtn) { triggerBtn.innerHTML = "🔒 Logout"; triggerBtn.classList.add('active-control'); }
         hiddenExecElements.forEach(el => el.style.setProperty('display', 'block', 'important'));
         devOnlyBlocks.forEach(el => el.style.setProperty('display', 'block', 'important'));
         controlBoxes.forEach(el => el.style.display = 'flex');
         if(devUndoRedo) devUndoRedo.style.setProperty('display', 'flex', 'important');
-    } else if (activeRole === '♛ EXECUTIVE ♛') {
+    } else if (activeRole === 'EXECUTIVE') {
         if(badge) { badge.textContent = "Executive Member"; badge.className = "sidebar-sign-text exec-badge"; }
         if(triggerBtn) { triggerBtn.innerHTML = "🔒 Logout"; triggerBtn.classList.add('active-control'); }
         hiddenExecElements.forEach(el => el.style.setProperty('display', 'block', 'important'));
@@ -1099,14 +1099,18 @@ function applyCategoryFilter(catName) {
     const items = document.querySelectorAll('.apk-card');
     const alertEmpty = document.getElementById('searchEmptyAlert');
     let totalMatch = 0;
+    
     items.forEach(box => {
         const specCat = box.getAttribute('data-target-cat');
-        if (catName === 'all' || specCat === catName) { box.classList.remove('hidden'); totalMatch++; } 
-        else { box.classList.add('hidden'); }
-                if (droidName === 'all' || specCat === droidName) { box.classList.remove('hidden'); totalMatch++; } 
-        else { box.classList.add('hidden'); }
-        
+        // LOGIKA KATEGORI YANG DIPERBAIKI (HAPUS droidName YANG ERROR)
+        if (catName === 'all' || specCat === catName) { 
+            box.classList.remove('hidden'); 
+            totalMatch++; 
+        } else { 
+            box.classList.add('hidden'); 
+        }
     });
+    
     if(alertEmpty) alertEmpty.style.display = totalMatch > 0 ? 'none' : 'block';
     closeActiveOverlays();
 }
