@@ -29,36 +29,35 @@ const rahasiaHTML = `
     <div class="cyber-auth-container" style="margin-bottom: 22px;">
       <button id="authTriggerBtn" class="cyber-auth-btn" onclick="handleAuthModalDisplay()">⚙️ Sign In</button>
     </div>
-    <div class="sidebar-label">Kategori Aplikasi</div>
+    <div class="sidebar-label">𝙆𝙖𝙩𝙚𝙜𝙤𝙧𝙞 𝘼𝙥𝙡𝙞𝙠𝙖𝙨𝙞</div>
     <ul class="sidebar-menu-list">
-      <li><div class="sidebar-item-btn" onclick="applyCategoryFilter('all')">📱 All Apps</div></li>
-      <li><div class="sidebar-item-btn" onclick="applyCategoryFilter('Aplikasi Mod')">📦 Aplikasi Mod</div></li>
-      <li><div class="sidebar-item-btn" onclick="applyCategoryFilter('Games Mod')">Games Mod</div></li>
-      <li><div class="sidebar-item-btn" onclick="applyCategoryFilter('Streaming')">🎬 Streaming</div></li>
-      <li><div class="sidebar-item-btn" onclick="applyCategoryFilter('Music')">🎵 Music</div></li>
-      <li><div class="sidebar-item-btn" onclick="applyCategoryFilter('Tools')">🛠️ Tools</div></li>
-      <li><div class="sidebar-item-btn" onclick="applyCategoryFilter('Editor')">📸 Editor</div></li>
+      <li><div class="sidebar-item-btn" onclick="applyCategoryFilter('all')">𝐀𝐥𝐥 𝐀𝐩𝐩𝐬</div></li>
+      <li><div class="sidebar-item-btn" onclick="applyCategoryFilter('Aplikasi Mod')">𝐀𝐩𝐥𝐢𝐤𝐚𝐬𝐢 𝐌𝐨𝐝</div></li>
+      <li><div class="sidebar-item-btn" onclick="applyCategoryFilter('Games Mod')">𝐆𝐚𝐦𝐞𝐬 𝐌𝐨𝐝</div></li>
+      <li><div class="sidebar-item-btn" onclick="applyCategoryFilter('Streaming')">𝐒𝐭𝐫𝐞𝐚𝐦𝐢𝐧𝐠</div></li>
+      <li><div class="sidebar-item-btn" onclick="applyCategoryFilter('Music')">𝐌𝐮𝐬𝐢𝐜</div></li>
+      <li><div class="sidebar-item-btn" onclick="applyCategoryFilter('Tools')">𝐓𝐨𝐨𝐥𝐬</div></li>
+      <li><div class="sidebar-item-btn" onclick="applyCategoryFilter('Editor')">𝐄𝐝𝐢𝐭𝐨𝐫</div></li>
     </ul>
 
     <!-- Tombol Request Mod untuk Publik / Guest -->
     <div class="sidebar-divider"></div>
     <div class="sidebar-label">Interaksi Komunitas</div>
     <ul class="sidebar-menu-list">
-      <li><div class="sidebar-item-btn" style="border-color: #0ea5e9; background: rgba(14, 165, 233, 0.1);" onclick="openRequestModModal()">💡 Request Mod Aplikasi</div></li>
+      <li><div class="sidebar-item-btn" style="border-color: #0ea5e9; background: rgba(14, 165, 233, 0.1);" onclick="openRequestModModal()">Request Mod Aplikasi</div></li>
     </ul>
 
     <!-- Menu Khusus Dev: Daftar Request Masuk -->
     <div class="sidebar-divider dev-only-block"></div>
     <div class="sidebar-label dev-only-block" style="color: var(--dev-color);">Dev Full Database Tool</div>
     <ul class="sidebar-menu-list dev-only-block">
-      <li><div class="sidebar-item-btn" style="border-color: rgba(244,63,94,0.3); background: rgba(244,63,94,0.05);" onclick="openAdminRequestListModal()">📋 Daftar Request Masuk <span id="reqBadgeCount" style="background:var(--dev-color); color:#fff; padding:2px 6px; border-radius:10px; font-size:0.7rem; margin-left:auto;">0</span></div></li>
       <li><div class="sidebar-item-btn" style="border-color: rgba(244,63,94,0.3); background: rgba(244,63,94,0.05);" onclick="exportCurrentApksFile('apksOnly')">💾 Ekspor Berkas apks.js Only</div></li>
       <li><div class="sidebar-item-btn" style="border-color: rgba(244,63,94,0.3); background: rgba(244,63,94,0.05);" onclick="document.getElementById('importApksFile').click()">📥 Impor apks.js Lokal</div></li>
-      <li style="margin-top: 10px;"><div class="sidebar-item-btn" style="border-color: #a855f7; background: rgba(168,85,247,0.1);" onclick="exportCurrentApksFile('exportVip')">⚡ Ekspor VIP.js only</div></li>
-      <li><div class="sidebar-item-btn" style="border-color: #a855f7; background: rgba(168,85,247,0.1);" onclick="document.getElementById('importVipFile').click()">📥 Impor VIP.js Lokal</div></li>
+      <li style="margin-top: 10px;"><div class="sidebar-item-btn" style="border-color: #a855f7; background: rgba(168,85,247,0.1);" onclick="exportCurrentApksFile('exportvip')">⚡ Ekspor vip.js only</div></li>
+      <li><div class="sidebar-item-btn" style="border-color: #a855f7; background: rgba(168,85,247,0.1);" onclick="document.getElementById('importvipFile').click()">📥 Impor vip.js Lokal</div></li>
     </ul>
     <input type="file" id="importApksFile" accept=".js" style="display:none" onchange="processImportApks(this)">
-    <input type="file" id="importVipFile" accept=".js" style="display:none" onchange="processImportVip(this)">
+    <input type="file" id="importvipFile" accept=".js" style="display:none" onchange="processImportvip(this)">
 
     <div class="sidebar-divider hidden-exec-item"></div>
     <div class="sidebar-label hidden-exec-item" style="color: var(--exec-color);">Exclusive MODDED</div>
@@ -73,7 +72,6 @@ const rahasiaHTML = `
           <li><div onclick="showExecAppDetails('toolM')">- tool M</div></li>
           <li><div onclick="showExecAppDetails('luckyPatcher')">- Lucky patcher</div></li>
           <li><div onclick="showExecAppDetails('modderhub')">- Modderhub</div></li>
-          <li><div onclick="showExecAppDetails('penaTool')">🖊️- Pena Tool</div></li>
         </ul>
       </li>
     </ul>
@@ -82,7 +80,10 @@ const rahasiaHTML = `
     <div class="sidebar-label">About modder</div>
     <ul class="sidebar-menu-list">
       <li><div class="sidebar-item-btn" onclick="handleModderProfileModal()">👤 Profil Owner</div></li>
-      <li><a class="sidebar-item-btn" href="https://chat.whatsapp.com/LDzlBOXR3I12Rb79oy5TFJ" target="_blank">💬 Grup WhatsApp 🚀</a></li>
+      <li><a class="sidebar-item-btn" href="https://chat.whatsapp.com/LDzlBOXR3I12Rb79oy5TFJ" target="_blank"> MrKhenz - Official [Grup]🚀</a></li>
+            <li><a class="sidebar-item-btn" href="https://whatsapp.com/channel/0029Vb7vQrL1yT22MFrBrR42" target="_blank">MMK | Saluran 1 [application] </a></li>
+                  <li><a class="sidebar-item-btn" href="https://whatsapp.com/channel/0029Vb7i2omLNSa3VM8Chc1A" target="_blank">MMK | Saluran 2 [Question and answer]</a></li>
+
     </ul>
   </div>
 
@@ -92,7 +93,7 @@ const rahasiaHTML = `
     <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
     <h3 style="margin-bottom: 10px; color:#fff;">🛡️ SIGN IN </h3>
     <div id="loginFormState">
-      <input type="password" id="devKeyInput" style="background:#020205; border:1px solid var(--border); border-radius:8px; padding:12px; color:#fff; width:100%; margin-bottom:15px; text-align:center; letter-spacing:4px; outline:none;" placeholder="••••••••">
+      <input type="password" id="devKeyInput" style="background:#020205; border:1px solid var(--border); border-radius:8px; padding:12px; color:#fff; width:100%; margin-bottom:15px; text-align:center; letter-spacing:4px; outline:none;" placeholder=" ✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏ ">
       <button class="download-action-btn" onclick="processAuthVerification()">VERIFIKASI AKSES</button>
     </div>
     <div id="logoutFormState" style="display:none; text-align:center;">
@@ -103,7 +104,7 @@ const rahasiaHTML = `
 
   <div class="modal-box dev-panel-modal" id="devApkFormModal">
     <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
-    <h3 id="formModalTitle" style="margin-bottom: 15px; color:#fff; font-size: 1.15rem; border-bottom: 1px solid rgba(244, 63, 94, 0.2); padding-bottom: 10px;">➕ TAMBAH APK BARU</h3>
+    <h3 id="formModalTitle" style="margin-bottom: 15px; color:#fff; font-size: 1.15rem; border-bottom: 1px solid rgba(244, 63, 94, 0.2); padding-bottom: 10px;">➕</h3>
     <input type="hidden" id="formEditIndex" value="">
     <div class="form-mobile-vertical-stack">
       <div class="form-group" id="existingApkSelectorRow">
@@ -126,7 +127,23 @@ const rahasiaHTML = `
         </select>
       </div>
       <div class="form-group"><label>Ukuran Size</label><input type="text" id="formApkSize"></div>
-      <div class="form-group"><label>Sistem Android</label><input type="text" id="formApkAndroid"></div>
+      <div class="form-group">
+        <label>Sistem Android</label>
+        <select id="formApkAndroid">
+          <option value="Android 5+">Android 5+</option>
+          <option value="Android 6+">Android 6+</option>
+          <option value="Android 7+">Android 7+</option>
+          <option value="Android 8+">Android 8+</option>
+          <option value="Android 9+">Android 9+</option>
+          <option value="Android 10+">Android 10+</option>
+          <option value="Android 11+">Android 11+</option>
+          <option value="Android 12+">Android 12+</option>
+          <option value="Android 13+">Android 13+</option>
+          <option value="Android 14+">Android 14+</option>
+          <option value="Android 15+">Android 15+</option>
+        </select>
+      </div>
+      
       <div class="form-group"><label>Deskripsi Fitur</label><textarea id="formApkDesc" rows="3"></textarea></div>
       <div class="form-group">
         <label>URL Gambar / Ikon APK</label>
@@ -168,7 +185,6 @@ const rahasiaHTML = `
         <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Life360</span>
       </div>
 
-      <!-- MORE LIST APP SERVERSIDE -->
       <!-- MORE LIST APP SERVERSIDE -->
       <details style="margin-top: 8px; cursor: pointer;">
         <summary style="color: #0ea5e9; font-size: 0.78rem; font-weight: bold; outline: none;">▼ More list app serverside</summary>
@@ -415,7 +431,7 @@ const rahasiaHTML = `
 document.body.insertAdjacentHTML('afterbegin', rahasiaHTML);
 
 const TOKEN_EXECUTIVE = "-..- . -.-. ..- - .. ...-";
-const TOKEN_DEVELOPER = "--- .-- -. . .-. / -- -- -.-";
+const TOKEN_DEVELOPER = "♚";
 
 let internalApksData = [];
 let apksHistory = [];
@@ -516,6 +532,8 @@ function renderGridCards() {
         const card = document.createElement('div');
         card.className = 'apk-card';
         card.setAttribute('data-target-cat', item.category);
+        card.setAttribute('data-target-droid', item.android);
+        
 
         let defaultIcon = '📱';
         if (item.category === 'Streaming') defaultIcon = '🎬';
@@ -532,7 +550,7 @@ function renderGridCards() {
                     <div class="dev-action-badge-btn delete-btn" title="Hapus APK" onclick="deleteApkItemCard(${index})">🗑️</div>
                 </div>
                 <button class="dev-action-badge-btn edit-btn" title="Pindah Urutan APK" style="width: auto; padding: 2px 8px; font-size: 0.75rem; border-radius: 4px; margin-top: 2px; font-weight: bold; border-color: rgba(14, 165, 233, 0.4); background: rgba(14, 165, 233, 0.1); color: #0ea5e9;" onclick="openReorderModal(${index})">
-                    [ ${index + 1} ] 🔃
+                    ${index + 1}
                 </button>
             </div>
         `;
@@ -586,7 +604,7 @@ function deleteApkItemCard(index) {
     }
 }
 
-// --- FUNGSI REQUEST MOD KOMUNITAS (DENGAN PENGECEKAN SERVERSIDE) ---
+// --- FUNGSI REQUEST MOD KOMUNITAS (DENGAN PENGIRIMAN EMAIL) ---
 function openRequestModModal() {
     closeActiveOverlays();
     document.getElementById('reqAppName').value = "";
@@ -614,20 +632,17 @@ function submitUserModRequest() {
         return;
     }
 
-    let existingRequests = JSON.parse(localStorage.getItem('mmk_mod_requests') || '[]');
+    // --- PENGIRIMAN KE EMAIL ---
+    const adminEmail = "mrkhenzoofficial@gmail.com"; // GANTI DENGAN ALAMAT EMAIL ANDA
     
-    const newRequest = {
-        id: Date.now(),
-        name: name,
-        playstoreUrl: playstore,
-        date: new Date().toLocaleDateString('id-ID')
-    };
-
-    existingRequests.unshift(newRequest);
-    localStorage.setItem('mmk_mod_requests', JSON.stringify(existingRequests));
+    // Format Subjek dan Isi Email
+    const subject = encodeURIComponent(`Please This App : ${name}`);
+    const body = encodeURIComponent(`Halo Min,\n\nNama Aplikasi / Game : ${name}\nLink : ${playstore}\n\nTerima kasih!`);
     
-    updateAdminBadgeCount();
-    alert("✅ Request berhasil dikirim ke tim Dev MMK! Terima kasih atas kontribusinya.");
+    // Membuka aplikasi email pengguna (Gmail, Outlook, dll)
+    window.location.href = `mailto:${adminEmail}?subject=${subject}&body=${body}`;
+    
+    alert("✅ 𝙼𝚎𝚖𝚋𝚞𝚔𝚊 𝚊𝚙𝚕𝚒𝚔𝚊𝚜𝚒 𝚎𝚖𝚊𝚒𝚕 𝙰𝚗𝚍𝚊 𝚞𝚗𝚝𝚞𝚔 𝚖𝚎𝚗𝚐𝚒𝚛𝚒𝚖 𝚛𝚎𝚚𝚞𝚎𝚜𝚝...\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nNote : 𝙈𝙊𝙃𝙊𝙉 𝘿𝙄 𝙈𝘼𝙆𝙇𝙐𝙈𝙆𝘼𝙉 𝘼𝙋𝘼𝘽𝙄𝙇𝘼 𝙍𝙀𝙌 𝙏𝙄𝘿𝘼𝙆 𝘿𝙄 𝙋𝙀𝙉𝙐𝙃𝙄 𝙆𝘼𝙍𝙀𝙉𝘼 𝙏𝙄𝘿𝘼𝙆 𝙎𝙀𝙈𝙐𝘼 𝘼𝙋𝙆 𝘽𝙄𝙎𝘼 𝙎𝘼𝙔𝘼 𝙈𝙊𝘿 . \n 𝙏𝙝𝙖𝙣𝙠𝙨 𝙮𝙤𝙪. ");
     closeActiveOverlays();
 }
 
@@ -762,14 +777,14 @@ function syncSecurityAccessState() {
     const controlBoxes = document.querySelectorAll('.card-control-box');
     const devUndoRedo = document.getElementById('devUndoRedoControls'); 
 
-    if (activeRole === 'DEVELOPER') {
+    if (activeRole === '♚  DEVELOPER  ♚') {
         if(badge) { badge.textContent = "Developer Mode"; badge.className = "sidebar-sign-text dev-badge"; }
         if(triggerBtn) { triggerBtn.innerHTML = "🔒 Logout"; triggerBtn.classList.add('active-control'); }
         hiddenExecElements.forEach(el => el.style.setProperty('display', 'block', 'important'));
         devOnlyBlocks.forEach(el => el.style.setProperty('display', 'block', 'important'));
         controlBoxes.forEach(el => el.style.display = 'flex');
         if(devUndoRedo) devUndoRedo.style.setProperty('display', 'flex', 'important');
-    } else if (activeRole === 'EXECUTIVE') {
+    } else if (activeRole === '♛ EXECUTIVE ♛') {
         if(badge) { badge.textContent = "Executive Member"; badge.className = "sidebar-sign-text exec-badge"; }
         if(triggerBtn) { triggerBtn.innerHTML = "🔒 Logout"; triggerBtn.classList.add('active-control'); }
         hiddenExecElements.forEach(el => el.style.setProperty('display', 'block', 'important'));
@@ -840,12 +855,11 @@ async function pasteFieldValue(inputId) {
 
 function openAddApkFormModal() {
     closeActiveOverlays();
-    document.getElementById('formModalTitle').textContent = "➕ TAMBAH APK BARU";
+    document.getElementById('formModalTitle').textContent = "Format Edit/Tambah App ";
     document.getElementById('formEditIndex').value = "";
     document.getElementById('formApkName').value = "";
     document.getElementById('formApkVersion').value = "";
     document.getElementById('formApkSize').value = "";
-    document.getElementById('formApkAndroid').value = "";
     document.getElementById('formApkDesc').value = "";
     document.getElementById('formApkImg').value = "";
     document.getElementById('formApkLink').value = "";
@@ -873,7 +887,7 @@ function handleLoadExistingApkData() {
     document.getElementById('formApkVersion').value = targetData.version || "";
     document.getElementById('formApkCategory').value = targetData.category || "Aplikasi Mod";
     document.getElementById('formApkSize').value = targetData.size || "";
-    document.getElementById('formApkAndroid').value = targetData.android || "";
+    document.getElementById('formApkAndroid').value = targetData.android || "Android 5+";
     document.getElementById('formApkDesc').value = targetData.description || "";
     document.getElementById('formApkImg').value = targetData.imageUrl || "";
     document.getElementById('formApkLink').value = targetData.downloadUrl || "";
@@ -890,7 +904,7 @@ function openEditApkFormModal(index) {
     document.getElementById('formApkVersion').value = targetData.version || "";
     document.getElementById('formApkCategory').value = targetData.category || "Aplikasi Mod";
     document.getElementById('formApkSize').value = targetData.size || "";
-    document.getElementById('formApkAndroid').value = targetData.android || "";
+    document.getElementById('formApkAndroid').value = targetData.android || "Android 5+";
     document.getElementById('formApkDesc').value = targetData.description || "";
     document.getElementById('formApkImg').value = targetData.imageUrl || "";
     document.getElementById('formApkLink').value = targetData.downloadUrl || "";
@@ -920,7 +934,7 @@ function saveApkFormSubmission() {
     const version = document.getElementById('formApkVersion').value.trim();
     const category = document.getElementById('formApkCategory').value;
     const size = document.getElementById('formApkSize').value.trim();
-    const android = document.getElementById('formApkAndroid').value.trim();
+    const android = document.getElementById('formApkAndroid').value;
     const description = document.getElementById('formApkDesc').value.trim();
     const imageUrl = document.getElementById('formApkImg').value.trim();
     const downloadUrl = document.getElementById('formApkLink').value.trim();
@@ -974,7 +988,7 @@ function processImportApks(input) {
     reader.readAsText(file);
 }
 
-function processImportVip(input) {
+function processImportvip(input) {
     const file = input.files[0];
     if (!file) return;
     const reader = new FileReader();
@@ -986,10 +1000,10 @@ function processImportVip(input) {
             if (typeof parsedData === 'object' && !Array.isArray(parsedData)) {
                 for (let key in execAppsDatabase) delete execAppsDatabase[key];
                 for (let key in parsedData) execAppsDatabase[key] = parsedData[key];
-                alert("✅ Berkas VIP.js berhasil diimpor!");
+                alert("✅ Berkas vip.js berhasil diimpor!");
                 closeActiveOverlays();
-            } else { alert("❌ Format file VIP.js tidak valid."); }
-        } catch (err) { alert("❌ Gagal membaca file VIP.js!"); }
+            } else { alert("❌ Format file vip.js tidak valid."); }
+        } catch (err) { alert("❌ Gagal membaca file vip.js!"); }
         input.value = ""; 
     };
     reader.readAsText(file);
@@ -1004,8 +1018,8 @@ function exportCurrentApksFile(mode) {
     if (mode === 'apksOnly') {
         mainTitle.textContent = "💾 SALIN DATA APKS.JS";
         textContainer.value = "const apks = " + JSON.stringify(internalApksData, null, 4) + ";";
-    } else if (mode === 'exportVip') {
-        mainTitle.textContent = "⚡ SALIN DATA VIP.JS";
+    } else if (mode === 'exportvip') {
+        mainTitle.textContent = "⚡ SALIN DATA vip.JS";
         textContainer.value = "const execAppsDatabase = " + JSON.stringify(execAppsDatabase, null, 4) + ";";
     }
     document.getElementById('globalOverlay').classList.add('active');
@@ -1022,14 +1036,14 @@ function copyExportedTextToClipboard() {
 }
 
 function showExecAppDetails(key) {
-    if (typeof execAppsDatabase === 'undefined') { alert("VIP.js tidak termuat."); return; }
+    if (typeof execAppsDatabase === 'undefined') { alert("vip.js tidak termuat."); return; }
     const appData = execAppsDatabase[key];
     if (!appData) return;
 
     const activeRole = localStorage.getItem('mmk_sys_role') || 'GUEST';
     let devActions = activeRole === 'DEVELOPER' ? `
         <div style="display: flex; gap: 10px; margin-left: auto;">
-            <button onclick="deleteVipApp('${key}')" style="background:transparent; border:none; cursor:pointer; font-size:1.2rem;" title="Hapus">🗑️</button>
+            <button onclick="deletevipApp('${key}')" style="background:transparent; border:none; cursor:pointer; font-size:1.2rem;" title="Hapus">🗑️</button>
         </div>` : '';
 
     const iconFrame = document.getElementById('execModalIcon');
@@ -1089,6 +1103,9 @@ function applyCategoryFilter(catName) {
         const specCat = box.getAttribute('data-target-cat');
         if (catName === 'all' || specCat === catName) { box.classList.remove('hidden'); totalMatch++; } 
         else { box.classList.add('hidden'); }
+                if (droidName === 'all' || specCat === droidName) { box.classList.remove('hidden'); totalMatch++; } 
+        else { box.classList.add('hidden'); }
+        
     });
     if(alertEmpty) alertEmpty.style.display = totalMatch > 0 ? 'none' : 'block';
     closeActiveOverlays();
@@ -1096,13 +1113,76 @@ function applyCategoryFilter(catName) {
 
 function executeApkSearch() {
     const query = document.getElementById('searchInput').value.toLowerCase();
-    const boxes = document.querySelectorAll('.apk-card');
+    const grid = document.getElementById('apkDisplayGrid');
     const alertEmpty = document.getElementById('searchEmptyAlert');
+    const loadMoreContainer = document.getElementById('loadMoreContainer');
+    
+    if (query.trim() === '') {
+        renderGridCards();
+        return;
+    }
+
+    if (!grid) return;
+    grid.innerHTML = ""; 
+    
     let success = false;
-    boxes.forEach(box => {
-        const titleText = box.querySelector('.apk-title').textContent.toLowerCase();
-        if (titleText.includes(query)) { box.classList.remove('hidden'); success = true; } 
-        else { box.classList.add('hidden'); }
+    const activeRole = localStorage.getItem('mmk_sys_role') || 'GUEST';
+
+    internalApksData.forEach((item, index) => {
+        const titleText = (item.name || '').toLowerCase();
+        
+        if (titleText.includes(query)) {
+            success = true;
+            
+            const card = document.createElement('div');
+            card.className = 'apk-card';
+            card.setAttribute('data-target-cat', item.category);
+                        card.setAttribute('data-target-droid', item.android);
+
+
+            let defaultIcon = '📱';
+            if (item.category === 'Streaming') defaultIcon = '🎬';
+            else if (item.category === 'Games Mod') defaultIcon = '🎮';
+            else if (item.category === 'Music') defaultIcon = '🎵';
+            else if (item.category === 'Tools') defaultIcon = '🛠️';
+
+            let displayControl = activeRole === 'DEVELOPER' ? 'flex' : 'none';
+            
+            let devActionButtons = `
+                <div class="card-control-box" style="display:${displayControl}; flex-direction: column; align-items: flex-end; gap: 4px;">
+                    <div style="display: flex; gap: 4px;">
+                        <div class="dev-action-badge-btn edit-btn" title="Edit APK" onclick="openEditApkFormModal(${index})">✏️</div>
+                        <div class="dev-action-badge-btn delete-btn" title="Hapus APK" onclick="deleteApkItemCard(${index})">🗑️</div>
+                    </div>
+                    <button class="dev-action-badge-btn edit-btn" title="Pindah Urutan APK" style="width: auto; padding: 2px 8px; font-size: 0.75rem; border-radius: 4px; margin-top: 2px; font-weight: bold; border-color: rgba(14, 165, 233, 0.4); background: rgba(14, 165, 233, 0.1); color: #0ea5e9;" onclick="openReorderModal(${index})">
+                        [${index + 1}]
+                    </button>
+                </div>
+            `;
+
+            card.innerHTML = `
+                ${devActionButtons}
+                <div class="apk-top-flex">
+                    <div class="apk-icon-frame">
+                        <img src="${item.imageUrl || ''}" alt="${item.name || ''}" onerror="this.style.display='none'; this.parentElement.innerHTML='${defaultIcon}';">
+                    </div>
+                    <div class="apk-main-info">
+                        <span class="apk-title">${item.name || 'No Name'}</span>
+                        <span class="apk-version">${item.version || ''}</span>
+                        <div class="apk-badge-row">
+                            <span class="apk-badge">💾 ${item.size || '0 MB'}</span>
+                            <span class="apk-badge">🤖 ${item.android || '5.0+'}</span>
+                            <span class="apk-badge">📁 ${item.category || 'General'}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="apk-desc-area">${item.description || 'Tidak ada deskripsi.'}</div>
+                <a href="${item.downloadUrl || '#'}" target="_blank" class="download-action-btn"> Download </a>
+            `;
+            grid.appendChild(card);
+        }
     });
-    if(alertEmpty) alertEmpty.style.display = success ? 'none' : 'block';
+
+    if (alertEmpty) alertEmpty.style.display = success ? 'none' : 'block';
+    if (loadMoreContainer) loadMoreContainer.style.display = 'none'; 
 }
