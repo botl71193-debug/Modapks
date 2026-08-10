@@ -1,5 +1,25 @@
 const apks = [
     {
+        "name": "Dongha",
+        "version": "v1.1.0",
+        "category": "Streaming",
+        "size": "43,30M",
+        "android": "Android 8+",
+        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
+        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
+        "downloadUrl": "https://adlinksumo.com/69X9cto7"
+    },
+    {
+        "name": "Proton VPN",
+        "version": "5.19.72.0",
+        "category": "Tools",
+        "size": "62,58M",
+        "android": "Android 5+",
+        "description": "",
+        "imageUrl": "https://i.ibb.co.com/CKwsRpNT/icon.webp",
+        "downloadUrl": "https://link.adsafelink.com/b3ws33g"
+    },
+    {
         "name": "Lane",
         "version": "1.4.7",
         "category": "Music",
@@ -18,16 +38,6 @@ const apks = [
         "description": "Aplikasi streaming musik modern tanpa batas dengan fitur premium unlocked. Strim lagu, explore playlist curated dari seluruh dunia, tanpa iklan, tanpa biaya tambahan, download musik offline, kualitas audio tinggi, dan pengalaman streaming musik optimal.",
         "imageUrl": "https://i.ibb.co.com/fY4xyXPy/icon.webp",
         "downloadUrl": "https://link.adsafelink.com/YPoZ"
-    },
-    {
-        "name": "Dongha",
-        "version": "v1.1.0",
-        "category": "Streaming",
-        "size": "43,30M",
-        "android": "Android 5.0+",
-        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
-        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
-        "downloadUrl": "https://link.adsafelink.com/3cO8"
     },
     {
         "name": "Youshort",
