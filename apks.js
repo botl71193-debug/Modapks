@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "ManhwaID",
+        "version": "1.8.1",
+        "category": "Aplikasi Mod",
+        "size": "14,97M",
+        "android": "Android 8+",
+        "description": "Aplikasi baca komik dan manga terlengkap dalam Bahasa Indonesia dengan ribuan judul manga, manhwa, dan manhua favorit. Update chapter terbaru setiap hari, offline mode, koleksi lengkap, brush reading experience terbaik untuk penggemar komik Indonesia",
+        "imageUrl": "https://i.ibb.co.com/dwwDqQJR/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/2PIB3b5Z"
+    },
+    {
         "name": "Dongha",
         "version": "v1.1.0",
         "category": "Streaming",
