@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "Joytify",
+        "version": "1.6.4",
+        "category": "Music",
+        "size": "18,43M",
+        "android": "Android 5+",
+        "description": "Aplikasi streaming musik modern tanpa batas dengan fitur premium unlocked. Strim lagu, explore playlist curated dari seluruh dunia, tanpa iklan, tanpa biaya tambahan, download musik offline, kualitas audio tinggi, dan pengalaman streaming musik optimal.",
+        "imageUrl": "https://i.ibb.co.com/fY4xyXPy/icon.webp",
+        "downloadUrl": "https://link.adsafelink.com/YPoZ"
+    },
+    {
         "name": "ManhwaID",
         "version": "1.8.1",
         "category": "Aplikasi Mod",
@@ -25,7 +35,7 @@ const apks = [
         "category": "Tools",
         "size": "62,58M",
         "android": "Android 5+",
-        "description": "",
+        "description": "Premium tanpa berlangganan",
         "imageUrl": "https://i.ibb.co.com/CKwsRpNT/icon.webp",
         "downloadUrl": "https://link.adsafelink.com/b3ws33g"
     },
@@ -38,16 +48,6 @@ const apks = [
         "description": "Aplikasi alternatif pemutar musik Spotify dengan fitur Premium terbuka.",
         "imageUrl": "https://i.ibb.co.com/6R4bXjvW/icon.webp",
         "downloadUrl": "https://safefileku.com/download/H0Zyk9f2yfWXF1vK"
-    },
-    {
-        "name": "Joytify",
-        "version": "1.6.4",
-        "category": "Music",
-        "size": "18,43M",
-        "android": "Android 5+",
-        "description": "Aplikasi streaming musik modern tanpa batas dengan fitur premium unlocked. Strim lagu, explore playlist curated dari seluruh dunia, tanpa iklan, tanpa biaya tambahan, download musik offline, kualitas audio tinggi, dan pengalaman streaming musik optimal.",
-        "imageUrl": "https://i.ibb.co.com/fY4xyXPy/icon.webp",
-        "downloadUrl": "https://link.adsafelink.com/YPoZ"
     },
     {
         "name": "Youshort",
@@ -238,16 +238,6 @@ const apks = [
         "description": "Streaming film & series premium unlocked tanpa iklan dengan kualitas full HD.",
         "imageUrl": "https://worrying-apricot-utxtj0qs.edgeone.app/cineflow.png",
         "downloadUrl": "https://link.adsafelink.com/Q2CBs7SX"
-    },
-    {
-        "name": "Lane",
-        "version": "v 1.4",
-        "category": "Music",
-        "size": "75 MB",
-        "android": "Android 6.0+",
-        "description": "Aplikasi alternatif pemutar musik Spotify dengan fitur Premium terbuka.",
-        "imageUrl": "https://worrying-apricot-utxtj0qs.edgeone.app/lane.png",
-        "downloadUrl": "https://safefileku.com/download/3sA8xBwdh6oTQ6ZB"
     },
     {
         "name": "Dramora",
