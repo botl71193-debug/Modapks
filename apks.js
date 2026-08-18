@@ -1,5 +1,25 @@
 const apks = [
     {
+        "name": "MikuNime",
+        "version": "0.2.9",
+        "category": "Streaming",
+        "size": "32,91M",
+        "android": "Android 8+",
+        "description": "Streaming anime subtitle Indonesia dari komunitas MikuNime V5. Tersedia website, grup WhatsApp, dan kontak admin untuk update anime sub Indo.",
+        "imageUrl": "https://i.ibb.co.com/tp693jPy/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/VQP6"
+    },
+    {
+        "name": "Donghua Fun",
+        "version": "v2.0.11",
+        "category": "Streaming",
+        "size": "42 MB",
+        "android": "",
+        "description": "Aplikasi nonton anime 3D Tiongkok (Donghua) gratis dengan subtitle bahasa Inggris, update harian Full HD, pencarian instan sekali klik, kualitas streaming optimal untuk penggemar anime China.",
+        "imageUrl": "https://i.ibb.co.com/3y3694Kz/Dong-Fun.webp",
+        "downloadUrl": "https://adlinksumo.com/oOWSwcqX"
+    },
+    {
         "name": "Xeno",
         "version": "1.1",
         "category": "Tools",
@@ -190,16 +210,6 @@ const apks = [
         "downloadUrl": "https://www.mediafire.com/file/gk20lolq69agf41/Frag_Pro_Shooter_v5.2.0_Menu.zip/file"
     },
     {
-        "name": "DongHa",
-        "version": "v1.0.1",
-        "category": "Streaming",
-        "size": "43,30M",
-        "android": "Android 5.0+",
-        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
-        "downloadUrl": "https://safefileku.com/download/bXhsKJ34RTbEjgpn",
-        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu."
-    },
-    {
         "name": "Instant Mail",
         "version": "8.0.0",
         "category": "Aplikasi Mod",
@@ -338,16 +348,6 @@ const apks = [
         "imageUrl": "https://i.ibb.co.com/8gkxbZDJ/Bit-Tv.webp",
         "downloadUrl": "https://www.mediafire.com/file/ed236807c2glmsl/BitTV_2.1.6-zenith.apk/file",
         "description": "Aplikasi streaming TV digital gratis tanpa iklan dan tanpa langganan. Nonton saluran TV online lengkap berbagai genre: berita, hiburan, olahraga, dokumenter, drama, film, kartun, siaran langsung acara penting dengan kualitas tinggi tanpa buffering."
-    },
-    {
-        "name": "Donghua Fun",
-        "version": "v2.0.11",
-        "category": "Streaming",
-        "size": "42 MB",
-        "android": "Android 5.0+",
-        "imageUrl": "https://i.ibb.co.com/3y3694Kz/Dong-Fun.webp",
-        "downloadUrl": "https://safefileku.com/download/Xcl91jeuurCRMMr2",
-        "description": "Aplikasi nonton anime 3D Tiongkok (Donghua) gratis dengan subtitle bahasa Inggris, update harian Full HD, pencarian instan sekali klik, kualitas streaming optimal untuk penggemar anime China."
     },
     {
         "name": "TeraBox",
