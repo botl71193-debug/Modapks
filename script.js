@@ -40,14 +40,12 @@ const rahasiaHTML = `
       <li><div class="sidebar-item-btn" onclick="applyCategoryFilter('Editor')">𝐄𝐝𝐢𝐭𝐨𝐫</div></li>
     </ul>
 
-    <!-- Tombol Request Mod untuk Publik / Guest -->
     <div class="sidebar-divider"></div>
     <div class="sidebar-label">Interaksi Komunitas</div>
     <ul class="sidebar-menu-list">
       <li><div class="sidebar-item-btn" style="border-color: #0ea5e9; background: rgba(14, 165, 233, 0.1);" onclick="openRequestModModal()">Request Mod Aplikasi</div></li>
     </ul>
 
-    <!-- Menu Khusus Dev: Daftar Request Masuk -->
     <div class="sidebar-divider dev-only-block"></div>
     <div class="sidebar-label dev-only-block" style="color: var(--dev-color);">Dev Full Database Tool</div>
     <ul class="sidebar-menu-list dev-only-block">
@@ -77,9 +75,8 @@ const rahasiaHTML = `
     </ul>
 
     <div class="sidebar-divider"></div>
-    <div class="sidebar-label">About modder</div>
+    <div class="sidebar-label">𝕁𝕆𝕀ℕ 𝕄𝕐 ℂ𝕆𝕄𝕄𝕌ℕ𝕀𝕋𝕐 </div>
     <ul class="sidebar-menu-list">
-      <li><div class="sidebar-item-btn" onclick="handleModderProfileModal()">👤 Profil Owner</div></li>
       <li><a class="sidebar-item-btn" href="https://chat.whatsapp.com/LDzlBOXR3I12Rb79oy5TFJ" target="_blank"> MrKhenz - Official [Grup]🚀</a></li>
             <li><a class="sidebar-item-btn" href="https://whatsapp.com/channel/0029Vb7vQrL1yT22MFrBrR42" target="_blank">MMK | Saluran 1 [application] </a></li>
                   <li><a class="sidebar-item-btn" href="https://whatsapp.com/channel/0029Vb7i2omLNSa3VM8Chc1A" target="_blank">MMK | Saluran 2 [Question and answer]</a></li>
@@ -168,12 +165,9 @@ const rahasiaHTML = `
     </div>
   </div>
 
-  <!-- MODAL REQUEST MOD APLIKASI (UNTUK GUEST) -->
   <div class="modal-box dev-panel-modal" id="requestModModal" style="max-height: 90vh; overflow-y: auto;">
     <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
     <h3 style="margin-bottom: 10px; color:#fff; font-size: 1.15rem; border-bottom: 1px solid rgba(14, 165, 233, 0.2); padding-bottom: 10px;">💡 FORMULIR REQUEST MOD</h3>
-    
-    <!-- DAFTAR APLIKASI SERVERSIDE / TIDAK BISA DIMOD -->
     <div style="background: rgba(239, 68, 68, 0.08); border: 1px dashed rgba(239, 68, 68, 0.4); border-radius: 8px; padding: 12px; margin-bottom: 15px;">
       <p style="color: #ef4444; font-size: 0.82rem; font-weight: bold; margin-bottom: 6px;">⚠️ PERHATIAN: JANGAN REQUEST APLIKASI DI BAWAH INI!</p>
       <p style="color: var(--text-muted); font-size: 0.78rem; line-height: 1.4; margin-bottom: 8px;">Aplikasi berbasis <i>Serverside</i> (Data tersimpan di server pusat & dilindungi enkripsi ketat) tidak bisa di-mod seperti:</p>
@@ -184,142 +178,6 @@ const rahasiaHTML = `
         <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ TradingView</span>
         <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Life360</span>
       </div>
-
-      <!-- MORE LIST APP SERVERSIDE -->
-      <details style="margin-top: 8px; cursor: pointer;">
-        <summary style="color: #0ea5e9; font-size: 0.78rem; font-weight: bold; outline: none;">▼ More list app serverside</summary>
-        <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; max-height: 150px; overflow-y: auto; padding-right: 4px;">
-          <!-- E-Wallet & Payment -->
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ GoPay</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ DANA</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ OVO</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ ShopeePay</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ LinkAja</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Jenius</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Sakuku</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Mekari Pay</span>
-
-          <!-- Games & Social -->
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Mobile Legends</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Free Fire</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ PUBG</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Genshin Impact</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ eFootball™</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ WhatsApp Official</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Life360</span>
-
-          <!-- Education & Language -->
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ AirLearn</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Babbel</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Brilliant</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Testbook</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Unacademy</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Vidyakul</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Neet UG</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ HelloChinese</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Readle</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Langster</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Rojgar with Ankit</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ TalkMe</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Univerbal</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Medical German</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Sololearn</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Gaur Shorthand</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Stimuler</span>
-
-          <!-- AI & Productivity -->
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Aiuta</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Monica AI</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ ChatLLM</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Gitmind</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Pico AI</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Invideo AI</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ ZEEMO ai</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Julius ai</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Hailuo AI</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Genspark</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Ghibli AI</span>
-
-          <!-- Media, OTT & Entertainment -->
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ DramaTalk</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Boomex</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Shortime</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ ShortMax</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Soniva Music</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Tappytoon</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Webfic</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Hinovel</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ WeTV</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Dramawave</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Storytel</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ AzamTV Max</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ My Family Cinema</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ iMPlayer TV</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Channel Myanmar</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Kuku FM</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Pocket FM</span>
-
-          <!-- Photography, Video & Audio -->
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ PortalPix</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Meitu</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Blink Captions</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Captions</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Wink</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Toki</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Volcam</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Voloco</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Video & Story Downloader</span>
-
-          <!-- Trading, Finance & Crypto -->
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ TradingView</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Forex Precision</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Pro Crypto Signals</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Market Pulse</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Paper Trading</span>
-
-          <!-- Tools, Utilities & Others -->
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Dainik Jagran</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Second Number for Call</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Astrotalk</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ GIGI</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Hizo</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ AppCloner</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ The Hindu</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ UptimeRobot</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Bridge</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Playbook</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Boxhiit</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Diskwala</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Frontpage</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Turbo VPN</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Mysterium VPN</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ eSIM</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Tellonym</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ SwimUp</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Sirin</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Wave</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Timecap</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Miraa</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Linga</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Biblioteca LDM</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Noping</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Calisteniapp</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Novellair</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ FON VPN</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Proton Mail</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Yahoo Mail</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Nekogram</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ The Past Life Within</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Footystats</span>
-
-          <!-- Categories -->
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Semua OTT</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Semua Fintech</span>
-          <span class="apk-badge" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.3); color:#fca5a5;">❌ Semua EdTech</span>
-        </div>
-      </details>
-
-      </details>
     </div>
 
     <div class="form-mobile-vertical-stack">
@@ -338,16 +196,12 @@ const rahasiaHTML = `
     </div>
   </div>
 
-  <!-- MODAL DAFTAR REQUEST MASUK (KHUSUS DEV) -->
   <div class="modal-box dev-panel-modal" id="adminRequestListModal" style="max-height: 85vh; overflow-y: auto; width: 90%; max-width: 600px;">
     <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
     <h3 style="margin-bottom: 12px; color:#fff; font-size: 1.15rem; border-bottom: 1px solid rgba(244, 63, 94, 0.2); padding-bottom: 10px;">📋 KELOLA DAFTAR REQUEST</h3>
-    <div id="adminRequestListContainer" style="display: flex; flex-direction: column; gap: 10px;">
-      <!-- JavaScript akan merender list request di sini -->
-    </div>
+    <div id="adminRequestListContainer" style="display: flex; flex-direction: column; gap: 10px;"></div>
   </div>
 
-  <!-- MODAL REORDER (PINDAH POSISI) -->
   <div class="modal-box dev-panel-modal" id="devReorderModal">
     <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
     <h3 style="margin-bottom: 15px; color:#fff; font-size: 1.15rem; border-bottom: 1px solid rgba(14, 165, 233, 0.2); padding-bottom: 10px;">🔄 PINDAH POSISI APK</h3>
@@ -402,7 +256,7 @@ const rahasiaHTML = `
     </div>
   </div>
 
-  <div class="container">
+  <div class="container" id="mainContainer">
     <div class="welcome-header">
       <p>Premium Modded Applications Database</p>
       <button class="download-action-btn dev-only-block" style="max-width:250px; background: linear-gradient(135deg, var(--dev-color) 0%, #b91c1c 100%);" onclick="openAddApkFormModal()">
@@ -411,12 +265,8 @@ const rahasiaHTML = `
     </div>
     <div class="apk-grid" id="apkDisplayGrid"></div>
     
-    <!-- TOMBOL LOAD MORE -->
-    <div id="loadMoreContainer" style="text-align: center; margin-top: 25px; display: none;">
-      <button class="download-action-btn" style="max-width: 220px; background: rgba(14, 165, 233, 0.15); border: 1px solid #0ea5e9; color: #0ea5e9; font-weight: bold;" onclick="loadMoreApps()">
-        𝙇𝙤𝙖𝙙 𝙈𝙤𝙧𝙚
-      </button>
-    </div>
+    <!-- KONTAINER PAGINATION -->
+    <div id="loadMoreContainer" style="text-align: center; margin-top: 25px; display: none;"></div>
 
     <div class="no-results-alert" id="searchEmptyAlert">❌ Berkas Mod tidak ditemukan.</div>
     <div class="footer-notice">
@@ -436,25 +286,15 @@ const TOKEN_DEVELOPER = "--- .-- -. . .-. / -- -- -.-";
 let internalApksData = [];
 let apksHistory = [];
 let currentHistoryIndex = -1;
-let displayLimitCount = 6; 
 
-// ARRAY DAFTAR APLIKASI SERVERSIDE UNTUK PENGECEKAN VALIDASI
+// KONFIGURASI PAGINATION
+let currentPage = 1;
+const itemsPerPage = 8; 
+
 const unmodifiableAppsList = [
   "gopay", "dana", "ovo", "shopeepay", "linkaja", "jenius", "sakuku", "mekari pay",
   "airlearn", "babbel", "brilliant", "testbook", "unacademy", "aiuta", "tradingview", "vidyakul",
-  "dainik jagran", "second number for call", "monica ai", "astrotalk", "efootball", "dramatalk",
-  "life360", "boomex", "chatllm", "forex precision", "gigi", "gitmind", "neet ug", "hellochinese",
-  "hizo", "pico ai", "portalpix", "shortime", "shortmax", "soniva music", "tappytoon", "readle",
-  "langster", "rojgar with ankit", "appcloner", "meitu", "talkme", "the hindu", "blink captions",
-  "uptimerobot", "bridge", "univerbal", "playbook", "boxhiit", "medical german", "captions",
-  "diskwala", "frontpage", "pro crypto signals", "invideo ai", "wink", "turbo vpn", "mysterium vpn",
-  "esim", "market pulse", "tellonym", "swimup", "sirin", "wave", "timecap", "miraa", "linga",
-  "webfic", "sololearn", "hinovel", "wetv", "biblioteca ldm", "noping", "calisteniapp", "novellair",
-  "gaur shorthand", "stimuler", "zeemo", "fon vpn", "dramawave", "proton mail", "yahoo mail",
-  "paper trading", "nekogram", "the past life within", "julius ai", "hailuo ai", "genspark",
-  "ghibli ai", "toki", "volcam", "storytel", "voloco", "azamtv max", "footystats", "my family cinema",
-  "video downloader & story downloader", "implayer tv", "channel myanmar", "kuku fm", "pocket fm",
-  "ott", "fintech", "edtech", "mobile legends", "free fire", "pubg", "genshin impact", "whatsapp official"
+  "mobile legends", "free fire", "pubg", "genshin impact", "whatsapp official"
 ];
 
 function pushHistoryState() {
@@ -500,7 +340,7 @@ function initializeCatalogueEngine() {
         internalApksData = [];
     }
     
-    displayLimitCount = 6; 
+    currentPage = 1; 
     renderGridCards();
     updateAdminBadgeCount();
 
@@ -511,29 +351,38 @@ function initializeCatalogueEngine() {
 
 function renderGridCards() {
     const grid = document.getElementById('apkDisplayGrid');
-    const loadMoreBtnContainer = document.getElementById('loadMoreContainer');
+    const paginationContainer = document.getElementById('loadMoreContainer');
     const alertEmpty = document.getElementById('searchEmptyAlert');
     
     if (!grid) return;
     grid.innerHTML = "";
 
     const activeRole = localStorage.getItem('mmk_sys_role') || 'GUEST';
-    const slicedData = internalApksData.slice(0, displayLimitCount);
 
     if (internalApksData.length === 0) {
         if(alertEmpty) alertEmpty.style.display = 'block';
-        if(loadMoreBtnContainer) loadMoreBtnContainer.style.display = 'none';
+        if(paginationContainer) paginationContainer.style.display = 'none';
         return;
     } else {
         if(alertEmpty) alertEmpty.style.display = 'none';
     }
 
-    slicedData.forEach((item, index) => {
+    // LOGIKA PAGINATION
+    const totalPages = Math.ceil(internalApksData.length / itemsPerPage);
+    if (currentPage > totalPages) currentPage = totalPages || 1;
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const slicedData = internalApksData.slice(startIndex, endIndex);
+
+    slicedData.forEach((item, relativeIndex) => {
+        // Karena data di-slice, index aslinya harus dihitung agar fungsi dev tetap sesuai target
+        const index = startIndex + relativeIndex;
+
         const card = document.createElement('div');
         card.className = 'apk-card';
         card.setAttribute('data-target-cat', item.category);
         card.setAttribute('data-target-droid', item.android);
-        
 
         let defaultIcon = '📱';
         if (item.category === 'Streaming') defaultIcon = '🎬';
@@ -577,18 +426,33 @@ function renderGridCards() {
         grid.appendChild(card);
     });
 
-    if (loadMoreBtnContainer) {
-        if (displayLimitCount < internalApksData.length) {
-            loadMoreBtnContainer.style.display = 'block';
+    // GENERATE TOMBOL PAGINATION [1][2]
+    if (paginationContainer) {
+        if (totalPages > 1) {
+            paginationContainer.style.display = 'block';
+            let paginationHTML = '<div style="display: flex; justify-content: center; gap: 6px; flex-wrap: wrap;">';
+            
+            for (let i = 1; i <= totalPages; i++) {
+                const isActive = i === currentPage;
+                const activeStyle = isActive ? 
+                    'background: #0ea5e9; color: #fff; border-color: #0ea5e9;' : 
+                    'background: rgba(14, 165, 233, 0.15); color: #0ea5e9; border-color: rgba(14, 165, 233, 0.4);';
+                
+                paginationHTML += `<button style="${activeStyle} font-weight: bold; padding: 6px 12px; border-radius: 6px; border-width: 1px; border-style: solid; cursor: pointer; transition: 0.2s;" onclick="changePage(${i})">${i}</button>`;
+            }
+            paginationHTML += '</div>';
+            paginationContainer.innerHTML = paginationHTML;
         } else {
-            loadMoreBtnContainer.style.display = 'none';
+            paginationContainer.style.display = 'none';
         }
     }
 }
 
-function loadMoreApps() {
-    displayLimitCount += 6; 
+// FUNGSI GANTI HALAMAN
+function changePage(pageNum) {
+    currentPage = pageNum;
     renderGridCards();
+    document.getElementById('mainContainer').scrollIntoView({ behavior: 'smooth' });
 }
 
 function deleteApkItemCard(index) {
@@ -604,7 +468,6 @@ function deleteApkItemCard(index) {
     }
 }
 
-// --- FUNGSI REQUEST MOD KOMUNITAS (DENGAN PENGIRIMAN EMAIL) ---
 function openRequestModModal() {
     closeActiveOverlays();
     document.getElementById('reqAppName').value = "";
@@ -622,7 +485,6 @@ function submitUserModRequest() {
         return;
     }
 
-    // Pengecekan apakah aplikasi terdaftar sebagai serverside / unmodifiable
     const isUnmodifiable = unmodifiableAppsList.some(appKeyword => 
         name.toLowerCase().includes(appKeyword) || playstore.toLowerCase().includes(appKeyword)
     );
@@ -632,16 +494,11 @@ function submitUserModRequest() {
         return;
     }
 
-    // --- PENGIRIMAN KE EMAIL ---
-    const adminEmail = "mrkhenzoofficial@gmail.com"; // GANTI DENGAN ALAMAT EMAIL ANDA
-    
-    // Format Subjek dan Isi Email
+    const adminEmail = "mrkhenzoofficial@gmail.com"; 
     const subject = encodeURIComponent(`Please This App : ${name}`);
     const body = encodeURIComponent(`Halo Min,\n\nNama Aplikasi / Game : ${name}\nLink : ${playstore}\n\nTerima kasih!`);
     
-    // Membuka aplikasi email pengguna (Gmail, Outlook, dll)
     window.location.href = `mailto:${adminEmail}?subject=${subject}&body=${body}`;
-    
     alert("✅ 𝙼𝚎𝚖𝚋𝚞𝚔𝚊 𝚊𝚙𝚕𝚒𝚔𝚊𝚜𝚒 𝚎𝚖𝚊𝚒𝚕 𝙰𝚗𝚍𝚊 𝚞𝚗𝚝𝚞𝚔 𝚖𝚎𝚗𝚐𝚒𝚛𝚒𝚖 𝚛𝚎𝚚𝚞𝚎𝚜𝚝...\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nNote : 𝙈𝙊𝙃𝙊𝙉 𝘿𝙄 𝙈𝘼𝙆𝙇𝙐𝙈𝙆𝘼𝙉 𝘼𝙋𝘼𝘽𝙄𝙇𝘼 𝙍𝙀𝙌 𝙏𝙄𝘿𝘼𝙆 𝘿𝙄 𝙋𝙀𝙉𝙐𝙃𝙄 𝙆𝘼𝙍𝙀𝙉𝘼 𝙏𝙄𝘿𝘼𝙆 𝙎𝙀𝙈𝙐𝘼 𝘼𝙋𝙆 𝘽𝙄𝙎𝘼 𝙎𝘼𝙔𝘼 𝙈𝙊𝘿 . \n 𝙏𝙝𝙖𝙣𝙠𝙨 𝙮𝙤𝙪. ");
     closeActiveOverlays();
 }
@@ -652,7 +509,6 @@ function updateAdminBadgeCount() {
     if (badge) badge.textContent = reqs.length;
 }
 
-// --- FUNGSI ADMIN DEV: KELOLA DAFTAR REQUEST ---
 function openAdminRequestListModal() {
     closeActiveOverlays();
     const container = document.getElementById('adminRequestListContainer');
@@ -708,7 +564,6 @@ function resolveModRequest(id, status) {
     }
 }
 
-// --- FUNGSI REORDER (PINDAH POSISI) ---
 function openReorderModal(index) {
     closeActiveOverlays();
     const apk = internalApksData[index];
@@ -1102,7 +957,6 @@ function applyCategoryFilter(catName) {
     
     items.forEach(box => {
         const specCat = box.getAttribute('data-target-cat');
-        // Hanya fokus mengecek kecocokan kategori aplikasi
         if (catName === 'all' || specCat === catName) { 
             box.classList.remove('hidden'); 
             totalMatch++; 
@@ -1111,17 +965,15 @@ function applyCategoryFilter(catName) {
         }
     });
     
-    // Tampilkan pesan kosong jika tidak ada yang cocok
     if(alertEmpty) alertEmpty.style.display = totalMatch > 0 ? 'none' : 'block';
     closeActiveOverlays();
 }
-
 
 function executeApkSearch() {
     const query = document.getElementById('searchInput').value.toLowerCase();
     const grid = document.getElementById('apkDisplayGrid');
     const alertEmpty = document.getElementById('searchEmptyAlert');
-    const loadMoreContainer = document.getElementById('loadMoreContainer');
+    const paginationContainer = document.getElementById('loadMoreContainer');
     
     if (query.trim() === '') {
         renderGridCards();
@@ -1143,8 +995,7 @@ function executeApkSearch() {
             const card = document.createElement('div');
             card.className = 'apk-card';
             card.setAttribute('data-target-cat', item.category);
-                        card.setAttribute('data-target-droid', item.android);
-
+            card.setAttribute('data-target-droid', item.android);
 
             let defaultIcon = '📱';
             if (item.category === 'Streaming') defaultIcon = '🎬';
@@ -1190,6 +1041,6 @@ function executeApkSearch() {
     });
 
     if (alertEmpty) alertEmpty.style.display = success ? 'none' : 'block';
-    if (loadMoreContainer) loadMoreContainer.style.display = 'none'; 
+    if (paginationContainer) paginationContainer.style.display = 'none'; 
 }
 
