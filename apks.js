@@ -1,5 +1,25 @@
 const apks = [
     {
+        "name": "Music Downloader",
+        "version": "1.6",
+        "category": "Tools",
+        "size": "20,62M",
+        "android": "Android 5+",
+        "description": "Download musik MP3 resolusi tinggi langsung dari berbagai platform musik.",
+        "imageUrl": "https://clever-aquamarine-zdzgpsly.edgeone.app/MusicDownloader.png",
+        "downloadUrl": "https://adlinksumo.com/ggeRN2"
+    },
+    {
+        "name": "CloneApp",
+        "version": "4.2.0",
+        "category": "Tools",
+        "size": "69,07M",
+        "android": "Android 7+",
+        "description": "Kloning aplikasi tanpa batas, support vip feature bypass device-id.",
+        "imageUrl": "https://clever-aquamarine-zdzgpsly.edgeone.app/CloneApp.png",
+        "downloadUrl": "https://adlinksumo.com/Q7Fs3KwZ"
+    },
+    {
         "name": "MikuNime",
         "version": "0.2.9",
         "category": "Streaming",
@@ -240,16 +260,6 @@ const apks = [
         "downloadUrl": "https://safefileku.com/download/4KXtHJjeAGkqp9nW"
     },
     {
-        "name": "Music Downloader",
-        "version": "v4.5",
-        "category": "Tools",
-        "size": "11 MB",
-        "android": "Android 5.0+",
-        "description": "Download musik MP3 resolusi tinggi langsung dari berbagai platform musik.",
-        "imageUrl": "https://clever-aquamarine-zdzgpsly.edgeone.app/MusicDownloader.png",
-        "downloadUrl": "https://link.adsafelink.com/KXD6B"
-    },
-    {
         "name": "Cineflow",
         "version": "v1.0.2",
         "category": "Streaming",
@@ -472,16 +482,6 @@ const apks = [
         "imageUrl": "https://i.ibb.co.com/WWJMXTFs/Beach-Buggy.webp",
         "downloadUrl": "https://www.mediafire.com/file/qv6hjfup8z0nky0/(NO+PW)BB+Racing+2+Mod+Menu+v2026.05.21+Support+All+Fix+v3.zip/file",
         "description": "Game balapan kart arcade dengan power-up gila, trek beragam, dan mode multiplayer."
-    },
-    {
-        "name": "CloneApp",
-        "version": "v3.2.1",
-        "category": "Tools",
-        "size": "8 MB",
-        "android": "Android 6.0+",
-        "imageUrl": "https://clever-aquamarine-zdzgpsly.edgeone.app/CloneApp.png",
-        "downloadUrl": "https://link.adsafelink.com/8DyG5TiH",
-        "description": "Kloning aplikasi tanpa batas, support vip feature bypass device-id."
     },
     {
         "name": "Dark Aura",
