@@ -1,8 +1,18 @@
 const apks = [
     {
+        "name": "Meld",
+        "version": "0.8.8",
+        "category": "Music",
+        "size": "25,71M",
+        "android": "Android 5+",
+        "description": "Aplikasi musik open-source yang menggabungkan YouTube Music dan integrasi akun Spotify untuk rekomendasi yang dipersonalisasi, pencarian, homepage, lyrics, EQ, dan offline playback. tanpa iklan dan support unduhan.",
+        "imageUrl": "https://i.ibb.co.com/pBTs0Q6w/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/Q1wh"
+    },
+    {
         "name": "Music Downloader",
         "version": "1.6",
-        "category": "Tools",
+        "category": "Music",
         "size": "20,62M",
         "android": "Android 5+",
         "description": "Download musik MP3 resolusi tinggi langsung dari berbagai platform musik.",
