@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "FreeReals",
+        "version": "2.4.40",
+        "category": "Streaming",
+        "size": "94,01M",
+        "android": "",
+        "description": "Aplikasi streaming drama pendek dan mini-seri terlengkap sepenuhnya gratis. Nonton drama China, video pendek, klip drama mini dengan update harian, streaming HD tanpa iklan.",
+        "imageUrl": "https://i.ibb.co.com/Rp4hSXyg/Free-Reals.webp",
+        "downloadUrl": "https://adlinksumo.com/mmXl9H"
+    },
+    {
         "name": "Meld",
         "version": "0.8.8",
         "category": "Music",
@@ -198,16 +208,6 @@ const apks = [
         "description": "Editor video & foto gratis dengan 400+ efek & filter aesthetic populer. Akses filter tahun 90-an glows & glitters, sparkle star, efek Glitch, gaya IG, dan filter estetika keren untuk foto dan video. Gratis tanpa biaya tambahan, editor terbaik untuk kebutuhan editing semua",
         "imageUrl": "https://i.ibb.co.com/2YpGb10z/icon.webp",
         "downloadUrl": "https://link.adsafelink.com/RFLBzO5"
-    },
-    {
-        "name": "FreeReals",
-        "version": "2.3.70",
-        "category": "Streaming",
-        "size": "75,38M",
-        "android": "Android 5.0+",
-        "description": "Aplikasi streaming drama pendek dan mini-seri terlengkap sepenuhnya gratis. Nonton drama China, video pendek, klip drama mini dengan update harian, streaming HD tanpa iklan.",
-        "imageUrl": "https://i.ibb.co.com/Rp4hSXyg/Free-Reals.webp",
-        "downloadUrl": "https://link.adsafelink.com/5kkz"
     },
     {
         "name": "MetroList",
