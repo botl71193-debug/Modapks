@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "Shinigami",
+        "version": "1.0.5",
+        "category": "Aplikasi Mod",
+        "size": "10,48M",
+        "android": "Android 5+",
+        "description": "Aplikasi baca komik Bahasa Indonesia untuk manga, manhwa, manhua, dan komik lokal. Katalog komik update harian, bookmark, baca online gratis, dan tersedia juga versi web/PWA untuk dibuka lewat browser.",
+        "imageUrl": "https://i.ibb.co.com/qMSpp0bQ/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/FgshUiV"
+    },
+    {
         "name": "FreeReals",
         "version": "2.4.40",
         "category": "Streaming",
