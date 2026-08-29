@@ -620,11 +620,12 @@ async function shareApkCard(index) {
     if (!item) return;
 
     const shareUrl = `${getSiteBaseUrl()}/sharing.html?app=${encodeURIComponent(item.name)}`;
-    const shareText = `📱 ${item.name}${item.version ? ' v' + item.version : ''}\n${item.description || ''}`.trim();
+    const shareText = `*${item.name}*\n\`${item.version || '-'}\`\n${item.description || ''}\n\nLink :\n> ${shareUrl}`.trim();
 
     if (navigator.share) {
         try {
-            await navigator.share({ title: item.name, text: shareText, url: shareUrl });
+            // url tidak dikirim terpisah agar tidak duplikat dengan link yang sudah ada di dalam teks
+            await navigator.share({ title: item.name, text: shareText });
         } catch (err) {
             // Dibatalkan pengguna, abaikan
         }
@@ -632,10 +633,10 @@ async function shareApkCard(index) {
     }
 
     try {
-        await navigator.clipboard.writeText(shareUrl);
-        alert(`🔗 Link "${item.name}" disalin ke clipboard!\n\n${shareUrl}`);
+        await navigator.clipboard.writeText(shareText);
+        alert(`🔗 Info "${item.name}" disalin ke clipboard!`);
     } catch (err) {
-        prompt('Salin link berikut secara manual:', shareUrl);
+        prompt('Salin teks berikut secara manual:', shareText);
     }
 }
 
