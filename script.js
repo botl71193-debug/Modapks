@@ -53,6 +53,7 @@ const rahasiaHTML = `
       <li><div class="sidebar-item-btn" style="border-color: rgba(244,63,94,0.3); background: rgba(244,63,94,0.05);" onclick="document.getElementById('importApksFile').click()">📥 Impor apks.js Lokal</div></li>
       <li style="margin-top: 10px;"><div class="sidebar-item-btn" style="border-color: #a855f7; background: rgba(168,85,247,0.1);" onclick="exportCurrentApksFile('exportvip')">⚡ Ekspor vip.js only</div></li>
       <li><div class="sidebar-item-btn" style="border-color: #a855f7; background: rgba(168,85,247,0.1);" onclick="document.getElementById('importvipFile').click()">📥 Impor vip.js Lokal</div></li>
+      <li style="margin-top: 10px;"><div class="sidebar-item-btn" style="border-color: #00f3ff; background: rgba(0,243,255,0.08);" onclick="exportSharePages()">📤 Ekspor Halaman Share (ZIP)</div></li>
     </ul>
     <input type="file" id="importApksFile" accept=".js" style="display:none" onchange="processImportApks(this)">
     <input type="file" id="importvipFile" accept=".js" style="display:none" onchange="processImportvip(this)">
@@ -421,7 +422,10 @@ function renderGridCards() {
                 </div>
             </div>
             <div class="apk-desc-area">${item.description || 'Tidak ada deskripsi.'}</div>
-            <a href="${item.downloadUrl || '#'}" target="_blank" class="download-action-btn"> UNDUH </a>
+            <div class="card-action-row">
+                <a href="${item.downloadUrl || '#'}" target="_blank" class="download-action-btn"> UNDUH </a>
+                <button class="share-action-btn" title="Bagikan" onclick="shareApkCard(${index})">🔗</button>
+            </div>
         `;
         grid.appendChild(card);
     });
@@ -603,7 +607,136 @@ function executeReorder() {
 window.addEventListener('DOMContentLoaded', () => {
     initializeCatalogueEngine();
     syncSecurityAccessState();
+    applySharedAppFilterFromUrl();
 });
+
+// ==================== FITUR BAGIKAN APK (SHARE CARD) ====================
+
+function slugifyAppName(name) {
+    return (name || 'app').toString().toLowerCase().trim()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-+|-+$)/g, '') || 'app';
+}
+
+function escapeHtmlAttr(str) {
+    return (str || '').toString()
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
+
+function getSiteBaseUrl() {
+    return window.location.origin + window.location.pathname.replace(/index\.html$/, '').replace(/\/$/, '');
+}
+
+async function shareApkCard(index) {
+    const item = internalApksData[index];
+    if (!item) return;
+
+    const slug = slugifyAppName(item.name);
+    const shareUrl = `${getSiteBaseUrl()}/share/${slug}.html`;
+    const shareText = `📱 ${item.name}${item.version ? ' v' + item.version : ''}\n${item.description || ''}`.trim();
+
+    if (navigator.share) {
+        try {
+            await navigator.share({ title: item.name, text: shareText, url: shareUrl });
+        } catch (err) {
+            // Dibatalkan pengguna, abaikan
+        }
+        return;
+    }
+
+    try {
+        await navigator.clipboard.writeText(shareUrl);
+        alert(`🔗 Link "${item.name}" disalin ke clipboard!\n\n${shareUrl}`);
+    } catch (err) {
+        prompt('Salin link berikut secara manual:', shareUrl);
+    }
+}
+
+function applySharedAppFilterFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const sharedApp = params.get('share');
+    if (!sharedApp) return;
+
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) searchInput.value = sharedApp;
+    executeApkSearch();
+
+    setTimeout(() => {
+        const grid = document.getElementById('apkDisplayGrid');
+        if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 300);
+}
+
+function buildSharePageHtml(item) {
+    const slug = slugifyAppName(item.name);
+    const shareUrl = `${getSiteBaseUrl()}/share/${slug}.html`;
+    const redirectUrl = `../index.html?share=${encodeURIComponent(item.name)}`;
+    const title = escapeHtmlAttr(item.name || 'MMK MODS');
+    const desc = escapeHtmlAttr(item.description || 'Ekosistem & Database Aplikasi Android Modded Premium dari MMK Team.');
+    const image = escapeHtmlAttr(item.imageUrl || 'https://diverse-aqua-iq7wghij.edgeone.app/M.png');
+
+    return `<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${title} | MMK MODS</title>
+<meta name="description" content="${desc}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="${shareUrl}">
+<meta property="og:title" content="${title}">
+<meta property="og:description" content="${desc}">
+<meta property="og:image" content="${image}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${title}">
+<meta name="twitter:description" content="${desc}">
+<meta name="twitter:image" content="${image}">
+<meta http-equiv="refresh" content="0; url=${redirectUrl}">
+</head>
+<body style="background:#020205; color:#fff; font-family:sans-serif; text-align:center; padding-top:40px;">
+<p>Membuka ${title} di MMK MODS…</p>
+<p><a href="${redirectUrl}" style="color:#00f3ff;">Klik di sini jika tidak otomatis berpindah.</a></p>
+</body>
+</html>`;
+}
+
+function exportSharePages() {
+    if (!internalApksData.length) { alert('⚠️ Belum ada data APK untuk dibuatkan halaman share.'); return; }
+    closeActiveOverlays();
+
+    if (typeof JSZip === 'undefined') {
+        const loaderScript = document.createElement('script');
+        loaderScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+        loaderScript.onload = () => buildAndDownloadSharePagesZip();
+        loaderScript.onerror = () => alert('❌ Gagal memuat pustaka ZIP. Cek koneksi internet.');
+        document.head.appendChild(loaderScript);
+    } else {
+        buildAndDownloadSharePagesZip();
+    }
+}
+
+function buildAndDownloadSharePagesZip() {
+    const zip = new JSZip();
+    const folder = zip.folder('share');
+
+    internalApksData.forEach(item => {
+        const slug = slugifyAppName(item.name);
+        folder.file(`${slug}.html`, buildSharePageHtml(item));
+    });
+
+    zip.generateAsync({ type: 'blob' }).then(blob => {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'share-pages.zip';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        alert(`✅ ${internalApksData.length} halaman share berhasil dibuat!\n\nEkstrak ZIP ini, lalu upload folder "share" ke root repo GitHub kamu (sejajar dengan index.html). Ulangi proses ini tiap kali daftar APK berubah.`);
+    });
+}
 
 function handleSidebarDisplay() {
     const sb = document.getElementById('sidebarMenu');
@@ -1034,7 +1167,10 @@ function executeApkSearch() {
                     </div>
                 </div>
                 <div class="apk-desc-area">${item.description || 'Tidak ada deskripsi.'}</div>
-                <a href="${item.downloadUrl || '#'}" target="_blank" class="download-action-btn"> Download </a>
+                <div class="card-action-row">
+                    <a href="${item.downloadUrl || '#'}" target="_blank" class="download-action-btn"> Download </a>
+                    <button class="share-action-btn" title="Bagikan" onclick="shareApkCard(${index})">🔗</button>
+                </div>
             `;
             grid.appendChild(card);
         }
