@@ -53,7 +53,6 @@ const rahasiaHTML = `
       <li><div class="sidebar-item-btn" style="border-color: rgba(244,63,94,0.3); background: rgba(244,63,94,0.05);" onclick="document.getElementById('importApksFile').click()">📥 Impor apks.js Lokal</div></li>
       <li style="margin-top: 10px;"><div class="sidebar-item-btn" style="border-color: #a855f7; background: rgba(168,85,247,0.1);" onclick="exportCurrentApksFile('exportvip')">⚡ Ekspor vip.js only</div></li>
       <li><div class="sidebar-item-btn" style="border-color: #a855f7; background: rgba(168,85,247,0.1);" onclick="document.getElementById('importvipFile').click()">📥 Impor vip.js Lokal</div></li>
-      <li style="margin-top: 10px;"><div class="sidebar-item-btn" style="border-color: #00f3ff; background: rgba(0,243,255,0.08);" onclick="exportSharePages()">📤 Ekspor Halaman Share (ZIP)</div></li>
     </ul>
     <input type="file" id="importApksFile" accept=".js" style="display:none" onchange="processImportApks(this)">
     <input type="file" id="importvipFile" accept=".js" style="display:none" onchange="processImportvip(this)">
@@ -612,20 +611,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // ==================== FITUR BAGIKAN APK (SHARE CARD) ====================
 
-function slugifyAppName(name) {
-    return (name || 'app').toString().toLowerCase().trim()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-+|-+$)/g, '') || 'app';
-}
-
-function escapeHtmlAttr(str) {
-    return (str || '').toString()
-        .replace(/&/g, '&amp;')
-        .replace(/"/g, '&quot;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-}
-
 function getSiteBaseUrl() {
     return window.location.origin + window.location.pathname.replace(/index\.html$/, '').replace(/\/$/, '');
 }
@@ -634,8 +619,7 @@ async function shareApkCard(index) {
     const item = internalApksData[index];
     if (!item) return;
 
-    const slug = slugifyAppName(item.name);
-    const shareUrl = `${getSiteBaseUrl()}/share/${slug}.html`;
+    const shareUrl = `${getSiteBaseUrl()}/sharing.html?app=${encodeURIComponent(item.name)}`;
     const shareText = `📱 ${item.name}${item.version ? ' v' + item.version : ''}\n${item.description || ''}`.trim();
 
     if (navigator.share) {
@@ -668,113 +652,6 @@ function applySharedAppFilterFromUrl() {
         const grid = document.getElementById('apkDisplayGrid');
         if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 300);
-}
-
-function buildSharePageHtml(item) {
-    const slug = slugifyAppName(item.name);
-    const shareUrl = `${getSiteBaseUrl()}/share/${slug}.html`;
-    const siteUrl = `../index.html?share=${encodeURIComponent(item.name)}`;
-    const title = escapeHtmlAttr(item.name || 'MMK MODS');
-    const version = escapeHtmlAttr(item.version || '1.0');
-    const desc = escapeHtmlAttr(item.description || 'Ekosistem & Database Aplikasi Android Modded Premium dari MMK Team.');
-    const image = escapeHtmlAttr(item.imageUrl || 'https://diverse-aqua-iq7wghij.edgeone.app/M.png');
-    const size = escapeHtmlAttr(item.size || '0 MB');
-    const android = escapeHtmlAttr(item.android || '5.0+');
-    const category = escapeHtmlAttr(item.category || 'General');
-    const downloadUrl = escapeHtmlAttr(item.downloadUrl || '#');
-
-    return `<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${title} | MMK MODS</title>
-<meta name="description" content="${desc}">
-<meta property="og:type" content="website">
-<meta property="og:url" content="${shareUrl}">
-<meta property="og:title" content="${title}">
-<meta property="og:description" content="${desc}">
-<meta property="og:image" content="${image}">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="${title}">
-<meta name="twitter:description" content="${desc}">
-<meta name="twitter:image" content="${image}">
-<link rel="stylesheet" href="../style.css">
-<style>
-  body { padding-top: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
-  .share-page-card { max-width: 420px; width: 100%; }
-  .share-brand-row { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 18px; }
-  .share-brand-row img { width: 28px; height: 28px; border-radius: 6px; }
-  .share-brand-row span { font-weight: 900; letter-spacing: 1.5px; color: #fff; font-size: 0.95rem; }
-  .apk-icon-frame { width: 84px; height: 84px; font-size: 2.2rem; }
-  .apk-title { white-space: normal !important; font-size: 1.3rem; }
-  .share-back-link { display: block; text-align: center; margin-top: 14px; color: var(--accent); font-size: 0.82rem; text-decoration: none; }
-  .share-back-link:hover { text-decoration: underline; }
-</style>
-</head>
-<body>
-<div class="share-page-card">
-  <div class="share-brand-row">
-    <img src="https://diverse-aqua-iq7wghij.edgeone.app/M.png" alt="MMK MODS">
-    <span>MMK | MODS</span>
-  </div>
-  <div class="apk-card">
-    <div class="apk-top-flex">
-      <div class="apk-icon-frame">
-        <img src="${image}" alt="${title}" onerror="this.style.display='none'; this.parentElement.textContent='📱';">
-      </div>
-      <div class="apk-main-info">
-        <span class="apk-title">${title}</span>
-        <span class="apk-version">Versi ${version}</span>
-        <div class="apk-badge-row">
-          <span class="apk-badge">💾 ${size}</span>
-          <span class="apk-badge">🤖 ${android}</span>
-          <span class="apk-badge">📁 ${category}</span>
-        </div>
-      </div>
-    </div>
-    <div class="apk-desc-area">${desc}</div>
-    <a href="${downloadUrl}" target="_blank" class="download-action-btn">⬇️ DOWNLOAD</a>
-  </div>
-  <a href="${siteUrl}" class="share-back-link">🔎 Lihat Aplikasi Lain di MMK MODS</a>
-</div>
-</body>
-</html>`;
-}
-
-function exportSharePages() {
-    if (!internalApksData.length) { alert('⚠️ Belum ada data APK untuk dibuatkan halaman share.'); return; }
-    closeActiveOverlays();
-
-    if (typeof JSZip === 'undefined') {
-        const loaderScript = document.createElement('script');
-        loaderScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
-        loaderScript.onload = () => buildAndDownloadSharePagesZip();
-        loaderScript.onerror = () => alert('❌ Gagal memuat pustaka ZIP. Cek koneksi internet.');
-        document.head.appendChild(loaderScript);
-    } else {
-        buildAndDownloadSharePagesZip();
-    }
-}
-
-function buildAndDownloadSharePagesZip() {
-    const zip = new JSZip();
-    const folder = zip.folder('share');
-
-    internalApksData.forEach(item => {
-        const slug = slugifyAppName(item.name);
-        folder.file(`${slug}.html`, buildSharePageHtml(item));
-    });
-
-    zip.generateAsync({ type: 'blob' }).then(blob => {
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = 'share-pages.zip';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        alert(`✅ ${internalApksData.length} halaman share berhasil dibuat!\n\nEkstrak ZIP ini, lalu upload folder "share" ke root repo GitHub kamu (sejajar dengan index.html). Ulangi proses ini tiap kali daftar APK berubah.`);
-    });
 }
 
 function handleSidebarDisplay() {
