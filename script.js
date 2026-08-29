@@ -620,7 +620,7 @@ async function shareApkCard(index) {
     if (!item) return;
 
     const shareUrl = `${getSiteBaseUrl()}/sharing.html?app=${encodeURIComponent(item.name)}`;
-    const shareText = `*${item.name}*\n\`${item.version || '-'}\`\n${item.description || ''}\n\nLink :\n> ${shareUrl}`.trim();
+    const shareText = `*${item.name}*\n\`${item.version || '-'}\n\`\n${item.description || ''}\n\nLink :\n> ${shareUrl}`.trim();
 
     if (navigator.share) {
         try {
