@@ -673,10 +673,15 @@ function applySharedAppFilterFromUrl() {
 function buildSharePageHtml(item) {
     const slug = slugifyAppName(item.name);
     const shareUrl = `${getSiteBaseUrl()}/share/${slug}.html`;
-    const redirectUrl = `../index.html?share=${encodeURIComponent(item.name)}`;
+    const siteUrl = `../index.html?share=${encodeURIComponent(item.name)}`;
     const title = escapeHtmlAttr(item.name || 'MMK MODS');
+    const version = escapeHtmlAttr(item.version || '1.0');
     const desc = escapeHtmlAttr(item.description || 'Ekosistem & Database Aplikasi Android Modded Premium dari MMK Team.');
     const image = escapeHtmlAttr(item.imageUrl || 'https://diverse-aqua-iq7wghij.edgeone.app/M.png');
+    const size = escapeHtmlAttr(item.size || '0 MB');
+    const android = escapeHtmlAttr(item.android || '5.0+');
+    const category = escapeHtmlAttr(item.category || 'General');
+    const downloadUrl = escapeHtmlAttr(item.downloadUrl || '#');
 
     return `<!DOCTYPE html>
 <html lang="id">
@@ -694,11 +699,45 @@ function buildSharePageHtml(item) {
 <meta name="twitter:title" content="${title}">
 <meta name="twitter:description" content="${desc}">
 <meta name="twitter:image" content="${image}">
-<meta http-equiv="refresh" content="0; url=${redirectUrl}">
+<link rel="stylesheet" href="../style.css">
+<style>
+  body { padding-top: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+  .share-page-card { max-width: 420px; width: 100%; }
+  .share-brand-row { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 18px; }
+  .share-brand-row img { width: 28px; height: 28px; border-radius: 6px; }
+  .share-brand-row span { font-weight: 900; letter-spacing: 1.5px; color: #fff; font-size: 0.95rem; }
+  .apk-icon-frame { width: 84px; height: 84px; font-size: 2.2rem; }
+  .apk-title { white-space: normal !important; font-size: 1.3rem; }
+  .share-back-link { display: block; text-align: center; margin-top: 14px; color: var(--accent); font-size: 0.82rem; text-decoration: none; }
+  .share-back-link:hover { text-decoration: underline; }
+</style>
 </head>
-<body style="background:#020205; color:#fff; font-family:sans-serif; text-align:center; padding-top:40px;">
-<p>Membuka ${title} di MMK MODS…</p>
-<p><a href="${redirectUrl}" style="color:#00f3ff;">Klik di sini jika tidak otomatis berpindah.</a></p>
+<body>
+<div class="share-page-card">
+  <div class="share-brand-row">
+    <img src="https://diverse-aqua-iq7wghij.edgeone.app/M.png" alt="MMK MODS">
+    <span>MMK | MODS</span>
+  </div>
+  <div class="apk-card">
+    <div class="apk-top-flex">
+      <div class="apk-icon-frame">
+        <img src="${image}" alt="${title}" onerror="this.style.display='none'; this.parentElement.textContent='📱';">
+      </div>
+      <div class="apk-main-info">
+        <span class="apk-title">${title}</span>
+        <span class="apk-version">Versi ${version}</span>
+        <div class="apk-badge-row">
+          <span class="apk-badge">💾 ${size}</span>
+          <span class="apk-badge">🤖 ${android}</span>
+          <span class="apk-badge">📁 ${category}</span>
+        </div>
+      </div>
+    </div>
+    <div class="apk-desc-area">${desc}</div>
+    <a href="${downloadUrl}" target="_blank" class="download-action-btn">⬇️ DOWNLOAD</a>
+  </div>
+  <a href="${siteUrl}" class="share-back-link">🔎 Lihat Aplikasi Lain di MMK MODS</a>
+</div>
 </body>
 </html>`;
 }
