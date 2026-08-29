@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "GB WhatsApp",
+        "version": "2.26.28.78",
+        "category": "Aplikasi Mod",
+        "size": "123,45M",
+        "android": "Android 5+",
+        "description": "Aplikasi WhatsApp mod dengan fitur privasi tambahan, anti-ban, tema kustom, dual account, dan opsi login yang diperbaiki. Versi terbaru 2026 mendukung Android 5.1+",
+        "imageUrl": "https://i.ibb.co.com/DXqL3XN/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/wSUcTG"
+    },
+    {
         "name": "Shinigami",
         "version": "1.0.5",
         "category": "Aplikasi Mod",
