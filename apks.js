@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "Joytify",
+        "version": "1.6.4",
+        "category": "Music",
+        "size": "18,43M",
+        "android": "Android 5+",
+        "description": "Aplikasi streaming musik modern tanpa batas dengan fitur premium unlocked. Strim lagu, explore playlist curated dari seluruh dunia, tanpa iklan, tanpa biaya tambahan, download musik offline, kualitas audio tinggi, dan pengalaman streaming musik optimal.",
+        "imageUrl": "https://i.ibb.co.com/fY4xyXPy/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/FbPASlkh"
+    },
+    {
         "name": "Dongha",
         "version": "1.3.0",
         "category": "Streaming",
@@ -98,16 +108,6 @@ const apks = [
         "description": "Skin injection tool for ML games\n• premium unlock\n• No ads\n• unlock all skin",
         "imageUrl": "https://clever-aquamarine-zdzgpsly.edgeone.app/Xeno.png",
         "downloadUrl": "https://link.adsafelink.com/uTUTIjne"
-    },
-    {
-        "name": "Joytify",
-        "version": "1.6.4",
-        "category": "Music",
-        "size": "18,43M",
-        "android": "Android 5+",
-        "description": "Aplikasi streaming musik modern tanpa batas dengan fitur premium unlocked. Strim lagu, explore playlist curated dari seluruh dunia, tanpa iklan, tanpa biaya tambahan, download musik offline, kualitas audio tinggi, dan pengalaman streaming musik optimal.",
-        "imageUrl": "https://i.ibb.co.com/fY4xyXPy/icon.webp",
-        "downloadUrl": "https://link.adsafelink.com/YPoZ"
     },
     {
         "name": "ManhwaID",
