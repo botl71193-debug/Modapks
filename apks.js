@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "Dongha",
+        "version": "1.3.0",
+        "category": "Streaming",
+        "size": "48,66M",
+        "android": "Android 8+",
+        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
+        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
+        "downloadUrl": "https://adlinksumo.com/20qy"
+    },
+    {
         "name": "GB WhatsApp",
         "version": "2.26.28.78",
         "category": "Aplikasi Mod",
@@ -108,16 +118,6 @@ const apks = [
         "description": "Aplikasi baca komik dan manga terlengkap dalam Bahasa Indonesia dengan ribuan judul manga, manhwa, dan manhua favorit. Update chapter terbaru setiap hari, offline mode, koleksi lengkap, brush reading experience terbaik untuk penggemar komik Indonesia",
         "imageUrl": "https://i.ibb.co.com/dwwDqQJR/icon.webp",
         "downloadUrl": "https://adlinksumo.com/2PIB3b5Z"
-    },
-    {
-        "name": "Dongha",
-        "version": "v1.1.0",
-        "category": "Streaming",
-        "size": "43,30M",
-        "android": "Android 8+",
-        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
-        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
-        "downloadUrl": "https://adlinksumo.com/69X9cto7"
     },
     {
         "name": "Proton VPN",
