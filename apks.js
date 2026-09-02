@@ -1,5 +1,25 @@
 const apks = [
     {
+        "name": "Donghua App",
+        "version": "2.4.3",
+        "category": "Aplikasi Mod",
+        "size": "42,12M",
+        "android": "Android 5+",
+        "description": "Aplikasi mudah untuk menemukan semua Donghua favorit (anime Tiongkok) dengan 100% gratis. 3D Chinese anime, pencarian sekali klik dengan subtitle bahasa Inggris dan kualitas Full HD, interface mudah, update harian setiap hari, jadwal streaming Senin-Sabtu, streaming cepat, app ringan, tanpa biaya, exclusive app untuk anime 3D China",
+        "imageUrl": "https://i.ibb.co.com/Nd6ZtvQC/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/hiHzU"
+    },
+    {
+        "name": "Xeno",
+        "version": "1.1",
+        "category": "Tools",
+        "size": "13,55M",
+        "android": "Android 5+",
+        "description": "Skin injection tool for ML games\n• premium unlock\n• No ads\n• unlock all skin",
+        "imageUrl": "https://clever-aquamarine-zdzgpsly.edgeone.app/Xeno.png",
+        "downloadUrl": "https://link.adsafelink.com/uTUTIjne"
+    },
+    {
         "name": "Joytify",
         "version": "1.6.4",
         "category": "Music",
@@ -100,16 +120,6 @@ const apks = [
         "downloadUrl": "https://adlinksumo.com/oOWSwcqX"
     },
     {
-        "name": "Xeno",
-        "version": "1.1",
-        "category": "Tools",
-        "size": "13,55M",
-        "android": "Android 5+",
-        "description": "Skin injection tool for ML games\n• premium unlock\n• No ads\n• unlock all skin",
-        "imageUrl": "https://clever-aquamarine-zdzgpsly.edgeone.app/Xeno.png",
-        "downloadUrl": "https://link.adsafelink.com/uTUTIjne"
-    },
-    {
         "name": "ManhwaID",
         "version": "1.8.1",
         "category": "Aplikasi Mod",
@@ -158,16 +168,6 @@ const apks = [
         "description": "Penjernih foto AI pro unlocked, kuota edit tanpa batas, kualitas ultra HD.",
         "imageUrl": "https://clever-aquamarine-zdzgpsly.edgeone.app/remini.png",
         "downloadUrl": "https://link.adsafelink.com/k3h1UuD"
-    },
-    {
-        "name": "Donghua App",
-        "version": "1.0.2",
-        "category": "Aplikasi Mod",
-        "size": "32,71M",
-        "android": "Android 5+",
-        "description": "Aplikasi mudah untuk menemukan semua Donghua favorit (anime Tiongkok) dengan 100% gratis. 3D Chinese anime, pencarian sekali klik dengan subtitle bahasa Inggris dan kualitas Full HD, interface mudah, update harian setiap hari, jadwal streaming Senin-Sabtu, streaming cepat, app ringan, tanpa biaya, exclusive app untuk anime 3D China",
-        "imageUrl": "https://i.ibb.co.com/Nd6ZtvQC/icon.webp",
-        "downloadUrl": "https://link.adsafelink.com/DQGA50"
     },
     {
         "name": "KineMaster",
@@ -552,15 +552,5 @@ const apks = [
         "imageUrl": "https://worrying-apricot-utxtj0qs.edgeone.app/wps.png",
         "downloadUrl": "https://link.adsafelink.com/aBAHAU4J",
         "description": "Buka dan edit semua dokumen PDF ke Word, edit ppt premium unlocked gratis."
-    },
-    {
-        "name": "Youshort",
-        "version": "v1.0.1",
-        "category": "Streaming",
-        "size": "16 MB",
-        "android": "Android 5.0+",
-        "imageUrl": "https://clever-aquamarine-zdzgpsly.edgeone.app/youshort.png",
-        "downloadUrl": "https://link.adsafelink.com/1ZOUs",
-        "description": "Nonton berbagai video pendek premium dan drama singkat menarik unlocked tanpa batas."
     }
 ];
