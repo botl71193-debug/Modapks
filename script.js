@@ -29,6 +29,14 @@ const rahasiaHTML = `
     <div class="cyber-auth-container" style="margin-bottom: 22px;">
       <button id="authTriggerBtn" class="cyber-auth-btn" onclick="handleAuthModalDisplay()">⚙️ Sign In</button>
     </div>
+    <div id="devRoleSwitcher" class="ever-dev-block" style="display:none; margin-bottom: 22px; padding: 10px; border: 1px dashed rgba(244,63,94,0.3); border-radius: 10px; background: rgba(244,63,94,0.05);">
+      <div style="font-size:0.7rem; color:var(--text-muted); margin-bottom:8px; text-align:center;">Ganti Role Cepat (Perangkat Terverifikasi)</div>
+      <div style="display:flex; gap:6px;">
+        <button class="action-trigger-btn" style="flex:1; font-size:0.7rem; padding:6px 4px;" onclick="switchRoleDirect('GUEST')">Guest</button>
+        <button class="action-trigger-btn" style="flex:1; font-size:0.7rem; padding:6px 4px; border-color:#a855f7; background:rgba(168,85,247,0.1);" onclick="switchRoleDirect('EXECUTIVE')">Executive</button>
+        <button class="action-trigger-btn" style="flex:1; font-size:0.7rem; padding:6px 4px; border-color:var(--dev-color); background:rgba(244,63,94,0.1);" onclick="switchRoleDirect('DEVELOPER')">Developer</button>
+      </div>
+    </div>
     <div class="sidebar-label">𝙆𝙖𝙩𝙚𝙜𝙤𝙧𝙞 𝘼𝙥𝙡𝙞𝙠𝙖𝙨𝙞</div>
     <ul class="sidebar-menu-list">
       <li><div class="sidebar-item-btn" onclick="applyCategoryFilter('all')">𝐀𝐥𝐥 𝐀𝐩𝐩𝐬</div></li>
@@ -53,6 +61,7 @@ const rahasiaHTML = `
       <li><div class="sidebar-item-btn" style="border-color: rgba(244,63,94,0.3); background: rgba(244,63,94,0.05);" onclick="document.getElementById('importApksFile').click()">📥 Impor apks.js Lokal</div></li>
       <li style="margin-top: 10px;"><div class="sidebar-item-btn" style="border-color: #a855f7; background: rgba(168,85,247,0.1);" onclick="exportCurrentApksFile('exportvip')">⚡ Ekspor vip.js only</div></li>
       <li><div class="sidebar-item-btn" style="border-color: #a855f7; background: rgba(168,85,247,0.1);" onclick="document.getElementById('importvipFile').click()">📥 Impor vip.js Lokal</div></li>
+      <li style="margin-top: 10px;"><div class="sidebar-item-btn" style="border-color: #f59e0b; background: rgba(245,158,11,0.1);" onclick="openClearCloneModal()">🧹 Clear Clone</div></li>
     </ul>
     <input type="file" id="importApksFile" accept=".js" style="display:none" onchange="processImportApks(this)">
     <input type="file" id="importvipFile" accept=".js" style="display:none" onchange="processImportvip(this)">
@@ -227,6 +236,18 @@ const rahasiaHTML = `
     <button class="download-action-btn" style="background:linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);" onclick="copyExportedTextToClipboard()">📋 KLIK SALIN SEMUA KODE</button>
   </div>
 
+  <div class="modal-box dev-panel-modal" id="clearCloneModal" style="max-height: 85vh; overflow-y: auto;">
+    <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
+    <h3 style="margin-bottom: 10px; color:#fff; font-size: 1.15rem; border-bottom: 1px solid rgba(245, 158, 11, 0.25); padding-bottom: 10px;">🧹 CLEAR CLONE APK</h3>
+    <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom: 12px;">Terdapat apk yang sama namun versi berbeda.</p>
+    <div id="clearCloneListContainer" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px;"></div>
+    <p style="color:var(--text-muted); font-size:0.78rem; margin-bottom: 15px;">Tap Lanjutkan jika ingin menghapusnya.</p>
+    <div class="form-btn-row">
+      <button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">BATAL</button>
+      <button class="download-action-btn" style="background:linear-gradient(135deg, #f59e0b 0%, #b45309 100%);" onclick="executeClearClone()">LANJUTKAN 🧹</button>
+    </div>
+  </div>
+
   <div class="modal-box exec-panel-modal" id="execAppDetailsModal">
     <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
     <div class="apk-top-flex" style="border-bottom: 1px solid rgba(168, 85, 247, 0.2); padding-bottom: 15px; margin-bottom: 10px;">
@@ -286,6 +307,7 @@ const TOKEN_DEVELOPER = "--- .-- -. . .-. / -- -- -.-";
 let internalApksData = [];
 let apksHistory = [];
 let currentHistoryIndex = -1;
+let pendingCloneRemovals = [];
 
 // KONFIGURASI PAGINATION
 let currentPage = 1;
@@ -680,7 +702,13 @@ function syncSecurityAccessState() {
     const hiddenExecElements = document.querySelectorAll('.hidden-exec-item');
     const devOnlyBlocks = document.querySelectorAll('.dev-only-block');
     const controlBoxes = document.querySelectorAll('.card-control-box');
-    const devUndoRedo = document.getElementById('devUndoRedoControls'); 
+    const devUndoRedo = document.getElementById('devUndoRedoControls');
+    const roleSwitcher = document.getElementById('devRoleSwitcher');
+
+    if (roleSwitcher) {
+        const everDev = localStorage.getItem('mmk_ever_dev') === 'true';
+        roleSwitcher.style.display = everDev ? 'block' : 'none';
+    }
 
     if (activeRole === 'DEVELOPER') {
         if(badge) { badge.textContent = "Developer Mode"; badge.className = "sidebar-sign-text dev-badge"; }
@@ -727,6 +755,7 @@ function processAuthVerification() {
     const tokenValue = document.getElementById('devKeyInput').value.trim();
     if (tokenValue === TOKEN_DEVELOPER) {
         localStorage.setItem('mmk_sys_role', 'DEVELOPER');
+        localStorage.setItem('mmk_ever_dev', 'true');
         alert("🔐 Akses Developer Terbuka!");
         location.reload();
     } else if (tokenValue === TOKEN_EXECUTIVE) {
@@ -736,6 +765,14 @@ function processAuthVerification() {
     } else {
         alert("❌ Token salah!");
     }
+}
+
+function switchRoleDirect(role) {
+    if (localStorage.getItem('mmk_ever_dev') !== 'true') return;
+    const validRoles = ['GUEST', 'EXECUTIVE', 'DEVELOPER'];
+    if (!validRoles.includes(role)) return;
+    localStorage.setItem('mmk_sys_role', role);
+    location.reload();
 }
 
 function processAuthLogout() {
@@ -832,6 +869,66 @@ function compareApkVersions(v1, v2) {
         if (num1 < num2) return -1;
     }
     return 0;
+}
+
+function findApkClonesToRemove() {
+    const groups = {};
+    internalApksData.forEach(item => {
+        const key = (item.name || '').trim().toLowerCase();
+        if (!key) return;
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(item);
+    });
+
+    const toRemove = [];
+    Object.values(groups).forEach(group => {
+        if (group.length < 2) return;
+        let highest = group[0];
+        group.forEach(item => {
+            if (compareApkVersions(item.version, highest.version) > 0) highest = item;
+        });
+        group.forEach(item => {
+            if (item !== highest && compareApkVersions(item.version, highest.version) < 0) {
+                toRemove.push(item);
+            }
+        });
+    });
+    return toRemove;
+}
+
+function openClearCloneModal() {
+    closeActiveOverlays();
+    pendingCloneRemovals = findApkClonesToRemove();
+    const container = document.getElementById('clearCloneListContainer');
+    if (!container) return;
+    container.innerHTML = "";
+
+    if (pendingCloneRemovals.length === 0) {
+        container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding: 10px;">✅ Tidak ada apk duplikat dengan versi berbeda.</p>`;
+    } else {
+        pendingCloneRemovals.forEach(item => {
+            const row = document.createElement('div');
+            row.style.cssText = "background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.3); border-radius: 8px; padding: 10px 12px; font-size:0.85rem; color:#fff;";
+            row.innerHTML = `> <strong>${item.name}</strong> versi <span style="color:#f59e0b;">${item.version || '-'}</span> yang lebih rendah`;
+            container.appendChild(row);
+        });
+    }
+
+    document.getElementById('globalOverlay').classList.add('active');
+    document.getElementById('clearCloneModal').classList.add('active');
+}
+
+function executeClearClone() {
+    if (pendingCloneRemovals.length === 0) { closeActiveOverlays(); return; }
+
+    internalApksData = internalApksData.filter(item => !pendingCloneRemovals.includes(item));
+    localStorage.setItem('mmk_local_apks', JSON.stringify(internalApksData));
+    pushHistoryState();
+    const removedCount = pendingCloneRemovals.length;
+    pendingCloneRemovals = [];
+    closeActiveOverlays();
+    renderGridCards();
+    alert(`✅ Berhasil menghapus ${removedCount} apk clone versi lebih rendah.`);
 }
 
 function saveApkFormSubmission() {
@@ -1096,4 +1193,5 @@ function executeApkSearch() {
     if (alertEmpty) alertEmpty.style.display = success ? 'none' : 'block';
     if (paginationContainer) paginationContainer.style.display = 'none'; 
 }
+
 
