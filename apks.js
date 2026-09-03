@@ -4,10 +4,10 @@ const apks = [
         "version": "1.4.7",
         "category": "Music",
         "size": "75,23M",
-        "android": "Android 6.0+",
+        "android": "",
         "description": "Aplikasi alternatif pemutar musik Spotify dengan fitur Premium terbuka.",
         "imageUrl": "https://i.ibb.co.com/6R4bXjvW/icon.webp",
-        "downloadUrl": "https://safefileku.com/download/H0Zyk9f2yfWXF1vK"
+        "downloadUrl": "https://adlinksumo.com/v3op7b"
     },
     {
         "name": "BonusTv",
