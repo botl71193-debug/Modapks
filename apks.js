@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "Lane",
+        "version": "1.4.7",
+        "category": "Music",
+        "size": "75,23M",
+        "android": "Android 6.0+",
+        "description": "Aplikasi alternatif pemutar musik Spotify dengan fitur Premium terbuka.",
+        "imageUrl": "https://i.ibb.co.com/6R4bXjvW/icon.webp",
+        "downloadUrl": "https://safefileku.com/download/H0Zyk9f2yfWXF1vK"
+    },
+    {
         "name": "BonusTv",
         "version": "3.6.3",
         "category": "Aplikasi Mod",
@@ -158,16 +168,6 @@ const apks = [
         "description": "Premium tanpa berlangganan",
         "imageUrl": "https://i.ibb.co.com/CKwsRpNT/icon.webp",
         "downloadUrl": "https://link.adsafelink.com/b3ws33g"
-    },
-    {
-        "name": "Lane",
-        "version": "1.4.7",
-        "category": "Music",
-        "size": "75,23M",
-        "android": "Android 6.0+",
-        "description": "Aplikasi alternatif pemutar musik Spotify dengan fitur Premium terbuka.",
-        "imageUrl": "https://i.ibb.co.com/6R4bXjvW/icon.webp",
-        "downloadUrl": "https://safefileku.com/download/H0Zyk9f2yfWXF1vK"
     },
     {
         "name": "Youshort",
