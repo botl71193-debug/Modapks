@@ -1,8 +1,28 @@
 const apks = [
     {
+        "name": "BonusTv",
+        "version": "3.6.3",
+        "category": "Aplikasi Mod",
+        "size": "178,37M",
+        "android": "Android 5+",
+        "description": "Aplikasi streaming drama pendek gratis dengan genre romance, suspense, fantasy, time-travel, dan mystery. Bisa nonton episode singkat",
+        "imageUrl": "https://i.ibb.co.com/zVFcSpHc/feather-rush-stripe.webp",
+        "downloadUrl": "https://adlinksumo.com/QLe6UP"
+    },
+    {
+        "name": "Passion Drama",
+        "version": "1.3.3",
+        "category": "Streaming",
+        "size": "150,90M",
+        "android": "",
+        "description": "Aplikasi streaming drama dengan serial eksklusif setiap hari,涵盖 berbagai genre suspense, komedi, urban, dan sejarah. Tonton drama favorit kualitas 1080P HD dengan fitur download cepat.",
+        "imageUrl": "https://i.ibb.co.com/vvQptRxp/Passion-Drama.webp",
+        "downloadUrl": "https://adlinksumo.com/BiX2hOZ"
+    },
+    {
         "name": "Donghua App",
         "version": "2.4.3",
-        "category": "Aplikasi Mod",
+        "category": "Streaming",
         "size": "42,12M",
         "android": "Android 5+",
         "description": "Aplikasi mudah untuk menemukan semua Donghua favorit (anime Tiongkok) dengan 100% gratis. 3D Chinese anime, pencarian sekali klik dengan subtitle bahasa Inggris dan kualitas Full HD, interface mudah, update harian setiap hari, jadwal streaming Senin-Sabtu, streaming cepat, app ringan, tanpa biaya, exclusive app untuk anime 3D China",
@@ -210,16 +230,6 @@ const apks = [
         "downloadUrl": "https://link.adsafelink.com/G3gps"
     },
     {
-        "name": "Temp Mail",
-        "version": "3.2.0",
-        "category": "Aplikasi Mod",
-        "size": "48,36M",
-        "android": "Android 5+",
-        "description": "Generator email temporary dan anonim untuk melindungi privasi dari spam, bot, dan phishing. Dapatkan alamat email disposable gratis dalam satu klik, tanpa registrasi, gunakan untuk pendaftaran website, download e-book, akses konten eksklusif tanpa expose email pribadi. Email & inbox expire setelah 3 jam",
-        "imageUrl": "https://i.ibb.co.com/p6bN9PgG/icon.webp",
-        "downloadUrl": "https://link.adsafelink.com/zx1LYoeu"
-    },
-    {
         "name": "Efiko",
         "version": "1.6.2",
         "category": "Editor",
@@ -340,16 +350,6 @@ const apks = [
         "downloadUrl": "https://safefileku.com/download/BPy9Hr93gK8Gy1AC"
     },
     {
-        "name": "Passion Drama",
-        "version": "v1.3.0",
-        "category": "Streaming",
-        "size": "66,75M",
-        "android": "Android 7.0+",
-        "description": "Aplikasi streaming drama dengan serial eksklusif setiap hari,涵盖 berbagai genre suspense, komedi, urban, dan sejarah. Tonton drama favorit kualitas 1080P HD dengan fitur download cepat.",
-        "imageUrl": "https://i.ibb.co.com/vvQptRxp/Passion-Drama.webp",
-        "downloadUrl": "https://safefileku.com/download/42i60MbWGydfj4Js"
-    },
-    {
         "name": "OtakuPlay",
         "version": "v1.3.20",
         "category": "Streaming",
@@ -398,16 +398,6 @@ const apks = [
         "imageUrl": "https://i.ibb.co.com/6RqqxRLb/Tera.webp",
         "downloadUrl": "https://safefileku.com/download/FBoDTizBGmgo5IiD",
         "description": "Penyimpanan cloud gratis hingga 1TB (1024GB) dengan fitur backup otomatis foto & video, upload file besar hingga 20GB, akses cross-device, keamanan dokumen dengan face recognition."
-    },
-    {
-        "name": "FreeReals",
-        "version": "v2.3.40",
-        "category": "Streaming",
-        "size": "75 MB",
-        "android": "Android 5.0+",
-        "imageUrl": "https://i.ibb.co.com/Rp4hSXyg/Free-Reals.webp",
-        "downloadUrl": "https://safefileku.com/download/bDTzRW18BPWadcbM",
-        "description": "Aplikasi streaming drama pendek dan mini-seri terlengkap sepenuhnya gratis. Nonton drama China, video pendek, klip drama mini dengan update harian, streaming HD tanpa iklan."
     },
     {
         "name": "PVZ Funsion",
@@ -492,16 +482,6 @@ const apks = [
         "description": "Game simulasi mengendarai bus dengan peta dan rute realistis, kustomisasi kendaraan, dan mode karier.",
         "imageUrl": "https://i.ibb.co.com/CsKKbjQS/Bussid.webp",
         "downloadUrl": "https://www.mediafire.com/file/xiyqop8ijfgng9y/Bus+Simulator+Indonesia+v4.5.1+MOD+Premium.zip/file"
-    },
-    {
-        "name": "Frag Pro Shooter",
-        "version": "V 5.1.0",
-        "category": "Games Mod",
-        "size": "200 MB",
-        "android": "Android 5.0+",
-        "imageUrl": "https://i.ibb.co.com/MkJ1SxSZ/Frag-Pro.webp",
-        "downloadUrl": "https://www.mediafire.com/file/fcikalep5413ca3/Frag_Pro_Shooter_v5.1.0_Menu.apk/file",
-        "description": "Shooter multiplayer cepat dengan karakter unik, kemampuan khusus, dan pertarungan tim 4v4."
     },
     {
         "name": "Beach Buggy Racing 2",
