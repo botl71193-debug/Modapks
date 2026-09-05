@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "PicsKit",
+        "version": "2.7",
+        "category": "Aplikasi Mod",
+        "size": "87,98M",
+        "android": "Android 5+",
+        "description": "Editor foto berbasis layer dengan efek AI eraser, filter, glitch, neon, cutout, retouch, kolase, dan template desain kreatif untuk membuat editan bergaya profesional di Android.",
+        "imageUrl": "https://i.ibb.co.com/gFBj70pD/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/EPgJK"
+    },
+    {
         "name": "Dongha",
         "version": "1.3.0",
         "category": "Streaming",
