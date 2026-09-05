@@ -22,7 +22,7 @@ const apks = [
     {
         "name": "BonusTv",
         "version": "3.6.3",
-        "category": "Aplikasi Mod",
+        "category": "Streaming",
         "size": "178,37M",
         "android": "Android 5+",
         "description": "Aplikasi streaming drama pendek gratis dengan genre romance, suspense, fantasy, time-travel, dan mystery. Bisa nonton episode singkat",
