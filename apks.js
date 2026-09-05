@@ -2,7 +2,7 @@ const apks = [
     {
         "name": "PicsKit",
         "version": "2.7",
-        "category": "Aplikasi Mod",
+        "category": "Editor",
         "size": "87,98M",
         "android": "Android 5+",
         "description": "Editor foto berbasis layer dengan efek AI eraser, filter, glitch, neon, cutout, retouch, kolase, dan template desain kreatif untuk membuat editan bergaya profesional di Android.",
