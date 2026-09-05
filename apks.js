@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "Dongha",
+        "version": "1.3.0",
+        "category": "Streaming",
+        "size": "48,66M",
+        "android": "Android 8+",
+        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
+        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
+        "downloadUrl": "https://adlinksumo.com/206A8f"
+    },
+    {
         "name": "Lane",
         "version": "1.4.7",
         "category": "Music",
@@ -58,16 +68,6 @@ const apks = [
         "description": "Aplikasi streaming musik modern tanpa batas dengan fitur premium unlocked. Strim lagu, explore playlist curated dari seluruh dunia, tanpa iklan, tanpa biaya tambahan, download musik offline, kualitas audio tinggi, dan pengalaman streaming musik optimal.",
         "imageUrl": "https://i.ibb.co.com/fY4xyXPy/icon.webp",
         "downloadUrl": "https://adlinksumo.com/FbPASlkh"
-    },
-    {
-        "name": "Dongha",
-        "version": "1.3.0",
-        "category": "Streaming",
-        "size": "48,66M",
-        "android": "Android 8+",
-        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
-        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
-        "downloadUrl": "https://adlinksumo.com/20qy"
     },
     {
         "name": "GB WhatsApp",
