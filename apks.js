@@ -7,7 +7,7 @@ const apks = [
         "android": "Android 5+",
         "description": "Aplikasi streaming musik modern tanpa batas dengan fitur premium unlocked. Strim lagu, explore playlist curated dari seluruh dunia, tanpa iklan, tanpa biaya tambahan, download musik offline, kualitas audio tinggi, dan pengalaman streaming musik optimal.",
         "imageUrl": "https://i.ibb.co.com/fY4xyXPy/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/KD2k"
+        "downloadUrl": "https://adlinksumo.com/TwgcRU"
     },
     {
         "name": "PicsKit",
