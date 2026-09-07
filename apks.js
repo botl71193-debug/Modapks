@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "Math AI",
+        "version": "1.0.b561",
+        "category": "Tools",
+        "size": "49,10M",
+        "android": "Android 5+",
+        "description": "Asisten akademik all-in-one untuk menyelesaikan soal matematika, menjawab pertanyaan umum, dan membantu penulisan. Bisa scan atau input soal, lalu menampilkan solusi langkah demi langkah; tersedia juga paket premium untuk contoh tanpa batas.",
+        "imageUrl": "https://i.ibb.co.com/m5My3yQt/Screenshot-2026-0907-121645.webp",
+        "downloadUrl": "https://adlinksumo.com/xAfQpL"
+    },
+    {
         "name": "Joytify",
         "version": "1.6.6",
         "category": "Music",
