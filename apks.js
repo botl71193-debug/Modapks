@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "Meld",
+        "version": "0.8.9",
+        "category": "Music",
+        "size": "25,71M",
+        "android": "Android 5+",
+        "description": "Aplikasi musik open-source yang menggabungkan YouTube Music dan integrasi akun Spotify untuk rekomendasi yang dipersonalisasi, pencarian, homepage, lyrics, EQ, dan offline playback. tanpa iklan dan support unduhan.",
+        "imageUrl": "https://i.ibb.co.com/pBTs0Q6w/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/XAt4AMe"
+    },
+    {
         "name": "Xeno",
         "version": "1.1",
         "category": "Tools",
@@ -118,16 +128,6 @@ const apks = [
         "description": "Aplikasi streaming drama pendek dan mini-seri terlengkap sepenuhnya gratis. Nonton drama China, video pendek, klip drama mini dengan update harian, streaming HD tanpa iklan.",
         "imageUrl": "https://i.ibb.co.com/Rp4hSXyg/Free-Reals.webp",
         "downloadUrl": "https://adlinksumo.com/mmXl9H"
-    },
-    {
-        "name": "Meld",
-        "version": "0.8.8",
-        "category": "Music",
-        "size": "25,71M",
-        "android": "Android 5+",
-        "description": "Aplikasi musik open-source yang menggabungkan YouTube Music dan integrasi akun Spotify untuk rekomendasi yang dipersonalisasi, pencarian, homepage, lyrics, EQ, dan offline playback. tanpa iklan dan support unduhan.",
-        "imageUrl": "https://i.ibb.co.com/pBTs0Q6w/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/Q1wh"
     },
     {
         "name": "Music Downloader",
