@@ -5,7 +5,7 @@ const apks = [
         "category": "Tools",
         "size": "192,05M",
         "android": "Android 5+",
-        "description": "Alat PDF online dan aplikasi untuk merge, split, compress, convert, edit, sign, OCR, dan mengelola PDF dengan cepat. Tersedia untuk web, Android, iPhone,  desktop.",
+        "description": "Alat PDF online dan aplikasi untuk merge, split, compress, convert, edit, sign, OCR, dan mengelola PDF dengan cepat. Tersedia untuk web, Android, iPhone,dan desktop.",
         "imageUrl": "https://i.ibb.co.com/6RJ7N1Ws/Screenshot-2026-0913-141801.webp",
         "downloadUrl": "https://adlinksumo.com/2R7k"
     },
