@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "GB WhatsApp",
+        "version": "2.26.28.78",
+        "category": "Aplikasi Mod",
+        "size": "125,00M",
+        "android": "Android 5+",
+        "description": "Aplikasi WhatsApp mod dengan fitur privasi tambahan, anti-ban, tema kustom, dual account, dan opsi login yang diperbaiki. Versi terbaru 2026 mendukung Android 5.1+",
+        "imageUrl": "https://i.ibb.co.com/DXqL3XN/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/nWWU"
+    },
+    {
         "name": "iLovePDF",
         "version": "4.0.2",
         "category": "Tools",
@@ -108,16 +118,6 @@ const apks = [
         "description": "Aplikasi mudah untuk menemukan semua Donghua favorit (anime Tiongkok) dengan 100% gratis. 3D Chinese anime, pencarian sekali klik dengan subtitle bahasa Inggris dan kualitas Full HD, interface mudah, update harian setiap hari, jadwal streaming Senin-Sabtu, streaming cepat, app ringan, tanpa biaya, exclusive app untuk anime 3D China",
         "imageUrl": "https://i.ibb.co.com/Nd6ZtvQC/icon.webp",
         "downloadUrl": "https://adlinksumo.com/hiHzU"
-    },
-    {
-        "name": "GB WhatsApp",
-        "version": "2.26.28.78",
-        "category": "Aplikasi Mod",
-        "size": "123,45M",
-        "android": "Android 5+",
-        "description": "Aplikasi WhatsApp mod dengan fitur privasi tambahan, anti-ban, tema kustom, dual account, dan opsi login yang diperbaiki. Versi terbaru 2026 mendukung Android 5.1+",
-        "imageUrl": "https://i.ibb.co.com/DXqL3XN/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/wSUcTG"
     },
     {
         "name": "Shinigami",
