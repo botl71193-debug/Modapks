@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "Dongha",
+        "version": "1.3.2",
+        "category": "Streaming",
+        "size": "57,25M",
+        "android": "Android 8+",
+        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
+        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
+        "downloadUrl": "https://adlinksumo.com/jhhb2"
+    },
+    {
         "name": "GB WhatsApp",
         "version": "2.26.28.78",
         "category": "Aplikasi Mod",
@@ -18,16 +28,6 @@ const apks = [
         "description": "Alat PDF online dan aplikasi untuk merge, split, compress, convert, edit, sign, OCR, dan mengelola PDF dengan cepat. Tersedia untuk web, Android, iPhone,dan desktop.",
         "imageUrl": "https://i.ibb.co.com/6RJ7N1Ws/Screenshot-2026-0913-141801.webp",
         "downloadUrl": "https://adlinksumo.com/2R7k"
-    },
-    {
-        "name": "Dongha",
-        "version": "1.3.1",
-        "category": "Streaming",
-        "size": "48,66M",
-        "android": "Android 8+",
-        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
-        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
-        "downloadUrl": "https://adlinksumo.com/0yqD"
     },
     {
         "name": "Meld",
