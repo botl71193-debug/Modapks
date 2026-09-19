@@ -1,5 +1,25 @@
 const apks = [
     {
+        "name": "ibisPaint X",
+        "version": "14.1.1",
+        "category": "Aplikasi Mod",
+        "size": "149,57M",
+        "android": "Android 7+",
+        "description": "Aplikasi menggambar dan melukis digital lengkap untuk smartphone dan tablet. Mendukung lebih dari 105.000 brush, 29.000 material, 3.000 font, banyak filter, screentone, blending mode, stabilizer, fitur layer, vector tool, dan animasi.",
+        "imageUrl": "https://i.ibb.co.com/XdNg1C3/Screenshot-2026-0919-090542.webp",
+        "downloadUrl": "https://adlinksumo.com/SURKIm9"
+    },
+    {
+        "name": "KineMaster",
+        "version": "8.1.15.36566.GP",
+        "category": "Editor",
+        "size": "157,79M",
+        "android": "Android 5+",
+        "description": "Editor video mobile dengan alat AI dan fitur pro untuk membuat konten cepat. Edit film, vlog, Reels, Shorts dengan timeline tradisional, AI tools, template, chroma key profesional, audio controls, creative effects, ekspor HD tanpa watermark, 700 juta downloads, buat video kompleks cepat dengan fitur AI",
+        "imageUrl": "https://i.ibb.co.com/rR3ZnPGJ/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/wB4yM"
+    },
+    {
         "name": "Dongha",
         "version": "1.3.2",
         "category": "Streaming",
