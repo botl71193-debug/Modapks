@@ -2,7 +2,7 @@ const apks = [
     {
         "name": "ibisPaint X",
         "version": "14.1.1",
-        "category": "Aplikasi Mod",
+        "category": "Tools",
         "size": "149,57M",
         "android": "Android 7+",
         "description": "Aplikasi menggambar dan melukis digital lengkap untuk smartphone dan tablet. Mendukung lebih dari 105.000 brush, 29.000 material, 3.000 font, banyak filter, screentone, blending mode, stabilizer, fitur layer, vector tool, dan animasi.",
