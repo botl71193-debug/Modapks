@@ -1,5 +1,25 @@
 const apks = [
     {
+        "name": "ManhwaID",
+        "version": "1.8.1",
+        "category": "Aplikasi Mod",
+        "size": "14,97M",
+        "android": "Android 8+",
+        "description": "Aplikasi baca komik dan manga terlengkap dalam Bahasa Indonesia dengan ribuan judul manga, manhwa, dan manhua favorit. Update chapter terbaru setiap hari, offline mode, koleksi lengkap, brush reading experience terbaik untuk penggemar komik Indonesia",
+        "imageUrl": "https://i.ibb.co.com/dwwDqQJR/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/2PIB3b5Z"
+    },
+    {
+        "name": "TeraBox",
+        "version": "4.25.5",
+        "category": "Tools",
+        "size": "344,41M",
+        "android": "Android 5+",
+        "description": "Penyimpanan cloud gratis hingga 1TB (1024GB) dengan fitur backup otomatis foto & video, upload file besar hingga 20GB, akses cross-device, keamanan dokumen dengan face recognition.",
+        "imageUrl": "https://i.ibb.co.com/6RqqxRLb/Tera.webp",
+        "downloadUrl": "https://adlinksumo.com/vnByrfc"
+    },
+    {
         "name": "ibisPaint X",
         "version": "14.1.1",
         "category": "Tools",
@@ -198,16 +218,6 @@ const apks = [
         "description": "Aplikasi nonton anime 3D Tiongkok (Donghua) gratis dengan subtitle bahasa Inggris, update harian Full HD, pencarian instan sekali klik, kualitas streaming optimal untuk penggemar anime China.",
         "imageUrl": "https://i.ibb.co.com/3y3694Kz/Dong-Fun.webp",
         "downloadUrl": "https://adlinksumo.com/oOWSwcqX"
-    },
-    {
-        "name": "ManhwaID",
-        "version": "1.8.1",
-        "category": "Aplikasi Mod",
-        "size": "14,97M",
-        "android": "Android 8+",
-        "description": "Aplikasi baca komik dan manga terlengkap dalam Bahasa Indonesia dengan ribuan judul manga, manhwa, dan manhua favorit. Update chapter terbaru setiap hari, offline mode, koleksi lengkap, brush reading experience terbaik untuk penggemar komik Indonesia",
-        "imageUrl": "https://i.ibb.co.com/dwwDqQJR/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/2PIB3b5Z"
     },
     {
         "name": "Proton VPN",
@@ -438,16 +448,6 @@ const apks = [
         "imageUrl": "https://i.ibb.co.com/8gkxbZDJ/Bit-Tv.webp",
         "downloadUrl": "https://www.mediafire.com/file/ed236807c2glmsl/BitTV_2.1.6-zenith.apk/file",
         "description": "Aplikasi streaming TV digital gratis tanpa iklan dan tanpa langganan. Nonton saluran TV online lengkap berbagai genre: berita, hiburan, olahraga, dokumenter, drama, film, kartun, siaran langsung acara penting dengan kualitas tinggi tanpa buffering."
-    },
-    {
-        "name": "TeraBox",
-        "version": "v4.18.6",
-        "category": "Tools",
-        "size": "144 MB",
-        "android": "Android 6.0+",
-        "imageUrl": "https://i.ibb.co.com/6RqqxRLb/Tera.webp",
-        "downloadUrl": "https://safefileku.com/download/FBoDTizBGmgo5IiD",
-        "description": "Penyimpanan cloud gratis hingga 1TB (1024GB) dengan fitur backup otomatis foto & video, upload file besar hingga 20GB, akses cross-device, keamanan dokumen dengan face recognition."
     },
     {
         "name": "PVZ Funsion",
