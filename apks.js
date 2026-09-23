@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "Motion Ninja",
+        "version": "4.1.6",
+        "category": "Editor",
+        "size": "321,17M",
+        "android": "Android 5+",
+        "description": "Editor video dan motion design dengan multi-layer editing, keyframe custom, 3D camera, smooth slow motion, motion blur, glow, chroma key, AI background eraser, transisi kreatif, dan ekspor 1080p/4K",
+        "imageUrl": "https://i.ibb.co.com/zhK4PKnz/Screenshot-2026-0923-174715.webp",
+        "downloadUrl": "https://adlinksumo.com/kTyy4tSv"
+    },
+    {
         "name": "ManhwaID",
         "version": "1.8.1",
         "category": "Aplikasi Mod",
