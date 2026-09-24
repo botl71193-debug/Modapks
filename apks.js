@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "DonghuaID",
+        "version": "1.0.8",
+        "category": "Streaming",
+        "size": "9,55M",
+        "android": "Android 5+",
+        "description": "Platform dan situs donghua sub Indo untuk streaming, download episode, serta update seri donghua populer. Tersedia juga komunitas Telegram, bot, dan halaman anime per judul",
+        "imageUrl": "https://i.ibb.co.com/n8DmdxpN/Screenshot-2026-0924-192635.webp",
+        "downloadUrl": "https://adlinksumo.com/AYb44m"
+    },
+    {
         "name": "Motion Ninja",
         "version": "4.1.6",
         "category": "Editor",
