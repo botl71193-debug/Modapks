@@ -1,5 +1,25 @@
 const apks = [
     {
+        "name": "Lane",
+        "version": "1.4.7",
+        "category": "Music",
+        "size": "75,23M",
+        "android": "",
+        "description": "Aplikasi alternatif pemutar musik Spotify dengan fitur Premium terbuka.",
+        "imageUrl": "https://i.ibb.co.com/6R4bXjvW/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/v3op7b"
+    },
+    {
+        "name": "Joytify",
+        "version": "1.6.6",
+        "category": "Music",
+        "size": "19,53M",
+        "android": "Android 5+",
+        "description": "Aplikasi streaming musik modern tanpa batas dengan fitur premium unlocked. Strim lagu, explore playlist curated dari seluruh dunia, tanpa iklan, tanpa biaya tambahan, download musik offline, kualitas audio tinggi, dan pengalaman streaming musik optimal.",
+        "imageUrl": "https://i.ibb.co.com/fY4xyXPy/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/TwgcRU"
+    },
+    {
         "name": "DonghuaID",
         "version": "1.0.8",
         "category": "Streaming",
@@ -120,16 +140,6 @@ const apks = [
         "downloadUrl": "https://adlinksumo.com/xAfQpL"
     },
     {
-        "name": "Joytify",
-        "version": "1.6.6",
-        "category": "Music",
-        "size": "19,53M",
-        "android": "Android 5+",
-        "description": "Aplikasi streaming musik modern tanpa batas dengan fitur premium unlocked. Strim lagu, explore playlist curated dari seluruh dunia, tanpa iklan, tanpa biaya tambahan, download musik offline, kualitas audio tinggi, dan pengalaman streaming musik optimal.",
-        "imageUrl": "https://i.ibb.co.com/fY4xyXPy/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/TwgcRU"
-    },
-    {
         "name": "PicsKit",
         "version": "2.7",
         "category": "Editor",
@@ -138,16 +148,6 @@ const apks = [
         "description": "Editor foto berbasis layer dengan efek AI eraser, filter, glitch, neon, cutout, retouch, kolase, dan template desain kreatif untuk membuat editan bergaya profesional di Android.",
         "imageUrl": "https://i.ibb.co.com/gFBj70pD/icon.webp",
         "downloadUrl": "https://adlinksumo.com/EPgJK"
-    },
-    {
-        "name": "Lane",
-        "version": "1.4.7",
-        "category": "Music",
-        "size": "75,23M",
-        "android": "",
-        "description": "Aplikasi alternatif pemutar musik Spotify dengan fitur Premium terbuka.",
-        "imageUrl": "https://i.ibb.co.com/6R4bXjvW/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/v3op7b"
     },
     {
         "name": "BonusTv",
