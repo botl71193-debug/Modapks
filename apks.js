@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "AnimeNow",
+        "version": "1.0.7",
+        "category": "Streaming",
+        "size": "13,59M",
+        "android": "Android 5+",
+        "description": "Aplikasi streaming anime dengan subtitle ganda, nonton series, movie, dan episode TV anime. Menampilkan episode terbaru, pilihan subtitle terpisah, dan fokus ke anime Jepang.",
+        "imageUrl": "https://i.ibb.co.com/JwWm7fFW/Screenshot-2026-0925-125701.webp",
+        "downloadUrl": "https://adlinksumo.com/Ccc6aKYH"
+    },
+    {
         "name": "Lane",
         "version": "1.4.7",
         "category": "Music",
