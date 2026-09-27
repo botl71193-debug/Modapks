@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "NUX Launcher",
+        "version": "1.0.0",
+        "category": "Aplikasi Mod",
+        "size": "283,18M",
+        "android": "Android 5+",
+        "description": "aplikasi Minecraft Launcher modern yang dirancang untuk menjalankan game Minecraft di platform Windows PC dan smartphone Android. Launcher ini memungkinkan pemain untuk menikmati gameplay dengan sinkronisasi data yang mulus antar perangkat (cross-play) serta kontrol layar sentuh yang presisi untuk pengguna HP.",
+        "imageUrl": "https://i.ibb.co.com/DH6vwtJD/Screenshot-2026-0927-125311.webp",
+        "downloadUrl": "https://adlinksumo.com/y1Tbcpw"
+    },
+    {
         "name": "AnimeNow",
         "version": "1.0.7",
         "category": "Streaming",
