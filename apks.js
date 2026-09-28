@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "GB WhatsApp",
+        "version": "2.26.28.78",
+        "category": "Aplikasi Mod",
+        "size": "125,00M",
+        "android": "Android 5+",
+        "description": "Aplikasi WhatsApp mod dengan fitur privasi tambahan, anti-ban, tema kustom, dual account, dan opsi login yang diperbaiki. Versi terbaru 2026 mendukung Android 5.1+",
+        "imageUrl": "https://i.ibb.co.com/DXqL3XN/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/nWWU"
+    },
+    {
         "name": "NUX Launcher",
         "version": "1.0.0",
         "category": "Aplikasi Mod",
@@ -108,16 +118,6 @@ const apks = [
         "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
         "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
         "downloadUrl": "https://adlinksumo.com/jhhb2"
-    },
-    {
-        "name": "GB WhatsApp",
-        "version": "2.26.28.78",
-        "category": "Aplikasi Mod",
-        "size": "125,00M",
-        "android": "Android 5+",
-        "description": "Aplikasi WhatsApp mod dengan fitur privasi tambahan, anti-ban, tema kustom, dual account, dan opsi login yang diperbaiki. Versi terbaru 2026 mendukung Android 5.1+",
-        "imageUrl": "https://i.ibb.co.com/DXqL3XN/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/nWWU"
     },
     {
         "name": "iLovePDF",
