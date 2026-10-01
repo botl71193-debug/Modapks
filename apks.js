@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "Dongha",
+        "version": "1.4.1",
+        "category": "Streaming",
+        "size": "57,34M",
+        "android": "Android 8+",
+        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
+        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
+        "downloadUrl": "https://adlinksumo.com/eppKhjF"
+    },
+    {
         "name": "GB WhatsApp",
         "version": "2.26.28.78",
         "category": "Aplikasi Mod",
@@ -108,16 +118,6 @@ const apks = [
         "description": "Editor video mobile dengan alat AI dan fitur pro untuk membuat konten cepat. Edit film, vlog, Reels, Shorts dengan timeline tradisional, AI tools, template, chroma key profesional, audio controls, creative effects, ekspor HD tanpa watermark, 700 juta downloads, buat video kompleks cepat dengan fitur AI",
         "imageUrl": "https://i.ibb.co.com/rR3ZnPGJ/icon.webp",
         "downloadUrl": "https://adlinksumo.com/wB4yM"
-    },
-    {
-        "name": "Dongha",
-        "version": "1.3.2",
-        "category": "Streaming",
-        "size": "57,25M",
-        "android": "Android 8+",
-        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
-        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
-        "downloadUrl": "https://adlinksumo.com/jhhb2"
     },
     {
         "name": "iLovePDF",
