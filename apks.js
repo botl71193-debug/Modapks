@@ -1,5 +1,15 @@
 const apks = [
     {
+        "name": "Shinigami",
+        "version": "1.0.5",
+        "category": "Aplikasi Mod",
+        "size": "10,48M",
+        "android": "Android 5+",
+        "description": "Aplikasi baca komik Bahasa Indonesia untuk manga, manhwa, manhua, dan komik lokal. Katalog komik update harian, bookmark, baca online gratis, dan tersedia juga versi web/PWA untuk dibuka lewat browser.",
+        "imageUrl": "https://i.ibb.co.com/qMSpp0bQ/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/FgshUiV"
+    },
+    {
         "name": "Dongha",
         "version": "1.4.1",
         "category": "Streaming",
@@ -198,16 +208,6 @@ const apks = [
         "description": "Aplikasi mudah untuk menemukan semua Donghua favorit (anime Tiongkok) dengan 100% gratis. 3D Chinese anime, pencarian sekali klik dengan subtitle bahasa Inggris dan kualitas Full HD, interface mudah, update harian setiap hari, jadwal streaming Senin-Sabtu, streaming cepat, app ringan, tanpa biaya, exclusive app untuk anime 3D China",
         "imageUrl": "https://i.ibb.co.com/Nd6ZtvQC/icon.webp",
         "downloadUrl": "https://adlinksumo.com/hiHzU"
-    },
-    {
-        "name": "Shinigami",
-        "version": "1.0.5",
-        "category": "Aplikasi Mod",
-        "size": "10,48M",
-        "android": "Android 5+",
-        "description": "Aplikasi baca komik Bahasa Indonesia untuk manga, manhwa, manhua, dan komik lokal. Katalog komik update harian, bookmark, baca online gratis, dan tersedia juga versi web/PWA untuk dibuka lewat browser.",
-        "imageUrl": "https://i.ibb.co.com/qMSpp0bQ/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/FgshUiV"
     },
     {
         "name": "FreeReals",
