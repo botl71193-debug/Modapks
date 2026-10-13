@@ -1,5 +1,45 @@
 const apks = [
     {
+        "name": "TeraBox",
+        "version": "4.26.5",
+        "category": "Tools",
+        "size": "191,26M",
+        "android": "Android 5+",
+        "description": "Penyimpanan cloud gratis hingga 1TB (1024GB) dengan fitur backup otomatis foto & video, upload file besar hingga 20GB, akses cross-device, keamanan dokumen dengan face recognition.",
+        "imageUrl": "https://i.ibb.co.com/6RqqxRLb/Tera.webp",
+        "downloadUrl": "https://adlinksumo.com/eX06P30"
+    },
+    {
+        "name": "Xeno",
+        "version": "1.1",
+        "category": "Tools",
+        "size": "13,55M",
+        "android": "Android 5+",
+        "description": "Skin injection tool for ML games\n• premium unlock\n• No ads\n• unlock all skin",
+        "imageUrl": "https://clever-aquamarine-zdzgpsly.edgeone.app/Xeno.png",
+        "downloadUrl": "https://link.adsafelink.com/uTUTIjne"
+    },
+    {
+        "name": "Motion Ninja",
+        "version": "4.1.6",
+        "category": "Editor",
+        "size": "321,17M",
+        "android": "Android 5+",
+        "description": "Editor video dan motion design dengan multi-layer editing, keyframe custom, 3D camera, smooth slow motion, motion blur, glow, chroma key, AI background eraser, transisi kreatif, dan ekspor 1080p/4K",
+        "imageUrl": "https://i.ibb.co.com/zhK4PKnz/Screenshot-2026-0923-174715.webp",
+        "downloadUrl": "https://adlinksumo.com/kTyy4tSv"
+    },
+    {
+        "name": "ManhwaID",
+        "version": "1.8.1",
+        "category": "Aplikasi Mod",
+        "size": "14,97M",
+        "android": "Android 8+",
+        "description": "Aplikasi baca komik dan manga terlengkap dalam Bahasa Indonesia dengan ribuan judul manga, manhwa, dan manhua favorit. Update chapter terbaru setiap hari, offline mode, koleksi lengkap, brush reading experience terbaik untuk penggemar komik Indonesia",
+        "imageUrl": "https://i.ibb.co.com/dwwDqQJR/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/2PIB3b5Z"
+    },
+    {
         "name": "Shinigami",
         "version": "1.0.5",
         "category": "Aplikasi Mod",
@@ -60,16 +100,6 @@ const apks = [
         "downloadUrl": "https://adlinksumo.com/v3op7b"
     },
     {
-        "name": "Joytify",
-        "version": "1.6.6",
-        "category": "Music",
-        "size": "19,53M",
-        "android": "Android 5+",
-        "description": "Aplikasi streaming musik modern tanpa batas dengan fitur premium unlocked. Strim lagu, explore playlist curated dari seluruh dunia, tanpa iklan, tanpa biaya tambahan, download musik offline, kualitas audio tinggi, dan pengalaman streaming musik optimal.",
-        "imageUrl": "https://i.ibb.co.com/fY4xyXPy/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/TwgcRU"
-    },
-    {
         "name": "DonghuaID",
         "version": "1.0.8",
         "category": "Streaming",
@@ -80,34 +110,14 @@ const apks = [
         "downloadUrl": "https://adlinksumo.com/AYb44m"
     },
     {
-        "name": "Motion Ninja",
-        "version": "4.1.6",
-        "category": "Editor",
-        "size": "321,17M",
+        "name": "Joytify",
+        "version": "1.6.6",
+        "category": "Music",
+        "size": "19,53M",
         "android": "Android 5+",
-        "description": "Editor video dan motion design dengan multi-layer editing, keyframe custom, 3D camera, smooth slow motion, motion blur, glow, chroma key, AI background eraser, transisi kreatif, dan ekspor 1080p/4K",
-        "imageUrl": "https://i.ibb.co.com/zhK4PKnz/Screenshot-2026-0923-174715.webp",
-        "downloadUrl": "https://adlinksumo.com/kTyy4tSv"
-    },
-    {
-        "name": "ManhwaID",
-        "version": "1.8.1",
-        "category": "Aplikasi Mod",
-        "size": "14,97M",
-        "android": "Android 8+",
-        "description": "Aplikasi baca komik dan manga terlengkap dalam Bahasa Indonesia dengan ribuan judul manga, manhwa, dan manhua favorit. Update chapter terbaru setiap hari, offline mode, koleksi lengkap, brush reading experience terbaik untuk penggemar komik Indonesia",
-        "imageUrl": "https://i.ibb.co.com/dwwDqQJR/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/2PIB3b5Z"
-    },
-    {
-        "name": "TeraBox",
-        "version": "4.25.5",
-        "category": "Tools",
-        "size": "344,41M",
-        "android": "Android 5+",
-        "description": "Penyimpanan cloud gratis hingga 1TB (1024GB) dengan fitur backup otomatis foto & video, upload file besar hingga 20GB, akses cross-device, keamanan dokumen dengan face recognition.",
-        "imageUrl": "https://i.ibb.co.com/6RqqxRLb/Tera.webp",
-        "downloadUrl": "https://adlinksumo.com/vnByrfc"
+        "description": "Aplikasi streaming musik modern tanpa batas dengan fitur premium unlocked. Strim lagu, explore playlist curated dari seluruh dunia, tanpa iklan, tanpa biaya tambahan, download musik offline, kualitas audio tinggi, dan pengalaman streaming musik optimal.",
+        "imageUrl": "https://i.ibb.co.com/fY4xyXPy/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/TwgcRU"
     },
     {
         "name": "ibisPaint X",
@@ -148,16 +158,6 @@ const apks = [
         "description": "Aplikasi musik open-source yang menggabungkan YouTube Music dan integrasi akun Spotify untuk rekomendasi yang dipersonalisasi, pencarian, homepage, lyrics, EQ, dan offline playback. tanpa iklan dan support unduhan.",
         "imageUrl": "https://i.ibb.co.com/pBTs0Q6w/icon.webp",
         "downloadUrl": "https://adlinksumo.com/XAt4AMe"
-    },
-    {
-        "name": "Xeno",
-        "version": "1.1",
-        "category": "Tools",
-        "size": "13,55M",
-        "android": "Android 5+",
-        "description": "Skin injection tool for ML games\n• premium unlock\n• No ads\n• unlock all skin",
-        "imageUrl": "https://clever-aquamarine-zdzgpsly.edgeone.app/Xeno.png",
-        "downloadUrl": "https://link.adsafelink.com/uTUTIjne"
     },
     {
         "name": "Math AI",
