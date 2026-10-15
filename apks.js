@@ -1,5 +1,25 @@
 const apks = [
     {
+        "name": "KucingPremium",
+        "version": "2.5.3-build01",
+        "category": "Streaming",
+        "size": "29,87M",
+        "android": "Android 5+",
+        "description": "Aplikasi hiburan dan streaming film/anime premium mod terlengkap.",
+        "imageUrl": "https://worrying-apricot-utxtj0qs.edgeone.app/images.png",
+        "downloadUrl": "https://adlinksumo.com/Bx5ewd"
+    },
+    {
+        "name": "iLovePDF",
+        "version": "4.1.0",
+        "category": "Tools",
+        "size": "213,54M",
+        "android": "Android 5+",
+        "description": "Alat PDF online dan aplikasi untuk merge, split, compress, convert, edit, sign, OCR, dan mengelola PDF dengan cepat. Tersedia untuk web, Android, iPhone,dan desktop.",
+        "imageUrl": "https://i.ibb.co.com/6RJ7N1Ws/Screenshot-2026-0913-141801.webp",
+        "downloadUrl": "https://adlinksumo.com/HolWZ4"
+    },
+    {
         "name": "TeraBox",
         "version": "4.26.5",
         "category": "Tools",
@@ -138,16 +158,6 @@ const apks = [
         "description": "Editor video mobile dengan alat AI dan fitur pro untuk membuat konten cepat. Edit film, vlog, Reels, Shorts dengan timeline tradisional, AI tools, template, chroma key profesional, audio controls, creative effects, ekspor HD tanpa watermark, 700 juta downloads, buat video kompleks cepat dengan fitur AI",
         "imageUrl": "https://i.ibb.co.com/rR3ZnPGJ/icon.webp",
         "downloadUrl": "https://adlinksumo.com/wB4yM"
-    },
-    {
-        "name": "iLovePDF",
-        "version": "4.0.2",
-        "category": "Tools",
-        "size": "192,05M",
-        "android": "Android 5+",
-        "description": "Alat PDF online dan aplikasi untuk merge, split, compress, convert, edit, sign, OCR, dan mengelola PDF dengan cepat. Tersedia untuk web, Android, iPhone,dan desktop.",
-        "imageUrl": "https://i.ibb.co.com/6RJ7N1Ws/Screenshot-2026-0913-141801.webp",
-        "downloadUrl": "https://adlinksumo.com/2R7k"
     },
     {
         "name": "Meld",
@@ -468,16 +478,6 @@ const apks = [
         "description": "Download foto, video, story sekali klik, anti-view tersembunyi, feed ad-free.",
         "imageUrl": "https://i.ibb.co.com/Ts8m7z4/igmod.webp",
         "downloadUrl": "https://safefileku.com/download/QYIAydqGSp7qBzHJ"
-    },
-    {
-        "name": "KucingPremium",
-        "version": "v1.8.2",
-        "category": "Streaming",
-        "size": "15 MB",
-        "android": "Android 5.0+",
-        "description": "Aplikasi hiburan dan streaming film/anime premium mod terlengkap.",
-        "imageUrl": "https://worrying-apricot-utxtj0qs.edgeone.app/images.png",
-        "downloadUrl": "https://link.adsafelink.com/neE91I9d"
     },
     {
         "name": "BitTV",
