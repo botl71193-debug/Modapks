@@ -3,7 +3,7 @@ const apks = [
         "name": "KucingPremium",
         "version": "2.5.3-build01",
         "versionName": "2.5.3-build01",
-        "versionCode": 25302,
+        "versionCode": 25301,
         "packageName": "com.kcstream.cing",
         "category": "Streaming",
         "size": "29,87M",
@@ -625,5 +625,18 @@ const apks = [
         "imageUrl": "https://worrying-apricot-utxtj0qs.edgeone.app/wps.png",
         "downloadUrl": "https://link.adsafelink.com/aBAHAU4J",
         "description": "Buka dan edit semua dokumen PDF ke Word, edit ppt premium unlocked gratis."
+    },
+    {
+        "name": "Application",
+        "version": "1.0",
+        "versionName": "1.0",
+        "versionCode": 1,
+        "packageName": "com.example.application",
+        "category": "Aplikasi Mod",
+        "size": "",
+        "android": "Android 5+",
+        "description": "",
+        "imageUrl": "#",
+        "downloadUrl": "#"
     }
 ];
