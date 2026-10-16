@@ -2,6 +2,9 @@ const apks = [
     {
         "name": "KucingPremium",
         "version": "2.5.3-build01",
+        "versionName": "2.5.3-build01",
+        "versionCode": 25302,
+        "packageName": "com.kcstream.cing",
         "category": "Streaming",
         "size": "29,87M",
         "android": "Android 5+",
