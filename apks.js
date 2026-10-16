@@ -637,6 +637,6 @@ const apks = [
         "android": "Android 5+",
         "description": "",
         "imageUrl": "#",
-        "downloadUrl": "#"
+        "downloadUrl": "#2"
     }
 ];
