@@ -120,7 +120,13 @@ const rahasiaHTML = `
         </select>
       </div>
       <div class="form-group"><label>Nama APK</label><input type="text" id="formApkName"></div>
-      <div class="form-group"><label>Versi</label><input type="text" id="formApkVersion"></div>
+      <div class="form-group"><label>Versi (tampil)</label><input type="text" id="formApkVersion" placeholder="2.5.4"></div>
+      <div class="form-group"><label>versionName</label><input type="text" id="formApkVersionName" placeholder="2.5.4 (opsional, default = Versi)"></div>
+      <div class="form-group"><label>versionCode (angka)</label><input type="number" id="formApkVersionCode" min="1" placeholder="25302"></div>
+      <div class="form-group"><label>packageName</label><input type="text" id="formApkPackageName" placeholder="com.example.app"></div>
+      <div class="form-group"><label>Changelog (satu baris per item)</label><textarea id="formApkChangelog" rows="2" placeholder="Perbaikan bug&#10;Update UI"></textarea></div>
+      <div class="form-group"><label>Link Arm64 (opsional)</label><input type="text" id="formApkLinkArm64" placeholder="https://...arm64.apk"></div>
+      <div class="form-group"><label>Link Arm32 (opsional)</label><input type="text" id="formApkLinkArm32" placeholder="https://...arm32.apk"></div>
       <div class="form-group">
         <label>Kategori</label>
         <select id="formApkCategory">
@@ -801,10 +807,16 @@ function openAddApkFormModal() {
     document.getElementById('formEditIndex').value = "";
     document.getElementById('formApkName').value = "";
     document.getElementById('formApkVersion').value = "";
+    document.getElementById('formApkVersionName').value = "";
+    document.getElementById('formApkVersionCode').value = "";
+    document.getElementById('formApkPackageName').value = "";
+    document.getElementById('formApkChangelog').value = "";
     document.getElementById('formApkSize').value = "";
     document.getElementById('formApkDesc').value = "";
     document.getElementById('formApkImg').value = "";
     document.getElementById('formApkLink').value = "";
+    document.getElementById('formApkLinkArm64').value = "";
+    document.getElementById('formApkLinkArm32').value = "";
 
     const selectorRow = document.getElementById('existingApkSelectorRow');
     const selectEl = document.getElementById('formExistingApkSelect');
@@ -827,12 +839,19 @@ function handleLoadExistingApkData() {
     if (!targetData) return;
     document.getElementById('formApkName').value = targetData.name || "";
     document.getElementById('formApkVersion').value = targetData.version || "";
+    document.getElementById('formApkVersionName').value = targetData.versionName || targetData.version || "";
+    document.getElementById('formApkVersionCode').value = targetData.versionCode != null ? targetData.versionCode : "";
+    document.getElementById('formApkPackageName').value = targetData.packageName || "";
+    document.getElementById('formApkChangelog').value = Array.isArray(targetData.changelog) ? targetData.changelog.join("\n") : (targetData.changelog || "");
     document.getElementById('formApkCategory').value = targetData.category || "Aplikasi Mod";
     document.getElementById('formApkSize').value = targetData.size || "";
     document.getElementById('formApkAndroid').value = targetData.android || "Android 5+";
     document.getElementById('formApkDesc').value = targetData.description || "";
     document.getElementById('formApkImg').value = targetData.imageUrl || "";
     document.getElementById('formApkLink').value = targetData.downloadUrl || "";
+    const links = targetData.links || {};
+    document.getElementById('formApkLinkArm64').value = links.Arm64 || links.arm64 || "";
+    document.getElementById('formApkLinkArm32').value = links.Arm32 || links.arm32 || "";
 }
 
 function openEditApkFormModal(index) {
@@ -844,12 +863,19 @@ function openEditApkFormModal(index) {
     document.getElementById('existingApkSelectorRow').style.setProperty('display', 'none', 'important');
     document.getElementById('formApkName').value = targetData.name || "";
     document.getElementById('formApkVersion').value = targetData.version || "";
+    document.getElementById('formApkVersionName').value = targetData.versionName || targetData.version || "";
+    document.getElementById('formApkVersionCode').value = targetData.versionCode != null ? targetData.versionCode : "";
+    document.getElementById('formApkPackageName').value = targetData.packageName || "";
+    document.getElementById('formApkChangelog').value = Array.isArray(targetData.changelog) ? targetData.changelog.join("\n") : (targetData.changelog || "");
     document.getElementById('formApkCategory').value = targetData.category || "Aplikasi Mod";
     document.getElementById('formApkSize').value = targetData.size || "";
     document.getElementById('formApkAndroid').value = targetData.android || "Android 5+";
     document.getElementById('formApkDesc').value = targetData.description || "";
     document.getElementById('formApkImg').value = targetData.imageUrl || "";
     document.getElementById('formApkLink').value = targetData.downloadUrl || "";
+    const linksE = targetData.links || {};
+    document.getElementById('formApkLinkArm64').value = linksE.Arm64 || linksE.arm64 || "";
+    document.getElementById('formApkLinkArm32').value = linksE.Arm32 || linksE.arm32 || "";
     document.getElementById('globalOverlay').classList.add('active');
     document.getElementById('devApkFormModal').classList.add('active');
 }
@@ -934,17 +960,34 @@ function executeClearClone() {
 function saveApkFormSubmission() {
     const name = document.getElementById('formApkName').value.trim();
     const version = document.getElementById('formApkVersion').value.trim();
+    const versionName = (document.getElementById('formApkVersionName').value.trim() || version);
+    const versionCodeRaw = document.getElementById('formApkVersionCode').value.trim();
+    const versionCode = versionCodeRaw === "" ? undefined : parseInt(versionCodeRaw, 10);
+    const packageName = document.getElementById('formApkPackageName').value.trim();
+    const changelogRaw = document.getElementById('formApkChangelog').value.trim();
+    const changelog = changelogRaw ? changelogRaw.split(/\r?\n/).map(s => s.trim()).filter(Boolean) : undefined;
     const category = document.getElementById('formApkCategory').value;
     const size = document.getElementById('formApkSize').value.trim();
     const android = document.getElementById('formApkAndroid').value;
     const description = document.getElementById('formApkDesc').value.trim();
     const imageUrl = document.getElementById('formApkImg').value.trim();
     const downloadUrl = document.getElementById('formApkLink').value.trim();
+    const linkArm64 = document.getElementById('formApkLinkArm64').value.trim();
+    const linkArm32 = document.getElementById('formApkLinkArm32').value.trim();
 
     if (!name || !downloadUrl) { alert("Nama & Link wajib terisi!"); return; }
+    if (packageName === "") { alert("packageName wajib diisi (untuk cek update di app)!"); return; }
+    if (versionCodeRaw === "" || isNaN(versionCode)) { alert("versionCode wajib angka (contoh: 25302)!"); return; }
     const editIndex = document.getElementById('formEditIndex').value;
 
-    const payload = { name, version, category, size, android, description, imageUrl, downloadUrl };
+    const payload = { name, version, versionName, versionCode, packageName, category, size, android, description, imageUrl, downloadUrl };
+    if (changelog && changelog.length) payload.changelog = changelog;
+    if (linkArm64 || linkArm32) {
+        payload.links = {};
+        if (linkArm64) payload.links.Arm64 = linkArm64;
+        if (linkArm32) payload.links.Arm32 = linkArm32;
+        payload.multiDownload = true;
+    }
     
     if (editIndex !== "") { 
         internalApksData[parseInt(editIndex)] = payload; 
