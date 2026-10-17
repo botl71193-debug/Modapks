@@ -58,6 +58,7 @@ const rahasiaHTML = `
     <div class="sidebar-label dev-only-block" style="color: var(--dev-color);">Dev Full Database Tool</div>
     <ul class="sidebar-menu-list dev-only-block">
       <li><div class="sidebar-item-btn" style="border-color: rgba(244,63,94,0.3); background: rgba(244,63,94,0.05);" onclick="exportCurrentApksFile('apksOnly')">💾 Ekspor Berkas apks.js Only</div></li>
+      <li><div class="sidebar-item-btn" style="border-color: #3b82f6; background: rgba(59,130,246,0.12);" onclick="openDialogUpdateExportModal()">🚀 Luncurkan updt</div></li>
       <li><div class="sidebar-item-btn" style="border-color: rgba(244,63,94,0.3); background: rgba(244,63,94,0.05);" onclick="document.getElementById('importApksFile').click()">📥 Impor apks.js Lokal</div></li>
       <li style="margin-top: 10px;"><div class="sidebar-item-btn" style="border-color: #a855f7; background: rgba(168,85,247,0.1);" onclick="exportCurrentApksFile('exportvip')">⚡ Ekspor vip.js only</div></li>
       <li><div class="sidebar-item-btn" style="border-color: #a855f7; background: rgba(168,85,247,0.1);" onclick="document.getElementById('importvipFile').click()">📥 Impor vip.js Lokal</div></li>
@@ -240,6 +241,33 @@ const rahasiaHTML = `
       <textarea id="exportTextareaContainer" rows="12" style="font-family: 'Courier New', monospace; font-size: 0.78rem; color: #67e8f9; background:#010208;" readonly onclick="this.select()"></textarea>
     </div>
     <button class="download-action-btn" style="background:linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);" onclick="copyExportedTextToClipboard()">📋 KLIK SALIN SEMUA KODE</button>
+  </div>
+
+  <div class="modal-box dev-panel-modal" id="dialogUpdateExportModal" style="max-height: 90vh; overflow-y: auto;">
+    <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
+    <h3 style="margin-bottom: 10px; color:#fff; font-size: 1.15rem; border-bottom: 1px solid rgba(59,130,246,0.35); padding-bottom: 10px;">🚀 Luncurkan Update (dialog_update)</h3>
+    <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom: 12px;">Pilih APK target. Hasil = JSON murni untuk DialogUpdate di APK (bukan <code>const apks =</code>). Unggah ke repo sebagai <b>dialog_update.json</b> atau ganti isi remote yang dibaca DEX.</p>
+    <div class="form-group">
+      <label>Pilih APK</label>
+      <select id="dialogUpdateApkSelect" onchange="previewDialogUpdatePayload()"></select>
+    </div>
+    <div class="form-group">
+      <label>Role unduhan (untuk resolve link)</label>
+      <select id="dialogUpdateRoleSelect" onchange="previewDialogUpdatePayload()">
+        <option value="GUEST">Guest / User (safelink OK)</option>
+        <option value="EXECUTIVE">Executive (utamakan MediaFire / direct)</option>
+        <option value="DEVELOPER">Developer (utamakan MediaFire / direct)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Preview JSON</label>
+      <textarea id="dialogUpdatePreview" rows="14" style="font-family: 'Courier New', monospace; font-size: 0.75rem; color: #93c5fd; background:#010208;" readonly onclick="this.select()"></textarea>
+    </div>
+    <div class="form-btn-row" style="flex-wrap:wrap; gap:8px;">
+      <button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">BATAL</button>
+      <button class="download-action-btn" style="background:linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);" onclick="copyDialogUpdatePayload()">📋 SALIN JSON</button>
+      <button class="download-action-btn" style="background:linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);" onclick="downloadDialogUpdateFile()">💾 UNDUH dialog_update.json</button>
+    </div>
   </div>
 
   <div class="modal-box dev-panel-modal" id="clearCloneModal" style="max-height: 85vh; overflow-y: auto;">
@@ -1054,6 +1082,143 @@ function processImportvip(input) {
     reader.readAsText(file);
 }
 
+
+/** ========== DialogUpdate export (sinkron APK) ========== */
+function isDirectHostUrl(url) {
+    if (!url) return false;
+    const u = String(url).toLowerCase();
+    return u.includes('mediafire.com') || u.includes('drive.google.com') || u.includes('drive.usercontent.google.com') || u.includes('.apk');
+}
+
+function isSafelinkUrl(url) {
+    if (!url) return false;
+    const u = String(url).toLowerCase();
+    return u.includes('adsafelink') || u.includes('adlinksumo') || u.includes('safefileku') || u.includes('bicolink') || u.includes('linkvertise');
+}
+
+function resolveApkDownloadForRole(item, role) {
+    role = (role || 'GUEST').toUpperCase();
+    const privileged = (role === 'EXECUTIVE' || role === 'DEVELOPER' || role === 'ADMIN');
+    const links = item.links || {};
+    const mediafire = item.directMediafire || links.Mediafire || links.mediafire || null;
+    const arm = links.Arm64 || links.Arm32 || null;
+    const primary = item.downloadUrl || '';
+
+    if (privileged) {
+        if (mediafire) return mediafire;
+        if (arm && isDirectHostUrl(arm)) return arm;
+        if (primary && isDirectHostUrl(primary) && !isSafelinkUrl(primary)) return primary;
+        // fallback tetap primary (meski safelink) agar tidak kosong
+        return mediafire || arm || primary || '#';
+    }
+    // guest: pakai downloadUrl apa adanya (boleh safelink)
+    return primary || mediafire || arm || '#';
+}
+
+function apkItemToDialogUpdatePayload(item, role) {
+    role = role || 'GUEST';
+    const versionName = item.versionName || item.version || '1.0.0';
+    const versionCode = (typeof item.versionCode === 'number') ? item.versionCode : (parseInt(String(item.versionCode || '0').replace(/\D/g, ''), 10) || 0);
+    const mainUrl = resolveApkDownloadForRole(item, role);
+    const links = item.links || {};
+    const update_urls = [];
+
+    const mf = item.directMediafire || links.Mediafire || links.mediafire;
+    if (mf) update_urls.push({ name: 'Mediafire', url: (role === 'GUEST' && item.downloadUrl && isSafelinkUrl(item.downloadUrl)) ? item.downloadUrl : mf });
+    else if (mainUrl && String(mainUrl).toLowerCase().includes('mediafire')) update_urls.push({ name: 'Mediafire', url: mainUrl });
+
+    if (links.Telegram || item.telegramUrl) update_urls.push({ name: 'Telegram', url: links.Telegram || item.telegramUrl });
+    if (links.GDrive || links.gdrive) update_urls.push({ name: 'GDrive', url: links.GDrive || links.gdrive });
+    if (links.Arm64) update_urls.push({ name: 'Arm64', url: links.Arm64 });
+    if (links.Arm32) update_urls.push({ name: 'Arm32', url: links.Arm32 });
+
+    // pastikan minimal 1 url
+    if (!update_urls.length && mainUrl) update_urls.push({ name: 'Download', url: mainUrl });
+
+    return {
+        version: versionName,
+        versionName: versionName,
+        versionCode: versionCode,
+        packageName: item.packageName || '',
+        title: 'Pembaruan tersedia',
+        subtitle: (item.name || 'App') + ' — versi baru',
+        update_url: mainUrl,
+        show_close_button: false,
+        update_urls: update_urls,
+        changelog: Array.isArray(item.changelog) ? item.changelog : (item.changelog ? [String(item.changelog)] : [
+            item.description ? String(item.description).slice(0, 160) : 'Perbarui ke versi terbaru'
+        ])
+    };
+}
+
+function openDialogUpdateExportModal() {
+    closeActiveOverlays();
+    const sel = document.getElementById('dialogUpdateApkSelect');
+    if (!sel) { alert('Modal export dialog_update belum termuat.'); return; }
+    sel.innerHTML = '';
+    const data = (typeof internalApksData !== 'undefined' && Array.isArray(internalApksData)) ? internalApksData : [];
+    if (!data.length) {
+        sel.innerHTML = '<option value="">— tidak ada data APK —</option>';
+    } else {
+        data.forEach((item, idx) => {
+            const opt = document.createElement('option');
+            opt.value = String(idx);
+            const pkg = item.packageName ? ' · ' + item.packageName : '';
+            opt.textContent = (item.name || 'APK') + ' v' + (item.version || '?') + pkg;
+            sel.appendChild(opt);
+        });
+    }
+    // default role dari session
+    const roleSel = document.getElementById('dialogUpdateRoleSelect');
+    const activeRole = localStorage.getItem('mmk_sys_role') || 'GUEST';
+    if (roleSel) {
+        if (['GUEST','EXECUTIVE','DEVELOPER'].includes(activeRole)) roleSel.value = activeRole;
+    }
+    previewDialogUpdatePayload();
+    document.getElementById('globalOverlay').classList.add('active');
+    document.getElementById('dialogUpdateExportModal').classList.add('active');
+}
+
+function previewDialogUpdatePayload() {
+    const sel = document.getElementById('dialogUpdateApkSelect');
+    const roleSel = document.getElementById('dialogUpdateRoleSelect');
+    const box = document.getElementById('dialogUpdatePreview');
+    if (!sel || !box) return;
+    const idx = parseInt(sel.value, 10);
+    const data = (typeof internalApksData !== 'undefined' && Array.isArray(internalApksData)) ? internalApksData : [];
+    if (isNaN(idx) || !data[idx]) {
+        box.value = '{\n  "error": "Pilih APK yang valid"\n}';
+        return;
+    }
+    const role = roleSel ? roleSel.value : 'GUEST';
+    const payload = apkItemToDialogUpdatePayload(data[idx], role);
+    box.value = JSON.stringify(payload, null, 2);
+}
+
+function copyDialogUpdatePayload() {
+    const box = document.getElementById('dialogUpdatePreview');
+    if (!box || !box.value) return;
+    box.select();
+    try {
+        document.execCommand('copy');
+        navigator.clipboard && navigator.clipboard.writeText(box.value);
+    } catch (e) {}
+    alert('📋 dialog_update JSON disalin.\\nUpload ke GitHub sebagai dialog_update.json (JSON murni).');
+}
+
+function downloadDialogUpdateFile() {
+    const box = document.getElementById('dialogUpdatePreview');
+    if (!box || !box.value) return;
+    const blob = new Blob([box.value], { type: 'application/json;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'dialog_update.json';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+    alert('💾 File dialog_update.json diunduh.\\nUnggah ke: raw.githubusercontent.com/.../Modapks/main/dialog_update.json');
+}
+
 function exportCurrentApksFile(mode) {
     closeActiveOverlays();
     const textContainer = document.getElementById('exportTextareaContainer');
@@ -1137,6 +1302,7 @@ function closeActiveOverlays() {
     if(document.getElementById('requestModModal')) document.getElementById('requestModModal').classList.remove('active');
     if(document.getElementById('adminRequestListModal')) document.getElementById('adminRequestListModal').classList.remove('active');
     if(document.getElementById('searchPopover')) document.getElementById('searchPopover').classList.remove('active');
+    if(document.getElementById('dialogUpdateExportModal')) document.getElementById('dialogUpdateExportModal').classList.remove('active');
     if(document.getElementById('globalOverlay')) document.getElementById('globalOverlay').classList.remove('active');
 }
 
