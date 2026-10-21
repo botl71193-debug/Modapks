@@ -1,5 +1,18 @@
 const apks = [
     {
+        "name": "GB WhatsApp",
+        "version": "2.26.97.78",
+        "versionName": "2.26.28.78",
+        "versionCode": 2147483647,
+        "packageName": "com.gbwhatsapp",
+        "category": "Aplikasi Mod",
+        "size": "125,00M",
+        "android": "Android 5+",
+        "description": "Aplikasi WhatsApp mod dengan fitur privasi tambahan, anti-ban, tema kustom, dual account, dan opsi login yang diperbaiki. Versi terbaru 2026 mendukung Android 5.1+",
+        "imageUrl": "https://i.ibb.co.com/DXqL3XN/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/HIbuX6XP"
+    },
+    {
         "name": "KucingPremium",
         "version": "2.5.3-build01",
         "versionName": "2.5.3-build01",
@@ -81,16 +94,6 @@ const apks = [
         "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
         "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
         "downloadUrl": "https://adlinksumo.com/eppKhjF"
-    },
-    {
-        "name": "GB WhatsApp",
-        "version": "2.26.28.78",
-        "category": "Aplikasi Mod",
-        "size": "125,00M",
-        "android": "Android 5+",
-        "description": "Aplikasi WhatsApp mod dengan fitur privasi tambahan, anti-ban, tema kustom, dual account, dan opsi login yang diperbaiki. Versi terbaru 2026 mendukung Android 5.1+",
-        "imageUrl": "https://i.ibb.co.com/DXqL3XN/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/nWWU"
     },
     {
         "name": "NUX Launcher",
@@ -628,15 +631,15 @@ const apks = [
     },
     {
         "name": "Application",
-        "version": "1.0",
-        "versionName": "1.0",
-        "versionCode": 1,
+        "version": "9.9",
+        "versionName": "9.9",
+        "versionCode": 9,
         "packageName": "com.example.application",
         "category": "Aplikasi Mod",
         "size": "",
         "android": "Android 5+",
         "description": "",
         "imageUrl": "#",
-        "downloadUrl": "#2"
+        "downloadUrl": "#"
     }
 ];
