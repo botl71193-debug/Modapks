@@ -640,6 +640,14 @@ const apks = [
         "android": "Android 5+",
         "description": "",
         "imageUrl": "#",
-        "downloadUrl": "#1"
+        "downloadUrl": "#",
+        "changelog": [
+            "[ + ] perbaikan bug1",
+            "[ + ] perbaikan bug2",
+            "[ + ] perbaikan bug3",
+            "[ + ] perbaikan bug4",
+            "[ + ] perbaikan bug5",
+            "[ + ] perbaikan bug6"
+        ]
     }
 ];
