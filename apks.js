@@ -1,6 +1,6 @@
 const apks = [
     {
-        "name": "GB whatsApp",
+        "name": "GB WhatsApp",
         "version": "2.26.97.78",
         "versionName": "2.26.28.78",
         "versionCode": 2147483647,
