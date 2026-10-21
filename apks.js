@@ -631,9 +631,9 @@ const apks = [
     },
     {
         "name": "Application",
-        "version": "9.9",
-        "versionName": "9.9",
-        "versionCode": 9,
+        "version": "1.0",
+        "versionName": "1.0",
+        "versionCode": 1,
         "packageName": "com.example.application",
         "category": "Aplikasi Mod",
         "size": "",
