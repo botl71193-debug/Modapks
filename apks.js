@@ -634,7 +634,7 @@ const apks = [
         "version": "9.9",
         "versionName": "9.9",
         "versionCode": 9,
-        "packageName": "com.example.applicatio",
+        "packageName": "om.example.application",
         "category": "Aplikasi Mod",
         "size": "",
         "android": "Android 5+",
