@@ -23,7 +23,13 @@ const apks = [
         "android": "Android 5+",
         "description": "Aplikasi hiburan dan streaming film/anime premium mod terlengkap.",
         "imageUrl": "https://worrying-apricot-utxtj0qs.edgeone.app/images.png",
-        "downloadUrl": "https://adlinksumo.com/Bx5ewd"
+        "downloadUrl": "https://adlinksumo.com/Bx5ewd",
+        "changelog": [
+            "Bypas temper",
+            "No ads",
+            "Stream lancar",
+            "Free all video"
+        ]
     },
     {
         "name": "iLovePDF",
