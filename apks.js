@@ -1,5 +1,23 @@
 const apks = [
     {
+        "name": "Dongha",
+        "version": "1.4.2",
+        "versionName": "1.4.2",
+        "versionCode": 6622,
+        "packageName": "com.epemini.dongha",
+        "category": "Streaming",
+        "size": "57,34M",
+        "android": "Android 8+",
+        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
+        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
+        "downloadUrl": "https://adlinksumo.com/eppKhjF",
+        "changelog": [
+            "[ + ] Premium lifetime unlocked",
+            "[ + ] No ads",
+            "[ + ] Unlock all fitur Premium"
+        ]
+    },
+    {
         "name": "GB WhatsApp",
         "version": "2.26.97.78",
         "versionName": "2.26.28.78",
@@ -90,16 +108,6 @@ const apks = [
         "description": "Aplikasi baca komik Bahasa Indonesia untuk manga, manhwa, manhua, dan komik lokal. Katalog komik update harian, bookmark, baca online gratis, dan tersedia juga versi web/PWA untuk dibuka lewat browser.",
         "imageUrl": "https://i.ibb.co.com/qMSpp0bQ/icon.webp",
         "downloadUrl": "https://adlinksumo.com/FgshUiV"
-    },
-    {
-        "name": "Dongha",
-        "version": "1.4.1",
-        "category": "Streaming",
-        "size": "57,34M",
-        "android": "Android 8+",
-        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
-        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
-        "downloadUrl": "https://adlinksumo.com/eppKhjF"
     },
     {
         "name": "NUX Launcher",
