@@ -6,11 +6,11 @@ const apks = [
         "versionCode": 6622,
         "packageName": "com.epemini.dongha",
         "category": "Streaming",
-        "size": "57,34M",
+        "size": "44,67M",
         "android": "Android 8+",
         "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
         "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
-        "downloadUrl": "https://adlinksumo.com/eppKhjF",
+        "downloadUrl": "https://adlinksumo.com/BiMi",
         "changelog": [
             "[ + ] Premium lifetime unlocked",
             "[ + ] No ads",
