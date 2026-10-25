@@ -30,7 +30,8 @@ const apks = [
         "changelog": [
             "[ + ] Premium lifetime unlocked",
             "[ + ] No ads",
-            "[ + ] Unlock all fitur Premium"
+            "[ + ] Unlock all fitur Premium",
+            "[ + ] Dll"
         ]
     },
     {
