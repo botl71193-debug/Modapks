@@ -1,5 +1,21 @@
 const apks = [
     {
+        "name": "Efiko",
+        "version": "1.6.2",
+        "versionName": "1.6.2",
+        "versionCode": 31,
+        "packageName": "com.changpeng.instafilter",
+        "category": "Editor",
+        "size": "23,00M",
+        "android": "Android 5+",
+        "description": "Editor video & foto gratis dengan 400+ efek & filter aesthetic populer. Akses filter tahun 90-an glows & glitters, sparkle star, efek Glitch, gaya IG, dan filter estetika keren untuk foto dan video. Gratis tanpa biaya tambahan, editor terbaik untuk kebutuhan editing semua",
+        "imageUrl": "https://i.ibb.co.com/2YpGb10z/icon.webp",
+        "downloadUrl": "https://link.adsafelink.com/RFLBzO5",
+        "changelog": [
+            "[ + ] Unlock all Feature"
+        ]
+    },
+    {
         "name": "Dongha",
         "version": "1.4.2",
         "versionName": "1.4.2",
@@ -358,16 +374,6 @@ const apks = [
         "description": "Aplikasi widget melayang (floating shortcut) untuk multitasking pro unlocked.",
         "imageUrl": "https://i.ibb.co.com/8D6979r3/Screenshot-2026-0618-164550.webp",
         "downloadUrl": "https://link.adsafelink.com/G3gps"
-    },
-    {
-        "name": "Efiko",
-        "version": "1.6.2",
-        "category": "Editor",
-        "size": "22,98M",
-        "android": "Android 5+",
-        "description": "Editor video & foto gratis dengan 400+ efek & filter aesthetic populer. Akses filter tahun 90-an glows & glitters, sparkle star, efek Glitch, gaya IG, dan filter estetika keren untuk foto dan video. Gratis tanpa biaya tambahan, editor terbaik untuk kebutuhan editing semua",
-        "imageUrl": "https://i.ibb.co.com/2YpGb10z/icon.webp",
-        "downloadUrl": "https://link.adsafelink.com/RFLBzO5"
     },
     {
         "name": "MetroList",
