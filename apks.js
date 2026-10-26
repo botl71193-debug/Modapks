@@ -238,13 +238,26 @@ const apks = [
     },
     {
         "name": "Passion Drama",
-        "version": "1.3.3",
+        "version": "1.3.9",
+        "versionName": "1.3.9",
+        "versionCode": 1390,
+        "packageName": "com.passion.short.hotdrama",
         "category": "Streaming",
         "size": "150,90M",
-        "android": "",
+        "android": "Android 5+",
         "description": "Aplikasi streaming drama dengan serial eksklusif setiap hari,涵盖 berbagai genre suspense, komedi, urban, dan sejarah. Tonton drama favorit kualitas 1080P HD dengan fitur download cepat.",
         "imageUrl": "https://i.ibb.co.com/vvQptRxp/Passion-Drama.webp",
-        "downloadUrl": "https://adlinksumo.com/BiX2hOZ"
+        "downloadUrl": "https://adlinksumo.com/BiX2hOZ",
+        "hooks": [
+            {
+                "fitur": "Premium",
+                "className": "com.shortclip.drama.micro.databean.MemberDataBean",
+                "methodName": "isVip",
+                "type": "Z",
+                "defaultValue": ""
+            }
+        ],
+        "hookEnabled": true
     },
     {
         "name": "Donghua App",
