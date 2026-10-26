@@ -19,7 +19,7 @@ const apks = [
         "name": "Dongha",
         "version": "1.4.2",
         "versionName": "1.4.2",
-        "versionCode": 6622,
+        "versionCode": 6623,
         "packageName": "com.epemini.dongha",
         "category": "Streaming",
         "size": "44,67M",
@@ -30,8 +30,7 @@ const apks = [
         "changelog": [
             "[ + ] Premium lifetime unlocked",
             "[ + ] No ads",
-            "[ + ] Unlock all fitur Premium",
-            "[ + ] Dll"
+            "[ + ] Unlock all fitur Premium"
         ]
     },
     {
