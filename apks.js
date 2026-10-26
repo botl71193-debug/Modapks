@@ -643,16 +643,6 @@ const apks = [
         "description": "Baca ratusan manga, manhua, dan manhwa favorit tanpa koin/ad-free."
     },
     {
-        "name": "RCTI+",
-        "version": "v3.1.2",
-        "category": "Streaming",
-        "size": "26 MB",
-        "android": "Android 5.0+",
-        "imageUrl": "https://clever-aquamarine-zdzgpsly.edgeone.app/rcti.png",
-        "downloadUrl": "#",
-        "description": "Nonton siaran langsung TV nasional tanpa buffer dan tanpa gangguan iklan."
-    },
-    {
         "name": "WPS Office",
         "version": "v18.7.1",
         "category": "Tools",
@@ -663,16 +653,16 @@ const apks = [
         "description": "Buka dan edit semua dokumen PDF ke Word, edit ppt premium unlocked gratis."
     },
     {
-        "name": "Application",
+        "name": "RcTest",
         "version": "1.0",
         "versionName": "1.0",
-        "versionCode": 1,
+        "versionCode": 2,
         "packageName": "com.example.application",
         "category": "Aplikasi Mod",
         "size": "",
         "android": "Android 5+",
         "description": "",
-        "imageUrl": "#",
+        "imageUrl": "https://clever-aquamarine-zdzgpsly.edgeone.app/rcti.png",
         "downloadUrl": "#",
         "changelog": [
             "[ + ] perbaikan bug1",
@@ -681,6 +671,10 @@ const apks = [
             "[ + ] perbaikan bug4",
             "[ + ] perbaikan bug5",
             "[ + ] perbaikan bug6"
-        ]
+        ],
+        "links": {
+            "Arm64": "https://xnxx.com"
+        },
+        "multiDownload": true
     }
 ];
