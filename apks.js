@@ -19,7 +19,7 @@ const apks = [
         "name": "Dongha",
         "version": "1.4.2",
         "versionName": "1.4.2",
-        "versionCode": 6623,
+        "versionCode": 6622,
         "packageName": "com.epemini.dongha",
         "category": "Streaming",
         "size": "44,67M",
