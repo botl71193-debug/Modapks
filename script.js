@@ -88,9 +88,8 @@ const rahasiaHTML = `
     <div class="sidebar-label">𝕁𝕆𝕀ℕ 𝕄𝕐 ℂ𝕆𝕄𝕄𝕌ℕ𝕀𝕋𝕐 </div>
     <ul class="sidebar-menu-list">
       <li><a class="sidebar-item-btn" href="https://chat.whatsapp.com/LDzlBOXR3I12Rb79oy5TFJ" target="_blank"> MrKhenz - Official [Grup]🚀</a></li>
-            <li><a class="sidebar-item-btn" href="https://whatsapp.com/channel/0029Vb7vQrL1yT22MFrBrR42" target="_blank">MMK | Saluran 1 [application] </a></li>
-                  <li><a class="sidebar-item-btn" href="https://whatsapp.com/channel/0029Vb7i2omLNSa3VM8Chc1A" target="_blank">MMK | Saluran 2 [Question and answer]</a></li>
-
+      <li><a class="sidebar-item-btn" href="https://whatsapp.com/channel/0029Vb7vQrL1yT22MFrBrR42" target="_blank">MMK | Saluran 1 [application] </a></li>
+      <li><a class="sidebar-item-btn" href="https://whatsapp.com/channel/0029Vb7i2omLNSa3VM8Chc1A" target="_blank">MMK | Saluran 2 [Question and answer]</a></li>
     </ul>
   </div>
 
@@ -156,7 +155,6 @@ const rahasiaHTML = `
           <option value="Android 15+">Android 15+</option>
         </select>
       </div>
-      
       <div class="form-group"><label>Deskripsi Fitur</label><textarea id="formApkDesc" rows="3"></textarea></div>
       <div class="form-group">
         <label>URL Gambar / Ikon APK</label>
@@ -172,6 +170,32 @@ const rahasiaHTML = `
           <input type="text" id="formApkLink" placeholder="https://...">
           <button class="action-trigger-btn" style="background: rgba(14, 165, 233, 0.15); border-color: #0ea5e9;" onclick="copyFieldValue('formApkLink')" title="Salin URL">📄 COPY</button>
           <button class="action-trigger-btn" style="background: rgba(168, 85, 247, 0.15); border-color: #a855f7;" onclick="pasteFieldValue('formApkLink')" title="Tempel URL">📋 PASTE</button>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top: 10px; border-top: 1px dashed rgba(168,85,247,0.35); padding-top: 14px;">
+        <label style="color: #a855f7; display: flex; align-items: center; justify-content: space-between; gap: 10px; cursor: pointer; user-select: none;">
+          <span style="display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" id="formApkHookEnabled" onchange="onHookToggleChange()" style="width: 18px; height: 18px; cursor: pointer; accent-color: #a855f7;">
+            <span>⚡ AKTIFKAN HOOK SYSTEM</span>
+          </span>
+          <span id="hookStatusBadge" style="font-size: 0.7rem; padding: 2px 8px; border-radius: 6px; background: rgba(100,116,139,0.2); color: #64748b; border: 1px solid rgba(100,116,139,0.4);">NONAKTIF</span>
+        </label>
+        <p style="font-size: 0.72rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 6px;">
+          Jika <b style="color:#a855f7;">AKTIF</b> dan ada hook valid, dialog di APK akan menampilkan tombol <b style="color:#a855f7;">Hook</b>. Jika <b>NONAKTIF</b>, dialog tampil seperti biasa.
+        </p>
+      </div>
+
+      <div id="hookBuilderSection" style="display: none;">
+        <div class="form-group">
+          <div style="display: flex; justify-content: flex-end; margin-bottom: 6px;">
+            <button type="button" class="action-trigger-btn" style="padding: 4px 10px; font-size: 0.72rem; background: rgba(168,85,247,0.15); border-color: #a855f7;" onclick="addHookRow()">+ TAMBAH HOOK</button>
+          </div>
+          <div id="hookRowsContainer" style="display: flex; flex-direction: column; gap: 8px;"></div>
+          <input type="hidden" id="formApkHooks" value="[]">
+        </div>
+        <div style="font-size: 0.7rem; color: var(--text-muted); line-height: 1.4; padding: 8px 10px; background: rgba(168,85,247,0.05); border: 1px solid rgba(168,85,247,0.2); border-radius: 8px;">
+          <b style="color:#a855f7;">Tipe:</b> <code>Z</code> = toggle on/off · <code>J</code> = date picker (epoch millis) · <code>I/S/B</code> = angka · <code>F/D</code> = desimal · <code>Ljava/lang/String;</code> = teks
         </div>
       </div>
     </div>
@@ -320,7 +344,6 @@ const rahasiaHTML = `
     </div>
     <div class="apk-grid" id="apkDisplayGrid"></div>
     
-    <!-- KONTAINER PAGINATION -->
     <div id="loadMoreContainer" style="text-align: center; margin-top: 25px; display: none;"></div>
 
     <div class="no-results-alert" id="searchEmptyAlert">❌ Berkas Mod tidak ditemukan.</div>
@@ -343,7 +366,6 @@ let apksHistory = [];
 let currentHistoryIndex = -1;
 let pendingCloneRemovals = [];
 
-// KONFIGURASI PAGINATION
 let currentPage = 1;
 const itemsPerPage = 8; 
 
@@ -352,6 +374,19 @@ const unmodifiableAppsList = [
   "airlearn", "babbel", "brilliant", "testbook", "unacademy", "aiuta", "tradingview", "vidyakul",
   "mobile legends", "free fire", "pubg", "genshin impact", "whatsapp official"
 ];
+
+/* ==================== HOOK BUILDER CONSTANTS ==================== */
+const HOOK_TYPES = [
+  { v: 'Z', label: 'Z — boolean (toggle)' },
+  { v: 'B', label: 'B — byte' },
+  { v: 'S', label: 'S — short' },
+  { v: 'I', label: 'I — int' },
+  { v: 'J', label: 'J — long (tanggal)' },
+  { v: 'F', label: 'F — float' },
+  { v: 'D', label: 'D — double' },
+  { v: 'Ljava/lang/String;', label: 'String' }
+];
+let hookRowsData = [];
 
 function pushHistoryState() {
     if (currentHistoryIndex < apksHistory.length - 1) {
@@ -405,6 +440,42 @@ function initializeCatalogueEngine() {
     pushHistoryState();
 }
 
+/* ==================== HELPER: BUILD BADGE ROW (shared) ==================== */
+function buildBadgeRow(item) {
+    const hookBadge = (Array.isArray(item.hooks) && item.hooks.length > 0 && item.hookEnabled !== false)
+        ? `<span class="apk-badge" style="background:rgba(168,85,247,0.15);border-color:#a855f7;color:#a855f7;">⚡ ${item.hooks.length} Hook</span>`
+        : '';
+    return `
+        <span class="apk-badge">💾 ${item.size || '0 MB'}</span>
+        <span class="apk-badge">🤖 ${item.android || '5.0+'}</span>
+        <span class="apk-badge">📁 ${item.category || 'General'}</span>
+        ${hookBadge}
+    `;
+}
+
+function getCardDefaultIcon(item) {
+    if (item.category === 'Streaming') return '🎬';
+    if (item.category === 'Games Mod') return '🎮';
+    if (item.category === 'Music') return '🎵';
+    if (item.category === 'Tools') return '🛠️';
+    return '📱';
+}
+
+function buildDevControlBox(index, activeRole) {
+    const displayControl = activeRole === 'DEVELOPER' ? 'flex' : 'none';
+    return `
+        <div class="card-control-box" style="display:${displayControl}; flex-direction: column; align-items: flex-end; gap: 4px;">
+            <div style="display: flex; gap: 4px;">
+                <div class="dev-action-badge-btn edit-btn" title="Edit APK" onclick="openEditApkFormModal(${index})">✏️</div>
+                <div class="dev-action-badge-btn delete-btn" title="Hapus APK" onclick="deleteApkItemCard(${index})">🗑️</div>
+            </div>
+            <button class="dev-action-badge-btn edit-btn" title="Pindah Urutan APK" style="width: auto; padding: 2px 8px; font-size: 0.75rem; border-radius: 4px; margin-top: 2px; font-weight: bold; border-color: rgba(14, 165, 233, 0.4); background: rgba(14, 165, 233, 0.1); color: #0ea5e9;" onclick="openReorderModal(${index})">
+                ${index + 1}
+            </button>
+        </div>
+    `;
+}
+
 function renderGridCards() {
     const grid = document.getElementById('apkDisplayGrid');
     const paginationContainer = document.getElementById('loadMoreContainer');
@@ -423,7 +494,6 @@ function renderGridCards() {
         if(alertEmpty) alertEmpty.style.display = 'none';
     }
 
-    // LOGIKA PAGINATION
     const totalPages = Math.ceil(internalApksData.length / itemsPerPage);
     if (currentPage > totalPages) currentPage = totalPages || 1;
 
@@ -432,36 +502,16 @@ function renderGridCards() {
     const slicedData = internalApksData.slice(startIndex, endIndex);
 
     slicedData.forEach((item, relativeIndex) => {
-        // Karena data di-slice, index aslinya harus dihitung agar fungsi dev tetap sesuai target
         const index = startIndex + relativeIndex;
-
         const card = document.createElement('div');
         card.className = 'apk-card';
         card.setAttribute('data-target-cat', item.category);
         card.setAttribute('data-target-droid', item.android);
 
-        let defaultIcon = '📱';
-        if (item.category === 'Streaming') defaultIcon = '🎬';
-        else if (item.category === 'Games Mod') defaultIcon = '🎮';
-        else if (item.category === 'Music') defaultIcon = '🎵';
-        else if (item.category === 'Tools') defaultIcon = '🛠️';
-
-        let displayControl = activeRole === 'DEVELOPER' ? 'flex' : 'none';
-        
-        let devActionButtons = `
-            <div class="card-control-box" style="display:${displayControl}; flex-direction: column; align-items: flex-end; gap: 4px;">
-                <div style="display: flex; gap: 4px;">
-                    <div class="dev-action-badge-btn edit-btn" title="Edit APK" onclick="openEditApkFormModal(${index})">✏️</div>
-                    <div class="dev-action-badge-btn delete-btn" title="Hapus APK" onclick="deleteApkItemCard(${index})">🗑️</div>
-                </div>
-                <button class="dev-action-badge-btn edit-btn" title="Pindah Urutan APK" style="width: auto; padding: 2px 8px; font-size: 0.75rem; border-radius: 4px; margin-top: 2px; font-weight: bold; border-color: rgba(14, 165, 233, 0.4); background: rgba(14, 165, 233, 0.1); color: #0ea5e9;" onclick="openReorderModal(${index})">
-                    ${index + 1}
-                </button>
-            </div>
-        `;
+        const defaultIcon = getCardDefaultIcon(item);
 
         card.innerHTML = `
-            ${devActionButtons}
+            ${buildDevControlBox(index, activeRole)}
             <div class="apk-top-flex">
                 <div class="apk-icon-frame">
                     <img src="${item.imageUrl || ''}" alt="${item.name || ''}" onerror="this.style.display='none'; this.parentElement.innerHTML='${defaultIcon}';">
@@ -469,11 +519,7 @@ function renderGridCards() {
                 <div class="apk-main-info">
                     <span class="apk-title">${item.name || 'No Name'}</span>
                     <span class="apk-version">${item.version || ''}</span>
-                    <div class="apk-badge-row">
-                        <span class="apk-badge">💾 ${item.size || '0 MB'}</span>
-                        <span class="apk-badge">🤖 ${item.android || '5.0+'}</span>
-                        <span class="apk-badge">📁 ${item.category || 'General'}</span>
-                    </div>
+                    <div class="apk-badge-row">${buildBadgeRow(item)}</div>
                 </div>
             </div>
             <div class="apk-desc-area">${item.description || 'Tidak ada deskripsi.'}</div>
@@ -485,7 +531,6 @@ function renderGridCards() {
         grid.appendChild(card);
     });
 
-    // GENERATE TOMBOL PAGINATION [1][2]
     if (paginationContainer) {
         if (totalPages > 1) {
             paginationContainer.style.display = 'block';
@@ -507,7 +552,6 @@ function renderGridCards() {
     }
 }
 
-// FUNGSI GANTI HALAMAN
 function changePage(pageNum) {
     currentPage = pageNum;
     renderGridCards();
@@ -553,12 +597,22 @@ function submitUserModRequest() {
         return;
     }
 
+    const newReq = {
+        id: Date.now(),
+        name: name,
+        playstoreUrl: playstore,
+        date: new Date().toLocaleString('id-ID')
+    };
+    const existingReqs = JSON.parse(localStorage.getItem('mmk_mod_requests') || '[]');
+    existingReqs.push(newReq);
+    localStorage.setItem('mmk_mod_requests', JSON.stringify(existingReqs));
+
     const adminEmail = "mrkhenzoofficial@gmail.com"; 
     const subject = encodeURIComponent(`Please This App : ${name}`);
     const body = encodeURIComponent(`Halo Min,\n\nNama Aplikasi / Game : ${name}\nLink : ${playstore}\n\nTerima kasih!`);
     
     window.location.href = `mailto:${adminEmail}?subject=${subject}&body=${body}`;
-    alert("✅ 𝙼𝚎𝚖𝚋𝚞𝚔𝚊 𝚊𝚙𝚕𝚒𝚔𝚊𝚜𝚒 𝚎𝚖𝚊𝚒𝚕 𝙰𝚗𝚍𝚊 𝚞𝚗𝚝𝚞𝚔 𝚖𝚎𝚗𝚐𝚒𝚛𝚒𝚖 𝚛𝚎𝚚𝚞𝚎𝚜𝚝...\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nNote : 𝙈𝙊𝙃𝙊𝙉 𝘿𝙄 𝙈𝘼𝙆𝙇𝙐𝙈𝙆𝘼𝙉 𝘼𝙋𝘼𝘽𝙄𝙇𝘼 𝙍𝙀𝙌 𝙏𝙄𝘿𝘼𝙆 𝘿𝙄 𝙋𝙀𝙉𝙐𝙃𝙄 𝙆𝘼𝙍𝙀𝙉𝘼 𝙏𝙄𝘿𝘼𝙆 𝙎𝙀𝙈𝙐𝘼 𝘼𝙋𝙆 𝘽𝙄𝙎𝘼 𝙎𝘼𝙔𝘼 𝙈𝙊𝘿 . \n 𝙏𝙝𝙖𝙣𝙠𝙨 𝙮𝙤𝙪. ");
+    alert("✅ Request tersimpan di admin panel & email dibuka.\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nNote : 𝙈𝙊𝙃𝙊𝙉 𝘿𝙄 𝙈𝘼𝙆𝙇𝙐𝙈𝙆𝘼𝙉 𝘼𝙋𝘼𝘽𝙄𝙇𝘼 𝙍𝙀𝙌 𝙏𝙄𝘿𝘼𝙆 𝘿𝙄 𝙋𝙀𝙉𝙐𝙃𝙄 𝙆𝘼𝙍𝙀𝙉𝘼 𝙏𝙄𝘿𝘼𝙆 𝙎𝙀𝙈𝙐𝘼 𝘼𝙋𝙆 𝘽𝙄𝙎𝘼 𝙎𝘼𝙔𝘼 𝙈𝙊𝘿.\n 𝙏𝙝𝙖𝙣𝙠𝙨 𝙮𝙤𝙪.");
     closeActiveOverlays();
 }
 
@@ -665,8 +719,6 @@ window.addEventListener('DOMContentLoaded', () => {
     applySharedAppFilterFromUrl();
 });
 
-// ==================== FITUR BAGIKAN APK (SHARE CARD) ====================
-
 function getSiteBaseUrl() {
     return window.location.origin + window.location.pathname.replace(/index\.html$/, '').replace(/\/$/, '');
 }
@@ -680,11 +732,8 @@ async function shareApkCard(index) {
 
     if (navigator.share) {
         try {
-            // url tidak dikirim terpisah agar tidak duplikat dengan link yang sudah ada di dalam teks
             await navigator.share({ title: item.name, text: shareText });
-        } catch (err) {
-            // Dibatalkan pengguna, abaikan
-        }
+        } catch (err) {}
         return;
     }
 
@@ -698,7 +747,7 @@ async function shareApkCard(index) {
 
 function applySharedAppFilterFromUrl() {
     const params = new URLSearchParams(window.location.search);
-    const sharedApp = params.get('share');
+    const sharedApp = params.get('share') || params.get('app');
     if (!sharedApp) return;
 
     const searchInput = document.getElementById('searchInput');
@@ -755,16 +804,16 @@ function syncSecurityAccessState() {
         if(badge) { badge.textContent = "Executive Member"; badge.className = "sidebar-sign-text exec-badge"; }
         if(triggerBtn) { triggerBtn.innerHTML = "🔒 Logout"; triggerBtn.classList.add('active-control'); }
         hiddenExecElements.forEach(el => el.style.setProperty('display', 'block', 'important'));
-        devOnlyBlocks.forEach(el => el.style.setProperty('none', 'important'));
+        devOnlyBlocks.forEach(el => el.style.setProperty('display', 'none', 'important'));
         controlBoxes.forEach(el => el.style.display = 'none');
-        if(devUndoRedo) devUndoRedo.style.setProperty('none', 'important');
+        if(devUndoRedo) devUndoRedo.style.setProperty('display', 'none', 'important');
     } else {
         if(badge) { badge.textContent = "Guest Mode"; badge.className = "sidebar-sign-text"; }
         if(triggerBtn) { triggerBtn.innerHTML = "⚙️ Sign In"; triggerBtn.classList.remove('active-control'); }
-        hiddenExecElements.forEach(el => el.style.setProperty('none', 'important'));
-        devOnlyBlocks.forEach(el => el.style.setProperty('none', 'important'));
+        hiddenExecElements.forEach(el => el.style.setProperty('display', 'none', 'important'));
+        devOnlyBlocks.forEach(el => el.style.setProperty('display', 'none', 'important'));
         controlBoxes.forEach(el => el.style.display = 'none');
-        if(devUndoRedo) devUndoRedo.style.setProperty('none', 'important');
+        if(devUndoRedo) devUndoRedo.style.setProperty('display', 'none', 'important');
     }
 }
 
@@ -829,6 +878,107 @@ async function pasteFieldValue(inputId) {
     catch (err) { alert("❌ Gagal menempel teks. Pastikan browser mengizinkan akses clipboard."); }
 }
 
+/* ==================== HOOK BUILDER FUNCTIONS ==================== */
+function escapeHtml(str) {
+    return String(str || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function onHookToggleChange() {
+    const enabled = document.getElementById('formApkHookEnabled').checked;
+    const section = document.getElementById('hookBuilderSection');
+    const statusBadge = document.getElementById('hookStatusBadge');
+    if (section) section.style.display = enabled ? 'block' : 'none';
+    if (statusBadge) {
+        if (enabled) {
+            statusBadge.textContent = 'AKTIF';
+            statusBadge.style.background = 'rgba(168,85,247,0.2)';
+            statusBadge.style.color = '#a855f7';
+            statusBadge.style.borderColor = 'rgba(168,85,247,0.5)';
+        } else {
+            statusBadge.textContent = 'NONAKTIF';
+            statusBadge.style.background = 'rgba(100,116,139,0.2)';
+            statusBadge.style.color = '#64748b';
+            statusBadge.style.borderColor = 'rgba(100,116,139,0.4)';
+        }
+    }
+}
+
+function setHookEnabled(enabled) {
+    const cb = document.getElementById('formApkHookEnabled');
+    if (cb) cb.checked = !!enabled;
+    onHookToggleChange();
+}
+
+function addHookRow(data) {
+    data = data || {};
+    hookRowsData.push({
+        fitur: data.fitur || '',
+        className: data.className || '',
+        methodName: data.methodName || '',
+        type: data.type || 'Z',
+        defaultValue: data.defaultValue != null ? String(data.defaultValue) : ''
+    });
+    renderHookRows();
+}
+
+function removeHookRow(idx) {
+    hookRowsData.splice(idx, 1);
+    renderHookRows();
+}
+
+function updateHookField(idx, field, value) {
+    if (!hookRowsData[idx]) return;
+    hookRowsData[idx][field] = value;
+    syncHookHiddenInput();
+}
+
+function renderHookRows() {
+    const container = document.getElementById('hookRowsContainer');
+    if (!container) return;
+    container.innerHTML = '';
+    if (hookRowsData.length === 0) {
+        container.innerHTML = '<div style="text-align:center;color:var(--text-muted);font-size:0.8rem;padding:10px;border:1px dashed rgba(255,255,255,0.1);border-radius:8px;">Belum ada hook. Klik "+ TAMBAH HOOK" untuk mulai.</div>';
+        syncHookHiddenInput();
+        return;
+    }
+    hookRowsData.forEach((h, i) => {
+        const row = document.createElement('div');
+        row.style.cssText = 'background:rgba(168,85,247,0.05);border:1px solid rgba(168,85,247,0.25);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px;';
+
+        const typeOptions = HOOK_TYPES.map(t =>
+            `<option value="${t.v}" ${h.type === t.v ? 'selected' : ''}>${t.label}</option>`
+        ).join('');
+
+        row.innerHTML = `
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                <strong style="color:#a855f7;font-size:0.78rem;">Hook #${i + 1}</strong>
+                <button type="button" onclick="removeHookRow(${i})" style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;color:#ef4444;padding:2px 8px;border-radius:5px;font-size:0.72rem;cursor:pointer;">🗑️</button>
+            </div>
+            <input type="text" placeholder="Nama Fitur (contoh: Premium Unlock)" value="${escapeHtml(h.fitur)}" oninput="updateHookField(${i}, 'fitur', this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;">
+            <input type="text" placeholder="Class (contoh: com.app.MainActivity)" value="${escapeHtml(h.className)}" oninput="updateHookField(${i}, 'className', this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;font-family:monospace;">
+            <input type="text" placeholder="Method (contoh: isPremium)" value="${escapeHtml(h.methodName)}" oninput="updateHookField(${i}, 'methodName', this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;font-family:monospace;">
+            <select onchange="updateHookField(${i}, 'type', this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;">
+                ${typeOptions}
+            </select>
+            <input type="text" placeholder="Default value (opsional)" value="${escapeHtml(h.defaultValue)}" oninput="updateHookField(${i}, 'defaultValue', this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;">
+        `;
+        container.appendChild(row);
+    });
+    syncHookHiddenInput();
+}
+
+function syncHookHiddenInput() {
+    const el = document.getElementById('formApkHooks');
+    if (el) el.value = JSON.stringify(hookRowsData);
+}
+
+function loadHooksIntoForm(hooks, enabled) {
+    hookRowsData = Array.isArray(hooks) ? hooks.map(h => ({...h})) : [];
+    renderHookRows();
+    setHookEnabled(enabled === true);
+}
+
+/* ==================== FORM OPEN/EDIT ==================== */
 function openAddApkFormModal() {
     closeActiveOverlays();
     document.getElementById('formModalTitle').textContent = "Format Edit/Tambah App ";
@@ -845,6 +995,7 @@ function openAddApkFormModal() {
     document.getElementById('formApkLink').value = "";
     document.getElementById('formApkLinkArm64').value = "";
     document.getElementById('formApkLinkArm32').value = "";
+    loadHooksIntoForm([], false);
 
     const selectorRow = document.getElementById('existingApkSelectorRow');
     const selectEl = document.getElementById('formExistingApkSelect');
@@ -880,6 +1031,8 @@ function handleLoadExistingApkData() {
     const links = targetData.links || {};
     document.getElementById('formApkLinkArm64').value = links.Arm64 || links.arm64 || "";
     document.getElementById('formApkLinkArm32').value = links.Arm32 || links.arm32 || "";
+    const hasHooks = Array.isArray(targetData.hooks) && targetData.hooks.length > 0;
+    loadHooksIntoForm(targetData.hooks || [], hasHooks && targetData.hookEnabled !== false);
 }
 
 function openEditApkFormModal(index) {
@@ -904,6 +1057,8 @@ function openEditApkFormModal(index) {
     const linksE = targetData.links || {};
     document.getElementById('formApkLinkArm64').value = linksE.Arm64 || linksE.arm64 || "";
     document.getElementById('formApkLinkArm32').value = linksE.Arm32 || linksE.arm32 || "";
+    const hasHooks = Array.isArray(targetData.hooks) && targetData.hooks.length > 0;
+    loadHooksIntoForm(targetData.hooks || [], hasHooks && targetData.hookEnabled !== false);
     document.getElementById('globalOverlay').classList.add('active');
     document.getElementById('devApkFormModal').classList.add('active');
 }
@@ -1003,9 +1158,19 @@ function saveApkFormSubmission() {
     const linkArm64 = document.getElementById('formApkLinkArm64').value.trim();
     const linkArm32 = document.getElementById('formApkLinkArm32').value.trim();
 
+    const hookEnabled = document.getElementById('formApkHookEnabled').checked;
+    let hooksParsed = [];
+    try { hooksParsed = JSON.parse(document.getElementById('formApkHooks').value || '[]'); } catch(e) { hooksParsed = []; }
+    hooksParsed = hooksParsed.filter(h => h.fitur && h.className && h.methodName);
+
     if (!name || !downloadUrl) { alert("Nama & Link wajib terisi!"); return; }
     if (packageName === "") { alert("packageName wajib diisi (untuk cek update di app)!"); return; }
     if (versionCodeRaw === "" || isNaN(versionCode)) { alert("versionCode wajib angka (contoh: 25302)!"); return; }
+    if (hookEnabled && hooksParsed.length === 0) {
+        alert("⚠️ Hook System AKTIF tapi belum ada hook valid.\nTambahkan minimal 1 hook (Fitur + Class + Method) atau matikan Hook System.");
+        return;
+    }
+
     const editIndex = document.getElementById('formEditIndex').value;
 
     const payload = { name, version, versionName, versionCode, packageName, category, size, android, description, imageUrl, downloadUrl };
@@ -1015,6 +1180,10 @@ function saveApkFormSubmission() {
         if (linkArm64) payload.links.Arm64 = linkArm64;
         if (linkArm32) payload.links.Arm32 = linkArm32;
         payload.multiDownload = true;
+    }
+    if (hookEnabled && hooksParsed.length > 0) {
+        payload.hooks = hooksParsed;
+        payload.hookEnabled = true;
     }
     
     if (editIndex !== "") { 
@@ -1082,8 +1251,7 @@ function processImportvip(input) {
     reader.readAsText(file);
 }
 
-
-/** ========== DialogUpdate export (sinkron APK) ========== */
+/* ========== DialogUpdate export ========== */
 function isDirectHostUrl(url) {
     if (!url) return false;
     const u = String(url).toLowerCase();
@@ -1108,10 +1276,8 @@ function resolveApkDownloadForRole(item, role) {
         if (mediafire) return mediafire;
         if (arm && isDirectHostUrl(arm)) return arm;
         if (primary && isDirectHostUrl(primary) && !isSafelinkUrl(primary)) return primary;
-        // fallback tetap primary (meski safelink) agar tidak kosong
         return mediafire || arm || primary || '#';
     }
-    // guest: pakai downloadUrl apa adanya (boleh safelink)
     return primary || mediafire || arm || '#';
 }
 
@@ -1132,7 +1298,6 @@ function apkItemToDialogUpdatePayload(item, role) {
     if (links.Arm64) update_urls.push({ name: 'Arm64', url: links.Arm64 });
     if (links.Arm32) update_urls.push({ name: 'Arm32', url: links.Arm32 });
 
-    // pastikan minimal 1 url
     if (!update_urls.length && mainUrl) update_urls.push({ name: 'Download', url: mainUrl });
 
     return {
@@ -1168,7 +1333,6 @@ function openDialogUpdateExportModal() {
             sel.appendChild(opt);
         });
     }
-    // default role dari session
     const roleSel = document.getElementById('dialogUpdateRoleSelect');
     const activeRole = localStorage.getItem('mmk_sys_role') || 'GUEST';
     if (roleSel) {
@@ -1203,7 +1367,7 @@ function copyDialogUpdatePayload() {
         document.execCommand('copy');
         navigator.clipboard && navigator.clipboard.writeText(box.value);
     } catch (e) {}
-    alert('📋 dialog_update JSON disalin.\\nUpload ke GitHub sebagai dialog_update.json (JSON murni).');
+    alert('📋 dialog_update JSON disalin.\nUpload ke GitHub sebagai dialog_update.json (JSON murni).');
 }
 
 function downloadDialogUpdateFile() {
@@ -1216,7 +1380,7 @@ function downloadDialogUpdateFile() {
     document.body.appendChild(a);
     a.click();
     setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
-    alert('💾 File dialog_update.json diunduh.\\nUnggah ke: raw.githubusercontent.com/.../Modapks/main/dialog_update.json');
+    alert('💾 File dialog_update.json diunduh.\nUnggah ke: raw.githubusercontent.com/.../Modapks/main/dialog_update.json');
 }
 
 function exportCurrentApksFile(mode) {
@@ -1285,6 +1449,14 @@ function showExecAppDetails(key) {
     document.getElementById('execAppDetailsModal').classList.add('active');
 }
 
+function deletevipApp(key) {
+    if (typeof execAppsDatabase === 'undefined') return;
+    if (!confirm(`Hapus "${key}" dari vip.js?`)) return;
+    delete execAppsDatabase[key];
+    closeActiveOverlays();
+    alert('✅ Entry vip.js dihapus. Jangan lupa ekspor vip.js untuk menyimpan permanen.');
+}
+
 function handleModderProfileModal() {
     closeActiveOverlays();
     document.getElementById('globalOverlay').classList.add('active');
@@ -1347,34 +1519,15 @@ function executeApkSearch() {
         
         if (titleText.includes(query)) {
             success = true;
-            
             const card = document.createElement('div');
             card.className = 'apk-card';
             card.setAttribute('data-target-cat', item.category);
             card.setAttribute('data-target-droid', item.android);
 
-            let defaultIcon = '📱';
-            if (item.category === 'Streaming') defaultIcon = '🎬';
-            else if (item.category === 'Games Mod') defaultIcon = '🎮';
-            else if (item.category === 'Music') defaultIcon = '🎵';
-            else if (item.category === 'Tools') defaultIcon = '🛠️';
-
-            let displayControl = activeRole === 'DEVELOPER' ? 'flex' : 'none';
-            
-            let devActionButtons = `
-                <div class="card-control-box" style="display:${displayControl}; flex-direction: column; align-items: flex-end; gap: 4px;">
-                    <div style="display: flex; gap: 4px;">
-                        <div class="dev-action-badge-btn edit-btn" title="Edit APK" onclick="openEditApkFormModal(${index})">✏️</div>
-                        <div class="dev-action-badge-btn delete-btn" title="Hapus APK" onclick="deleteApkItemCard(${index})">🗑️</div>
-                    </div>
-                    <button class="dev-action-badge-btn edit-btn" title="Pindah Urutan APK" style="width: auto; padding: 2px 8px; font-size: 0.75rem; border-radius: 4px; margin-top: 2px; font-weight: bold; border-color: rgba(14, 165, 233, 0.4); background: rgba(14, 165, 233, 0.1); color: #0ea5e9;" onclick="openReorderModal(${index})">
-                        [${index + 1}]
-                    </button>
-                </div>
-            `;
+            const defaultIcon = getCardDefaultIcon(item);
 
             card.innerHTML = `
-                ${devActionButtons}
+                ${buildDevControlBox(index, activeRole)}
                 <div class="apk-top-flex">
                     <div class="apk-icon-frame">
                         <img src="${item.imageUrl || ''}" alt="${item.name || ''}" onerror="this.style.display='none'; this.parentElement.innerHTML='${defaultIcon}';">
@@ -1382,11 +1535,7 @@ function executeApkSearch() {
                     <div class="apk-main-info">
                         <span class="apk-title">${item.name || 'No Name'}</span>
                         <span class="apk-version">${item.version || ''}</span>
-                        <div class="apk-badge-row">
-                            <span class="apk-badge">💾 ${item.size || '0 MB'}</span>
-                            <span class="apk-badge">🤖 ${item.android || '5.0+'}</span>
-                            <span class="apk-badge">📁 ${item.category || 'General'}</span>
-                        </div>
+                        <div class="apk-badge-row">${buildBadgeRow(item)}</div>
                     </div>
                 </div>
                 <div class="apk-desc-area">${item.description || 'Tidak ada deskripsi.'}</div>
@@ -1402,5 +1551,3 @@ function executeApkSearch() {
     if (alertEmpty) alertEmpty.style.display = success ? 'none' : 'block';
     if (paginationContainer) paginationContainer.style.display = 'none'; 
 }
-
-
