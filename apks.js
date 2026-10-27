@@ -21,7 +21,7 @@ const apks = [
             "signCheck": false,
             "btnMode": true,
             "crashLog": false,
-            "forceCloseOnUpdate": true
+            "forceCloseOnUpdate": false
         }
     },
     {
@@ -686,10 +686,6 @@ const apks = [
             "[ + ] perbaikan bug4",
             "[ + ] perbaikan bug5",
             "[ + ] perbaikan bug6"
-        ],
-        "links": {
-            "Arm64": "https://xnxx.com"
-        },
-        "multiDownload": true
+        ]
     }
 ];
