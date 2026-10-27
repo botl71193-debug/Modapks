@@ -686,6 +686,12 @@ const apks = [
             "[ + ] perbaikan bug4",
             "[ + ] perbaikan bug5",
             "[ + ] perbaikan bug6"
-        ]
+        ],
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": true,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
     }
 ];
