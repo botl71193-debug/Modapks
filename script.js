@@ -955,7 +955,7 @@ function renderHookRows() {
                 <button type="button" onclick="removeHookRow(${i})" style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;color:#ef4444;padding:2px 8px;border-radius:5px;font-size:0.72rem;cursor:pointer;">🗑️</button>
             </div>
             <input type="text" placeholder="Nama Fitur (contoh: Premium Unlock)" value="${escapeHtml(h.fitur)}" oninput="updateHookField(${i}, 'fitur', this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;">
-            <input type="text" placeholder="Class (contoh: com.app.MainActivity)" value="${escapeHtml(h.className)}" oninput="updateHookField(${i}, 'className', this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;font-family:monospace;">
+            <input type="text" placeholder="Class method target (bukan MainActivity) contoh: com.app.databean.MemberDataBean" value="${escapeHtml(h.className)}" oninput="updateHookField(${i}, 'className', this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;font-family:monospace;">
             <input type="text" placeholder="Method (contoh: isPremium)" value="${escapeHtml(h.methodName)}" oninput="updateHookField(${i}, 'methodName', this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;font-family:monospace;">
             <select onchange="updateHookField(${i}, 'type', this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;">
                 ${typeOptions}
@@ -1551,3 +1551,37 @@ function executeApkSearch() {
     if (alertEmpty) alertEmpty.style.display = success ? 'none' : 'block';
     if (paginationContainer) paginationContainer.style.display = 'none'; 
 }
+
+
+/* ========== MMK Hook Helper (Class#Method KEY) ========== */
+function buildHookKey(className, methodName) {
+    const c = String(className || '').trim().replace(/\//g, '.').replace(/^L/, '').replace(/;$/, '');
+    const m = String(methodName || '').trim();
+    return (c && m) ? (c + '#' + m) : '';
+}
+function toSmaliKeyLine(className, methodName) {
+    const key = buildHookKey(className, methodName);
+    return key ? ('    const-string v1, "' + key + '"') : '# Class/Method kosong';
+}
+function buildModMenuPayload(apkItem) {
+    const hooks = Array.isArray(apkItem && apkItem.hooks) ? apkItem.hooks : [];
+    return {
+        appName: (apkItem && apkItem.name) || 'Mod Menu',
+        appVersion: (apkItem && (apkItem.versionName || apkItem.version)) || '1.0',
+        packageName: (apkItem && apkItem.packageName) || '',
+        hooks: hooks.filter(h => h && h.fitur && h.className && h.methodName).map(h => ({
+            fitur: h.fitur,
+            className: String(h.className).replace(/\//g, '.').replace(/^L/, '').replace(/;$/, ''),
+            methodName: h.methodName,
+            type: h.type || 'Z',
+            defaultValue: h.defaultValue != null ? String(h.defaultValue) : '',
+            key: buildHookKey(h.className, h.methodName)
+        }))
+    };
+}
+window.MMKHook = {
+    buildKey: buildHookKey,
+    toSmali: toSmaliKeyLine,
+    payload: buildModMenuPayload
+};
+
