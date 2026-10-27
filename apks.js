@@ -18,7 +18,7 @@ const apks = [
             "[ + ] VIP unlocked"
         ],
         "dialogConfig": {
-            "signCheck": true,
+            "signCheck": false,
             "btnMode": true,
             "crashLog": false,
             "forceCloseOnUpdate": true
