@@ -16,7 +16,13 @@ const apks = [
             "[ + ] Lvl 9999+",
             "[ + ] Read Chap 9999+",
             "[ + ] VIP unlocked"
-        ]
+        ],
+        "dialogConfig": {
+            "signCheck": false,
+            "btnMode": true,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
     },
     {
         "name": "Efiko",
