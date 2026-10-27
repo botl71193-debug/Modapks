@@ -1,5 +1,18 @@
 const apks = [
     {
+        "name": "Shinigami",
+        "version": "1.0.5",
+        "versionName": "1.0.5",
+        "versionCode": 105,
+        "packageName": "com.azbaktech.maxcall",
+        "category": "Aplikasi Mod",
+        "size": "10,48M",
+        "android": "Android 5+",
+        "description": "Aplikasi baca komik Bahasa Indonesia untuk manga, manhwa, manhua, dan komik lokal. Katalog komik update harian, bookmark, baca online gratis, dan tersedia juga versi web/PWA untuk dibuka lewat browser.",
+        "imageUrl": "https://i.ibb.co.com/qMSpp0bQ/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/FgshUiV"
+    },
+    {
         "name": "Efiko",
         "version": "1.6.2",
         "versionName": "1.6.2",
@@ -114,16 +127,6 @@ const apks = [
         "description": "Aplikasi baca komik dan manga terlengkap dalam Bahasa Indonesia dengan ribuan judul manga, manhwa, dan manhua favorit. Update chapter terbaru setiap hari, offline mode, koleksi lengkap, brush reading experience terbaik untuk penggemar komik Indonesia",
         "imageUrl": "https://i.ibb.co.com/dwwDqQJR/icon.webp",
         "downloadUrl": "https://adlinksumo.com/2PIB3b5Z"
-    },
-    {
-        "name": "Shinigami",
-        "version": "1.0.5",
-        "category": "Aplikasi Mod",
-        "size": "10,48M",
-        "android": "Android 5+",
-        "description": "Aplikasi baca komik Bahasa Indonesia untuk manga, manhwa, manhua, dan komik lokal. Katalog komik update harian, bookmark, baca online gratis, dan tersedia juga versi web/PWA untuk dibuka lewat browser.",
-        "imageUrl": "https://i.ibb.co.com/qMSpp0bQ/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/FgshUiV"
     },
     {
         "name": "NUX Launcher",
