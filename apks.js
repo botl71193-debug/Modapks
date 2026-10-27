@@ -19,9 +19,9 @@ const apks = [
         ],
         "dialogConfig": {
             "signCheck": false,
-            "btnMode": true,
-            "crashLog": false,
-            "forceCloseOnUpdate": false
+            "btnMode": false,
+            "crashLog": true,
+            "forceCloseOnUpdate": true
         }
     },
     {
