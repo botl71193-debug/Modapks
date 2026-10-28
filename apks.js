@@ -11,7 +11,7 @@ const apks = [
         "name": "Shinigami",
         "version": "1.0.5",
         "versionName": "1.0.5",
-        "versionCode": 105,
+        "versionCode": 106,
         "packageName": "com.azbaktech.maxcall",
         "category": "Aplikasi Mod",
         "size": "10,48M",
