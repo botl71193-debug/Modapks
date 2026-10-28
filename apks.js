@@ -77,7 +77,13 @@ const dialogTheme = {
     "colorAccent2": "#2563eb"
 };
 
-const premiumUsers = [];
+const premiumUsers = [
+    {
+        "id": "88193341",
+        "role": "EXECUTIVE",
+        "date": "28/10/2026, 15.09.55"
+    }
+];
 
 const apks = [
     {
