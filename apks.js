@@ -775,8 +775,14 @@ const apks = [
             "[ + ] perbaikan bug6"
         ],
         "links": {
-            "Arm64": "https://xnxx.com"
+            "Arm64": "https://chatgpt.com"
         },
-        "multiDownload": true
+        "multiDownload": true,
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": false
+        }
     }
 ];
