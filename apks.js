@@ -29,7 +29,7 @@ const apks = [
             "signCheck": false,
             "btnMode": false,
             "crashLog": false,
-            "forceCloseOnUpdate": true
+            "forceCloseOnUpdate": false
         },
         "links": {
             "Arm64": "https://safefileku.com/download/KIeXIP9Q6gu1FaQu"
