@@ -72,12 +72,13 @@ const rahasiaHTML = `
   <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
   <h3 style="margin-bottom: 10px; color:#fff;">🛡️ SIGN IN</h3>
   <div id="loginFormState"><input type="password" id="devKeyInput" style="background:#020205; border:1px solid var(--border); border-radius:8px; padding:12px; color:#fff; width:100%; margin-bottom:15px; text-align:center; letter-spacing:4px; outline:none;" placeholder=" ✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏ "><button class="download-action-btn" onclick="processAuthVerification()">VERIFIKASI AKSES</button></div>
-  <div id="logoutFormState" style="display:none; text-align:center;"><p id="authActiveModeText" style="color:var(--accent); margin-bottom:20px; font-size:0.9rem; font-weight:bold;"></p><button class="download-action-btn" style="background:linear-gradient(135deg,#ef4444,#991b1b)" onclick="processAuthLogout()">LOGOUT</button></div>
+  <div id="logoutFormState" style="display:none; text-align:center;"><p id="authActiveModeText" style="color:var(--accent); margin-bottom:20px; font-size:0.9rem; font-weight:bold;"></p><button class="download-action-btn" style="background:#ef4444" onclick="processAuthLogout()">LOGOUT</button></div>
 </div>
 
 <div class="modal-box dev-panel-modal" id="themeEditorModal" style="max-height:92vh;overflow-y:auto;width:95%;max-width:600px;">
   <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
   <h3 style="margin-bottom:14px;color:#fbbf24;font-size:1.15rem;border-bottom:1px solid rgba(251,191,36,0.3);padding-bottom:10px;">🎨 Dialog Theme Editor</h3>
+  
   <div id="themePreviewWrapper" style="background:#000;border-radius:12px;padding:10px;margin-bottom:14px;max-height:420px;overflow-y:auto;">
     <div style="display:flex;gap:4px;margin-bottom:10px;position:sticky;top:0;background:#000;padding-bottom:8px;z-index:5;">
       <button class="preview-state-btn active" data-pstate="mode1" onclick="changePreviewState('mode1')">Mode 1</button>
@@ -87,10 +88,14 @@ const rahasiaHTML = `
     </div>
     <div id="themePreviewFrame" style="display:flex;justify-content:center;"></div>
   </div>
+  
   <div class="theme-tab-bar">
-    <button id="tabSimple" class="active" onclick="switchThemeTab('simple')">📝 Simple</button>
-    <button id="tabJson" onclick="switchThemeTab('json')">🔧 JSON (Advanced)</button>
+    <button id="tabSimple" class="active" onclick="switchThemeTab('simple')">📝 Simpel</button>
+    <button id="tabStrings" onclick="switchThemeTab('strings')">🔤 Strings</button>
+    <button id="tabJson" onclick="switchThemeTab('json')">🔧 Advance</button>
   </div>
+
+  <!-- TAB 1: SIMPLE -->
   <div id="themeSimpleTab">
     <div class="theme-section-title">🎨 Branding</div>
     <div class="form-group" style="margin-bottom:10px;"><label>App Title</label><input type="text" id="thAppTitle" oninput="renderThemePreview(currentPreviewState)" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;"></div>
@@ -99,26 +104,122 @@ const rahasiaHTML = `
     <div class="form-group" style="margin-bottom:10px;"><label>Join Channel URL</label><input type="text" id="thJoinUrl" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:monospace;"></div>
     <div class="form-group" style="margin-bottom:10px;"><label>Download Official URL</label><input type="text" id="thDownloadUrl" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:monospace;"></div>
     <div class="theme-section-title">🔤 Fonts</div>
-    <div class="form-group" style="margin-bottom:10px;"><label>Font Family</label><input type="text" id="thFontMain" placeholder="Inter" oninput="renderThemePreview(currentPreviewState)" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;"></div>
+    <div class="form-group" style="margin-bottom:10px;"><label>Font Family (Main)</label><input type="text" id="thFontMain" placeholder="Inter" oninput="renderThemePreview(currentPreviewState)" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;"></div>
     <div class="form-group" style="margin-bottom:10px;"><label>Google Fonts URL</label><input type="text" id="thGoogleFontsUrl" placeholder="https://fonts.googleapis.com/css2?..." style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:monospace;font-size:0.75rem;"></div>
     <div class="theme-section-title">🎨 Colors</div>
     <div class="form-group" style="margin-bottom:10px;"><label>Background</label><div class="color-input-row"><input type="color" id="thColorBg"><input type="text" id="thColorBgText" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:monospace;"></div></div>
     <div class="form-group" style="margin-bottom:10px;"><label>Card</label><div class="color-input-row"><input type="color" id="thColorCard"><input type="text" id="thColorCardText" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:monospace;"></div></div>
     <div class="form-group" style="margin-bottom:10px;"><label>Accent (Primary)</label><div class="color-input-row"><input type="color" id="thColorAccent"><input type="text" id="thColorAccentText" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:monospace;"></div></div>
+    <div class="form-group" style="margin-bottom:10px;"><label>Accent 2</label><div class="color-input-row"><input type="color" id="thColorAccent2"><input type="text" id="thColorAccent2Text" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:monospace;"></div></div>
     <div class="form-group" style="margin-bottom:10px;"><label>Danger</label><div class="color-input-row"><input type="color" id="thColorDanger"><input type="text" id="thColorDangerText" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:monospace;"></div></div>
     <div class="form-group" style="margin-bottom:10px;"><label>Success</label><div class="color-input-row"><input type="color" id="thColorSuccess"><input type="text" id="thColorSuccessText" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:monospace;"></div></div>
     <div class="form-group" style="margin-bottom:10px;"><label>Warning</label><div class="color-input-row"><input type="color" id="thColorWarning"><input type="text" id="thColorWarningText" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:monospace;"></div></div>
     <div class="form-group" style="margin-bottom:10px;"><label>Hook (Purple)</label><div class="color-input-row"><input type="color" id="thColorHook"><input type="text" id="thColorHookText" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:monospace;"></div></div>
     <div class="form-group" style="margin-bottom:10px;"><label>Gold (Premium)</label><div class="color-input-row"><input type="color" id="thColorGold"><input type="text" id="thColorGoldText" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:monospace;"></div></div>
   </div>
+
+  <!-- TAB 2: STRINGS -->
+  <div id="themeStringsTab" style="display:none;">
+    <div class="theme-section-title">🔤 Global Display</div>
+    <div class="form-group" style="margin-bottom:10px;"><label>Font Display</label><input type="text" id="thFontDisplay" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;"></div>
+    <div class="form-group" style="margin-bottom:10px;"><label>Font Mono</label><input type="text" id="thFontMono" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;"></div>
+
+    <!-- Mode 1 & 2 -->
+    <details style="margin-top:12px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:10px;">
+      <summary style="cursor:pointer;font-weight:700;color:#3b82f6;font-size:0.85rem;">📝 Mode 1 & 2 Strings</summary>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">
+        <div class="form-group"><label>Loading Text</label><input type="text" id="thTxt_loadingText" class="txt-input"></div>
+        <div class="form-group"><label>Mode 1 Title</label><input type="text" id="thTxt_mode1Title" class="txt-input"></div>
+        <div class="form-group"><label>Mode 1 Message</label><input type="text" id="thTxt_mode1Message" class="txt-input"></div>
+        <div class="form-group"><label>Mode 1 Close Btn</label><input type="text" id="thTxt_mode1CloseBtn" class="txt-input"></div>
+        <div class="form-group"><label>Mode 2 Status</label><input type="text" id="thTxt_mode2Status" class="txt-input"></div>
+        <div class="form-group"><label>Mode 2 Changelog Title</label><input type="text" id="thTxt_mode2ChangelogTitle" class="txt-input"></div>
+        <div class="form-group"><label>Mode 2 More Apps</label><input type="text" id="thTxt_mode2MoreApps" class="txt-input"></div>
+        <div class="form-group"><label>Mode 2 More Btn</label><input type="text" id="thTxt_mode2MoreBtn" class="txt-input"></div>
+        <div class="form-group"><label>Mode 2 Less Btn</label><input type="text" id="thTxt_mode2LessBtn" class="txt-input"></div>
+        <div class="form-group"><label>Mode 2 Hook Btn</label><input type="text" id="thTxt_mode2HookBtn" class="txt-input"></div>
+        <div class="form-group"><label>Mode 2 Join Btn</label><input type="text" id="thTxt_mode2JoinBtn" class="txt-input"></div>
+        <div class="form-group"><label>Mode 2 Close Btn</label><input type="text" id="thTxt_mode2CloseBtn" class="txt-input"></div>
+      </div>
+    </details>
+
+    <!-- Mode 3 -->
+    <details style="margin-top:8px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:10px;">
+      <summary style="cursor:pointer;font-weight:700;color:#f43f5e;font-size:0.85rem;">📝 Mode 3 Strings</summary>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">
+        <div class="form-group"><label>Status</label><input type="text" id="thTxt_mode3Status" class="txt-input"></div>
+        <div class="form-group"><label>Banner Title</label><input type="text" id="thTxt_mode3BannerTitle" class="txt-input"></div>
+        <div class="form-group"><label>Banner Msg</label><input type="text" id="thTxt_mode3BannerMsg" class="txt-input"></div>
+        <div class="form-group"><label>Changelog Title</label><input type="text" id="thTxt_mode3ChangelogTitle" class="txt-input"></div>
+        <div class="form-group"><label>Update Btn</label><input type="text" id="thTxt_mode3UpdateBtn" class="txt-input"></div>
+        <div class="form-group"><label>Update V2 Btn</label><input type="text" id="thTxt_mode3UpdateV2Btn" class="txt-input"></div>
+        <div class="form-group"><label>More Apps</label><input type="text" id="thTxt_mode3MoreApps" class="txt-input"></div>
+        <div class="form-group"><label>Hook Btn</label><input type="text" id="thTxt_mode3HookBtn" class="txt-input"></div>
+        <div class="form-group"><label>Join Btn</label><input type="text" id="thTxt_mode3JoinBtn" class="txt-input"></div>
+        <div class="form-group"><label>Close FC Btn</label><input type="text" id="thTxt_mode3CloseFCBtn" class="txt-input"></div>
+        <div class="form-group"><label>Close Btn</label><input type="text" id="thTxt_mode3CloseBtn" class="txt-input"></div>
+      </div>
+    </details>
+
+    <!-- Security & Premium -->
+    <details style="margin-top:8px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:10px;">
+      <summary style="cursor:pointer;font-weight:700;color:#eab308;font-size:0.85rem;">📝 Security & Premium Strings</summary>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">
+        <div class="form-group"><label>SigWarn Title</label><input type="text" id="thTxt_sigWarnTitle" class="txt-input"></div>
+        <div class="form-group"><label>SigWarn Subtitle</label><input type="text" id="thTxt_sigWarnSubtitle" class="txt-input"></div>
+        <div class="form-group"><label>SigWarn Status</label><input type="text" id="thTxt_sigWarnStatus" class="txt-input"></div>
+        <div class="form-group"><label>SigWarn Info Title</label><input type="text" id="thTxt_sigWarnInfoTitle" class="txt-input"></div>
+        <div class="form-group"><label>SigWarn Info Text</label><textarea id="thTxt_sigWarnInfoText" rows="2" class="txt-input"></textarea></div>
+        <div class="form-group"><label>SigWarn List 1</label><input type="text" id="thTxt_sigWarnList1" class="txt-input"></div>
+        <div class="form-group"><label>SigWarn List 2</label><input type="text" id="thTxt_sigWarnList2" class="txt-input"></div>
+        <div class="form-group"><label>SigWarn List 3</label><input type="text" id="thTxt_sigWarnList3" class="txt-input"></div>
+        <div class="form-group"><label>SigWarn Join Btn</label><input type="text" id="thTxt_sigWarnJoinBtn" class="txt-input"></div>
+        <div class="form-group"><label>SigWarn Download Btn</label><input type="text" id="thTxt_sigWarnDownloadBtn" class="txt-input"></div>
+        <div class="form-group"><label>Premium Title</label><input type="text" id="thTxt_premiumTitle" class="txt-input"></div>
+        <div class="form-group"><label>Premium Subtitle</label><input type="text" id="thTxt_premiumSubtitle" class="txt-input"></div>
+        <div class="form-group"><label>Premium Status</label><input type="text" id="thTxt_premiumStatus" class="txt-input"></div>
+        <div class="form-group"><label>Premium Info Title</label><input type="text" id="thTxt_premiumInfoTitle" class="txt-input"></div>
+        <div class="form-group"><label>Premium Info Text</label><textarea id="thTxt_premiumInfoText" rows="2" class="txt-input"></textarea></div>
+        <div class="form-group"><label>Premium Placeholder</label><input type="text" id="thTxt_premiumPlaceholder" class="txt-input"></div>
+        <div class="form-group"><label>Premium Cancel Btn</label><input type="text" id="thTxt_premiumCancelBtn" class="txt-input"></div>
+        <div class="form-group"><label>Premium Verify Btn</label><input type="text" id="thTxt_premiumVerifyBtn" class="txt-input"></div>
+      </div>
+    </details>
+
+    <!-- Hook & Crash -->
+    <details style="margin-top:8px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:10px;">
+      <summary style="cursor:pointer;font-weight:700;color:#a855f7;font-size:0.85rem;">📝 Hook & Crash Strings</summary>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">
+        <div class="form-group"><label>Hook Title</label><input type="text" id="thTxt_hookTitle" class="txt-input"></div>
+        <div class="form-group"><label>Hook Status</label><input type="text" id="thTxt_hookStatus" class="txt-input"></div>
+        <div class="form-group"><label>Hook Empty Title</label><input type="text" id="thTxt_hookEmptyTitle" class="txt-input"></div>
+        <div class="form-group"><label>Hook Empty Text</label><input type="text" id="thTxt_hookEmptyText" class="txt-input"></div>
+        <div class="form-group"><label>Hook Back Btn</label><input type="text" id="thTxt_hookBackBtn" class="txt-input"></div>
+        <div class="form-group"><label>Hook Save Btn</label><input type="text" id="thTxt_hookSaveBtn" class="txt-input"></div>
+        <div class="form-group"><label>Crash Title</label><input type="text" id="thTxt_crashTitle" class="txt-input"></div>
+        <div class="form-group"><label>Crash File Count</label><input type="text" id="thTxt_crashFileCount" class="txt-input"></div>
+        <div class="form-group"><label>Crash Empty Title</label><input type="text" id="thTxt_crashEmptyTitle" class="txt-input"></div>
+        <div class="form-group"><label>Crash Empty Text</label><input type="text" id="thTxt_crashEmptyText" class="txt-input"></div>
+        <div class="form-group"><label>Crash Back Btn</label><input type="text" id="thTxt_crashBackBtn" class="txt-input"></div>
+        <div class="form-group"><label>Crash Copy Btn</label><input type="text" id="thTxt_crashCopyBtn" class="txt-input"></div>
+        <div class="form-group"><label>Crash Clear Btn</label><input type="text" id="thTxt_crashClearBtn" class="txt-input"></div>
+        <div class="form-group"><label>Crash Close Btn</label><input type="text" id="thTxt_crashCloseBtn" class="txt-input"></div>
+        <div class="form-group"><label>Crash View Btn</label><input type="text" id="thTxt_crashViewBtn" class="txt-input"></div>
+        <div class="form-group"><label>Crash Status</label><input type="text" id="thTxt_crashStatus" class="txt-input"></div>
+      </div>
+    </details>
+  </div>
+
+  <!-- TAB 3: ADVANCE (JSON) -->
   <div id="themeJsonTab" style="display:none;">
     <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:10px;line-height:1.5;">Edit JSON lengkap. Gunakan <code style="background:rgba(0,0,0,0.5);padding:2px 6px;border-radius:4px;">{version}</code> untuk placeholder versi APK.</p>
     <textarea id="themeJsonTextarea" rows="20" style="width:100%;font-family:'Courier New',monospace;font-size:0.72rem;color:#67e8f9;background:#010208;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px;line-height:1.4;"></textarea>
-    <button class="download-action-btn" style="margin-top:10px;background:linear-gradient(135deg,#fbbf24,#d97706);" onclick="resetThemeDefaults()">↺ Reset ke Default</button>
+    <button class="download-action-btn" style="margin-top:10px;background:#fbbf24;" onclick="resetThemeDefaults()">↺ Reset ke Default</button>
   </div>
+  
   <div class="form-btn-row" style="margin-top:20px;">
     <button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">BATAL</button>
-    <button class="download-action-btn" style="background:linear-gradient(135deg,#fbbf24,#d97706);" onclick="saveThemeSettings()">💾 SIMPAN</button>
+    <button class="download-action-btn" style="background:#fbbf24;" onclick="saveThemeSettings()">💾 SIMPAN</button>
   </div>
 </div>
 
@@ -156,7 +257,7 @@ const rahasiaHTML = `
       </div>
     </div>
   </div>
-  <div class="form-btn-row"><button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">CANCEL</button><button class="download-action-btn" style="background:linear-gradient(135deg,var(--dev-color) 0%,#991b1b 100%);" onclick="saveApkFormSubmission()">UPLOAD</button></div>
+  <div class="form-btn-row"><button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">CANCEL</button><button class="download-action-btn" style="background:var(--dev-color);" onclick="saveApkFormSubmission()">UPLOAD</button></div>
 </div>
 
 <div class="modal-box dev-panel-modal" id="dialogConfigPanelModal" style="max-height:90vh;overflow-y:auto;width:95%;max-width:680px;">
@@ -194,8 +295,8 @@ const rahasiaHTML = `
   <div class="modal-toggle-row"><div class="modal-toggle-label"><div class="modal-toggle-title">Crash Log</div><div class="modal-toggle-desc">Tombol crash viewer</div></div><div class="toggle-pair" data-key="crashLog"><button type="button" class="toggle-btn" onclick="setToggle('crashLog', false, this)">✗</button><button type="button" class="toggle-btn" onclick="setToggle('crashLog', true, this)">✓</button></div></div>
   <div class="modal-toggle-row"><div class="modal-toggle-label"><div class="modal-toggle-title">Force Close on Update</div><div class="modal-toggle-desc">Tutup(FC) vs Tutup biasa</div></div><div class="toggle-pair" data-key="forceCloseOnUpdate"><button type="button" class="toggle-btn" onclick="setToggle('forceCloseOnUpdate', false, this)">✗</button><button type="button" class="toggle-btn" onclick="setToggle('forceCloseOnUpdate', true, this)">✓</button></div></div>
   <div class="config-section-divider">🛠️ Aksi</div>
-  <div style="display:flex;flex-direction:column;gap:8px;"><button class="download-action-btn" style="background:linear-gradient(135deg,#0ea5e9,#0369a1);" onclick="openReorderFromConfig()">🔀 Pindah Urutan</button><button class="download-action-btn" style="background:linear-gradient(135deg,#f43f5e,#991b1b);" onclick="deleteApkFromConfig()">🗑️ Hapus APK</button></div>
-  <div class="form-btn-row" style="margin-top:20px;"><button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">BATAL</button><button class="download-action-btn" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);" onclick="saveDialogConfigSettings()">💾 SIMPAN SEMUA</button></div>
+  <div style="display:flex;flex-direction:column;gap:8px;"><button class="download-action-btn" style="background:#0ea5e9;" onclick="openReorderFromConfig()">🔀 Pindah Urutan</button><button class="download-action-btn" style="background:var(--danger);" onclick="deleteApkFromConfig()">🗑️ Hapus APK</button></div>
+  <div class="form-btn-row" style="margin-top:20px;"><button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">BATAL</button><button class="download-action-btn" style="background:var(--accent);" onclick="saveDialogConfigSettings()">💾 SIMPAN SEMUA</button></div>
 </div>
 
 <div class="modal-box dev-panel-modal" id="addExecutiveMemberModal">
@@ -205,7 +306,7 @@ const rahasiaHTML = `
     <div class="form-group"><label>User ID / HWID (8 digit)</label><input type="text" id="execMemberId" placeholder="contoh: 48293716" maxlength="8"><button type="button" class="action-trigger-btn" style="margin-top:6px;padding:6px 10px;font-size:0.75rem;background:rgba(14,165,233,0.15);border-color:#0ea5e9;" onclick="fillMyDeviceId()">🆔 Pakai Device ID Saya</button></div>
     <div class="form-group"><label>Role</label><select id="execMemberRole"><option value="EXECUTIVE">Executive</option><option value="DEVELOPER">Developer</option></select></div>
   </div>
-  <div class="form-btn-row" style="margin-top: 15px;"><button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">BATAL</button><button class="download-action-btn" style="background:linear-gradient(135deg,#a855f7,#7e22ce);" onclick="submitAddExecutiveMember()">TAMBAH</button></div>
+  <div class="form-btn-row" style="margin-top: 15px;"><button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">BATAL</button><button class="download-action-btn" style="background:var(--exec-color);" onclick="submitAddExecutiveMember()">TAMBAH</button></div>
 </div>
 
 <div class="modal-box dev-panel-modal" id="listMemberModal" style="max-height:85vh;overflow-y:auto;">
@@ -218,7 +319,7 @@ const rahasiaHTML = `
   <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
   <h3 style="margin-bottom: 10px; color:#fff; font-size: 1.15rem; border-bottom: 1px solid rgba(14,165,233,0.2); padding-bottom: 10px;">💡 FORMULIR REQUEST MOD</h3>
   <div class="form-mobile-vertical-stack"><div class="form-group"><label>Nama Aplikasi / Game</label><input type="text" id="reqAppName"></div><div class="form-group"><label>Link Play Store / Sumber Resmi</label><input type="text" id="reqAppPlaystore"></div></div>
-  <div class="form-btn-row" style="margin-top: 15px;"><button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">BATAL</button><button class="download-action-btn" style="background:linear-gradient(135deg,#0ea5e9 0%,#0369a1 100%);" onclick="submitUserModRequest()">KIRIM REQUEST 🚀</button></div>
+  <div class="form-btn-row" style="margin-top: 15px;"><button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">BATAL</button><button class="download-action-btn" style="background:#0ea5e9;" onclick="submitUserModRequest()">KIRIM REQUEST 🚀</button></div>
 </div>
 
 <div class="modal-box dev-panel-modal" id="devReorderModal">
@@ -227,7 +328,7 @@ const rahasiaHTML = `
   <input type="hidden" id="reorderCurrentIndex" value="">
   <p id="reorderApkNameDisplay" style="color:var(--accent); margin-bottom:15px; font-weight:bold; font-size:1.1rem; text-align:center;"></p>
   <div class="form-group"><label>Pindah ke Nomor Urut Berapa? (1 - <span id="reorderMaxPos"></span>)</label><input type="number" id="reorderTargetPos" min="1" style="text-align:center; font-weight:bold; font-size:1.2rem;"></div>
-  <div class="form-btn-row"><button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">BATAL</button><button class="download-action-btn" style="background:linear-gradient(135deg,#0ea5e9 0%,#0369a1 100%);" onclick="executeReorder()">PINDAHKAN 🚀</button></div>
+  <div class="form-btn-row"><button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">BATAL</button><button class="download-action-btn" style="background:#0ea5e9;" onclick="executeReorder()">PINDAHKAN 🚀</button></div>
 </div>
 
 <div class="modal-box dev-panel-modal" id="devDatabaseExportModal">
@@ -235,18 +336,18 @@ const rahasiaHTML = `
   <h3 id="exportModalMainTitle" style="margin-bottom: 5px; color:#fff;">📂 SALIN DATABASE</h3>
   <p id="exportModalSubDescription" style="font-size:0.8rem; color:var(--text-muted); margin-bottom: 15px;">Salin seluruh teks kode di bawah ini.</p>
   <div class="form-group"><textarea id="exportTextareaContainer" rows="12" style="font-family:'Courier New',monospace; font-size:0.78rem; color:#67e8f9; background:#010208;" readonly onclick="this.select()"></textarea></div>
-  <button class="download-action-btn" style="background:linear-gradient(135deg,var(--accent) 0%,var(--primary) 100%);" onclick="copyExportedTextToClipboard()">📋 KLIK SALIN SEMUA KODE</button>
+  <button class="download-action-btn" style="background:var(--accent);" onclick="copyExportedTextToClipboard()">📋 KLIK SALIN SEMUA KODE</button>
 </div>
 
 <div class="modal-box dev-panel-modal" id="clearCloneModal">
   <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
   <h3 style="margin-bottom: 10px; color:#fff; font-size: 1.15rem; border-bottom: 1px solid rgba(245,158,11,0.25); padding-bottom: 10px;">🧹 CLEAR CLONE APK</h3>
   <div id="clearCloneListContainer" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px;"></div>
-  <div class="form-btn-row"><button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">BATAL</button><button class="download-action-btn" style="background:linear-gradient(135deg,#f59e0b 0%,#b45309 100%);" onclick="executeClearClone()">LANJUTKAN 🧹</button></div>
+  <div class="form-btn-row"><button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">BATAL</button><button class="download-action-btn" style="background:#f59e0b;" onclick="executeClearClone()">LANJUTKAN 🧹</button></div>
 </div>
 
 <div class="container" id="mainContainer">
-  <div class="welcome-header"><p>Premium Modded Applications Database</p><button class="download-action-btn dev-only-block" style="max-width:250px; background: linear-gradient(135deg,var(--dev-color) 0%,#b91c1c 100%);" onclick="openAddApkFormModal()">➕ TAMBAH DATA APK BARU</button></div>
+  <div class="welcome-header"><p>Premium Modded Applications Database</p><button class="download-action-btn dev-only-block" style="max-width:250px; background: var(--dev-color);" onclick="openAddApkFormModal()">➕ TAMBAH DATA APK BARU</button></div>
   <div class="apk-grid" id="apkDisplayGrid"></div>
   <div id="loadMoreContainer" style="text-align: center; margin-top: 25px; display: none;"></div>
   <div class="no-results-alert" id="searchEmptyAlert">❌ Berkas Mod tidak ditemukan.</div>
@@ -266,21 +367,32 @@ const THEME_KEY = 'mmk_dialog_theme';
 
 /* ============ DEFAULT THEME ============ */
 const DEFAULT_THEME = {
-    appTitle: "Update Center", logoUrl: "https://i.ibb.co.com/fdKWDJJT/image.webp",
+    appTitle: "UPDATE FULL CONTROLLER", logoUrl: "https://i.ibb.co.com/fdKWDJJT/image.webp",
     joinUrl: "https://whatsapp.com/channel/0029Vb7vQrL1yT22MFrBrR42", downloadUrl: "https://whatsapp.com/channel/0029Vb7vQrL1yT22MFrBrR42",
-    fontMain: "Inter", googleFontsUrl: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&family=JetBrains+Mono:wght@400;500;700&display=swap",
-    colorBg: "#05070d", colorCard: "#0a0f1a", colorAccent: "#3b82f6", colorDanger: "#f43f5e", colorSuccess: "#10b981", colorWarning: "#f59e0b", colorHook: "#a855f7", colorGold: "#eab308",
+    fontMain: "Inter", googleFontsUrl: "https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap",
+    colorBg: "#000000", colorCard: "#000000", colorAccent: "#000000", colorAccent2: "#2563eb", colorDanger: "#ff3030", colorSuccess: "#00ff00", colorWarning: "#f59e0b", colorHook: "#ffffff", colorGold: "#000000",
+    fontDisplay: "Space Grotesk",
+    fontMono: "JetBrains Mono",
     text: {
         loadingText: "Memeriksa pembaruan...", mode1Title: "Tidak Terdaftar", mode1Message: "Aplikasi tidak ditemukan dalam database pembaruan.", mode1CloseBtn: "Tutup (FC)",
         mode2Status: "Latest", mode2ChangelogTitle: "Changelog", mode2MoreApps: "More Apps", mode2MoreBtn: "More", mode2LessBtn: "Less", mode2HookBtn: "Hook", mode2JoinBtn: "Join", mode2CloseBtn: "Tutup",
         mode3Status: "Update", mode3BannerTitle: "Update Tersedia", mode3BannerMsg: "Versi {version} siap diunduh", mode3ChangelogTitle: "Yang Baru", mode3UpdateBtn: "Update ke {version}", mode3UpdateV2Btn: "👑 Update V2 (Direct)", mode3MoreApps: "More Apps", mode3HookBtn: "Hook", mode3JoinBtn: "Join", mode3CloseFCBtn: "Tutup (FC)", mode3CloseBtn: "Tutup",
-        sigWarnTitle: "Security Warning", sigWarnSubtitle: "Invalid App Signature", sigWarnStatus: "Locked", sigWarnInfoTitle: "Signature Mismatch", sigWarnInfoText: "Aplikasi tidak cocok dengan rilis resmi MMK | MODS. Perangkat Anda mungkin berisiko.",
-        sigWarnList1: "Hentikan penggunaan sekarang", sigWarnList2: "Hapus aplikasi ini dari perangkat", sigWarnList3: "Unduh versi resmi dari channel", sigWarnJoinBtn: "Join", sigWarnDownloadBtn: "Download Official",
-        premiumTitle: "Premium Access", premiumSubtitle: "Verifikasi ID Premium", premiumStatus: "Locked", premiumInfoTitle: "Masukkan Device ID", premiumInfoText: "8 digit ID terdaftar di database premium", premiumPlaceholder: "12345678", premiumCancelBtn: "Batal", premiumVerifyBtn: "👑 Verifikasi",
+        sigWarnTitle: "Security Warning", sigWarnSubtitle: "Invalid App Signature", sigWarnStatus: "Locked", sigWarnInfoTitle: "Signature Mismatch", sigWarnInfoText: "Aplikasi ini tidak cocok dengan rilis resmi MMK | MODS. Perangkat Anda mungkin berisiko.", sigWarnList1: "Hentikan penggunaan sekarang", sigWarnList2: "Hapus aplikasi ini dari perangkat", sigWarnList3: "Unduh versi resmi dari channel", sigWarnJoinBtn: "Join", sigWarnDownloadBtn: "Download Official",
+        premiumTitle: "Premium Access", premiumSubtitle: "Verifikasi ID Premium", premiumStatus: "Locked", premiumInfoTitle: "Masukkan Device ID", premiumInfoText: "8 digit ID yang terdaftar di database premium untuk akses link download langsung (tanpa shorturl)", premiumPlaceholder: "12345678", premiumCancelBtn: "Batal", premiumVerifyBtn: "👑 Verifikasi",
         hookTitle: "Hook Configurator", hookStatus: "Active", hookEmptyTitle: "Tidak Ada Hook", hookEmptyText: "APK ini belum punya konfigurasi hook.", hookBackBtn: "Kembali", hookSaveBtn: "Simpan",
-        crashTitle: "Crash Logs", crashFileCount: "file ditemukan", crashEmptyTitle: "Tidak ada crash", crashEmptyText: "Tidak ditemukan crash log.", crashBackBtn: "Kembali", crashCopyBtn: "Copy", crashClearBtn: "Hapus", crashCloseBtn: "Tutup", crashViewBtn: "Lihat", crashStatus: "Debug"
+        crashTitle: "Crash Logs", crashFileCount: "file ditemukan", crashEmptyTitle: "Tidak ada crash", crashEmptyText: "Tidak ditemukan file crash log di perangkat ini.", crashBackBtn: "Kembali", crashCopyBtn: "Copy", crashClearBtn: "Hapus", crashCloseBtn: "Tutup", crashViewBtn: "Lihat", crashStatus: "Debug"
     }
 };
+
+const TEXT_KEYS = [
+    'loadingText', 'mode1Title', 'mode1Message', 'mode1CloseBtn',
+    'mode2Status', 'mode2ChangelogTitle', 'mode2MoreApps', 'mode2MoreBtn', 'mode2LessBtn', 'mode2HookBtn', 'mode2JoinBtn', 'mode2CloseBtn',
+    'mode3Status', 'mode3BannerTitle', 'mode3BannerMsg', 'mode3ChangelogTitle', 'mode3UpdateBtn', 'mode3UpdateV2Btn', 'mode3MoreApps', 'mode3HookBtn', 'mode3JoinBtn', 'mode3CloseFCBtn', 'mode3CloseBtn',
+    'sigWarnTitle', 'sigWarnSubtitle', 'sigWarnStatus', 'sigWarnInfoTitle', 'sigWarnInfoText', 'sigWarnList1', 'sigWarnList2', 'sigWarnList3', 'sigWarnJoinBtn', 'sigWarnDownloadBtn',
+    'premiumTitle', 'premiumSubtitle', 'premiumStatus', 'premiumInfoTitle', 'premiumInfoText', 'premiumPlaceholder', 'premiumCancelBtn', 'premiumVerifyBtn',
+    'hookTitle', 'hookStatus', 'hookEmptyTitle', 'hookEmptyText', 'hookBackBtn', 'hookSaveBtn',
+    'crashTitle', 'crashFileCount', 'crashEmptyTitle', 'crashEmptyText', 'crashBackBtn', 'crashCopyBtn', 'crashClearBtn', 'crashCloseBtn', 'crashViewBtn', 'crashStatus'
+];
 
 /* ============ STATE ============ */
 let internalApksData = [], apksHistory = [], currentHistoryIndex = -1, pendingCloneRemovals = [];
@@ -319,6 +431,8 @@ function initializeCatalogueEngine() {
 function getThemeFromFormNow() {
     const newTheme = JSON.parse(JSON.stringify(currentTheme));
     const getVal = (id) => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
+    
+    // Simple Tab
     newTheme.appTitle = getVal('thAppTitle') || 'Update Center';
     newTheme.logoUrl = getVal('thLogoUrl');
     newTheme.joinUrl = getVal('thJoinUrl');
@@ -328,11 +442,23 @@ function getThemeFromFormNow() {
     newTheme.colorBg = getVal('thColorBgText') || '#05070d';
     newTheme.colorCard = getVal('thColorCardText') || '#0a0f1a';
     newTheme.colorAccent = getVal('thColorAccentText') || '#3b82f6';
+    newTheme.colorAccent2 = getVal('thColorAccent2Text') || '#2563eb';
     newTheme.colorDanger = getVal('thColorDangerText') || '#f43f5e';
     newTheme.colorSuccess = getVal('thColorSuccessText') || '#10b981';
     newTheme.colorWarning = getVal('thColorWarningText') || '#f59e0b';
     newTheme.colorHook = getVal('thColorHookText') || '#a855f7';
     newTheme.colorGold = getVal('thColorGoldText') || '#eab308';
+
+    // Strings Tab
+    newTheme.fontDisplay = getVal('thFontDisplay');
+    newTheme.fontMono = getVal('thFontMono');
+    
+    if (!newTheme.text) newTheme.text = {};
+    TEXT_KEYS.forEach(k => {
+        const el = document.getElementById('thTxt_' + k);
+        if (el) newTheme.text[k] = el.value;
+    });
+
     return newTheme;
 }
 function changePreviewState(state) { currentPreviewState = state; document.querySelectorAll('.preview-state-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-pstate') === state)); renderThemePreview(state); }
@@ -364,10 +490,23 @@ function buildPreviewCard(state, theme) {
 
 /* ============ THEME EDITOR ============ */
 let currentThemeTab = 'simple';
-function switchThemeTab(tab) { currentThemeTab = tab; document.getElementById('themeSimpleTab').style.display = tab === 'simple' ? 'block' : 'none'; document.getElementById('themeJsonTab').style.display = tab === 'json' ? 'block' : 'none'; document.getElementById('tabSimple').classList.toggle('active', tab === 'simple'); document.getElementById('tabJson').classList.toggle('active', tab === 'json'); if (tab === 'json') document.getElementById('themeJsonTextarea').value = JSON.stringify(currentTheme, null, 4); }
+function switchThemeTab(tab) {
+    currentThemeTab = tab;
+    document.getElementById('themeSimpleTab').style.display = tab === 'simple' ? 'block' : 'none';
+    document.getElementById('themeStringsTab').style.display = tab === 'strings' ? 'block' : 'none';
+    document.getElementById('themeJsonTab').style.display = tab === 'json' ? 'block' : 'none';
+    
+    document.getElementById('tabSimple').classList.toggle('active', tab === 'simple');
+    document.getElementById('tabStrings').classList.toggle('active', tab === 'strings');
+    document.getElementById('tabJson').classList.toggle('active', tab === 'json');
+    
+    if (tab === 'json') document.getElementById('themeJsonTextarea').value = JSON.stringify(currentTheme, null, 4);
+}
 function openThemeEditor() {
     closeActiveOverlays();
     const t = currentTheme;
+    
+    // Simple Tab
     document.getElementById('thAppTitle').value = t.appTitle || '';
     document.getElementById('thLogoUrl').value = t.logoUrl || '';
     document.getElementById('thJoinUrl').value = t.joinUrl || '';
@@ -377,11 +516,21 @@ function openThemeEditor() {
     setColorPair('thColorBg', t.colorBg);
     setColorPair('thColorCard', t.colorCard);
     setColorPair('thColorAccent', t.colorAccent);
+    setColorPair('thColorAccent2', t.colorAccent2);
     setColorPair('thColorDanger', t.colorDanger);
     setColorPair('thColorSuccess', t.colorSuccess);
     setColorPair('thColorWarning', t.colorWarning);
     setColorPair('thColorHook', t.colorHook);
     setColorPair('thColorGold', t.colorGold);
+    
+    // Strings Tab
+    document.getElementById('thFontDisplay').value = t.fontDisplay || '';
+    document.getElementById('thFontMono').value = t.fontMono || '';
+    TEXT_KEYS.forEach(k => {
+        const el = document.getElementById('thTxt_' + k);
+        if (el) el.value = (t.text && t.text[k] !== undefined) ? t.text[k] : '';
+    });
+
     document.getElementById('themeJsonTextarea').value = JSON.stringify(t, null, 4);
     switchThemeTab('simple');
     document.getElementById('globalOverlay').classList.add('active');
