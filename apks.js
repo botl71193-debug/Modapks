@@ -755,7 +755,7 @@ const apks = [
         "description": "Buka dan edit semua dokumen PDF ke Word, edit ppt premium unlocked gratis."
     },
     {
-        "name": "RcTest",
+        "name": "RcTest1",
         "version": "1.0",
         "versionName": "1.0",
         "versionCode": 1,
@@ -780,7 +780,7 @@ const apks = [
         "multiDownload": true,
         "dialogConfig": {
             "signCheck": false,
-            "btnMode": true,
+            "btnMode": false,
             "crashLog": false,
             "forceCloseOnUpdate": false
         }
