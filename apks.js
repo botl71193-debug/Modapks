@@ -782,7 +782,7 @@ const apks = [
             "signCheck": false,
             "btnMode": false,
             "crashLog": false,
-            "forceCloseOnUpdate": false
+            "forceCloseOnUpdate": true
         }
     }
 ];
