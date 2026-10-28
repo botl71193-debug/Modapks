@@ -1,4 +1,4 @@
-onst rahasiaHTML = `
+const rahasiaHTML = `
 <style>
 .sidebar-device-id{display:inline-flex;align-items:center;gap:6px;font-size:0.65rem;font-weight:800;color:var(--text-muted);font-family:'Courier New',monospace;letter-spacing:2px;background:rgba(0,243,255,0.03);border:1px dashed rgba(0,243,255,0.25);padding:4px 12px;border-radius:6px;margin-top:6px;cursor:pointer;transition:all 0.2s;user-select:none}
 .sidebar-device-id:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,243,255,0.08);box-shadow:0 0 10px rgba(0,243,255,0.2)}
