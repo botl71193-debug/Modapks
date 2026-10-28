@@ -1,5 +1,5 @@
 const dialogTheme = {
-    "appTitle": "Update Center",
+    "appTitle": "UPDATE FULL CONTROLLER",
     "logoUrl": "https://i.ibb.co.com/fdKWDJJT/image.webp",
     "joinUrl": "https://whatsapp.com/channel/0029Vb7vQrL1yT22MFrBrR42",
     "downloadUrl": "https://whatsapp.com/channel/0029Vb7vQrL1yT22MFrBrR42",
@@ -9,13 +9,13 @@ const dialogTheme = {
     "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&family=JetBrains+Mono:wght@400;500;700&display=swap",
     "colorBg": "#05070d",
     "colorCard": "#0a0f1a",
-    "colorAccent": "#3b82f6",
+    "colorAccent": "#000000",
     "colorAccent2": "#2563eb",
-    "colorDanger": "#ff00fb",
-    "colorSuccess": "#10b981",
+    "colorDanger": "#ff0000",
+    "colorSuccess": "#00ff00",
     "colorWarning": "#f59e0b",
-    "colorHook": "#a855f7",
-    "colorGold": "#eab308",
+    "colorHook": "#ffffff",
+    "colorGold": "#b100fc",
     "text": {
         "loadingText": "Memeriksa pembaruan...",
         "mode1Title": "Tidak Terdaftar",
@@ -77,13 +77,7 @@ const dialogTheme = {
     }
 };
 
-const premiumUsers = [
-    {
-        "id": "68291414",
-        "role": "EXECUTIVE",
-        "date": "28/10/2026, 09.48.37"
-    }
-];
+const premiumUsers = [];
 
 const apks = [
     {
