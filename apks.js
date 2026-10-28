@@ -18,7 +18,7 @@ const apks = [
         "android": "Android 5+",
         "description": "Aplikasi baca komik Bahasa Indonesia untuk manga, manhwa, manhua, dan komik lokal. Katalog komik update harian, bookmark, baca online gratis, dan tersedia juga versi web/PWA untuk dibuka lewat browser.",
         "imageUrl": "https://i.ibb.co.com/qMSpp0bQ/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/FgshUiV",
+        "downloadUrl": "https://adlinksumo.com/QE3rI",
         "changelog": [
             "[ + ] Xp Point 9999+",
             "[ + ] Lvl 9999+",
@@ -695,9 +695,11 @@ const apks = [
             "[ + ] perbaikan bug5",
             "[ + ] perbaikan bug6"
         ],
-        "links": {
-            "Arm64": "https://xnxx.com"
-        },
-        "multiDownload": true
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": true,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
     }
 ];
