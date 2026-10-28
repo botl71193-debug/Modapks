@@ -4,18 +4,15 @@ const dialogTheme = {
     "joinUrl": "https://whatsapp.com/channel/0029Vb7vQrL1yT22MFrBrR42",
     "downloadUrl": "https://whatsapp.com/channel/0029Vb7vQrL1yT22MFrBrR42",
     "fontMain": "Inter",
-    "fontDisplay": "Space Grotesk",
-    "fontMono": "JetBrains Mono",
     "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap",
-    "colorBg": "#05070d",
-    "colorCard": "#0a0f1a",
+    "colorBg": "#000000",
+    "colorCard": "#000000",
     "colorAccent": "#000000",
-    "colorAccent2": "#2563eb",
-    "colorDanger": "#ff0000",
+    "colorDanger": "#ff3030",
     "colorSuccess": "#00ff00",
     "colorWarning": "#f59e0b",
     "colorHook": "#ffffff",
-    "colorGold": "#b100fc",
+    "colorGold": "#000000",
     "text": {
         "loadingText": "Memeriksa pembaruan...",
         "mode1Title": "Tidak Terdaftar",
@@ -74,7 +71,10 @@ const dialogTheme = {
         "crashCloseBtn": "Tutup",
         "crashViewBtn": "Lihat",
         "crashStatus": "Debug"
-    }
+    },
+    "fontDisplay": "Space Grotesk",
+    "fontMono": "JetBrains Mono",
+    "colorAccent2": "#2563eb"
 };
 
 const premiumUsers = [];
@@ -91,7 +91,7 @@ const apks = [
         "android": "Android 5+",
         "description": "Aplikasi baca komik Bahasa Indonesia untuk manga, manhwa, manhua, dan komik lokal. Katalog komik update harian, bookmark, baca online gratis, dan tersedia juga versi web/PWA untuk dibuka lewat browser.",
         "imageUrl": "https://i.ibb.co.com/qMSpp0bQ/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/yM855",
+        "downloadUrl": "https://adlinksumo.com/FgshUiV",
         "changelog": [
             "[ + ] Xp Point 9999+",
             "[ + ] Lvl 9999+",
@@ -102,12 +102,8 @@ const apks = [
             "signCheck": false,
             "btnMode": false,
             "crashLog": false,
-            "forceCloseOnUpdate": false
-        },
-        "links": {
-            "Arm64": "https://safefileku.com/download/KIeXIP9Q6gu1FaQu"
-        },
-        "multiDownload": true
+            "forceCloseOnUpdate": true
+        }
     },
     {
         "name": "Efiko",
@@ -772,11 +768,9 @@ const apks = [
             "[ + ] perbaikan bug5",
             "[ + ] perbaikan bug6"
         ],
-        "dialogConfig": {
-            "signCheck": true,
-            "btnMode": true,
-            "crashLog": false,
-            "forceCloseOnUpdate": true
-        }
+        "links": {
+            "Arm64": "https://xnxx.com"
+        },
+        "multiDownload": true
     }
 ];
