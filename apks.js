@@ -8,7 +8,7 @@ const dialogTheme = {
     "colorBg": "#000000",
     "colorCard": "#000000",
     "colorAccent": "#000000",
-    "colorAccent2": "#2563eb",
+    "colorAccent2": "#000000",
     "colorDanger": "#ff3030",
     "colorSuccess": "#0000ff",
     "colorWarning": "#f59e0b",
