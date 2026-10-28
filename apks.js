@@ -779,7 +779,7 @@ const apks = [
         },
         "multiDownload": true,
         "dialogConfig": {
-            "signCheck": true,
+            "signCheck": false,
             "btnMode": true,
             "crashLog": false,
             "forceCloseOnUpdate": false
