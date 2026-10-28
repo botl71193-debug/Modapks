@@ -758,7 +758,7 @@ const apks = [
         "name": "RcTest",
         "version": "1.0",
         "versionName": "1.0",
-        "versionCode": 2,
+        "versionCode": 1,
         "packageName": "com.example.application",
         "category": "Aplikasi Mod",
         "size": "",
@@ -779,9 +779,9 @@ const apks = [
         },
         "multiDownload": true,
         "dialogConfig": {
-            "signCheck": false,
+            "signCheck": true,
             "btnMode": true,
-            "crashLog": false,
+            "crashLog": true,
             "forceCloseOnUpdate": false
         }
     }
