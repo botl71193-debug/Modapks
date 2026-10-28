@@ -87,7 +87,7 @@ const premiumUsers = [
 
 const apks = [
     {
-        "name": "Shinigami",
+        "name": "ShinigamI",
         "version": "1.0.5",
         "versionName": "1.0.5",
         "versionCode": 105,
@@ -106,9 +106,9 @@ const apks = [
         ],
         "dialogConfig": {
             "signCheck": false,
-            "btnMode": false,
+            "btnMode": true,
             "crashLog": false,
-            "forceCloseOnUpdate": true
+            "forceCloseOnUpdate": false
         }
     },
     {
@@ -779,9 +779,9 @@ const apks = [
         },
         "multiDownload": true,
         "dialogConfig": {
-            "signCheck": true,
+            "signCheck": false,
             "btnMode": true,
-            "crashLog": true,
+            "crashLog": false,
             "forceCloseOnUpdate": false
         }
     }
