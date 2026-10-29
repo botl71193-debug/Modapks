@@ -10,7 +10,7 @@ const dialogTheme = {
     "colorAccent": "#000000",
     "colorAccent2": "#000000",
     "colorDanger": "#000000",
-    "colorSuccess": "#000000",
+    "colorSuccess": "#66ff66",
     "colorWarning": "#f59e0b",
     "colorHook": "#ffffff",
     "colorGold": "#000000",
