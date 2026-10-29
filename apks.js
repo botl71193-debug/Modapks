@@ -363,10 +363,17 @@ const apks = [
                 "className": "com.shortclip.drama.micro.databean.MemberDataBean",
                 "methodName": "isVip",
                 "type": "Z",
-                "defaultValue": ""
+                "defaultValue": "false"
             }
         ],
-        "hookEnabled": true
+        "hookEnabled": true,
+        "changelog": [],
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
     },
     {
         "name": "Donghua App",
