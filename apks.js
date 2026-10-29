@@ -283,7 +283,7 @@ const apks = [
                 "className": "com.skiy.lane.domain.model.PremiumActivatedEvent",
                 "methodName": "isPremium",
                 "type": "Z",
-                "defaultValue": "false"
+                "defaultValue": "true"
             },
             {
                 "fitur": "Expired Premium",
