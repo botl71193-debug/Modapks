@@ -260,10 +260,32 @@ const apks = [
         "version": "1.4.7",
         "category": "Music",
         "size": "75,23M",
-        "android": "",
+        "android": "Android 5+",
         "description": "Aplikasi alternatif pemutar musik Spotify dengan fitur Premium terbuka.",
         "imageUrl": "https://i.ibb.co.com/6R4bXjvW/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/v3op7b"
+        "downloadUrl": "https://adlinksumo.com/v3op7b",
+        "packageName": "com.skiy.lane",
+        "versionName": "1.4.7",
+        "versionCode": 207,
+        "changelog": [
+            "[ + ] Penambahan system hook"
+        ],
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        },
+        "hookEnabled": true,
+        "hooks": [
+            {
+                "fitur": "Premium",
+                "className": "com.skiy.lane.domain.model.PremiumActivatedEvent",
+                "methodName": "isPremium",
+                "type": "Z",
+                "defaultValue": "false"
+            }
+        ]
     },
     {
         "name": "DonghuaID",
