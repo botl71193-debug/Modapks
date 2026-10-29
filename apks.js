@@ -291,6 +291,20 @@ const apks = [
                 "methodName": "getPremiumExpiresIn",
                 "type": "J",
                 "defaultValue": "4102444800000"
+            },
+            {
+                "fitur": "Expired Premium ",
+                "className": "com.skiy.lane.domain.model.User",
+                "methodName": "getPremiumExpiresIn",
+                "type": "J",
+                "defaultValue": "4102444800000"
+            },
+            {
+                "fitur": "Expired Premium ",
+                "className": "com.skiy.lane.domain.model.UserInfo",
+                "methodName": "getPremiumExpiresIn",
+                "type": "J",
+                "defaultValue": "4102444800000"
             }
         ]
     },
