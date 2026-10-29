@@ -7,9 +7,17 @@ const dialogTheme = {
     "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap",
     "colorBg": "#000000",
     "colorCard": "#000000",
+    "colorCard2": "#0d1520",
+    "colorSurface": "#111827",
+    "colorBorder": "rgba(255,255,255,0.08)",
+    "colorBorderStrong": "rgba(255,255,255,0.15)",
+    "colorText": "#f1f5f9",
+    "colorTextDim": "#94a3b8",
+    "colorTextMuted": "#64748b",
     "colorAccent": "#000000",
     "colorAccent2": "#000000",
     "colorDanger": "#000000",
+    "colorDanger2": "#be123c",
     "colorSuccess": "#66ff66",
     "colorWarning": "#f59e0b",
     "colorHook": "#ffffff",
@@ -355,7 +363,7 @@ const apks = [
                 "className": "com.shortclip.drama.micro.databean.MemberDataBean",
                 "methodName": "isVip",
                 "type": "Z",
-                "defaultValue": "false"
+                "defaultValue": ""
             }
         ],
         "hookEnabled": true
@@ -783,6 +791,16 @@ const apks = [
             "btnMode": true,
             "crashLog": true,
             "forceCloseOnUpdate": true
-        }
+        },
+        "hookEnabled": true,
+        "hooks": [
+            {
+                "fitur": "Premium",
+                "className": "com.example.application.MainActivity",
+                "methodName": "isPremium",
+                "type": "Z",
+                "defaultValue": "false"
+            }
+        ]
     }
 ];
