@@ -407,6 +407,34 @@ const apks = [
                 "methodName": "isVip",
                 "type": "Z",
                 "defaultValue": "false"
+            },
+            {
+                "fitur": "IMG profil",
+                "className": "com.shortclip.drama.micro.databean.MemberDataBean",
+                "methodName": "getAvatarUrl",
+                "type": "Ljava/lang/String;",
+                "defaultValue": "Gambar kamu"
+            },
+            {
+                "fitur": "Nickname",
+                "className": "com.shortclip.drama.micro.databean.MemberDataBean",
+                "methodName": "getName",
+                "type": "Ljava/lang/String;",
+                "defaultValue": "Nama kamu"
+            },
+            {
+                "fitur": "Email",
+                "className": "com.shortclip.drama.micro.databean.MemberDataBean",
+                "methodName": "getEmail",
+                "type": "Ljava/lang/String;",
+                "defaultValue": "Namakamu@gmail.com"
+            },
+            {
+                "fitur": "Id",
+                "className": "com.shortclip.drama.micro.databean.MemberDataBean",
+                "methodName": "getId",
+                "type": "Ljava/lang/String;",
+                "defaultValue": "123456789"
             }
         ],
         "hookEnabled": true,
