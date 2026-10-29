@@ -1,6 +1,3 @@
-// ==========================================
-// SCRIPT.JS BARU (OTOMATIS DIBUAT OLEH .SH)
-// ==========================================
 const rahasiaHTML = `
 <div class="navbar">
   <div class="navbar-left"><button class="menu-toggle" onclick="handleSidebarDisplay()">☰</button></div>
@@ -231,7 +228,6 @@ const rahasiaHTML = `
   </div>
 </div>
 
-<!-- MODAL LAINNYA (Disingkat agar tidak kepanjangan, aslinya tetap ada) -->
 <div class="modal-box dev-panel-modal" id="devApkFormModal">
   <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
   <h3 id="formModalTitle" style="margin-bottom: 15px; color:#fff; font-size: 1.15rem; border-bottom: 1px solid rgba(244,63,94,0.2); padding-bottom: 10px;">➕</h3>
@@ -269,6 +265,92 @@ const rahasiaHTML = `
   <div class="form-btn-row"><button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">CANCEL</button><button class="download-action-btn" style="background:var(--dev-color);" onclick="saveApkFormSubmission()">UPLOAD</button></div>
 </div>
 
+<div class="modal-box dev-panel-modal" id="dialogConfigPanelModal" style="max-height:90vh;overflow-y:auto;width:95%;max-width:680px;">
+  <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
+  <h3 style="margin-bottom:14px;color:#fff;font-size:1.15rem;border-bottom:1px solid rgba(59,130,246,0.3);padding-bottom:10px;">⚙️ Configuration Dialog</h3>
+  <div class="form-group" style="margin-bottom:14px;"><input type="text" id="dialogConfigSearch" placeholder="🔍 Cari APK..." oninput="renderDialogConfigList()" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;"></div>
+  <div id="dialogConfigList" style="display:flex;flex-direction:column;gap:10px;"></div>
+</div>
+
+<div class="modal-box dev-panel-modal" id="dialogConfigEditModal" style="max-height:92vh;overflow-y:auto;width:95%;max-width:560px;">
+  <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
+  <input type="hidden" id="dialogConfigEditIndex" value="">
+  <h3 style="margin-bottom:14px;color:#fff;font-size:1.15rem;border-bottom:1px solid rgba(59,130,246,0.3);padding-bottom:10px;">⚙️ Edit APK</h3>
+  <div class="header stagger" style="margin-bottom:16px;">
+    <div class="apk-icon-frame" id="dialogConfigAppIcon" style="border-color:#3b82f6;"></div>
+    <div class="apk-main-info"><span class="apk-title" id="dialogConfigAppName">-</span><span class="apk-version" id="dialogConfigAppVersion">-</span><div class="apk-badge-row"><span class="apk-badge" style="color:#3b82f6;border-color:rgba(59,130,246,0.3);background:rgba(59,130,246,0.08);" id="dialogConfigAppPkg">-</span></div></div>
+  </div>
+  <div class="config-section-divider">📝 Info Dasar</div>
+  <div class="form-group" style="margin-bottom:10px;"><label>Nama APK</label><input type="text" id="dcName" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;"></div>
+  <div class="form-group" style="margin-bottom:10px;"><label>packageName</label><input type="text" id="dcPkg" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:monospace;"></div>
+  <div style="display:flex;gap:8px;margin-bottom:10px;"><div class="form-group" style="flex:1;"><label>Versi</label><input type="text" id="dcVersion" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;"></div><div class="form-group" style="flex:1;"><label>versionCode</label><input type="number" id="dcVersionCode" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;"></div></div>
+  <div style="display:flex;gap:8px;margin-bottom:10px;"><div class="form-group" style="flex:1;"><label>Kategori</label><select id="dcCategory" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;"><option value="Aplikasi Mod">Aplikasi Mod</option><option value="Games Mod">Games Mod</option><option value="Streaming">Streaming</option><option value="Music">Music</option><option value="Tools">Tools</option><option value="Editor">Editor</option></select></div><div class="form-group" style="flex:1;"><label>Size</label><input type="text" id="dcSize" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;" placeholder="48 MB"></div></div>
+  <div class="form-group" style="margin-bottom:10px;"><label>Sistem Android</label><select id="dcAndroid" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;"><option value="Android 5+">Android 5+</option><option value="Android 6+">Android 6+</option><option value="Android 7+">Android 7+</option><option value="Android 8+">Android 8+</option><option value="Android 9+">Android 9+</option><option value="Android 10+">Android 10+</option><option value="Android 11+">Android 11+</option><option value="Android 12+">Android 12+</option><option value="Android 13+">Android 13+</option><option value="Android 14+">Android 14+</option><option value="Android 15+">Android 15+</option></select></div>
+  <div class="form-group" style="margin-bottom:10px;"><label>Deskripsi</label><textarea id="dcDesc" rows="2" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:inherit;"></textarea></div>
+  <div class="form-group" style="margin-bottom:10px;"><label>URL Gambar</label><input type="text" id="dcImage" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:monospace;"></div>
+  <div class="config-section-divider">🔗 Link Download</div>
+  <div class="form-group" style="margin-bottom:10px;"><label>🔄 Update V1 (Shorturl)</label><input type="text" id="dcShortUrl" placeholder="https://adssafelink/..." style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:monospace;"></div>
+  <div class="form-group" style="margin-bottom:10px;"><label>👑 Update V2 Direct Arm64</label><input type="text" id="dcArm64" style="background:#020205;border:1px solid rgba(234,179,8,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:monospace;"></div>
+  <div class="form-group" style="margin-bottom:10px;"><label>👑 Update V2 Direct Arm32</label><input type="text" id="dcArm32" style="background:#020205;border:1px solid rgba(234,179,8,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:monospace;"></div>
+  <div class="config-section-divider">📄 Changelog</div>
+  <div class="form-group" style="margin-bottom:10px;"><textarea id="dcChangelog" rows="4" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:inherit;"></textarea></div>
+  <div class="config-section-divider">🔧 Toggle Fitur Dialog</div>
+  <div class="modal-toggle-row"><div class="modal-toggle-label"><div class="modal-toggle-title">Sign Check</div><div class="modal-toggle-desc">Verifikasi signature SHA1</div></div><div class="toggle-pair" data-key="signCheck"><button type="button" class="toggle-btn" onclick="setToggle('signCheck', false, this)">✗</button><button type="button" class="toggle-btn" onclick="setToggle('signCheck', true, this)">✓</button></div></div>
+  <div class="modal-toggle-row"><div class="modal-toggle-label"><div class="modal-toggle-title">BTN Mode</div><div class="modal-toggle-desc">Tester bar debug</div></div><div class="toggle-pair" data-key="btnMode"><button type="button" class="toggle-btn" onclick="setToggle('btnMode', false, this)">✗</button><button type="button" class="toggle-btn" onclick="setToggle('btnMode', true, this)">✓</button></div></div>
+  <div class="modal-toggle-row"><div class="modal-toggle-label"><div class="modal-toggle-title">Crash Log</div><div class="modal-toggle-desc">Tombol crash viewer</div></div><div class="toggle-pair" data-key="crashLog"><button type="button" class="toggle-btn" onclick="setToggle('crashLog', false, this)">✗</button><button type="button" class="toggle-btn" onclick="setToggle('crashLog', true, this)">✓</button></div></div>
+  <div class="modal-toggle-row"><div class="modal-toggle-label"><div class="modal-toggle-title">Force Close on Update</div><div class="modal-toggle-desc">Tutup(FC) vs Tutup biasa</div></div><div class="toggle-pair" data-key="forceCloseOnUpdate"><button type="button" class="toggle-btn" onclick="setToggle('forceCloseOnUpdate', false, this)">✗</button><button type="button" class="toggle-btn" onclick="setToggle('forceCloseOnUpdate', true, this)">✓</button></div></div>
+  <div class="config-section-divider">🛠️ Aksi</div>
+  <div style="display:flex;flex-direction:column;gap:8px;"><button class="download-action-btn" style="background:#0ea5e9;" onclick="openReorderFromConfig()">🔀 Pindah Urutan</button><button class="download-action-btn" style="background:var(--danger);" onclick="deleteApkFromConfig()">🗑️ Hapus APK</button></div>
+  <div class="form-btn-row" style="margin-top:20px;"><button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">BATAL</button><button class="download-action-btn" style="background:var(--accent);" onclick="saveDialogConfigSettings()">💾 SIMPAN SEMUA</button></div>
+</div>
+
+<div class="modal-box dev-panel-modal" id="addExecutiveMemberModal">
+  <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
+  <h3 style="margin-bottom: 15px; color:#fff; font-size: 1.15rem; border-bottom: 1px solid rgba(168,85,247,0.3); padding-bottom: 10px;">👑 Add Executive Member</h3>
+  <div class="form-mobile-vertical-stack">
+    <div class="form-group"><label>User ID / HWID (8 digit)</label><input type="text" id="execMemberId" placeholder="contoh: 48293716" maxlength="8"><button type="button" class="action-trigger-btn" style="margin-top:6px;padding:6px 10px;font-size:0.75rem;background:rgba(14,165,233,0.15);border-color:#0ea5e9;" onclick="fillMyDeviceId()">🆔 Pakai Device ID Saya</button></div>
+    <div class="form-group"><label>Role</label><select id="execMemberRole"><option value="EXECUTIVE">Executive</option><option value="DEVELOPER">Developer</option></select></div>
+  </div>
+  <div class="form-btn-row" style="margin-top: 15px;"><button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">BATAL</button><button class="download-action-btn" style="background:var(--exec-color);" onclick="submitAddExecutiveMember()">TAMBAH</button></div>
+</div>
+
+<div class="modal-box dev-panel-modal" id="listMemberModal" style="max-height:85vh;overflow-y:auto;">
+  <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
+  <h3 style="margin-bottom: 15px; color:#fff; font-size: 1.15rem; border-bottom: 1px solid rgba(168,85,247,0.3); padding-bottom: 10px;">📋 Daftar Member</h3>
+  <div id="listMemberContainer" style="display:flex;flex-direction:column;gap:8px;"></div>
+</div>
+
+<div class="modal-box dev-panel-modal" id="requestModModal">
+  <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
+  <h3 style="margin-bottom: 10px; color:#fff; font-size: 1.15rem; border-bottom: 1px solid rgba(14,165,233,0.2); padding-bottom: 10px;">💡 FORMULIR REQUEST MOD</h3>
+  <div class="form-mobile-vertical-stack"><div class="form-group"><label>Nama Aplikasi / Game</label><input type="text" id="reqAppName"></div><div class="form-group"><label>Link Play Store / Sumber Resmi</label><input type="text" id="reqAppPlaystore"></div></div>
+  <div class="form-btn-row" style="margin-top: 15px;"><button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">BATAL</button><button class="download-action-btn" style="background:#0ea5e9;" onclick="submitUserModRequest()">KIRIM REQUEST 🚀</button></div>
+</div>
+
+<div class="modal-box dev-panel-modal" id="devReorderModal">
+  <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
+  <h3 style="margin-bottom: 15px; color:#fff; font-size: 1.15rem; border-bottom: 1px solid rgba(14,165,233,0.2); padding-bottom: 10px;">🔄 PINDAH POSISI APK</h3>
+  <input type="hidden" id="reorderCurrentIndex" value="">
+  <p id="reorderApkNameDisplay" style="color:var(--accent); margin-bottom:15px; font-weight:bold; font-size:1.1rem; text-align:center;"></p>
+  <div class="form-group"><label>Pindah ke Nomor Urut Berapa? (1 - <span id="reorderMaxPos"></span>)</label><input type="number" id="reorderTargetPos" min="1" style="text-align:center; font-weight:bold; font-size:1.2rem;"></div>
+  <div class="form-btn-row"><button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">BATAL</button><button class="download-action-btn" style="background:#0ea5e9;" onclick="executeReorder()">PINDAHKAN 🚀</button></div>
+</div>
+
+<div class="modal-box dev-panel-modal" id="devDatabaseExportModal">
+  <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
+  <h3 id="exportModalMainTitle" style="margin-bottom: 5px; color:#fff;">📂 SALIN DATABASE</h3>
+  <p id="exportModalSubDescription" style="font-size:0.8rem; color:var(--text-muted); margin-bottom: 15px;">Salin seluruh teks kode di bawah ini.</p>
+  <div class="form-group"><textarea id="exportTextareaContainer" rows="12" style="font-family:'Courier New',monospace; font-size:0.78rem; color:#67e8f9; background:#010208;" readonly onclick="this.select()"></textarea></div>
+  <button class="download-action-btn" style="background:var(--accent);" onclick="copyExportedTextToClipboard()">📋 KLIK SALIN SEMUA KODE</button>
+</div>
+
+<div class="modal-box dev-panel-modal" id="clearCloneModal">
+  <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
+  <h3 style="margin-bottom: 10px; color:#fff; font-size: 1.15rem; border-bottom: 1px solid rgba(245,158,11,0.25); padding-bottom: 10px;">🧹 CLEAR CLONE APK</h3>
+  <div id="clearCloneListContainer" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px;"></div>
+  <div class="form-btn-row"><button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">BATAL</button><button class="download-action-btn" style="background:#f59e0b;" onclick="executeClearClone()">LANJUTKAN 🧹</button></div>
+</div>
+
 <div class="container" id="mainContainer">
   <div class="welcome-header"><p>Premium Modded Applications Database</p><button class="download-action-btn dev-only-block" style="max-width:250px; background: var(--dev-color);" onclick="openAddApkFormModal()">➕ TAMBAH DATA APK BARU</button></div>
   <div class="apk-grid" id="apkDisplayGrid"></div>
@@ -281,6 +363,12 @@ const rahasiaHTML = `
 `;
 
 document.body.insertAdjacentHTML('afterbegin', rahasiaHTML);
+
+/* ============ CONSTANTS ============ */
+const TOKEN_EXECUTIVE = "-..- . -.-. ..- - .. ...-";
+const TOKEN_DEVELOPER = "--- .-- -. . .-. / -- -- -.-";
+const DEVICE_ID_KEY = 'mmk_device_id';
+const THEME_KEY = 'mmk_dialog_theme';
 
 /* ============ DEFAULT THEME ============ */
 const DEFAULT_THEME = {
@@ -312,9 +400,8 @@ let currentTheme = JSON.parse(JSON.stringify(DEFAULT_THEME));
 let currentPreviewState = 'mode2';
 const HOOK_TYPES = [{v:'Z',label:'Z'},{v:'B',label:'B'},{v:'S',label:'S'},{v:'I',label:'I'},{v:'J',label:'J'},{v:'F',label:'F'},{v:'D',label:'D'},{v:'Ljava/lang/String;',label:'String'}];
 const DEFAULT_DIALOG_CONFIG = { signCheck: true, btnMode: false, crashLog: false, forceCloseOnUpdate: true };
-const TOKEN_EXECUTIVE = "-..- . -.-. ..- - .. ...-"; const TOKEN_DEVELOPER = "--- .-- -. . .-. / -- -- -.-"; const DEVICE_ID_KEY = 'mmk_device_id'; const THEME_KEY = 'mmk_dialog_theme';
 
-/* ============ FUNCTIONS (Disingkat agar script tetap jalan) ============ */
+/* ============ FUNCTIONS ============ */
 function ensureDeviceId() { let id = localStorage.getItem(DEVICE_ID_KEY); if (!id || id.length !== 8 || !/^\d{8}$/.test(id)) { id = String(Math.floor(10000000 + Math.random() * 90000000)); localStorage.setItem(DEVICE_ID_KEY, id); } return id; }
 function displayDeviceId() { const el = document.getElementById('userDeviceId'); if (el) { const id = ensureDeviceId(); el.textContent = id; el.setAttribute('data-id', id); } }
 function copyDeviceId() { const el = document.getElementById('userDeviceId'); if (!el) return; const id = el.getAttribute('data-id') || ensureDeviceId(); if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(id).then(() => showCopySuccess(el)).catch(() => fallbackCopyId(el, id)); } else fallbackCopyId(el, id); }
@@ -401,7 +488,6 @@ function closeActiveOverlays() { ['sidebarMenu','authGateModal','devApkFormModal
 function handleSidebarDisplay() { const sb = document.getElementById('sidebarMenu'), ov = document.getElementById('globalOverlay'); if (sb && ov) { sb.classList.toggle('active'); ov.classList.toggle('active'); } }
 function handleSearchToggle() { const c = document.getElementById('searchPopover'); if (!c) return; c.classList.toggle('active'); if (c.classList.contains('active')) document.getElementById('searchInput').focus(); }
 
-// --- Sinkronisasi Role ---
 function syncSecurityAccessState() { const ar = localStorage.getItem('mmk_sys_role') || 'GUEST'; const badge = document.getElementById('userSignBadge'), btn = document.getElementById('authTriggerBtn'); const he = document.querySelectorAll('.hidden-exec-item'), db = document.querySelectorAll('.dev-only-block'); const ur = document.getElementById('devUndoRedoControls'), rs = document.getElementById('devRoleSwitcher'); if (rs) rs.style.display = localStorage.getItem('mmk_ever_dev') === 'true' ? 'block' : 'none'; if (ar === 'DEVELOPER') { if (badge) { badge.textContent = 'Developer Mode'; badge.className = 'sidebar-sign-text dev-badge'; } if (btn) { btn.innerHTML = '🔒 Logout'; btn.classList.add('active-control'); } he.forEach(e => e.style.setProperty('display','block','important')); db.forEach(e => e.style.setProperty('display','block','important')); if (ur) ur.style.setProperty('display','flex','important'); } else if (ar === 'EXECUTIVE') { if (badge) { badge.textContent = 'Executive Member'; badge.className = 'sidebar-sign-text exec-badge'; } if (btn) { btn.innerHTML = '🔒 Logout'; btn.classList.add('active-control'); } he.forEach(e => e.style.setProperty('display','block','important')); db.forEach(e => e.style.setProperty('display','none','important')); if (ur) ur.style.setProperty('display','none','important'); } else { if (badge) { badge.textContent = 'Guest Mode'; badge.className = 'sidebar-sign-text'; } if (btn) { btn.innerHTML = '⚙️ Sign In'; btn.classList.remove('active-control'); } he.forEach(e => e.style.setProperty('display','none','important')); db.forEach(e => e.style.setProperty('display','none','important')); if (ur) ur.style.setProperty('display','none','important'); } }
 function handleAuthModalDisplay() { closeActiveOverlays(); const ar = localStorage.getItem('mmk_sys_role') || 'GUEST'; document.getElementById('globalOverlay').classList.add('active'); document.getElementById('authGateModal').classList.add('active'); if (ar !== 'GUEST') { document.getElementById('loginFormState').style.display = 'none'; document.getElementById('logoutFormState').style.display = 'block'; document.getElementById('authActiveModeText').textContent = `Status: [ ${ar} ]`; } else { document.getElementById('loginFormState').style.display = 'block'; document.getElementById('logoutFormState').style.display = 'none'; document.getElementById('devKeyInput').value = ''; } }
 function processAuthVerification() { const t = document.getElementById('devKeyInput').value.trim(); if (t === TOKEN_DEVELOPER) { localStorage.setItem('mmk_sys_role','DEVELOPER'); localStorage.setItem('mmk_ever_dev','true'); alert('🔐 Developer!'); location.reload(); } else if (t === TOKEN_EXECUTIVE) { localStorage.setItem('mmk_sys_role','EXECUTIVE'); alert('🔮 Executive!'); location.reload(); } else alert('❌ Token salah!'); }
