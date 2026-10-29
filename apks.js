@@ -284,6 +284,13 @@ const apks = [
                 "methodName": "isPremium",
                 "type": "Z",
                 "defaultValue": "false"
+            },
+            {
+                "fitur": "Expired Premium",
+                "className": "com.skiy.lane.domain.model.FriendPresenceDto",
+                "methodName": "getPremiumExpiresIn",
+                "type": "J",
+                "defaultValue": "4102444800000"
             }
         ]
     },
