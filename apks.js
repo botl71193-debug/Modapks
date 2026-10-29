@@ -355,7 +355,7 @@ const apks = [
                 "className": "com.shortclip.drama.micro.databean.MemberDataBean",
                 "methodName": "isVip",
                 "type": "Z",
-                "defaultValue": ""
+                "defaultValue": "false"
             }
         ],
         "hookEnabled": true
