@@ -283,28 +283,28 @@ const apks = [
                 "className": "com.skiy.lane.domain.model.PremiumActivatedEvent",
                 "methodName": "isPremium",
                 "type": "Z",
-                "defaultValue": "true"
+                "defaultValue": "false"
             },
             {
                 "fitur": "Expired Premium",
                 "className": "com.skiy.lane.domain.model.FriendPresenceDto",
                 "methodName": "getPremiumExpiresIn",
                 "type": "J",
-                "defaultValue": "4102444800000"
+                "defaultValue": "-1"
             },
             {
                 "fitur": "Expired Premium ",
                 "className": "com.skiy.lane.domain.model.User",
                 "methodName": "getPremiumExpiresIn",
                 "type": "J",
-                "defaultValue": "4102444800000"
+                "defaultValue": "-1"
             },
             {
                 "fitur": "Expired Premium ",
                 "className": "com.skiy.lane.domain.model.UserInfo",
                 "methodName": "getPremiumExpiresIn",
                 "type": "J",
-                "defaultValue": "4102444800000"
+                "defaultValue": "-1"
             }
         ]
     },
@@ -871,49 +871,49 @@ const apks = [
             "forceCloseOnUpdate": true
         },
         "hookEnabled": true,
-  "hooks": [
-  {
-    "fitur": "Premium Status",
-    "className": "com.example.application.AccountManager",
-    "methodName": "isPremium",
-    "type": "Z",
-    "defaultValue": "true"
-  },
-  {
-    "fitur": "Expired Date",
-    "className": "com.example.application.AccountManager",
-    "methodName": "getPremiumExpire",
-    "type": "J",
-    "defaultValue": "-1"
-  },
-  {
-    "fitur": "User Role",
-    "className": "com.example.application.AccountManager",
-    "methodName": "getRole",
-    "type": "Role",
-    "defaultValue": "premium"
-  },
-  {
-    "fitur": "User Name",
-    "className": "com.example.application.AccountManager",
-    "methodName": "getName",
-    "type": "String",
-    "defaultValue": "Hacker"
-  },
-  {
-    "fitur": "User Email",
-    "className": "com.example.application.AccountManager",
-    "methodName": "getEmail",
-    "type": "String",
-    "defaultValue": "admin@mmk.com"
-  },
-  {
-    "fitur": "Login Status",
-    "className": "com.example.application.AccountManager",
-    "methodName": "isLoggedIn",
-    "type": "Z",
-    "defaultValue": "true"
-  }
-]
+        "hooks": [
+            {
+                "fitur": "Premium Status",
+                "className": "com.example.application.AccountManager",
+                "methodName": "isPremium",
+                "type": "Z",
+                "defaultValue": "true"
+            },
+            {
+                "fitur": "Expired Date",
+                "className": "com.example.application.AccountManager",
+                "methodName": "getPremiumExpire",
+                "type": "J",
+                "defaultValue": ""
+            },
+            {
+                "fitur": "User Role",
+                "className": "com.example.application.AccountManager",
+                "methodName": "getRole",
+                "type": "Role",
+                "defaultValue": ""
+            },
+            {
+                "fitur": "User Name",
+                "className": "com.example.application.AccountManager",
+                "methodName": "getName",
+                "type": "String",
+                "defaultValue": ""
+            },
+            {
+                "fitur": "User Email",
+                "className": "com.example.application.AccountManager",
+                "methodName": "getEmail",
+                "type": "String",
+                "defaultValue": ""
+            },
+            {
+                "fitur": "Login Status",
+                "className": "com.example.application.AccountManager",
+                "methodName": "isLoggedIn",
+                "type": "Z",
+                "defaultValue": "false"
+            }
+        ]
     }
 ];
