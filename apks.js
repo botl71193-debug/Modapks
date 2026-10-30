@@ -95,6 +95,36 @@ const premiumUsers = [
 
 const apks = [
     {
+        "name": "Keyflow",
+        "version": "1.4.8",
+        "versionName": "1.4.8",
+        "versionCode": 32,
+        "packageName": "com.angkin.keyflow",
+        "category": "Tools",
+        "size": "",
+        "android": "Android 5+",
+        "description": "Editor video dan foto mobile berbasis layer dengan keyframe animation, kontrol easing curve, 3D camera, time remapping, speed ramping, motion blur, custom expressions, efek slow motion bergaya Twixtor, template aspect ratio kustom, serta fitur pengelolaan media dan proyek.",
+        "imageUrl": "https://i.ibb.co.com/mCsnbZVM/Screenshot-2026-1030-171756.webp",
+        "downloadUrl": "#",
+        "changelog": [],
+        "dialogConfig": {
+            "signCheck": false,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": false
+        },
+        "hookEnabled": true,
+        "hooks": [
+            {
+                "fitur": "PRO",
+                "className": "TG6Ll",
+                "methodName": "jqhLupq",
+                "type": "Z",
+                "defaultValue": "false"
+            }
+        ]
+    },
+    {
         "name": "ShinigamI",
         "version": "1.0.5",
         "versionName": "1.0.5",
