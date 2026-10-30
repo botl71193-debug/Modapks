@@ -223,7 +223,27 @@ const apks = [
         "android": "Android 5+",
         "description": "Alat PDF online dan aplikasi untuk merge, split, compress, convert, edit, sign, OCR, dan mengelola PDF dengan cepat. Tersedia untuk web, Android, iPhone,dan desktop.",
         "imageUrl": "https://i.ibb.co.com/6RJ7N1Ws/Screenshot-2026-0913-141801.webp",
-        "downloadUrl": "https://adlinksumo.com/HolWZ4"
+        "downloadUrl": "https://adlinksumo.com/HolWZ4",
+        "packageName": "com.ilovepdf.www",
+        "versionName": "4.1.0",
+        "versionCode": 4001000,
+        "changelog": [],
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        },
+        "hookEnabled": true,
+        "hooks": [
+            {
+                "fitur": "Premium",
+                "className": "com.android.ilovepdf.database.models.UserDBModel",
+                "methodName": "getPremium",
+                "type": "Z",
+                "defaultValue": "false"
+            }
+        ]
     },
     {
         "name": "TeraBox",
@@ -320,21 +340,21 @@ const apks = [
                 "className": "com.skiy.lane.domain.model.FriendPresenceDto",
                 "methodName": "getPremiumExpiresIn",
                 "type": "J",
-                "defaultValue": "-1"
+                "defaultValue": "4102444800000"
             },
             {
                 "fitur": "Expired Premium ",
                 "className": "com.skiy.lane.domain.model.User",
                 "methodName": "getPremiumExpiresIn",
                 "type": "J",
-                "defaultValue": "-1"
+                "defaultValue": "4102444800000"
             },
             {
                 "fitur": "Expired Premium ",
                 "className": "com.skiy.lane.domain.model.UserInfo",
                 "methodName": "getPremiumExpiresIn",
                 "type": "J",
-                "defaultValue": "-1"
+                "defaultValue": "4102444800000"
             }
         ]
     },
