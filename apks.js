@@ -337,7 +337,7 @@ const apks = [
             },
             {
                 "fitur": "Expired Premium",
-                "className": "com.skiy.lane.domain.model.FriendPresenceDto",
+                "className": "com.skiy.lane.domain.model.PremiumActivatedEvent",
                 "methodName": "getPremiumExpiresIn",
                 "type": "J",
                 "defaultValue": "4102444800000"
