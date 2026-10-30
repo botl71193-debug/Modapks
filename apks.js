@@ -873,11 +873,25 @@ const apks = [
         "hookEnabled": true,
         "hooks": [
             {
-                "fitur": "Premium",
-                "className": "com.example.application.MainActivity",
+                "fitur": "Login",
+                "className": "com.example.application.AccountManager",
+                "methodName": "isLoggedIn",
+                "type": "Z",
+                "defaultValue": "false"
+            },
+            {
+                "fitur": "Login",
+                "className": "com.example.application.AccountManager",
                 "methodName": "isPremium",
                 "type": "Z",
                 "defaultValue": "false"
+            },
+            {
+                "fitur": "Expired",
+                "className": "com.example.application.AccountManager",
+                "methodName": "getPremiumExpire",
+                "type": "J",
+                "defaultValue": ""
             }
         ]
     }
