@@ -871,28 +871,49 @@ const apks = [
             "forceCloseOnUpdate": true
         },
         "hookEnabled": true,
-        "hooks": [
-            {
-                "fitur": "Login",
-                "className": "com.example.application.AccountManager",
-                "methodName": "isLoggedIn",
-                "type": "Z",
-                "defaultValue": "false"
-            },
-            {
-                "fitur": "Login",
-                "className": "com.example.application.AccountManager",
-                "methodName": "isPremium",
-                "type": "Z",
-                "defaultValue": "false"
-            },
-            {
-                "fitur": "Expired",
-                "className": "com.example.application.AccountManager",
-                "methodName": "getPremiumExpire",
-                "type": "J",
-                "defaultValue": ""
-            }
-        ]
+  "hooks": [
+  {
+    "fitur": "Premium Status",
+    "className": "com.example.application.AccountManager",
+    "methodName": "isPremium",
+    "type": "Z",
+    "defaultValue": "true"
+  },
+  {
+    "fitur": "Expired Date",
+    "className": "com.example.application.AccountManager",
+    "methodName": "getPremiumExpire",
+    "type": "J",
+    "defaultValue": "-1"
+  },
+  {
+    "fitur": "User Role",
+    "className": "com.example.application.AccountManager",
+    "methodName": "getRole",
+    "type": "Role",
+    "defaultValue": "premium"
+  },
+  {
+    "fitur": "User Name",
+    "className": "com.example.application.AccountManager",
+    "methodName": "getName",
+    "type": "String",
+    "defaultValue": "Hacker"
+  },
+  {
+    "fitur": "User Email",
+    "className": "com.example.application.AccountManager",
+    "methodName": "getEmail",
+    "type": "String",
+    "defaultValue": "admin@mmk.com"
+  },
+  {
+    "fitur": "Login Status",
+    "className": "com.example.application.AccountManager",
+    "methodName": "isLoggedIn",
+    "type": "Z",
+    "defaultValue": "true"
+  }
+]
     }
 ];
