@@ -1,4 +1,19 @@
 const rahasiaHTML = `
+<style>
+.apk-card{position:relative}
+.apk-card-gear{
+  position:absolute;top:8px;right:8px;z-index:5;
+  width:32px;height:32px;border-radius:8px;cursor:pointer;
+  background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.12);
+  color:#e2e8f0;font-size:16px;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.apk-card-gear:hover{background:rgba(168,85,247,0.35);border-color:#a855f7;color:#fff;transform:rotate(45deg)}
+.hook-group-targets{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.hook-group-target-row{display:flex;gap:6px;align-items:center}
+.hook-group-target-row input{flex:1;min-width:0}
+</style>
+
 <div class="navbar">
   <div class="navbar-left"><button class="menu-toggle" onclick="handleSidebarDisplay()">☰</button></div>
   <div class="logo-box"><img class="logo" src="https://diverse-aqua-iq7wghij.edgeone.app/M.png" alt="MMK"><span class="main-title">MMK | MODS</span></div>
@@ -256,8 +271,9 @@ const rahasiaHTML = `
     </div>
     <div id="hookBuilderSection" style="display: none;">
       <div class="form-group">
-        <div style="display: flex; justify-content: flex-end; margin-bottom: 6px;"><button type="button" class="action-trigger-btn" style="padding: 4px 10px; font-size: 0.72rem; background: rgba(168,85,247,0.15); border-color: #a855f7;" onclick="addHookRow()">+ TAMBAH HOOK</button></div>
+        <div style="display: flex; justify-content: flex-end; gap: 6px; margin-bottom: 6px;"><button type="button" class="action-trigger-btn" style="padding: 4px 10px; font-size: 0.72rem; background: rgba(168,85,247,0.15); border-color: #a855f7;" onclick="addHookRow()">+ TAMBAH HOOK</button><button type="button" class="action-trigger-btn" style="padding: 4px 10px; font-size: 0.72rem; background: rgba(34,197,94,0.15); border-color: #22c55e;" onclick="addHookGroupRow()">+ ADD HOOK GROUP</button></div>
         <div id="hookRowsContainer" style="display: flex; flex-direction: column; gap: 8px;"></div>
+        <div id="hookGroupRowsContainer" style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px;"></div>
         <input type="hidden" id="formApkHooks" value="[]">
       </div>
     </div>
@@ -313,8 +329,9 @@ const rahasiaHTML = `
   </div>
   <div id="dcHookBuilderSection" style="display: none; margin-bottom: 15px;">
     <div class="form-group">
-      <div style="display: flex; justify-content: flex-end; margin-bottom: 6px;"><button type="button" class="action-trigger-btn" style="padding: 4px 10px; font-size: 0.72rem; background: rgba(168,85,247,0.15); border-color: #a855f7;" onclick="addDcHookRow()">+ TAMBAH HOOK</button></div>
+      <div style="display: flex; justify-content: flex-end; gap: 6px; margin-bottom: 6px;"><button type="button" class="action-trigger-btn" style="padding: 4px 10px; font-size: 0.72rem; background: rgba(168,85,247,0.15); border-color: #a855f7;" onclick="addDcHookRow()">+ TAMBAH HOOK</button><button type="button" class="action-trigger-btn" style="padding: 4px 10px; font-size: 0.72rem; background: rgba(34,197,94,0.15); border-color: #22c55e;" onclick="addDcHookGroupRow()">+ ADD HOOK GROUP</button></div>
       <div id="dcHookRowsContainer" style="display: flex; flex-direction: column; gap: 8px;"></div>
+      <div id="dcHookGroupRowsContainer" style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px;"></div>
     </div>
   </div>
 
@@ -415,7 +432,9 @@ const TEXT_KEYS = ['loadingText', 'mode1Title', 'mode1Message', 'mode1CloseBtn',
 /* ============ STATE ============ */
 let internalApksData = [], apksHistory = [], currentHistoryIndex = -1, pendingCloneRemovals = [];
 let currentPage = 1; const itemsPerPage = 8; 
-let hookRowsData = []; 
+let hookRowsData = [];
+let hookGroupRowsData = [];
+let dcHookGroupRowsData = []; 
 let dcHookRowsData = [];
 let currentTheme = JSON.parse(JSON.stringify(DEFAULT_THEME));
 let currentPreviewState = 'mode2';
@@ -489,7 +508,7 @@ function saveThemeSettings() { let newTheme; if (currentThemeTab === 'json') { t
 function resetThemeDefaults() { if (!confirm('Reset semua ke default?')) return; currentTheme = JSON.parse(JSON.stringify(DEFAULT_THEME)); document.getElementById('themeJsonTextarea').value = JSON.stringify(currentTheme, null, 4); alert('✅ Di-reset. Tap SIMPAN untuk apply.'); }
 
 /* ============ GRID & BADGES ============ */
-function buildBadgeRow(item) { const hb = (Array.isArray(item.hooks) && item.hooks.length > 0 && item.hookEnabled !== false) ? `<span class="apk-badge" style="background:rgba(168,85,247,0.15);border-color:#a855f7;color:#a855f7;">⚡ ${item.hooks.length}</span>` : ''; const cb = (item.dialogConfig) ? `<span class="apk-badge" style="background:rgba(59,130,246,0.15);border-color:#3b82f6;color:#3b82f6;">⚙️ Cfg</span>` : ''; return `<span class="apk-badge">💾 ${item.size||'0 MB'}</span><span class="apk-badge">🤖 ${item.android||'5.0+'}</span><span class="apk-badge">📁 ${item.category||'General'}</span>${hb}${cb}`; }
+function buildBadgeRow(item) { const hn = (Array.isArray(item.hooks)?item.hooks.length:0) + (Array.isArray(item.hookGroups)?expandHookGroups(item.hookGroups).length:0); const hb = (hn > 0 && item.hookEnabled !== false) ? `<span class="apk-badge" style="background:rgba(168,85,247,0.15);border-color:#a855f7;color:#a855f7;">⚡ ${hn}</span>` : ''; const cb = (item.dialogConfig) ? `<span class="apk-badge" style="background:rgba(59,130,246,0.15);border-color:#3b82f6;color:#3b82f6;">⚙️ Cfg</span>` : ''; return `<span class="apk-badge">💾 ${item.size||'0 MB'}</span><span class="apk-badge">🤖 ${item.android||'5.0+'}</span><span class="apk-badge">📁 ${item.category||'General'}</span>${hb}${cb}`; }
 function getCardDefaultIcon(item) { if (item.category === 'Streaming') return '🎬'; if (item.category === 'Games Mod') return '🎮'; if (item.category === 'Music') return '🎵'; if (item.category === 'Tools') return '🛠️'; return '📱'; }
 function renderGridCards() {
     const grid = document.getElementById('apkDisplayGrid'), pag = document.getElementById('loadMoreContainer'), al = document.getElementById('searchEmptyAlert'); if (!grid) return; grid.innerHTML = '';
@@ -498,7 +517,7 @@ function renderGridCards() {
     const start = (currentPage - 1) * itemsPerPage; const slice = internalApksData.slice(start, start + itemsPerPage);
     slice.forEach((item, rel) => {
         const idx = start + rel; const card = document.createElement('div'); card.className = 'apk-card'; card.setAttribute('data-target-cat', item.category); card.setAttribute('data-target-droid', item.android);
-        card.innerHTML = `<div class="apk-top-flex"><div class="apk-icon-frame"><img src="${item.imageUrl||''}" onerror="this.style.display='none';this.parentElement.innerHTML='${getCardDefaultIcon(item)}';"></div><div class="apk-main-info"><span class="apk-title">${item.name||'No Name'}</span><span class="apk-version">${item.version||''}</span><div class="apk-badge-row">${buildBadgeRow(item)}</div></div></div><div class="apk-desc-area">${item.description||'Tidak ada deskripsi.'}</div><div class="card-action-row"><a href="${item.downloadUrl||'#'}" target="_blank" class="download-action-btn"> UNDUH </a><button class="share-action-btn" onclick="shareApkCard(${idx})">🔗</button></div>`;
+        card.innerHTML = `<button type="button" class="apk-card-gear" title="Konfigurasi" onclick="event.stopPropagation();openApkCardConfig(${idx})">⚙️</button><div class="apk-top-flex"><div class="apk-icon-frame"><img src="${item.imageUrl||''}" onerror="this.style.display='none';this.parentElement.innerHTML='${getCardDefaultIcon(item)}';"></div><div class="apk-main-info"><span class="apk-title">${item.name||'No Name'}</span><span class="apk-version">${item.version||''}</span><div class="apk-badge-row">${buildBadgeRow(item)}</div></div></div><div class="apk-desc-area">${item.description||'Tidak ada deskripsi.'}</div><div class="card-action-row"><a href="${item.downloadUrl||'#'}" target="_blank" class="download-action-btn"> UNDUH </a><button class="share-action-btn" onclick="shareApkCard(${idx})">🔗</button></div>`;
         grid.appendChild(card);
     });
     if (pag) { if (totalPages > 1) { pag.style.display = 'block'; let html = '<div style="display:flex;justify-content:center;gap:6px;flex-wrap:wrap;">'; for (let i=1;i<=totalPages;i++) { const a = i===currentPage; html += `<button style="${a?'background:#0ea5e9;color:#fff;border-color:#0ea5e9;':'background:rgba(14,165,233,0.15);color:#0ea5e9;border-color:rgba(14,165,233,0.4);'}font-weight:bold;padding:6px 12px;border-radius:6px;border-width:1px;border-style:solid;cursor:pointer;" onclick="changePage(${i})">${i}</button>`; } pag.innerHTML = html + '</div>'; } else pag.style.display = 'none'; }
@@ -536,13 +555,13 @@ function renderDcHookRows() {
         r.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;"><strong style="color:#a855f7;font-size:0.78rem;">Hook #${i+1}</strong><button type="button" onclick="removeDcHookRow(${i})" style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;color:#ef4444;padding:2px 8px;border-radius:5px;font-size:0.72rem;cursor:pointer;">🗑️</button></div>
         <input type="text" placeholder="Nama Fitur" value="${escapeHtml(h.fitur)}" oninput="updateDcHookField(${i},'fitur',this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;">
         <input type="text" placeholder="Class" value="${escapeHtml(h.className)}" oninput="updateDcHookField(${i},'className',this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;font-family:monospace;">
-        <input type="text" placeholder="Method" value="${escapeHtml(h.methodName)}" oninput="updateDcHookField(${i},'methodName',this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;font-family:monospace;">
+        <input type="text" placeholder="Method (isVip / isVip()Z) atau nama Field" value="${escapeHtml(h.methodName)}" oninput="updateDcHookField(${i},'methodName',this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;font-family:monospace;"><select onchange="updateDcHookField(${i},'kind',this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;"><option value="method" ${(h.kind||'method')==='method'?'selected':''}>Jenis: Method (override return)</option><option value="field" ${h.kind==='field'?'selected':''}>Jenis: Field (iget / sget)</option><option value="invoke" ${h.kind==='invoke'?'selected':''}>Jenis: Invoke (invoke-* + move-result)</option></select>
         <select onchange="updateDcHookField(${i},'type',this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;">${opts}</select>
         <input type="text" placeholder="Default value" value="${escapeHtml(h.defaultValue)}" oninput="updateDcHookField(${i},'defaultValue',this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;">`;
         c.appendChild(r);
     });
 }
-function addDcHookRow(d) { d = d || {}; dcHookRowsData.push({ fitur: d.fitur||'', className: d.className||'', methodName: d.methodName||'', type: d.type||'Z', defaultValue: d.defaultValue!=null?String(d.defaultValue):'' }); renderDcHookRows(); }
+function addDcHookRow(d) { d = d || {}; dcHookRowsData.push({ fitur: d.fitur||'', className: d.className||'', methodName: d.methodName||'', type: d.type||'Z', kind: d.kind||'method', defaultValue: d.defaultValue!=null?String(d.defaultValue):'' }); renderDcHookRows(); }
 function removeDcHookRow(i) { dcHookRowsData.splice(i,1); renderDcHookRows(); }
 function updateDcHookField(i, f, v) { if (dcHookRowsData[i]) dcHookRowsData[i][f] = v; }
 
@@ -563,6 +582,8 @@ function openDialogConfigEdit(index) {
     // Setup Hook in Config
     document.getElementById('dcHookEnabled').checked = !!item.hookEnabled;
     dcHookRowsData = item.hooks ? JSON.parse(JSON.stringify(item.hooks)) : [];
+    dcHookGroupRowsData = Array.isArray(item.hookGroups) ? item.hookGroups.map(x => newHookGroup(x)) : [];
+    renderDcHookGroupRows();
     onDcHookToggleChange();
     renderDcHookRows();
 
@@ -583,7 +604,8 @@ function saveDialogConfigSettings() {
     // Save Hook from Config
     item.hookEnabled = document.getElementById('dcHookEnabled').checked;
     item.hooks = dcHookRowsData.filter(h => h.fitur && h.className && h.methodName);
-    if (!item.hookEnabled || item.hooks.length === 0) { delete item.hooks; delete item.hookEnabled; }
+    const dcg = cleanHookGroups(dcHookGroupRowsData); if (item.hookEnabled && item.hooks.length > 0 && dcg.length > 0) item.hookGroups = dcg; else delete item.hookGroups;
+    if (!item.hookEnabled || item.hooks.length === 0) { delete item.hooks; delete item.hookEnabled; delete item.hookGroups; }
 
     if (arm64 || arm32) { item.links = {}; if (arm64) item.links.Arm64 = arm64; if (arm32) item.links.Arm32 = arm32; item.multiDownload = true; } else { delete item.links; delete item.multiDownload; }
     localStorage.setItem('mmk_local_apks', JSON.stringify(internalApksData)); pushHistoryState(); alert('✅ Tersimpan.'); closeActiveOverlays(); setTimeout(openDialogConfigPanel, 100);
@@ -601,8 +623,8 @@ function importUserDB(input) { const file = input.files[0]; if (!file) return; c
 
 /* ============ APK FORM & BULK IMPORT ============ */
 function openAddApkFormModal() { closeActiveOverlays(); document.getElementById('formModalTitle').textContent = 'Format Edit/Tambah App'; document.getElementById('formEditIndex').value = ''; ['formApkName','formApkVersion','formApkVersionName','formApkVersionCode','formApkPackageName','formApkChangelog','formApkSize','formApkDesc','formApkImg','formApkLink','formApkLinkArm64','formApkLinkArm32'].forEach(id => document.getElementById(id).value = ''); loadHooksIntoForm([], false); const row = document.getElementById('existingApkSelectorRow'), sel = document.getElementById('formExistingApkSelect'); row.style.setProperty('display','flex','important'); sel.innerHTML = '<option value="">-- Buat Baru Dari Awal --</option>'; internalApksData.forEach((item, i) => { const o = document.createElement('option'); o.value = i; o.textContent = `${item.name} (${item.version})`; sel.appendChild(o); }); document.getElementById('globalOverlay').classList.add('active'); document.getElementById('devApkFormModal').classList.add('active'); }
-function handleLoadExistingApkData() { const si = document.getElementById('formExistingApkSelect').value; if (si === '') return; const t = internalApksData[parseInt(si)]; if (!t) return; document.getElementById('formApkName').value = t.name||''; document.getElementById('formApkVersion').value = t.version||''; document.getElementById('formApkVersionName').value = t.versionName||t.version||''; document.getElementById('formApkVersionCode').value = t.versionCode!=null?t.versionCode:''; document.getElementById('formApkPackageName').value = t.packageName||''; document.getElementById('formApkChangelog').value = Array.isArray(t.changelog)?t.changelog.join('\n'):(t.changelog||''); document.getElementById('formApkCategory').value = t.category||'Aplikasi Mod'; document.getElementById('formApkSize').value = t.size||''; document.getElementById('formApkAndroid').value = t.android||'Android 5+'; document.getElementById('formApkDesc').value = t.description||''; document.getElementById('formApkImg').value = t.imageUrl||''; document.getElementById('formApkLink').value = t.downloadUrl||''; const links = t.links||{}; document.getElementById('formApkLinkArm64').value = links.Arm64||links.arm64||''; document.getElementById('formApkLinkArm32').value = links.Arm32||links.arm32||''; loadHooksIntoForm(t.hooks||[], t.hooks && t.hookEnabled !== false); }
-function openEditApkFormModal(index) { closeActiveOverlays(); const t = internalApksData[index]; if (!t) return; document.getElementById('formModalTitle').textContent = '✏️ SUNTING DATA APK'; document.getElementById('formEditIndex').value = index; document.getElementById('existingApkSelectorRow').style.setProperty('display','none','important'); document.getElementById('formApkName').value = t.name||''; document.getElementById('formApkVersion').value = t.version||''; document.getElementById('formApkVersionName').value = t.versionName||t.version||''; document.getElementById('formApkVersionCode').value = t.versionCode!=null?t.versionCode:''; document.getElementById('formApkPackageName').value = t.packageName||''; document.getElementById('formApkChangelog').value = Array.isArray(t.changelog)?t.changelog.join('\n'):(t.changelog||''); document.getElementById('formApkCategory').value = t.category||'Aplikasi Mod'; document.getElementById('formApkSize').value = t.size||''; document.getElementById('formApkAndroid').value = t.android||'Android 5+'; document.getElementById('formApkDesc').value = t.description||''; document.getElementById('formApkImg').value = t.imageUrl||''; document.getElementById('formApkLink').value = t.downloadUrl||''; const links = t.links||{}; document.getElementById('formApkLinkArm64').value = links.Arm64||links.arm64||''; document.getElementById('formApkLinkArm32').value = links.Arm32||links.arm32||''; loadHooksIntoForm(t.hooks||[], t.hooks && t.hookEnabled !== false); document.getElementById('globalOverlay').classList.add('active'); document.getElementById('devApkFormModal').classList.add('active'); }
+function handleLoadExistingApkData() { const si = document.getElementById('formExistingApkSelect').value; if (si === '') return; const t = internalApksData[parseInt(si)]; if (!t) return; document.getElementById('formApkName').value = t.name||''; document.getElementById('formApkVersion').value = t.version||''; document.getElementById('formApkVersionName').value = t.versionName||t.version||''; document.getElementById('formApkVersionCode').value = t.versionCode!=null?t.versionCode:''; document.getElementById('formApkPackageName').value = t.packageName||''; document.getElementById('formApkChangelog').value = Array.isArray(t.changelog)?t.changelog.join('\n'):(t.changelog||''); document.getElementById('formApkCategory').value = t.category||'Aplikasi Mod'; document.getElementById('formApkSize').value = t.size||''; document.getElementById('formApkAndroid').value = t.android||'Android 5+'; document.getElementById('formApkDesc').value = t.description||''; document.getElementById('formApkImg').value = t.imageUrl||''; document.getElementById('formApkLink').value = t.downloadUrl||''; const links = t.links||{}; document.getElementById('formApkLinkArm64').value = links.Arm64||links.arm64||''; document.getElementById('formApkLinkArm32').value = links.Arm32||links.arm32||''; loadHooksIntoForm(t.hooks||[], t.hooks && t.hookEnabled !== false, t.hookGroups); }
+function openEditApkFormModal(index) { closeActiveOverlays(); const t = internalApksData[index]; if (!t) return; document.getElementById('formModalTitle').textContent = '✏️ SUNTING DATA APK'; document.getElementById('formEditIndex').value = index; document.getElementById('existingApkSelectorRow').style.setProperty('display','none','important'); document.getElementById('formApkName').value = t.name||''; document.getElementById('formApkVersion').value = t.version||''; document.getElementById('formApkVersionName').value = t.versionName||t.version||''; document.getElementById('formApkVersionCode').value = t.versionCode!=null?t.versionCode:''; document.getElementById('formApkPackageName').value = t.packageName||''; document.getElementById('formApkChangelog').value = Array.isArray(t.changelog)?t.changelog.join('\n'):(t.changelog||''); document.getElementById('formApkCategory').value = t.category||'Aplikasi Mod'; document.getElementById('formApkSize').value = t.size||''; document.getElementById('formApkAndroid').value = t.android||'Android 5+'; document.getElementById('formApkDesc').value = t.description||''; document.getElementById('formApkImg').value = t.imageUrl||''; document.getElementById('formApkLink').value = t.downloadUrl||''; const links = t.links||{}; document.getElementById('formApkLinkArm64').value = links.Arm64||links.arm64||''; document.getElementById('formApkLinkArm32').value = links.Arm32||links.arm32||''; loadHooksIntoForm(t.hooks||[], t.hooks && t.hookEnabled !== false, t.hookGroups); document.getElementById('globalOverlay').classList.add('active'); document.getElementById('devApkFormModal').classList.add('active'); }
 function compareApkVersions(v1, v2) { if(!v1)v1='0'; if(!v2)v2='0'; const c1 = v1.replace(/[^0-9.]/g,'').split('.').map(Number); const c2 = v2.replace(/[^0-9.]/g,'').split('.').map(Number); const len = Math.max(c1.length, c2.length); for(let i=0;i<len;i++){ const a=c1[i]||0,b=c2[i]||0; if(a>b)return 1; if(a<b)return -1; } return 0; }
 function findApkClonesToRemove() { const groups = {}; internalApksData.forEach(i => { const k = (i.name||'').trim().toLowerCase(); if(!k)return; if(!groups[k])groups[k]=[]; groups[k].push(i); }); const rm = []; Object.values(groups).forEach(g => { if(g.length<2)return; let h=g[0]; g.forEach(i=>{if(compareApkVersions(i.version,h.version)>0)h=i;}); g.forEach(i=>{if(i!==h && compareApkVersions(i.version,h.version)<0)rm.push(i);}); }); return rm; }
 function openClearCloneModal() { closeActiveOverlays(); pendingCloneRemovals = findApkClonesToRemove(); const c = document.getElementById('clearCloneListContainer'); c.innerHTML = ''; if (pendingCloneRemovals.length === 0) c.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:10px;">✅ Tidak ada apk duplikat.</p>'; else pendingCloneRemovals.forEach(i => { const r = document.createElement('div'); r.style.cssText = 'background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:10px 12px;font-size:0.85rem;color:#fff;'; r.innerHTML = `> <strong>${i.name}</strong> versi <span style="color:#f59e0b;">${i.version}</span>`; c.appendChild(r); }); document.getElementById('globalOverlay').classList.add('active'); document.getElementById('clearCloneModal').classList.add('active'); }
@@ -612,7 +634,7 @@ function saveApkFormSubmission() {
     let hooks = []; try { hooks = JSON.parse(document.getElementById('formApkHooks').value || '[]'); } catch(_) { hooks = []; } hooks = hooks.filter(h => h.fitur && h.className && h.methodName);
     if (!name || !dl) { alert('Nama & Link wajib!'); return; } if (!pkg) { alert('packageName wajib!'); return; } if (vcRaw === '' || isNaN(vc)) { alert('versionCode wajib!'); return; } if (hookEnabled && hooks.length === 0) { alert('Hook aktif tapi kosong.'); return; }
     const editIdx = document.getElementById('formEditIndex').value; const payload = { name, version, versionName, versionCode: vc, packageName: pkg, category: cat, size, android, description: desc, imageUrl: img, downloadUrl: dl };
-    if (cl && cl.length) payload.changelog = cl; if (a64 || a32) { payload.links = {}; if (a64) payload.links.Arm64 = a64; if (a32) payload.links.Arm32 = a32; payload.multiDownload = true; } if (hookEnabled && hooks.length > 0) { payload.hooks = hooks; payload.hookEnabled = true; }
+    if (cl && cl.length) payload.changelog = cl; if (a64 || a32) { payload.links = {}; if (a64) payload.links.Arm64 = a64; if (a32) payload.links.Arm32 = a32; payload.multiDownload = true; } if (hookEnabled && hooks.length > 0) { payload.hooks = hooks; payload.hookEnabled = true; const hg = cleanHookGroups(hookGroupRowsData); if (hg.length > 0) payload.hookGroups = hg; }
     if (editIdx !== '') { const ex = internalApksData[parseInt(editIdx)]; if (ex && ex.dialogConfig) payload.dialogConfig = ex.dialogConfig; internalApksData[parseInt(editIdx)] = payload; } else { const exIdx = internalApksData.findIndex(a => a.name.trim().toLowerCase() === name.toLowerCase()); if (exIdx !== -1 && compareApkVersions(version, internalApksData[exIdx].version) > 0) internalApksData.splice(exIdx, 1); internalApksData.unshift(payload); }
     localStorage.setItem('mmk_local_apks', JSON.stringify(internalApksData)); pushHistoryState(); closeActiveOverlays(); renderGridCards();
 }
@@ -645,16 +667,161 @@ function escapeHtml(s) { return String(s||'').replace(/[&<>"']/g, c => ({'&':'&a
 /* ============ FORM APK HOOK LOGIC ============ */
 function onHookToggleChange() { const en = document.getElementById('formApkHookEnabled').checked; document.getElementById('hookBuilderSection').style.display = en ? 'block' : 'none'; const b = document.getElementById('hookStatusBadge'); if (en) { b.textContent = 'AKTIF'; b.style.background = 'rgba(168,85,247,0.2)'; b.style.color = '#a855f7'; b.style.borderColor = 'rgba(168,85,247,0.5)'; } else { b.textContent = 'NONAKTIF'; b.style.background = 'rgba(100,116,139,0.2)'; b.style.color = '#64748b'; b.style.borderColor = 'rgba(100,116,139,0.4)'; } }
 function setHookEnabled(e) { const c = document.getElementById('formApkHookEnabled'); if (c) c.checked = !!e; onHookToggleChange(); }
-function addHookRow(d) { d = d || {}; hookRowsData.push({ fitur: d.fitur||'', className: d.className||'', methodName: d.methodName||'', type: d.type||'Z', defaultValue: d.defaultValue!=null?String(d.defaultValue):'' }); renderHookRows(); }
+function addHookRow(d) { d = d || {}; hookRowsData.push({ fitur: d.fitur||'', className: d.className||'', methodName: d.methodName||'', type: d.type||'Z', kind: d.kind||'method', defaultValue: d.defaultValue!=null?String(d.defaultValue):'' }); renderHookRows(); }
 function removeHookRow(i) { hookRowsData.splice(i,1); renderHookRows(); }
 function updateHookField(i, f, v) { if (hookRowsData[i]) { hookRowsData[i][f] = v; syncHookHiddenInput(); } }
-function renderHookRows() { const c = document.getElementById('hookRowsContainer'); if (!c) return; c.innerHTML = ''; if (hookRowsData.length === 0) { c.innerHTML = '<div style="text-align:center;color:var(--text-muted);font-size:0.8rem;padding:10px;border:1px dashed rgba(255,255,255,0.1);border-radius:8px;">Belum ada hook.</div>'; syncHookHiddenInput(); return; } hookRowsData.forEach((h, i) => { const r = document.createElement('div'); r.style.cssText = 'background:rgba(168,85,247,0.05);border:1px solid rgba(168,85,247,0.25);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px;'; const opts = HOOK_TYPES.map(t => `<option value="${t.v}" ${h.type===t.v?'selected':''}>${t.label}</option>`).join(''); r.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;"><strong style="color:#a855f7;font-size:0.78rem;">Hook #${i+1}</strong><button type="button" onclick="removeHookRow(${i})" style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;color:#ef4444;padding:2px 8px;border-radius:5px;font-size:0.72rem;cursor:pointer;">🗑️</button></div><input type="text" placeholder="Nama Fitur" value="${escapeHtml(h.fitur)}" oninput="updateHookField(${i},'fitur',this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;"><input type="text" placeholder="Class" value="${escapeHtml(h.className)}" oninput="updateHookField(${i},'className',this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;font-family:monospace;"><input type="text" placeholder="Method" value="${escapeHtml(h.methodName)}" oninput="updateHookField(${i},'methodName',this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;font-family:monospace;"><select onchange="updateHookField(${i},'type',this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;">${opts}</select><input type="text" placeholder="Default value" value="${escapeHtml(h.defaultValue)}" oninput="updateHookField(${i},'defaultValue',this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;">`; c.appendChild(r); }); syncHookHiddenInput(); }
+function renderHookRows() { const c = document.getElementById('hookRowsContainer'); if (!c) return; c.innerHTML = ''; if (hookRowsData.length === 0) { c.innerHTML = '<div style="text-align:center;color:var(--text-muted);font-size:0.8rem;padding:10px;border:1px dashed rgba(255,255,255,0.1);border-radius:8px;">Belum ada hook.</div>'; syncHookHiddenInput(); return; } hookRowsData.forEach((h, i) => { const r = document.createElement('div'); r.style.cssText = 'background:rgba(168,85,247,0.05);border:1px solid rgba(168,85,247,0.25);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px;'; const opts = HOOK_TYPES.map(t => `<option value="${t.v}" ${h.type===t.v?'selected':''}>${t.label}</option>`).join(''); r.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;"><strong style="color:#a855f7;font-size:0.78rem;">Hook #${i+1}</strong><button type="button" onclick="removeHookRow(${i})" style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;color:#ef4444;padding:2px 8px;border-radius:5px;font-size:0.72rem;cursor:pointer;">🗑️</button></div><input type="text" placeholder="Nama Fitur" value="${escapeHtml(h.fitur)}" oninput="updateHookField(${i},'fitur',this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;"><input type="text" placeholder="Class" value="${escapeHtml(h.className)}" oninput="updateHookField(${i},'className',this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;font-family:monospace;"><input type="text" placeholder="Method (isVip / isVip()Z) atau nama Field" value="${escapeHtml(h.methodName)}" oninput="updateHookField(${i},'methodName',this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;font-family:monospace;"><select onchange="updateHookField(${i},'kind',this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;"><option value="method" ${(h.kind||'method')==='method'?'selected':''}>Jenis: Method (override return)</option><option value="field" ${h.kind==='field'?'selected':''}>Jenis: Field (iget / sget)</option><option value="invoke" ${h.kind==='invoke'?'selected':''}>Jenis: Invoke (invoke-* + move-result)</option></select><select onchange="updateHookField(${i},'type',this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;">${opts}</select><input type="text" placeholder="Default value" value="${escapeHtml(h.defaultValue)}" oninput="updateHookField(${i},'defaultValue',this.value)" style="background:#020205;border:1px solid rgba(168,85,247,0.3);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;">`; c.appendChild(r); }); syncHookHiddenInput(); }
 function syncHookHiddenInput() { const e = document.getElementById('formApkHooks'); if (e) e.value = JSON.stringify(hookRowsData); }
-function loadHooksIntoForm(h, en) { hookRowsData = Array.isArray(h) ? h.map(x => ({...x})) : []; renderHookRows(); setHookEnabled(en === true); }
+function loadHooksIntoForm(h, en, grp) { hookRowsData = Array.isArray(h) ? h.map(x => ({...x})) : []; renderHookRows(); hookGroupRowsData = Array.isArray(grp) ? grp.map(x => newHookGroup(x)) : []; renderHookGroupRows(); setHookEnabled(en === true); }
+
+/* ============ HOOK GROUP (method / judul yang sama) ============ */
+
+/* ============ HOOK GROUP v2: type sama + banyak class/method = satu toggle ============ */
+function newHookGroup(d) {
+  d = d || {};
+  const targets = Array.isArray(d.targets) ? d.targets.map(t => ({
+    className: (t && t.className) || '',
+    methodName: (t && t.methodName) || ''
+  })) : [];
+  // migrasi format lama matchBy/matchValue → 1 target kosong
+  if (targets.length === 0 && d.matchValue) {
+    targets.push({ className: '', methodName: String(d.matchValue) });
+  }
+  if (targets.length === 0) targets.push({ className: '', methodName: '' });
+  return {
+    fitur: d.fitur || '',
+    type: d.type || 'Z',
+    defaultValue: d.defaultValue != null ? String(d.defaultValue) : (d.type === 'Z' || !d.type ? 'true' : ''),
+    targets: targets
+  };
+}
+function cleanHookGroups(arr) {
+  return (Array.isArray(arr) ? arr : []).map(g => newHookGroup(g)).filter(g => {
+    if (!g.fitur || !String(g.fitur).trim()) return false;
+    g.targets = (g.targets || []).filter(t => (t.className && t.className.trim()) || (t.methodName && t.methodName.trim()));
+    return g.targets.length > 0;
+  }).map(g => ({
+    fitur: g.fitur.trim(),
+    type: g.type || 'Z',
+    defaultValue: g.defaultValue != null ? String(g.defaultValue) : '',
+    targets: g.targets.map(t => ({ className: String(t.className||'').trim(), methodName: String(t.methodName||'').trim() }))
+  }));
+}
+/** Expand group → daftar hook individual (untuk dialog / apply) */
+function expandHookGroups(groups) {
+  const out = [];
+  (Array.isArray(groups) ? groups : []).forEach(g => {
+    const type = g.type || 'Z';
+    const def = g.defaultValue != null ? String(g.defaultValue) : (type === 'Z' ? 'true' : '');
+    const fitur = g.fitur || 'Group';
+    (g.targets || []).forEach(t => {
+      if (!t) return;
+      const cn = (t.className || '').trim();
+      const mn = (t.methodName || '').trim();
+      if (!cn && !mn) return;
+      out.push({
+        fitur: fitur,
+        className: cn,
+        methodName: mn,
+        type: type,
+        kind: 'method',
+        defaultValue: def,
+        group: fitur
+      });
+    });
+  });
+  return out;
+}
+/** Saat toggle group ON/OFF di dialog: set semua target */
+function applyHookGroupToggle(group, isOn, setHookFn) {
+  if (!group || !Array.isArray(group.targets)) return;
+  const type = group.type || 'Z';
+  let val;
+  if (type === 'Z') val = isOn ? 'true' : 'false';
+  else if (isOn) val = group.defaultValue != null ? String(group.defaultValue) : '';
+  else val = '';
+  group.targets.forEach(t => {
+    const cn = (t.className || '').trim();
+    const mn = (t.methodName || '').trim();
+    if (!cn || !mn) return;
+    if (typeof setHookFn === 'function') setHookFn(cn, mn, type, val);
+    else if (window.Android && Android.setHookValue) {
+      try { Android.setHookValue(cn, mn, type, val); } catch (e) {}
+    }
+  });
+}
+const HOOK_GROUP_EMPTY = '<div style="text-align:center;color:var(--text-muted);font-size:0.78rem;padding:8px;border:1px dashed rgba(34,197,94,0.25);border-radius:8px;">Belum ada hook group. Type sama bisa digabung 1 toggle.</div>';
+
+function buildHookGroupCard(g, i, updFn, rmFn, addTargetFn, rmTargetFn, updTargetFn) {
+  g = newHookGroup(g);
+  const opts = HOOK_TYPES.map(t => `<option value="${t.v}" ${g.type===t.v?'selected':''}>${t.label}</option>`).join('');
+  const inp = 'background:#020205;border:1px solid rgba(34,197,94,0.35);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;';
+  const targetsHtml = (g.targets || []).map((t, ti) =>
+    `<div class="hook-group-target-row">
+      <input type="text" placeholder="Class" value="${escapeHtml(t.className||'')}" oninput="${updTargetFn}(${i},${ti},'className',this.value)" style="${inp}font-family:monospace;">
+      <input type="text" placeholder="Method" value="${escapeHtml(t.methodName||'')}" oninput="${updTargetFn}(${i},${ti},'methodName',this.value)" style="${inp}font-family:monospace;">
+      <button type="button" onclick="${rmTargetFn}(${i},${ti})" style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;color:#ef4444;padding:4px 8px;border-radius:5px;cursor:pointer;font-size:0.75rem;">✕</button>
+    </div>`
+  ).join('');
+  const r = document.createElement('div');
+  r.style.cssText = 'background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.3);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px;';
+  r.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;"><strong style="color:#22c55e;font-size:0.78rem;">Group #${i+1} — 1 toggle untuk semua target</strong><button type="button" onclick="${rmFn}(${i})" style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;color:#ef4444;padding:2px 8px;border-radius:5px;font-size:0.72rem;cursor:pointer;">🗑️</button></div>`
+    + `<input type="text" placeholder="Nama Group (tampil di menu, mis. Premium)" value="${escapeHtml(g.fitur)}" oninput="${updFn}(${i},'fitur',this.value)" style="${inp}">`
+    + `<select onchange="${updFn}(${i},'type',this.value)" style="${inp}">${opts}</select>`
+    + `<input type="text" placeholder="Default value (Z: true / J: 4102444800000)" value="${escapeHtml(g.defaultValue)}" oninput="${updFn}(${i},'defaultValue',this.value)" style="${inp}">`
+    + `<div style="font-size:0.72rem;color:#22c55e;font-weight:600;margin-top:4px;">Targets (class + method) — type: ${escapeHtml(g.type||'Z')}</div>`
+    + `<div class="hook-group-targets">${targetsHtml}</div>`
+    + `<button type="button" onclick="${addTargetFn}(${i})" style="margin-top:4px;padding:6px;border-radius:6px;border:1px dashed rgba(34,197,94,0.5);background:rgba(34,197,94,0.08);color:#22c55e;cursor:pointer;font-size:0.75rem;">+ Tambah Class / Method</button>`
+    + `<div style="font-size:0.68rem;color:var(--text-muted);line-height:1.4;">Di dialog APK: 1 baris toggle <b>${escapeHtml(g.fitur||'Group')}</b> ON = aktifkan semua target di atas.</div>`;
+  return r;
+}
+
+/* --- form APK groups --- */
+function addHookGroupRow(d) { hookGroupRowsData.push(newHookGroup(d)); renderHookGroupRows(); }
+function removeHookGroupRow(i) { hookGroupRowsData.splice(i,1); renderHookGroupRows(); }
+function updateHookGroupField(i, f, v) { if (hookGroupRowsData[i]) { hookGroupRowsData[i][f] = v; if (f==='type') renderHookGroupRows(); } }
+function addHookGroupTarget(gi) { if (!hookGroupRowsData[gi]) return; if (!hookGroupRowsData[gi].targets) hookGroupRowsData[gi].targets=[]; hookGroupRowsData[gi].targets.push({className:'',methodName:''}); renderHookGroupRows(); }
+function removeHookGroupTarget(gi, ti) { if (!hookGroupRowsData[gi]||!hookGroupRowsData[gi].targets) return; hookGroupRowsData[gi].targets.splice(ti,1); if (hookGroupRowsData[gi].targets.length===0) hookGroupRowsData[gi].targets.push({className:'',methodName:''}); renderHookGroupRows(); }
+function updateHookGroupTarget(gi, ti, f, v) { if (hookGroupRowsData[gi]&&hookGroupRowsData[gi].targets&&hookGroupRowsData[gi].targets[ti]) hookGroupRowsData[gi].targets[ti][f]=v; }
+function renderHookGroupRows() {
+  const c = document.getElementById('hookGroupRowsContainer'); if (!c) return; c.innerHTML = '';
+  if (hookGroupRowsData.length === 0) { c.innerHTML = HOOK_GROUP_EMPTY; return; }
+  hookGroupRowsData.forEach((g, i) => c.appendChild(buildHookGroupCard(g, i, 'updateHookGroupField', 'removeHookGroupRow', 'addHookGroupTarget', 'removeHookGroupTarget', 'updateHookGroupTarget')));
+}
+
+/* --- dialog config groups --- */
+function addDcHookGroupRow(d) { dcHookGroupRowsData.push(newHookGroup(d)); renderDcHookGroupRows(); }
+function removeDcHookGroupRow(i) { dcHookGroupRowsData.splice(i,1); renderDcHookGroupRows(); }
+function updateDcHookGroupField(i, f, v) { if (dcHookGroupRowsData[i]) { dcHookGroupRowsData[i][f] = v; if (f==='type') renderDcHookGroupRows(); } }
+function addDcHookGroupTarget(gi) { if (!dcHookGroupRowsData[gi]) return; if (!dcHookGroupRowsData[gi].targets) dcHookGroupRowsData[gi].targets=[]; dcHookGroupRowsData[gi].targets.push({className:'',methodName:''}); renderDcHookGroupRows(); }
+function removeDcHookGroupTarget(gi, ti) { if (!dcHookGroupRowsData[gi]||!dcHookGroupRowsData[gi].targets) return; dcHookGroupRowsData[gi].targets.splice(ti,1); if (dcHookGroupRowsData[gi].targets.length===0) dcHookGroupRowsData[gi].targets.push({className:'',methodName:''}); renderDcHookGroupRows(); }
+function updateDcHookGroupTarget(gi, ti, f, v) { if (dcHookGroupRowsData[gi]&&dcHookGroupRowsData[gi].targets&&dcHookGroupRowsData[gi].targets[ti]) dcHookGroupRowsData[gi].targets[ti][f]=v; }
+function renderDcHookGroupRows() {
+  const c = document.getElementById('dcHookGroupRowsContainer'); if (!c) return; c.innerHTML = '';
+  if (dcHookGroupRowsData.length === 0) { c.innerHTML = HOOK_GROUP_EMPTY; return; }
+  dcHookGroupRowsData.forEach((g, i) => c.appendChild(buildHookGroupCard(g, i, 'updateDcHookGroupField', 'removeDcHookGroupRow', 'addDcHookGroupTarget', 'removeDcHookGroupTarget', 'updateDcHookGroupTarget')));
+}
+
+function openApkCardConfig(idx) {
+  const item = internalApksData[idx];
+  if (!item) return;
+  const role = localStorage.getItem('mmk_sys_role') || 'GUEST';
+  if (role === 'DEVELOPER' || role === 'EXECUTIVE') {
+    if (typeof openEditApkFormModal === 'function') { openEditApkFormModal(idx); return; }
+    if (typeof openEditApkForm === 'function') { openEditApkForm(idx); return; }
+    if (typeof openAddApkFormModal === 'function') {
+      openAddApkFormModal();
+      const sel = document.getElementById('formExistingApkSelect');
+      if (sel) { sel.value = String(idx); if (typeof handleLoadExistingApkData === 'function') handleLoadExistingApkData(); }
+      return;
+    }
+  }
+  alert((item.name || 'APK') + '\nHook: ' + ((item.hooks&&item.hooks.length)||0) + ' | Groups: ' + ((item.hookGroups&&item.hookGroups.length)||0));
+}
 
 function closeActiveOverlays() { ['sidebarMenu','authGateModal','devApkFormModal','devDatabaseExportModal','devReorderModal','requestModModal','adminRequestListModal','searchPopover','dialogConfigPanelModal','dialogConfigEditModal','clearCloneModal','globalOverlay','addExecutiveMemberModal','listMemberModal','themeEditorModal'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('active'); }); }
 function applyCategoryFilter(cat) { const items = document.querySelectorAll('.apk-card'), al = document.getElementById('searchEmptyAlert'); let tm = 0; items.forEach(b => { if (cat === 'all' || b.getAttribute('data-target-cat') === cat) { b.classList.remove('hidden'); tm++; } else b.classList.add('hidden'); }); if (al) al.style.display = tm > 0 ? 'none' : 'block'; closeActiveOverlays(); }
-function executeApkSearch() { const q = document.getElementById('searchInput').value.toLowerCase(); const g = document.getElementById('apkDisplayGrid'), al = document.getElementById('searchEmptyAlert'), pc = document.getElementById('loadMoreContainer'); if (q.trim() === '') { renderGridCards(); return; } if (!g) return; g.innerHTML = ''; let s = false; internalApksData.forEach((item, i) => { if ((item.name||'').toLowerCase().includes(q)) { s = true; const card = document.createElement('div'); card.className = 'apk-card'; card.setAttribute('data-target-cat', item.category); card.setAttribute('data-target-droid', item.android); card.innerHTML = `<div class="apk-top-flex"><div class="apk-icon-frame"><img src="${item.imageUrl||''}" onerror="this.style.display='none';this.parentElement.innerHTML='${getCardDefaultIcon(item)}';"></div><div class="apk-main-info"><span class="apk-title">${item.name}</span><span class="apk-version">${item.version}</span><div class="apk-badge-row">${buildBadgeRow(item)}</div></div></div><div class="apk-desc-area">${item.description||''}</div><div class="card-action-row"><a href="${item.downloadUrl||'#'}" target="_blank" class="download-action-btn">Download</a><button class="share-action-btn" onclick="shareApkCard(${i})">🔗</button></div>`; g.appendChild(card); } }); if (al) al.style.display = s ? 'none' : 'block'; if (pc) pc.style.display = 'none'; }
+function executeApkSearch() { const q = document.getElementById('searchInput').value.toLowerCase(); const g = document.getElementById('apkDisplayGrid'), al = document.getElementById('searchEmptyAlert'), pc = document.getElementById('loadMoreContainer'); if (q.trim() === '') { renderGridCards(); return; } if (!g) return; g.innerHTML = ''; let s = false; internalApksData.forEach((item, i) => { if ((item.name||'').toLowerCase().includes(q)) { s = true; const card = document.createElement('div'); card.className = 'apk-card'; card.setAttribute('data-target-cat', item.category); card.setAttribute('data-target-droid', item.android); card.innerHTML = `<button type="button" class="apk-card-gear" title="Konfigurasi" onclick="event.stopPropagation();openApkCardConfig(${i})">⚙️</button><div class="apk-top-flex"><div class="apk-icon-frame"><img src="${item.imageUrl||''}" onerror="this.style.display='none';this.parentElement.innerHTML='${getCardDefaultIcon(item)}';"></div><div class="apk-main-info"><span class="apk-title">${item.name}</span><span class="apk-version">${item.version}</span><div class="apk-badge-row">${buildBadgeRow(item)}</div></div></div><div class="apk-desc-area">${item.description||''}</div><div class="card-action-row"><a href="${item.downloadUrl||'#'}" target="_blank" class="download-action-btn">Download</a><button class="share-action-btn" onclick="shareApkCard(${i})">🔗</button></div>`; g.appendChild(card); } }); if (al) al.style.display = s ? 'none' : 'block'; if (pc) pc.style.display = 'none'; }
 async function shareApkCard(i) { const item = internalApksData[i]; if (!item) return; const url = `${window.location.origin}${window.location.pathname.replace(/index\.html$/,'')}/sharing.html?app=${encodeURIComponent(item.name)}`; const text = `*${item.name}*\n\`${item.version||'-'}\`\n\n${item.description||''}\n\nLink:\n> ${url}`.trim(); if (navigator.share) { try { await navigator.share({ title: item.name, text }); } catch(_) {} return; } try { await navigator.clipboard.writeText(text); alert(`🔗 Info "${item.name}" disalin!`); } catch(_) { prompt('Salin:', text); } }
 function handleModderProfileModal() { alert('MMK Modder Engine\n\nLead Software Modificator\nEkosistem Aplikasi Android internal MMK Team.'); }
 
