@@ -26,8 +26,8 @@ const dialogTheme = {
     "fontMono": "JetBrains Mono",
     "text": {
         "loadingText": "𝐌𝐞𝐦𝐞𝐫𝐢𝐤𝐬𝐚 𝐩𝐞𝐦𝐛𝐚𝐫𝐮𝐚𝐧...",
-        "mode1Title": "Tidak Terdaftar",
-        "mode1Message": "Aplikasi tidak ditemukan dalam database pembaruan.",
+        "mode1Title": "Aplikasi tidak terdaftar atau jaringan saat ini buruk!",
+        "mode1Message": "Harap pastikan jaringan anda kuat!",
         "mode1CloseBtn": "𝑪𝒍𝒐𝒔𝒆𝒅",
         "mode2Status": "Latest",
         "mode2ChangelogTitle": "Changelog",
@@ -95,37 +95,7 @@ const premiumUsers = [
 
 const apks = [
     {
-        "name": "Keyflow",
-        "version": "1.4.8",
-        "versionName": "1.4.8",
-        "versionCode": 32,
-        "packageName": "com.angkin.keyflow",
-        "category": "Tools",
-        "size": "",
-        "android": "Android 5+",
-        "description": "Editor video dan foto mobile berbasis layer dengan keyframe animation, kontrol easing curve, 3D camera, time remapping, speed ramping, motion blur, custom expressions, efek slow motion bergaya Twixtor, template aspect ratio kustom, serta fitur pengelolaan media dan proyek.",
-        "imageUrl": "https://i.ibb.co.com/mCsnbZVM/Screenshot-2026-1030-171756.webp",
-        "downloadUrl": "#",
-        "changelog": [],
-        "dialogConfig": {
-            "signCheck": false,
-            "btnMode": false,
-            "crashLog": false,
-            "forceCloseOnUpdate": false
-        },
-        "hookEnabled": true,
-        "hooks": [
-            {
-                "fitur": "PRO",
-                "className": "TG6Ll",
-                "methodName": "jqhLupq",
-                "type": "Z",
-                "defaultValue": "false"
-            }
-        ]
-    },
-    {
-        "name": "ShinigamI",
+        "name": "Shinigami",
         "version": "1.0.5",
         "versionName": "1.0.5",
         "versionCode": 105,
@@ -144,9 +114,9 @@ const apks = [
         ],
         "dialogConfig": {
             "signCheck": false,
-            "btnMode": true,
+            "btnMode": false,
             "crashLog": false,
-            "forceCloseOnUpdate": false
+            "forceCloseOnUpdate": true
         }
     },
     {
@@ -223,27 +193,7 @@ const apks = [
         "android": "Android 5+",
         "description": "Alat PDF online dan aplikasi untuk merge, split, compress, convert, edit, sign, OCR, dan mengelola PDF dengan cepat. Tersedia untuk web, Android, iPhone,dan desktop.",
         "imageUrl": "https://i.ibb.co.com/6RJ7N1Ws/Screenshot-2026-0913-141801.webp",
-        "downloadUrl": "https://adlinksumo.com/HolWZ4",
-        "packageName": "com.ilovepdf.www",
-        "versionName": "4.1.0",
-        "versionCode": 4001000,
-        "changelog": [],
-        "dialogConfig": {
-            "signCheck": true,
-            "btnMode": false,
-            "crashLog": false,
-            "forceCloseOnUpdate": true
-        },
-        "hookEnabled": true,
-        "hooks": [
-            {
-                "fitur": "Premium",
-                "className": "com.android.ilovepdf.database.models.UserDBModel",
-                "methodName": "getPremium",
-                "type": "Z",
-                "defaultValue": "false"
-            }
-        ]
+        "downloadUrl": "https://adlinksumo.com/HolWZ4"
     },
     {
         "name": "TeraBox",
@@ -310,53 +260,10 @@ const apks = [
         "version": "1.4.7",
         "category": "Music",
         "size": "75,23M",
-        "android": "Android 5+",
+        "android": "",
         "description": "Aplikasi alternatif pemutar musik Spotify dengan fitur Premium terbuka.",
         "imageUrl": "https://i.ibb.co.com/6R4bXjvW/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/v3op7b",
-        "packageName": "com.skiy.lane",
-        "versionName": "1.4.7",
-        "versionCode": 207,
-        "changelog": [
-            "[ + ] Penambahan system hook"
-        ],
-        "dialogConfig": {
-            "signCheck": true,
-            "btnMode": false,
-            "crashLog": false,
-            "forceCloseOnUpdate": true
-        },
-        "hookEnabled": true,
-        "hooks": [
-            {
-                "fitur": "Premium",
-                "className": "com.skiy.lane.domain.model.PremiumActivatedEvent",
-                "methodName": "isPremium",
-                "type": "Z",
-                "defaultValue": "false"
-            },
-            {
-                "fitur": "Expired Premium",
-                "className": "com.skiy.lane.domain.model.PremiumActivatedEvent",
-                "methodName": "getPremiumExpiresIn",
-                "type": "J",
-                "defaultValue": "4102444800000"
-            },
-            {
-                "fitur": "Expired Premium ",
-                "className": "com.skiy.lane.domain.model.User",
-                "methodName": "getPremiumExpiresIn",
-                "type": "J",
-                "defaultValue": "4102444800000"
-            },
-            {
-                "fitur": "Expired Premium ",
-                "className": "com.skiy.lane.domain.model.UserInfo",
-                "methodName": "getPremiumExpiresIn",
-                "type": "J",
-                "defaultValue": "4102444800000"
-            }
-        ]
+        "downloadUrl": "https://adlinksumo.com/v3op7b"
     },
     {
         "name": "DonghuaID",
@@ -456,45 +363,10 @@ const apks = [
                 "className": "com.shortclip.drama.micro.databean.MemberDataBean",
                 "methodName": "isVip",
                 "type": "Z",
-                "defaultValue": "false"
-            },
-            {
-                "fitur": "IMG profil",
-                "className": "com.shortclip.drama.micro.databean.MemberDataBean",
-                "methodName": "getAvatarUrl",
-                "type": "Ljava/lang/String;",
-                "defaultValue": "Gambar kamu"
-            },
-            {
-                "fitur": "Nickname",
-                "className": "com.shortclip.drama.micro.databean.MemberDataBean",
-                "methodName": "getName",
-                "type": "Ljava/lang/String;",
-                "defaultValue": "Nama kamu"
-            },
-            {
-                "fitur": "Email",
-                "className": "com.shortclip.drama.micro.databean.MemberDataBean",
-                "methodName": "getEmail",
-                "type": "Ljava/lang/String;",
-                "defaultValue": "Namakamu@gmail.com"
-            },
-            {
-                "fitur": "Id",
-                "className": "com.shortclip.drama.micro.databean.MemberDataBean",
-                "methodName": "getId",
-                "type": "Ljava/lang/String;",
-                "defaultValue": "123456789"
+                "defaultValue": ""
             }
         ],
-        "hookEnabled": true,
-        "changelog": [],
-        "dialogConfig": {
-            "signCheck": true,
-            "btnMode": false,
-            "crashLog": false,
-            "forceCloseOnUpdate": true
-        }
+        "hookEnabled": true
     },
     {
         "name": "Donghua App",
@@ -891,10 +763,10 @@ const apks = [
         "description": "Buka dan edit semua dokumen PDF ke Word, edit ppt premium unlocked gratis."
     },
     {
-        "name": "RcTest1",
+        "name": "RcTest",
         "version": "1.0",
         "versionName": "1.0",
-        "versionCode": 1,
+        "versionCode": 2,
         "packageName": "com.example.application",
         "category": "Aplikasi Mod",
         "size": "",
@@ -911,59 +783,8 @@ const apks = [
             "[ + ] perbaikan bug6"
         ],
         "links": {
-            "Arm64": "https://chatgpt.com"
+            "Arm64": "https://xnxx.com"
         },
-        "multiDownload": true,
-        "dialogConfig": {
-            "signCheck": false,
-            "btnMode": true,
-            "crashLog": true,
-            "forceCloseOnUpdate": true
-        },
-        "hookEnabled": true,
-        "hooks": [
-            {
-                "fitur": "Premium Status",
-                "className": "com.example.application.AccountManager",
-                "methodName": "isPremium",
-                "type": "Z",
-                "defaultValue": "true"
-            },
-            {
-                "fitur": "Expired Date",
-                "className": "com.example.application.AccountManager",
-                "methodName": "getPremiumExpire",
-                "type": "J",
-                "defaultValue": ""
-            },
-            {
-                "fitur": "User Role",
-                "className": "com.example.application.AccountManager",
-                "methodName": "getRole",
-                "type": "Role",
-                "defaultValue": ""
-            },
-            {
-                "fitur": "User Name",
-                "className": "com.example.application.AccountManager",
-                "methodName": "getName",
-                "type": "String",
-                "defaultValue": ""
-            },
-            {
-                "fitur": "User Email",
-                "className": "com.example.application.AccountManager",
-                "methodName": "getEmail",
-                "type": "String",
-                "defaultValue": ""
-            },
-            {
-                "fitur": "Login Status",
-                "className": "com.example.application.AccountManager",
-                "methodName": "isLoggedIn",
-                "type": "Z",
-                "defaultValue": "false"
-            }
-        ]
+        "multiDownload": true
     }
 ];
