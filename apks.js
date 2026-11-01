@@ -95,6 +95,19 @@ const premiumUsers = [
 
 const apks = [
     {
+        "name": "Anibiplay",
+        "version": "1.5.0",
+        "versionName": "1.5.0",
+        "versionCode": 48,
+        "packageName": "com.hxcorp.anibiplay",
+        "category": "Aplikasi Mod",
+        "size": "",
+        "android": "Android 5+",
+        "description": "",
+        "imageUrl": "#",
+        "downloadUrl": "#"
+    },
+    {
         "name": "Keyflow",
         "version": "1.4.8",
         "versionName": "1.4.8",
