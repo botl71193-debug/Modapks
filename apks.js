@@ -430,8 +430,6 @@ const apks = [
     "defaultValue": "true"
   }
 ]
-            }
-        ]
     },
     {
         "name": "Keyflow",
