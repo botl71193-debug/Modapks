@@ -106,14 +106,6 @@ const apks = [
         "description": "Editor video dan foto mobile berbasis layer dengan keyframe animation, kontrol easing curve, 3D camera, time remapping, speed ramping, motion blur, custom expressions, efek slow motion bergaya Twixtor, template aspect ratio kustom, serta fitur pengelolaan media dan proyek.",
         "imageUrl": "https://i.ibb.co.com/mCsnbZVM/Screenshot-2026-1030-171756.webp",
         "downloadUrl": "#",
-        "changelog": [],
-        "dialogConfig": {
-            "signCheck": false,
-            "btnMode": false,
-            "crashLog": false,
-            "forceCloseOnUpdate": false
-        },
-        "hookEnabled": true,
         "hooks": [
             {
                 "fitur": "PRO",
@@ -122,7 +114,15 @@ const apks = [
                 "type": "Z",
                 "defaultValue": "false"
             }
-        ]
+        ],
+        "hookEnabled": true,
+        "dialogConfig": {
+            "signCheck": false,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": false
+        },
+        "changelog": []
     },
     {
         "name": "ShinigamI",
@@ -229,7 +229,7 @@ const apks = [
         "versionCode": 4001000,
         "changelog": [],
         "dialogConfig": {
-            "signCheck": true,
+            "signCheck": false,
             "btnMode": false,
             "crashLog": false,
             "forceCloseOnUpdate": true
