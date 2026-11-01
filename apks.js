@@ -105,7 +105,95 @@ const apks = [
         "android": "Android 5+",
         "description": "",
         "imageUrl": "#",
-        "downloadUrl": "#"
+        "downloadUrl": "#",
+        "hooks": [
+            {
+                "fitur": "Expired",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
+                "methodName": "A",
+                "type": "Ljava/lang/String;",
+                "kind": "method",
+                "defaultValue": "2099-12-31T23:59:59.000Z"
+            },
+            {
+                "fitur": "Expired ",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
+                "methodName": "B",
+                "type": "Ljava/lang/String;",
+                "kind": "method",
+                "defaultValue": "2099-12-31T23:59:59.000Z"
+            },
+            {
+                "fitur": "Expired ",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
+                "methodName": "d",
+                "type": "Ljava/lang/String;",
+                "kind": "method",
+                "defaultValue": "2099-12-31T23:59:59.000Z"
+            },
+            {
+                "fitur": "Expired ",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
+                "methodName": "e",
+                "type": "Ljava/lang/String;",
+                "kind": "method",
+                "defaultValue": "2099-12-31T23:59:59.000Z"
+            }
+        ],
+        "hookEnabled": true,
+        "hookGroups": [
+            {
+                "fitur": "Premium",
+                "type": "Z",
+                "defaultValue": "false",
+                "targets": [
+                    {
+                        "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
+                        "methodName": "d"
+                    },
+                    {
+                        "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
+                        "methodName": "N"
+                    },
+                    {
+                        "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
+                        "methodName": "e"
+                    },
+                    {
+                        "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
+                        "methodName": "O"
+                    },
+                    {
+                        "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
+                        "methodName": "b"
+                    },
+                    {
+                        "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
+                        "methodName": "c"
+                    },
+                    {
+                        "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
+                        "methodName": "i0"
+                    },
+                    {
+                        "className": "com.hxcorp.anibiplay.data.remote.dto.AffinityLeaderboardUserDto",
+                        "methodName": "f"
+                    },
+                    {
+                        "className": "com.hxcorp.anibiplay.data.remote.dto.AffinityLeaderboardUserDto",
+                        "methodName": "o"
+                    },
+                    {
+                        "className": "com.hxcorp.anibiplay.data.remote.dto.AffinityPartnerDto",
+                        "methodName": "f"
+                    },
+                    {
+                        "className": "com.hxcorp.anibiplay.data.remote.dto.AffinityPartnerDto",
+                        "methodName": "s"
+                    }
+                ]
+            }
+        ]
     },
     {
         "name": "Keyflow",
