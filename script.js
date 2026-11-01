@@ -90,7 +90,7 @@ const rahasiaHTML = `
   <div id="logoutFormState" style="display:none; text-align:center;"><p id="authActiveModeText" style="color:var(--accent); margin-bottom:20px; font-size:0.9rem; font-weight:bold;"></p><button class="download-action-btn" style="background:#ef4444" onclick="processAuthLogout()">LOGOUT</button></div>
 </div>
 
-<div class="modal-box dev-panel-modal" id="themeEditorModal" style="max-height:92vh;overflow-y:auto;width:95%;max-width:600px;">
+<div class="modal-box dev-panel-modal" id="themeEditorModal" style="max-height:94vh;overflow-y:auto;width:96%;max-width:1100px;">
   <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
   <h3 style="margin-bottom:14px;color:#fbbf24;font-size:1.15rem;border-bottom:1px solid rgba(251,191,36,0.3);padding-bottom:10px;">🎨 Dialog Theme Editor</h3>
   
@@ -100,6 +100,8 @@ const rahasiaHTML = `
       <button class="preview-state-btn" data-pstate="mode2" onclick="changePreviewState('mode2')">Mode 2</button>
       <button class="preview-state-btn" data-pstate="mode3" onclick="changePreviewState('mode3')">Mode 3</button>
       <button class="preview-state-btn" data-pstate="sigWarn" onclick="changePreviewState('sigWarn')">SigWarn</button>
+      <button class="preview-state-btn" data-pstate="fab" onclick="changePreviewState('fab')">FAB</button>
+      <button class="preview-state-btn" data-pstate="panel" onclick="changePreviewState('panel')">Panel</button>
     </div>
     <div id="themePreviewFrame" style="display:flex;justify-content:center;"></div>
   </div>
@@ -107,10 +109,44 @@ const rahasiaHTML = `
   <div class="theme-tab-bar">
     <button id="tabSimple" class="active" onclick="switchThemeTab('simple')">📝 Simpel</button>
     <button id="tabStrings" onclick="switchThemeTab('strings')">🔤 Strings</button>
+    <button id="tabVisual" onclick="switchThemeTab('visual')">🖼️ Visual</button>
     <button id="tabJson" onclick="switchThemeTab('json')">🔧 Advance</button>
   </div>
 
-  <div id="themeSimpleTab">
+  <div id="themeVisualTab" style="display:none;">
+    <style>
+      #themePreviewFrame [data-vde]{cursor:pointer;transition:outline .15s}
+      #themePreviewFrame [data-vde]:hover{outline:1px dashed rgba(74,158,255,.5);outline-offset:2px}
+      #themePreviewFrame [data-vde].vde-selected{outline:2px solid #4a9eff!important;outline-offset:2px}
+      .vde-side{background:#0f0f0f;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px;margin-top:10px}
+      .vde-side h4{font-size:12px;color:#4a9eff;margin:0 0 8px}
+      .vde-fld{margin-bottom:8px}
+      .vde-fld label{display:block;font-size:10px;color:rgba(255,255,255,.45);margin-bottom:4px}
+      .vde-fld input[type=text],.vde-fld textarea,.vde-fld select{width:100%;padding:7px 8px;background:#020205;border:1px solid rgba(74,158,255,.3);border-radius:6px;color:#fff;font-size:12px}
+      .vde-fld input[type=color]{width:100%;height:32px;border:1px solid rgba(255,255,255,.1);border-radius:6px;background:transparent}
+      .vde-fld input[type=range]{width:100%;accent-color:#4a9eff}
+      .vde-row{display:flex;gap:8px}
+      .vde-row .vde-fld{flex:1}
+      .vde-rval{color:#4a9eff;font-size:10px;font-weight:600}
+      .vde-actions{display:flex;gap:8px;margin-top:8px}
+      .vde-actions button{flex:1;padding:9px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff}
+      .vde-actions .save{background:rgba(74,158,255,.25);border-color:#4a9eff;color:#93c5fd}
+      .vde-empty{color:rgba(255,255,255,.35);font-size:12px;text-align:center;padding:16px 8px}
+    </style>
+    <p style="font-size:0.78rem;color:var(--text-muted);margin:0 0 8px;line-height:1.4;">
+      Gunakan preview <b>di atas</b> (Mode 1/2/3 / SigWarn / FAB / Panel). Ketuk elemen untuk edit. Lalu Apply ke Theme.
+    </p>
+    <div class="vde-side">
+      <h4 id="vdeEditorSubtitle">No Selection</h4>
+      <div id="vdeEditorBody"><div class="vde-empty">👆 Ketuk elemen di preview atas</div></div>
+      <div class="vde-actions">
+        <button type="button" onclick="vdeResetStyles()">Reset</button>
+        <button type="button" class="save" onclick="vdeApplyToTheme()">💾 Apply ke Theme</button>
+      </div>
+    </div>
+  </div>
+
+<div id="themeSimpleTab">
     <div class="theme-section-title">🎨 Branding</div>
     <div class="form-group" style="margin-bottom:10px;"><label>App Title</label><input type="text" id="thAppTitle" oninput="renderThemePreview(currentPreviewState)" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;"></div>
     <div class="form-group" style="margin-bottom:10px;"><label>Logo URL</label><input type="text" id="thLogoUrl" oninput="renderThemePreview(currentPreviewState)" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:monospace;"></div>
@@ -481,26 +517,314 @@ function changePreviewState(state) { currentPreviewState = state; document.query
 function renderThemePreview(state) {
     const frame = document.getElementById('themePreviewFrame'); if (!frame) return; const theme = getThemeFromFormNow();
     frame.style.setProperty('--bg', theme.colorBg); frame.style.setProperty('--card', theme.colorCard); frame.style.setProperty('--accent', theme.colorAccent); frame.style.setProperty('--danger', theme.colorDanger); frame.style.setProperty('--success', theme.colorSuccess); frame.style.setProperty('--warning', theme.colorWarning); frame.style.setProperty('--hook', theme.colorHook); frame.style.setProperty('--gold', theme.colorGold); frame.style.setProperty('--border', theme.colorBorder); frame.style.setProperty('--border-strong', theme.colorBorderStrong); frame.style.setProperty('--text', theme.colorText); frame.style.setProperty('--text-dim', theme.colorTextDim); frame.style.setProperty('--text-muted', theme.colorTextMuted);
-    frame.style.fontFamily = "'" + theme.fontMain + "', system-ui, sans-serif"; frame.innerHTML = buildPreviewCard(state, theme);
+    frame.style.fontFamily = "'" + theme.fontMain + "', system-ui, sans-serif";
+    frame.innerHTML = buildPreviewCard(state, theme);
+    setTimeout(function() {
+      if (typeof vdeApplyStoredStyles === 'function') vdeApplyStoredStyles();
+      if (typeof vdeBindPreviewClicks === 'function') vdeBindPreviewClicks();
+    }, 30);
 }
 function buildPreviewCard(state, theme) {
-    const txt = theme.text || {}; const T = (k, fb) => (txt[k] || fb); const logoUrl = theme.logoUrl || 'https://i.ibb.co.com/fdKWDJJT/image.webp'; const appName = 'My App Premium', version = 'v2.5.4', oldVersion = 'v2.0.0', pkg = 'com.myapp.premium';
-    if (state === 'mode1') return `<div class="theme-prev-card yellow-accent"><div class="theme-prev-header"><div class="theme-prev-logo"><img src="${logoUrl}" onerror="this.style.display='none'"><div class="theme-prev-badge warn">?</div></div><div class="theme-prev-info-block"><div class="theme-prev-title">${appName}</div><div class="theme-prev-meta">${version} • ${pkg}</div></div><div class="theme-prev-pill warn">Unknown</div></div><div class="theme-prev-info-box"><div class="theme-prev-info-icon">⚠</div><div class="theme-prev-info-title">${T('mode1Title','Tidak Terdaftar')}</div><div class="theme-prev-info-desc">${T('mode1Message','Aplikasi tidak ditemukan dalam database pembaruan.')}</div></div><button class="theme-prev-btn danger" style="width:100%;">${T('mode1CloseBtn','Tutup (FC)')}</button></div>`;
-    if (state === 'mode2') return `<div class="theme-prev-card green-accent"><div class="theme-prev-header"><div class="theme-prev-logo"><img src="${logoUrl}" onerror="this.style.display='none'"><div class="theme-prev-badge success">✓</div></div><div class="theme-prev-info-block"><div class="theme-prev-title">${appName}</div><div class="theme-prev-meta">${version} • ${pkg}</div></div><div class="theme-prev-pill success">${T('mode2Status','Latest')}</div></div><div class="theme-prev-section-title">${T('mode2ChangelogTitle','Changelog')}</div><div class="theme-prev-changelog"><div>Fix bug</div><div>New UI</div><div>Android 14 support</div></div><button class="theme-prev-more">${T('mode2MoreBtn','More')}</button><button class="theme-prev-moreapp">${T('mode2MoreApps','More Apps')}</button><div class="theme-prev-btnrow"><button class="theme-prev-btn hook">${T('mode2HookBtn','Hook')}</button><button class="theme-prev-btn ghost">${T('mode2JoinBtn','Join')}</button><button class="theme-prev-btn primary">${T('mode2CloseBtn','Tutup')}</button></div></div>`;
-    if (state === 'mode3') return `<div class="theme-prev-card red-accent"><div class="theme-prev-header"><div class="theme-prev-logo"><img src="${logoUrl}" onerror="this.style.display='none'"><div class="theme-prev-badge danger">!</div></div><div class="theme-prev-info-block"><div class="theme-prev-title">${appName}</div><div class="theme-prev-meta"><span class="dim">${oldVersion}</span> → <span class="success">${version}</span></div></div><div class="theme-prev-pill danger">${T('mode3Status','Update')}</div></div><div class="theme-prev-banner"><div class="theme-prev-banner-icon">⬇</div><div><div class="theme-prev-banner-title">${T('mode3BannerTitle','Update Tersedia')}</div><div class="theme-prev-banner-msg">${T('mode3BannerMsg','Versi {version} siap diunduh').replace(/\{version\}/g, version)}</div></div></div><button class="theme-prev-btn primary" style="width:100%;">${T('mode3UpdateBtn','Update ke {version}').replace(/\{version\}/g, version)}</button><button class="theme-prev-btn gold" style="width:100%;margin-top:8px;">${T('mode3UpdateV2Btn','Update V2 (Direct)')}</button><div class="theme-prev-btnrow" style="margin-top:8px;"><button class="theme-prev-btn hook">${T('mode3HookBtn','Hook')}</button><button class="theme-prev-btn ghost">${T('mode3JoinBtn','Join')}</button><button class="theme-prev-btn danger">${T('mode3CloseFCBtn','Tutup (FC)')}</button></div></div>`;
-    if (state === 'sigWarn') return `<div class="theme-prev-card red-accent"><div class="theme-prev-header"><div class="theme-prev-logo"><div class="theme-prev-icon-big">⚠</div><div class="theme-prev-badge danger">!</div></div><div class="theme-prev-info-block"><div class="theme-prev-title">${T('sigWarnTitle','Security Warning')}</div><div class="theme-prev-meta danger">${T('sigWarnSubtitle','Invalid App Signature')}</div></div><div class="theme-prev-pill danger">${T('sigWarnStatus','Locked')}</div></div><div class="theme-prev-info-box danger-border"><div class="theme-prev-info-icon danger">⚠</div><div class="theme-prev-info-title danger">${T('sigWarnInfoTitle','Signature Mismatch')}</div><div class="theme-prev-info-desc">${T('sigWarnInfoText','Aplikasi ini tidak cocok dengan rilis resmi.')}</div></div><div class="theme-prev-btnrow"><button class="theme-prev-btn ghost">${T('sigWarnJoinBtn','Join')}</button><button class="theme-prev-btn primary">${T('sigWarnDownloadBtn','Download Official')}</button></div></div>`;
+    const txt = theme.text || {};
+    const T = (k, fb) => (txt[k] || fb);
+    const logoUrl = theme.logoUrl || 'https://i.ibb.co.com/fdKWDJJT/image.webp';
+    const appName = 'My App Premium', version = 'v2.5.4', oldVersion = 'v2.0.0', pkg = 'com.myapp.premium';
+    const D = (id) => ' data-vde="' + id + '"';
+
+    if (state === 'mode1') return `<div class="theme-prev-card yellow-accent"${D('card')}><div class="theme-prev-header"${D('header')}><div class="theme-prev-logo"${D('logo')}><img src="${logoUrl}" onerror="this.style.display='none'"><div class="theme-prev-badge warn"${D('badge')}>?</div></div><div class="theme-prev-info-block"${D('info')}><div class="theme-prev-title"${D('title')}>${appName}</div><div class="theme-prev-meta"${D('meta')}>${version} • ${pkg}</div></div><div class="theme-prev-pill warn"${D('pill')}>Unknown</div></div><div class="theme-prev-info-box"${D('infobox')}><div class="theme-prev-info-icon"${D('infoicon')}>⚠</div><div class="theme-prev-info-title"${D('infotitle')}>${T('mode1Title','Tidak Terdaftar')}</div><div class="theme-prev-info-desc"${D('infodesc')}>${T('mode1Message','Aplikasi tidak ditemukan dalam database pembaruan.')}</div></div><button class="theme-prev-btn danger" style="width:100%;"${D('btnClose')}>${T('mode1CloseBtn','Tutup (FC)')}</button></div>`;
+
+    if (state === 'mode2') return `<div class="theme-prev-card green-accent"${D('card')}><div class="theme-prev-header"${D('header')}><div class="theme-prev-logo"${D('logo')}><img src="${logoUrl}" onerror="this.style.display='none'"><div class="theme-prev-badge success"${D('badge')}>✓</div></div><div class="theme-prev-info-block"${D('info')}><div class="theme-prev-title"${D('title')}>${appName}</div><div class="theme-prev-meta"${D('meta')}>${version} • ${pkg}</div></div><div class="theme-prev-pill success"${D('pill')}>${T('mode2Status','Latest')}</div></div><div class="theme-prev-section-title"${D('section')}>${T('mode2ChangelogTitle','Changelog')}</div><div class="theme-prev-changelog"${D('changelog')}><div>Fix bug</div><div>New UI</div><div>Android 14 support</div></div><button class="theme-prev-more"${D('btnMore')}>${T('mode2MoreBtn','More')}</button><button class="theme-prev-moreapp"${D('btnMoreApps')}>${T('mode2MoreApps','More Apps')}</button><div class="theme-prev-btnrow"${D('btnrow')}><button class="theme-prev-btn hook"${D('btnHook')}>${T('mode2HookBtn','Hook')}</button><button class="theme-prev-btn ghost"${D('btnJoin')}>${T('mode2JoinBtn','Join')}</button><button class="theme-prev-btn primary"${D('btnClose')}>${T('mode2CloseBtn','Tutup')}</button></div></div>`;
+
+    if (state === 'mode3') return `<div class="theme-prev-card red-accent"${D('card')}><div class="theme-prev-header"${D('header')}><div class="theme-prev-logo"${D('logo')}><img src="${logoUrl}" onerror="this.style.display='none'"><div class="theme-prev-badge danger"${D('badge')}>!</div></div><div class="theme-prev-info-block"${D('info')}><div class="theme-prev-title"${D('title')}>${appName}</div><div class="theme-prev-meta"${D('meta')}>${oldVersion} → <span style="color:var(--success)">${version}</span></div></div><div class="theme-prev-pill danger"${D('pill')}>Update</div></div><div class="theme-prev-info-box"${D('infobox')}><div class="theme-prev-info-icon danger"${D('infoicon')}>↓</div><div class="theme-prev-info-title"${D('infotitle')}>${T('mode3UpdateTitle','Update Tersedia')}</div><div class="theme-prev-info-desc"${D('infodesc')}>${T('mode3UpdateMsg','Versi ' + version + ' siap diunduh')}</div></div><button class="theme-prev-btn primary" style="width:100%;"${D('btnUpdate')}>${T('mode3UpdateBtn','Update ke {version}').replace(/\{version\}/g, version)}</button><button class="theme-prev-btn gold" style="width:100%;margin-top:8px;"${D('btnUpdateV2')}>${T('mode3UpdateV2Btn','Update V2 (Direct)')}</button><div class="theme-prev-btnrow" style="margin-top:8px;"${D('btnrow')}><button class="theme-prev-btn hook"${D('btnHook')}>${T('mode3HookBtn','Hook')}</button><button class="theme-prev-btn ghost"${D('btnJoin')}>${T('mode3JoinBtn','Join')}</button><button class="theme-prev-btn danger"${D('btnClose')}>${T('mode3CloseFCBtn','Closed')}</button></div></div>`;
+
+    if (state === 'sigWarn') return `<div class="theme-prev-card red-accent"${D('card')}><div class="theme-prev-header"${D('header')}><div class="theme-prev-logo"${D('logo')}><div class="theme-prev-icon-big"${D('icon')}>⚠</div><div class="theme-prev-badge danger"${D('badge')}>!</div></div><div class="theme-prev-info-block"${D('info')}><div class="theme-prev-title"${D('title')}>${T('sigWarnTitle','Security Warning')}</div><div class="theme-prev-meta danger"${D('meta')}>${T('sigWarnSubtitle','Invalid App Signature')}</div></div><div class="theme-prev-pill danger"${D('pill')}>${T('sigWarnStatus','Locked')}</div></div><div class="theme-prev-info-box danger-border"${D('infobox')}><div class="theme-prev-info-icon danger"${D('infoicon')}>⚠</div><div class="theme-prev-info-title danger"${D('infotitle')}>${T('sigWarnInfoTitle','Signature Mismatch')}</div><div class="theme-prev-info-desc"${D('infodesc')}>${T('sigWarnInfoText','Aplikasi ini tidak cocok dengan rilis resmi.')}</div></div><div class="theme-prev-btnrow"${D('btnrow')}><button class="theme-prev-btn ghost"${D('btnJoin')}>${T('sigWarnJoinBtn','Join')}</button><button class="theme-prev-btn primary"${D('btnDownload')}>${T('sigWarnDownloadBtn','Download Official')}</button></div></div>`;
+
+    if (state === 'fab') return `<div style="position:relative;width:100%;min-height:180px;background:rgba(255,255,255,0.03);border-radius:12px;border:1px dashed rgba(255,255,255,0.12);"${D('fabStage')}>
+      <div style="position:absolute;bottom:16px;right:16px;width:52px;height:52px;border-radius:50%;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.45);border:2px solid rgba(255,255,255,0.15);"${D('fab')}>
+        <img src="${logoUrl}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='linear-gradient(135deg,#7c3aed,#2563eb)'"${D('fabImg')}>
+      </div>
+      <div style="padding:16px;color:rgba(255,255,255,0.4);font-size:12px;"${D('fabHint')}>Preview FAB — ketuk lingkaran untuk edit ukuran/warna/border</div>
+    </div>`;
+
+    if (state === 'panel') return `<div class="theme-prev-card"${D('card')} style="max-width:280px;">
+      <div class="theme-prev-header"${D('header')}>
+        <div class="theme-prev-logo"${D('logo')}><img src="${logoUrl}" onerror="this.style.display='none'"><div class="theme-prev-badge success"${D('badge')}>✓</div></div>
+        <div class="theme-prev-info-block"${D('info')}><div class="theme-prev-title"${D('title')}>${appName}</div><div class="theme-prev-meta"${D('meta')}>${version}</div><div class="theme-prev-meta"${D('package')}>${pkg}</div></div>
+      </div>
+      <div class="theme-prev-section-title"${D('section')}>MOD FEATURES</div>
+      <div class="theme-prev-changelog"${D('features')} style="max-height:120px;">
+        <div style="display:flex;justify-content:space-between;padding:6px 0;"${D('feat1')}><span>✓ Premium</span><span style="opacity:.4">Z</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;"${D('feat2')}><span>✓ Unlimited</span><span style="opacity:.4">J</span></div>
+      </div>
+      <div class="theme-prev-btnrow" style="margin-top:10px;"${D('btnrow')}>
+        <button class="theme-prev-btn primary"${D('btnSave')}>Save</button>
+        <button class="theme-prev-btn ghost"${D('btnClose')}>Tutup</button>
+      </div>
+    </div>`;
+
     return '';
 }
 
+
+
 let currentThemeTab = 'simple';
-function switchThemeTab(tab) { currentThemeTab = tab; document.getElementById('themeSimpleTab').style.display = tab === 'simple' ? 'block' : 'none'; document.getElementById('themeStringsTab').style.display = tab === 'strings' ? 'block' : 'none'; document.getElementById('themeJsonTab').style.display = tab === 'json' ? 'block' : 'none'; document.getElementById('tabSimple').classList.toggle('active', tab === 'simple'); document.getElementById('tabStrings').classList.toggle('active', tab === 'strings'); document.getElementById('tabJson').classList.toggle('active', tab === 'json'); if (tab === 'json') document.getElementById('themeJsonTextarea').value = JSON.stringify(currentTheme, null, 4); }
+function switchThemeTab(tab) {
+  currentThemeTab = tab;
+  const st = document.getElementById('themeSimpleTab');
+  const str = document.getElementById('themeStringsTab');
+  const vis = document.getElementById('themeVisualTab');
+  const js = document.getElementById('themeJsonTab');
+  if (st) st.style.display = tab === 'simple' ? 'block' : 'none';
+  if (str) str.style.display = tab === 'strings' ? 'block' : 'none';
+  if (vis) vis.style.display = tab === 'visual' ? 'block' : 'none';
+  if (js) js.style.display = tab === 'json' ? 'block' : 'none';
+  var map = { simple: 'tabSimple', strings: 'tabStrings', visual: 'tabVisual', json: 'tabJson' };
+  Object.keys(map).forEach(function(k) {
+    var el = document.getElementById(map[k]);
+    if (el) el.classList.toggle('active', k === tab);
+  });
+  if (tab === 'json') {
+    const ta = document.getElementById('themeJsonTextarea');
+    if (ta) ta.value = JSON.stringify(currentTheme, null, 4);
+  }
+  if (tab === 'visual') vdeInitFromTheme();
+}
+
+
+
+/* ===== Visual Dialog Editor (uses TOP theme preview) ===== */
+window._vdeSelected = null;
+window._vdeStyles = window._vdeStyles || {};
+window._vdeContent = window._vdeContent || {};
+
+function vdeRgbToHex(rgb) {
+  if (!rgb || rgb === 'transparent' || rgb === 'rgba(0, 0, 0, 0)') return '#111111';
+  if (String(rgb).startsWith('#')) return rgb;
+  const m = String(rgb).match(/\d+/g); if (!m) return '#000000';
+  return '#' + [m[0], m[1], m[2]].map(x => (+x).toString(16).padStart(2, '0')).join('');
+}
+
+function vdeStyleKey(el) {
+  const id = el && el.getAttribute('data-vde');
+  const mode = window.currentPreviewState || 'mode1';
+  return mode + '|' + id;
+}
+
+function vdeSelect(el, ev) {
+  try {
+    if (ev) {
+      try { ev.preventDefault(); } catch(_){}
+      try { ev.stopPropagation(); } catch(_){}
+    }
+    // hindari double-trigger touchend + click
+    var now = Date.now();
+    if (window._vdeLastSelect && (now - window._vdeLastSelect) < 350 && window._vdeSelected === el) return;
+    window._vdeLastSelect = now;
+    if (!el) return;
+    if (window.currentThemeTab && window.currentThemeTab !== 'visual') {
+      // auto switch to visual when picking from preview
+      if (typeof switchThemeTab === 'function') switchThemeTab('visual');
+    }
+    if (window._vdeSelected) window._vdeSelected.classList.remove('vde-selected');
+    window._vdeSelected = el;
+    el.classList.add('vde-selected');
+    const sub = document.getElementById('vdeEditorSubtitle');
+    if (sub) sub.textContent = (window.currentPreviewState || 'mode') + ' • ' + (el.getAttribute('data-vde') || '');
+    vdeRenderEditor(el);
+    // scroll editor into view
+    const side = document.querySelector('.vde-side');
+    if (side && side.scrollIntoView) side.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  } catch (err) {
+    console.error('vdeSelect', err);
+    alert('Editor error: ' + err.message);
+  }
+}
+
+function vdeInitFromTheme() {
+  const t = window.currentTheme || window.mmkDialogTheme || {};
+  if (t.elements && typeof t.elements === 'object') {
+    try { window._vdeStyles = JSON.parse(JSON.stringify(t.elements)); } catch (_) { window._vdeStyles = {}; }
+  }
+  if (typeof renderThemePreview === 'function') {
+    renderThemePreview(window.currentPreviewState || 'mode1');
+  }
+  setTimeout(function() {
+    vdeApplyStoredStyles();
+    vdeBindPreviewClicks();
+  }, 60);
+}
+
+function vdeApplyStoredStyles() {
+  const frame = document.getElementById('themePreviewFrame');
+  if (!frame) return;
+  const mode = window.currentPreviewState || 'mode1';
+  frame.querySelectorAll('[data-vde]').forEach(function(el) {
+    const id = el.getAttribute('data-vde');
+    const st = window._vdeStyles[mode + '|' + id] || window._vdeStyles[id];
+    if (!st) return;
+    ['backgroundColor','color','fontSize','fontWeight','padding','marginBottom','borderRadius','borderWidth','borderColor','width','height'].forEach(function(p) {
+      if (st[p]) el.style[p] = st[p];
+    });
+  });
+}
+
+function vdeBindPreviewClicks() {
+  const frame = document.getElementById('themePreviewFrame');
+  if (!frame) return;
+
+  function pick(e) {
+    var t = e.target;
+    if (!t) return;
+    if (t.closest) t = t.closest('[data-vde]');
+    else {
+      while (t && t !== frame && !(t.getAttribute && t.getAttribute('data-vde'))) t = t.parentNode;
+      if (t === frame) t = null;
+    }
+    if (!t || !frame.contains(t)) return;
+    vdeSelect(t, e);
+  }
+
+  if (!frame._vdeDelegated) {
+    frame._vdeDelegated = true;
+    frame.addEventListener('click', pick, true);
+    frame.addEventListener('touchend', function(e) {
+      // Android: tangani tap tanpa menunggu click
+      if (e.changedTouches && e.changedTouches.length > 1) return;
+      pick(e);
+    }, { capture: true, passive: false });
+  }
+  frame.querySelectorAll('[data-vde]').forEach(function(el) {
+    el.style.cursor = 'pointer';
+    el.style.webkitTapHighlightColor = 'rgba(74,158,255,0.25)';
+  });
+}
+
+function vdeRenderEditor(el) {
+  const body = document.getElementById('vdeEditorBody');
+  if (!body) {
+    console.warn('vdeEditorBody missing');
+    return;
+  }
+  // ensure visual tab visible
+  const vis = document.getElementById('themeVisualTab');
+  if (vis) vis.style.display = 'block';
+
+  const cs = window.getComputedStyle(el);
+  const key = el.getAttribute('data-vde') || '';
+  let html = '';
+  const textable = el.childElementCount === 0 || el.tagName === 'BUTTON' || key === 'title' || key === 'infotitle' || key === 'infodesc' || key === 'meta' || key === 'pill';
+  if (textable) {
+    html += '<div class="vde-fld"><label>Text</label><textarea id="vde-e-text">' + (el.textContent || '').trim().replace(/</g,'&lt;') + '</textarea></div>';
+  }
+  if (key === 'logo' || key === 'fab' || key === 'fabImg') {
+    var src = '';
+    if (el.tagName === 'IMG') src = el.getAttribute('src') || '';
+    else {
+      var im = el.querySelector('img');
+      if (im) src = im.getAttribute('src') || '';
+    }
+    html += '<div class="vde-fld"><label>Image / Logo URL</label><input type="text" id="vde-e-logo" value="' + (src || '') + '" placeholder="https://..."></div>';
+  }
+  html += '<div class="vde-row"><div class="vde-fld"><label>Background</label><input type="color" id="vde-e-bg" value="' + vdeRgbToHex(cs.backgroundColor) + '"></div>';
+  html += '<div class="vde-fld"><label>Text Color</label><input type="color" id="vde-e-fg" value="' + vdeRgbToHex(cs.color) + '"></div></div>';
+  html += '<div class="vde-fld"><label>Font Size <span class="vde-rval" id="vde-v-fs">' + (parseInt(cs.fontSize)||14) + 'px</span></label>';
+  html += '<input type="range" id="vde-e-fs" min="8" max="36" value="' + (parseInt(cs.fontSize)||14) + '"></div>';
+  html += '<div class="vde-fld"><label>Font Weight</label><select id="vde-e-fw">';
+  html += '<option value="400">Normal</option><option value="500">Medium</option><option value="600">Semi Bold</option>';
+  html += '<option value="700">Bold</option><option value="800">Extra Bold</option></select></div>';
+  html += '<div class="vde-row"><div class="vde-fld"><label>Padding <span class="vde-rval" id="vde-v-pad">' + (parseInt(cs.paddingTop)||0) + 'px</span></label>';
+  html += '<input type="range" id="vde-e-pad" min="0" max="40" value="' + (parseInt(cs.paddingTop)||0) + '"></div>';
+  html += '<div class="vde-fld"><label>Radius <span class="vde-rval" id="vde-v-rad">' + (parseInt(cs.borderRadius)||0) + 'px</span></label>';
+  html += '<input type="range" id="vde-e-rad" min="0" max="40" value="' + (parseInt(cs.borderRadius)||0) + '"></div></div>';
+  if (key === 'fab') {
+    html += '<div class="vde-fld"><label>Size <span class="vde-rval" id="vde-v-sz">' + (parseInt(cs.width)||52) + 'px</span></label>';
+    html += '<input type="range" id="vde-e-sz" min="36" max="80" value="' + (parseInt(cs.width)||52) + '"></div>';
+  }
+  html += '<div class="vde-fld"><label>Border Color</label><input type="color" id="vde-e-bc" value="' + vdeRgbToHex(cs.borderColor) + '"></div>';
+  body.innerHTML = html;
+  var fw = document.getElementById('vde-e-fw');
+  if (fw) fw.value = String(parseInt(cs.fontWeight) || 400);
+  vdeBindEditor(el);
+}
+
+function vdeBindEditor(el) {
+  const sk = vdeStyleKey(el);
+  const set = function(prop, val) {
+    el.style[prop] = val;
+    window._vdeStyles[sk] = window._vdeStyles[sk] || {};
+    window._vdeStyles[sk][prop] = val;
+    const id = el.getAttribute('data-vde');
+    window._vdeStyles[id] = window._vdeStyles[id] || {};
+    window._vdeStyles[id][prop] = val;
+  };
+  const t = document.getElementById('vde-e-text');
+  if (t) t.oninput = function(e) { el.textContent = e.target.value; };
+  const logo = document.getElementById('vde-e-logo');
+  if (logo) logo.oninput = function(e) {
+    var img = el.tagName === 'IMG' ? el : el.querySelector('img');
+    if (img) img.src = e.target.value;
+    var th = document.getElementById('thLogoUrl');
+    if (th) th.value = e.target.value;
+  };
+  const bg = document.getElementById('vde-e-bg'); if (bg) bg.oninput = function(e) { set('backgroundColor', e.target.value); };
+  const fg = document.getElementById('vde-e-fg'); if (fg) fg.oninput = function(e) { set('color', e.target.value); };
+  const fs = document.getElementById('vde-e-fs'); if (fs) fs.oninput = function(e) { set('fontSize', e.target.value + 'px'); var v=document.getElementById('vde-v-fs'); if(v) v.textContent = e.target.value + 'px'; };
+  const fw = document.getElementById('vde-e-fw'); if (fw) fw.onchange = function(e) { set('fontWeight', e.target.value); };
+  const pad = document.getElementById('vde-e-pad'); if (pad) pad.oninput = function(e) { set('padding', e.target.value + 'px'); var v=document.getElementById('vde-v-pad'); if(v) v.textContent = e.target.value + 'px'; };
+  const rad = document.getElementById('vde-e-rad'); if (rad) rad.oninput = function(e) { set('borderRadius', e.target.value + 'px'); var v=document.getElementById('vde-v-rad'); if(v) v.textContent = e.target.value + 'px'; };
+  const bc = document.getElementById('vde-e-bc'); if (bc) bc.oninput = function(e) { set('borderColor', e.target.value); set('borderStyle', 'solid'); };
+  const sz = document.getElementById('vde-e-sz');
+  if (sz) sz.oninput = function(e) {
+    set('width', e.target.value + 'px');
+    set('height', e.target.value + 'px');
+    var v = document.getElementById('vde-v-sz');
+    if (v) v.textContent = e.target.value + 'px';
+  };
+}
+
+function vdeResetStyles() {
+  window._vdeStyles = {};
+  window._vdeSelected = null;
+  if (typeof renderThemePreview === 'function') renderThemePreview(window.currentPreviewState || 'mode1');
+  const body = document.getElementById('vdeEditorBody');
+  if (body) body.innerHTML = '<div class="vde-empty">Styles reset. Ketuk elemen di preview atas.</div>';
+  const sub = document.getElementById('vdeEditorSubtitle');
+  if (sub) sub.textContent = 'No Selection';
+}
+
+function vdeApplyToTheme() {
+  const thLogo = document.getElementById('thLogoUrl');
+  const thTitle = document.getElementById('thAppTitle');
+  const patch = {
+    logoUrl: (thLogo && thLogo.value) || (window.currentTheme && window.currentTheme.logoUrl) || '',
+    appTitle: (thTitle && thTitle.value) || '',
+    elements: JSON.parse(JSON.stringify(window._vdeStyles || {}))
+  };
+  window.currentTheme = Object.assign({}, window.currentTheme || {}, patch);
+  window.mmkDialogTheme = Object.assign({}, window.mmkDialogTheme || {}, patch);
+  try {
+    localStorage.setItem('mmk_dialogTheme', JSON.stringify(window.mmkDialogTheme));
+    localStorage.setItem('mmk_dialogTheme_draft', JSON.stringify(patch));
+  } catch (_) {}
+  if (typeof renderThemePreview === 'function') renderThemePreview(window.currentPreviewState || 'mode1');
+  setTimeout(vdeApplyStoredStyles, 30);
+  alert('Visual theme diterapkan ke dialogTheme. Ekspor apks.js untuk remote.');
+}
+
+function openVisualDialogEditor() {
+  openThemeEditor();
+  switchThemeTab('visual');
+}
+
 function openThemeEditor() {
     closeActiveOverlays(); const t = currentTheme;
     document.getElementById('thAppTitle').value = t.appTitle || ''; document.getElementById('thLogoUrl').value = t.logoUrl || ''; document.getElementById('thJoinUrl').value = t.joinUrl || ''; document.getElementById('thDownloadUrl').value = t.downloadUrl || ''; document.getElementById('thFontMain').value = t.fontMain || ''; document.getElementById('thGoogleFontsUrl').value = t.googleFontsUrl || '';
     setColorPair('thColorBg', t.colorBg); setColorPair('thColorCard', t.colorCard); setColorPair('thColorCard2', t.colorCard2); setColorPair('thColorSurface', t.colorSurface); setColorPair('thColorBorder', t.colorBorder); setColorPair('thColorBorderStrong', t.colorBorderStrong); setColorPair('thColorText', t.colorText); setColorPair('thColorTextDim', t.colorTextDim); setColorPair('thColorTextMuted', t.colorTextMuted); setColorPair('thColorAccent', t.colorAccent); setColorPair('thColorAccent2', t.colorAccent2); setColorPair('thColorDanger', t.colorDanger); setColorPair('thColorSuccess', t.colorSuccess); setColorPair('thColorWarning', t.colorWarning); setColorPair('thColorHook', t.colorHook); setColorPair('thColorGold', t.colorGold);
     document.getElementById('thFontDisplay').value = t.fontDisplay || ''; document.getElementById('thFontMono').value = t.fontMono || '';
     TEXT_KEYS.forEach(k => { const el = document.getElementById('thTxt_' + k); if (el) el.value = (t.text && t.text[k] !== undefined) ? t.text[k] : ''; });
-    document.getElementById('themeJsonTextarea').value = JSON.stringify(t, null, 4); switchThemeTab('simple'); document.getElementById('globalOverlay').classList.add('active'); document.getElementById('themeEditorModal').classList.add('active'); setTimeout(() => { renderThemePreview(currentPreviewState); }, 80);
+    document.getElementById('themeJsonTextarea').value = JSON.stringify(t, null, 4); switchThemeTab('simple'); document.getElementById('globalOverlay').classList.add('active'); document.getElementById('themeEditorModal').classList.add('active');
+    const ov = document.getElementById('globalOverlay'); if (ov) ov.classList.add('active');
+    setTimeout(() => { renderThemePreview(currentPreviewState); if (currentThemeTab === 'visual') vdeInitFromTheme(); }, 80);
 }
 function setColorPair(idPrefix, value) { const hex = normalizeHex(value || '#000000'); const colorEl = document.getElementById(idPrefix); const textEl = document.getElementById(idPrefix + 'Text'); if (colorEl) colorEl.value = hex; if (textEl) textEl.value = value || hex; if (colorEl) colorEl.oninput = () => { if (textEl) textEl.value = colorEl.value; renderThemePreview(currentPreviewState); }; if (textEl) textEl.oninput = () => { const v = normalizeHex(textEl.value); if (v && colorEl) colorEl.value = v; renderThemePreview(currentPreviewState); }; }
 function normalizeHex(v) { if (!v) return '#000000'; v = String(v).trim(); if (v.match(/^#[0-9a-fA-F]{6}$/)) return v; if (v.match(/^[0-9a-fA-F]{6}$/)) return '#' + v; return '#000000'; }
@@ -641,6 +965,14 @@ function saveApkFormSubmission() {
 
 /* ============ API EXPORT / IMPORT ============ */
 function processImportApks(input) { const f = input.files[0]; if (!f) return; const r = new FileReader(); r.onload = e => { try { var text = e.target.result; var fn = new Function(text + '\nreturn {apks: (typeof apks !== "undefined" ? apks : null), premiumUsers: (typeof premiumUsers !== "undefined" ? premiumUsers : []), dialogTheme: (typeof dialogTheme !== "undefined" ? dialogTheme : null)};'); var result = fn(); if (Array.isArray(result.apks)) { internalApksData = result.apks; localStorage.setItem('mmk_local_apks', JSON.stringify(internalApksData)); if (Array.isArray(result.premiumUsers) && result.premiumUsers.length > 0) localStorage.setItem('mmk_users', JSON.stringify(result.premiumUsers)); if (result.dialogTheme && typeof result.dialogTheme === 'object') { currentTheme = mergeTheme(result.dialogTheme); localStorage.setItem(THEME_KEY, JSON.stringify(currentTheme)); } pushHistoryState(); renderGridCards(); alert('✅ Berhasil diimpor!'); closeActiveOverlays(); } else alert('❌ Format tidak valid.'); } catch(err) { alert('❌ Gagal: ' + err.message); } input.value = ''; }; r.readAsText(f); }
+
+function buildApksJsExport(apksArr) {
+  const theme = window.mmkDialogTheme || JSON.parse(localStorage.getItem('mmk_dialogTheme') || '{}');
+  const apksStr = 'const apks = ' + JSON.stringify(apksArr || internalApksData, null, 2) + ';\n\n';
+  const themeStr = 'const dialogTheme = ' + JSON.stringify(theme, null, 2) + ';\n';
+  return apksStr + themeStr;
+}
+
 function exportCurrentApksFile(mode) { closeActiveOverlays(); const tc = document.getElementById('exportTextareaContainer'), mt = document.getElementById('exportModalMainTitle'); if (!tc) return; if (mode === 'apksOnly') { const users = JSON.parse(localStorage.getItem('mmk_users') || '[]'); mt.textContent = '💾 EXPORT FULL DATABASE'; tc.value = 'const dialogTheme = ' + JSON.stringify(currentTheme, null, 4) + ';\n\nconst premiumUsers = ' + JSON.stringify(users, null, 4) + ';\n\nconst apks = ' + JSON.stringify(internalApksData, null, 4) + ';'; } document.getElementById('globalOverlay').classList.add('active'); document.getElementById('devDatabaseExportModal').classList.add('active'); }
 function copyExportedTextToClipboard() { const tc = document.getElementById('exportTextareaContainer'); if (!tc) return; tc.select(); document.execCommand('copy'); alert('📋 Disalin!'); closeActiveOverlays(); }
 
@@ -819,7 +1151,10 @@ function openApkCardConfig(idx) {
   alert((item.name || 'APK') + '\nHook: ' + ((item.hooks&&item.hooks.length)||0) + ' | Groups: ' + ((item.hookGroups&&item.hookGroups.length)||0));
 }
 
-function closeActiveOverlays() { ['sidebarMenu','authGateModal','devApkFormModal','devDatabaseExportModal','devReorderModal','requestModModal','adminRequestListModal','searchPopover','dialogConfigPanelModal','dialogConfigEditModal','clearCloneModal','globalOverlay','addExecutiveMemberModal','listMemberModal','themeEditorModal'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('active'); }); }
+
+
+
+function closeActiveOverlays() { try { const vm = document.getElementById('visualDialogEditorModal'); if (vm) { vm.classList.remove('active'); vm.style.display = 'none'; } } catch(_){} ['sidebarMenu','authGateModal','devApkFormModal','devDatabaseExportModal','devReorderModal','requestModModal','adminRequestListModal','searchPopover','dialogConfigPanelModal','dialogConfigEditModal','clearCloneModal','globalOverlay','addExecutiveMemberModal','listMemberModal','themeEditorModal'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('active'); }); }
 function applyCategoryFilter(cat) { const items = document.querySelectorAll('.apk-card'), al = document.getElementById('searchEmptyAlert'); let tm = 0; items.forEach(b => { if (cat === 'all' || b.getAttribute('data-target-cat') === cat) { b.classList.remove('hidden'); tm++; } else b.classList.add('hidden'); }); if (al) al.style.display = tm > 0 ? 'none' : 'block'; closeActiveOverlays(); }
 function executeApkSearch() { const q = document.getElementById('searchInput').value.toLowerCase(); const g = document.getElementById('apkDisplayGrid'), al = document.getElementById('searchEmptyAlert'), pc = document.getElementById('loadMoreContainer'); if (q.trim() === '') { renderGridCards(); return; } if (!g) return; g.innerHTML = ''; let s = false; internalApksData.forEach((item, i) => { if ((item.name||'').toLowerCase().includes(q)) { s = true; const card = document.createElement('div'); card.className = 'apk-card'; card.setAttribute('data-target-cat', item.category); card.setAttribute('data-target-droid', item.android); card.innerHTML = `<button type="button" class="apk-card-gear" title="Konfigurasi" onclick="event.stopPropagation();openApkCardConfig(${i})">⚙️</button><div class="apk-top-flex"><div class="apk-icon-frame"><img src="${item.imageUrl||''}" onerror="this.style.display='none';this.parentElement.innerHTML='${getCardDefaultIcon(item)}';"></div><div class="apk-main-info"><span class="apk-title">${item.name}</span><span class="apk-version">${item.version}</span><div class="apk-badge-row">${buildBadgeRow(item)}</div></div></div><div class="apk-desc-area">${item.description||''}</div><div class="card-action-row"><a href="${item.downloadUrl||'#'}" target="_blank" class="download-action-btn">Download</a><button class="share-action-btn" onclick="shareApkCard(${i})">🔗</button></div>`; g.appendChild(card); } }); if (al) al.style.display = s ? 'none' : 'block'; if (pc) pc.style.display = 'none'; }
 async function shareApkCard(i) { const item = internalApksData[i]; if (!item) return; const url = `${window.location.origin}${window.location.pathname.replace(/index\.html$/,'')}/sharing.html?app=${encodeURIComponent(item.name)}`; const text = `*${item.name}*\n\`${item.version||'-'}\`\n\n${item.description||''}\n\nLink:\n> ${url}`.trim(); if (navigator.share) { try { await navigator.share({ title: item.name, text }); } catch(_) {} return; } try { await navigator.clipboard.writeText(text); alert(`🔗 Info "${item.name}" disalin!`); } catch(_) { prompt('Salin:', text); } }
