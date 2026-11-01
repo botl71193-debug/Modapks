@@ -103,8 +103,8 @@ const apks = [
         "category": "Aplikasi Mod",
         "size": "",
         "android": "Android 5+",
-        "description": "",
-        "imageUrl": "#",
+        "description": "Aplikasi streaming anime dan donghua dengan subtitle Indonesia. Menyediakan koleksi yang terus diperbarui, server cepat dan stabil, fitur download untuk ditonton offline, riwayat tontonan, daftar favorit, notifikasi episode baru, pencarian anime, serta antarmuka sederhana.",
+        "imageUrl": "https://i.ibb.co.com/1t01FnJM/Screenshot-2026-1101-194648.webp",
         "downloadUrl": "#",
         "hooks": [
             {
