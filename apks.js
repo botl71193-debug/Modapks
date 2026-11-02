@@ -1432,7 +1432,7 @@ const apks = [
       }
     ]
   }
-]
+],
         "dialogConfig": {
             "signCheck": true,
             "btnMode": false,
