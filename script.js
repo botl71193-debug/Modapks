@@ -56,7 +56,9 @@ const rahasiaHTML = `
   </ul>
   <div class="sidebar-divider"></div>
   <div class="sidebar-label">Interaksi Komunitas</div>
-  <ul class="sidebar-menu-list"><li><div class="sidebar-item-btn" style="border-color: #0ea5e9; background: rgba(14,165,233,0.1);" onclick="openRequestModModal()">Request Mod Aplikasi</div></li></ul>
+  <ul class="sidebar-menu-list"><li><div class="sidebar-item-btn" style="border-color: #0ea5e9; background: rgba(14,165,233,0.1);" onclick="openRequestModModal()">Request Mod Aplikasi</div></li>
+    <li class="dev-only-block notif-admin-only" style="display:none;"><div class="sidebar-item-btn" style="border-color: #f59e0b; background: rgba(245,158,11,0.12);" onclick="openNotifScheduleModal()">🔔 Send Notif</div></li>
+</ul>
   <div class="sidebar-divider dev-only-block"></div>
   <div class="sidebar-label dev-only-block" style="color: var(--dev-color);">Dev Full Database Tool</div>
   <ul class="sidebar-menu-list dev-only-block">
@@ -88,6 +90,55 @@ const rahasiaHTML = `
   <h3 style="margin-bottom: 10px; color:#fff;">🛡️ SIGN IN</h3>
   <div id="loginFormState"><input type="password" id="devKeyInput" style="background:#020205; border:1px solid var(--border); border-radius:8px; padding:12px; color:#fff; width:100%; margin-bottom:15px; text-align:center; letter-spacing:4px; outline:none;" placeholder=" ✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏ "><button class="download-action-btn" onclick="processAuthVerification()">VERIFIKASI AKSES</button></div>
   <div id="logoutFormState" style="display:none; text-align:center;"><p id="authActiveModeText" style="color:var(--accent); margin-bottom:20px; font-size:0.9rem; font-weight:bold;"></p><button class="download-action-btn" style="background:#ef4444" onclick="processAuthLogout()">LOGOUT</button></div>
+</div>
+
+
+<div class="modal-box" id="notifScheduleModal" style="max-width:480px;width:94%;max-height:90vh;overflow-y:auto;">
+  <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
+  <h3 style="margin-bottom:12px;color:#f59e0b;font-size:1.1rem;border-bottom:1px solid rgba(245,158,11,0.3);padding-bottom:8px;">🔔 Send Notification</h3>
+  <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:12px;line-height:1.4;">Jadwalkan notifikasi ke APK. App akan minta izin notifikasi, lalu menampilkan di status bar sesuai jam.</p>
+  
+  <div class="form-group" style="margin-bottom:10px;">
+    <label>Judul notif</label>
+    <input type="text" id="notifTitle" placeholder="Update tersedia" style="background:#020205;border:1px solid rgba(245,158,11,0.35);border-radius:8px;padding:10px 12px;color:#fff;width:100%;">
+  </div>
+  <div class="form-group" style="margin-bottom:10px;">
+    <label>Pesan</label>
+    <textarea id="notifMessage" rows="3" placeholder="Versi baru siap diunduh..." style="background:#020205;border:1px solid rgba(245,158,11,0.35);border-radius:8px;padding:10px 12px;color:#fff;width:100%;resize:vertical;"></textarea>
+  </div>
+  <div class="form-group" style="margin-bottom:10px;">
+    <label>Jam tampil (jam:menit)</label>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <input type="number" id="notifHour" min="0" max="23" value="9" style="width:72px;background:#020205;border:1px solid rgba(245,158,11,0.35);border-radius:8px;padding:10px;color:#fff;text-align:center;">
+      <span style="color:#fff;font-weight:700;">:</span>
+      <input type="number" id="notifMinute" min="0" max="59" value="0" style="width:72px;background:#020205;border:1px solid rgba(245,158,11,0.35);border-radius:8px;padding:10px;color:#fff;text-align:center;">
+      <span style="font-size:0.72rem;color:var(--text-muted);">24 jam</span>
+    </div>
+  </div>
+  <div class="form-group" style="margin-bottom:10px;">
+    <label>Sematkan APK (opsional — gambar notif)</label>
+    <select id="notifApkSelect" style="background:#020205;border:1px solid rgba(245,158,11,0.35);border-radius:8px;padding:10px 12px;color:#fff;width:100%;">
+      <option value="">— Tidak ada —</option>
+    </select>
+    <div id="notifApkPreview" style="margin-top:8px;display:none;align-items:center;gap:10px;">
+      <img id="notifApkImg" src="" alt="" style="width:48px;height:48px;border-radius:10px;object-fit:cover;background:#111;">
+      <span id="notifApkName" style="font-size:0.82rem;color:#fff;"></span>
+    </div>
+  </div>
+  <div class="form-group" style="margin-bottom:10px;">
+    <label>Package target (kosong = semua APK terdaftar)</label>
+    <input type="text" id="notifPackage" placeholder="com.example.application" style="background:#020205;border:1px solid rgba(245,158,11,0.35);border-radius:8px;padding:10px 12px;color:#fff;width:100%;font-family:monospace;font-size:0.8rem;">
+  </div>
+  <div class="form-group" style="margin-bottom:12px;">
+    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+      <input type="checkbox" id="notifEnabled" checked>
+      <span>Aktif</span>
+    </label>
+  </div>
+  <button class="download-action-btn" style="background:linear-gradient(135deg,#f59e0b,#d97706);margin-bottom:10px;" onclick="saveNotifSchedule()">💾 Simpan ke jadwal</button>
+  <button class="action-trigger-btn" style="width:100%;margin-bottom:12px;" onclick="exportNotifWithApks()">📤 Ekspor apks.js (+ notif)</button>
+  <div class="theme-section-title" style="margin-top:8px;">Jadwal tersimpan</div>
+  <div id="notifScheduleList" style="display:flex;flex-direction:column;gap:8px;max-height:180px;overflow-y:auto;"></div>
 </div>
 
 <div class="modal-box dev-panel-modal" id="themeEditorModal" style="max-height:94vh;overflow-y:auto;width:96%;max-width:1100px;">
@@ -987,7 +1038,7 @@ function executeReorder() { const ci = parseInt(document.getElementById('reorder
 /* ============ UTILS & UI ============ */
 function handleSidebarDisplay() { const sb = document.getElementById('sidebarMenu'), ov = document.getElementById('globalOverlay'); if (sb && ov) { sb.classList.toggle('active'); ov.classList.toggle('active'); } }
 function handleSearchToggle() { const c = document.getElementById('searchPopover'); if (!c) return; c.classList.toggle('active'); if (c.classList.contains('active')) document.getElementById('searchInput').focus(); }
-function syncSecurityAccessState() { const ar = localStorage.getItem('mmk_sys_role') || 'GUEST'; const badge = document.getElementById('userSignBadge'), btn = document.getElementById('authTriggerBtn'); const he = document.querySelectorAll('.hidden-exec-item'), db = document.querySelectorAll('.dev-only-block'); const ur = document.getElementById('devUndoRedoControls'), rs = document.getElementById('devRoleSwitcher'); if (rs) rs.style.display = localStorage.getItem('mmk_ever_dev') === 'true' ? 'block' : 'none'; if (ar === 'DEVELOPER') { if (badge) { badge.textContent = 'Developer Mode'; badge.className = 'sidebar-sign-text dev-badge'; } if (btn) { btn.innerHTML = '🔒 Logout'; btn.classList.add('active-control'); } he.forEach(e => e.style.setProperty('display','block','important')); db.forEach(e => e.style.setProperty('display','block','important')); if (ur) ur.style.setProperty('display','flex','important'); } else if (ar === 'EXECUTIVE') { if (badge) { badge.textContent = 'Executive Member'; badge.className = 'sidebar-sign-text exec-badge'; } if (btn) { btn.innerHTML = '🔒 Logout'; btn.classList.add('active-control'); } he.forEach(e => e.style.setProperty('display','block','important')); db.forEach(e => e.style.setProperty('display','none','important')); if (ur) ur.style.setProperty('display','none','important'); } else { if (badge) { badge.textContent = 'Guest Mode'; badge.className = 'sidebar-sign-text'; } if (btn) { btn.innerHTML = '⚙️ Sign In'; btn.classList.remove('active-control'); } he.forEach(e => e.style.setProperty('display','none','important')); db.forEach(e => e.style.setProperty('display','none','important')); if (ur) ur.style.setProperty('display','none','important'); } }
+function syncSecurityAccessState() { const ar = localStorage.getItem('mmk_sys_role') || 'GUEST'; const badge = document.getElementById('userSignBadge'), btn = document.getElementById('authTriggerBtn'); const he = document.querySelectorAll('.hidden-exec-item'), db = document.querySelectorAll('.dev-only-block'); const ur = document.getElementById('devUndoRedoControls'), rs = document.getElementById('devRoleSwitcher'); if (rs) rs.style.display = localStorage.getItem('mmk_ever_dev') === 'true' ? 'block' : 'none'; if (ar === 'DEVELOPER') { if (badge) { badge.textContent = 'Developer Mode'; badge.className = 'sidebar-sign-text dev-badge'; } if (btn) { btn.innerHTML = '🔒 Logout'; btn.classList.add('active-control'); } he.forEach(e => e.style.setProperty('display','block','important')); db.forEach(e => e.style.setProperty('display','block','important')); if (ur) ur.style.setProperty('display','flex','important'); } else if (ar === 'EXECUTIVE') { if (badge) { badge.textContent = 'Executive Member'; badge.className = 'sidebar-sign-text exec-badge'; } if (btn) { btn.innerHTML = '🔒 Logout'; btn.classList.add('active-control'); } he.forEach(e => e.style.setProperty('display','block','important')); db.forEach(e => e.style.setProperty('display','none','important')); document.querySelectorAll('.notif-admin-only').forEach(e => e.style.setProperty('display','block','important')); if (ur) ur.style.setProperty('display','none','important'); } else { if (badge) { badge.textContent = 'Guest Mode'; badge.className = 'sidebar-sign-text'; } if (btn) { btn.innerHTML = '⚙️ Sign In'; btn.classList.remove('active-control'); } he.forEach(e => e.style.setProperty('display','none','important')); db.forEach(e => e.style.setProperty('display','none','important')); if (ur) ur.style.setProperty('display','none','important'); } }
 function handleAuthModalDisplay() { closeActiveOverlays(); const ar = localStorage.getItem('mmk_sys_role') || 'GUEST'; document.getElementById('globalOverlay').classList.add('active'); document.getElementById('authGateModal').classList.add('active'); if (ar !== 'GUEST') { document.getElementById('loginFormState').style.display = 'none'; document.getElementById('logoutFormState').style.display = 'block'; document.getElementById('authActiveModeText').textContent = `Status: [ ${ar} ]`; } else { document.getElementById('loginFormState').style.display = 'block'; document.getElementById('logoutFormState').style.display = 'none'; document.getElementById('devKeyInput').value = ''; } }
 function processAuthVerification() { const t = document.getElementById('devKeyInput').value.trim(); if (t === TOKEN_DEVELOPER) { localStorage.setItem('mmk_sys_role','DEVELOPER'); localStorage.setItem('mmk_ever_dev','true'); alert('🔐 Developer!'); location.reload(); } else if (t === TOKEN_EXECUTIVE) { localStorage.setItem('mmk_sys_role','EXECUTIVE'); alert('🔮 Executive!'); location.reload(); } else alert('❌ Token salah!'); }
 function switchRoleDirect(r) { if (localStorage.getItem('mmk_ever_dev') !== 'true') return; if (!['GUEST','EXECUTIVE','DEVELOPER'].includes(r)) return; localStorage.setItem('mmk_sys_role', r); location.reload(); }
@@ -1154,7 +1205,185 @@ function openApkCardConfig(idx) {
 
 
 
-function closeActiveOverlays() { try { const vm = document.getElementById('visualDialogEditorModal'); if (vm) { vm.classList.remove('active'); vm.style.display = 'none'; } } catch(_){} ['sidebarMenu','authGateModal','devApkFormModal','devDatabaseExportModal','devReorderModal','requestModModal','adminRequestListModal','searchPopover','dialogConfigPanelModal','dialogConfigEditModal','clearCloneModal','globalOverlay','addExecutiveMemberModal','listMemberModal','themeEditorModal'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('active'); }); }
+
+/* ===== Scheduled Notifications (web → apks.js → APK) ===== */
+window.mmkNotifSchedules = window.mmkNotifSchedules || JSON.parse(localStorage.getItem('mmk_notif_schedules') || '[]');
+
+function openNotifScheduleModal() {
+  var role = localStorage.getItem('mmk_sys_role') || 'GUEST';
+  if (role !== 'DEVELOPER' && role !== 'EXECUTIVE') {
+    alert('Fitur notifikasi hanya untuk Executive / Developer.');
+    return;
+  }
+  closeActiveOverlays();
+  populateNotifApkSelect();
+  renderNotifScheduleList();
+  const m = document.getElementById('notifScheduleModal');
+  if (m) m.classList.add('active');
+  const ov = document.getElementById('globalOverlay');
+  if (ov) ov.classList.add('active');
+}
+
+function populateNotifApkSelect() {
+  const sel = document.getElementById('notifApkSelect');
+  if (!sel) return;
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">— Tidak ada —</option>';
+  // pakai variabel katalog (bukan window.*)
+  var data = [];
+  try {
+    if (typeof internalApksData !== 'undefined' && Array.isArray(internalApksData) && internalApksData.length)
+      data = internalApksData;
+    else if (window.internalApksData && window.internalApksData.length)
+      data = window.internalApksData;
+    else if (typeof apks !== 'undefined' && Array.isArray(apks))
+      data = apks;
+    else {
+      var saved = localStorage.getItem('mmk_local_apks');
+      if (saved) data = JSON.parse(saved) || [];
+    }
+  } catch (e) { data = []; }
+
+  if (!data.length) {
+    var empty = document.createElement('option');
+    empty.disabled = true;
+    empty.textContent = '(Belum ada APK di katalog — tambah/impor dulu)';
+    sel.appendChild(empty);
+  }
+
+  data.forEach(function(item, i) {
+    if (!item) return;
+    var opt = document.createElement('option');
+    opt.value = String(i);
+    var pkg = item.packageName || item.package || item.pkg || '';
+    opt.textContent = (item.name || item.title || 'APK #' + (i+1)) + (pkg ? ' (' + pkg + ')' : '');
+    opt.setAttribute('data-img', item.imageUrl || item.icon || item.logo || '');
+    opt.setAttribute('data-pkg', pkg);
+    opt.setAttribute('data-name', item.name || item.title || '');
+    sel.appendChild(opt);
+  });
+
+  if (cur) sel.value = cur;
+
+  sel.onchange = function() {
+    var i = parseInt(sel.value, 10);
+    var box = document.getElementById('notifApkPreview');
+    var img = document.getElementById('notifApkImg');
+    var nm = document.getElementById('notifApkName');
+    var opt = sel.options[sel.selectedIndex];
+    if (!sel.value || isNaN(i) || !opt) {
+      if (box) box.style.display = 'none';
+      return;
+    }
+    var imageUrl = opt.getAttribute('data-img') || (data[i] && (data[i].imageUrl || data[i].icon)) || '';
+    var name = opt.getAttribute('data-name') || (data[i] && data[i].name) || '';
+    var pkg = opt.getAttribute('data-pkg') || '';
+    if (box) box.style.display = 'flex';
+    if (img) {
+      img.src = imageUrl;
+      img.style.display = imageUrl ? 'block' : 'none';
+    }
+    if (nm) nm.textContent = name;
+    var pkgInput = document.getElementById('notifPackage');
+    if (pkgInput && pkg) pkgInput.value = pkg;
+  };
+}
+
+function saveNotifSchedule() {
+  const title = (document.getElementById('notifTitle') || {}).value || '';
+  const message = (document.getElementById('notifMessage') || {}).value || '';
+  let hour = parseInt((document.getElementById('notifHour') || {}).value, 10);
+  let minute = parseInt((document.getElementById('notifMinute') || {}).value, 10);
+  if (isNaN(hour)) hour = 9;
+  if (isNaN(minute)) minute = 0;
+  hour = Math.max(0, Math.min(23, hour));
+  minute = Math.max(0, Math.min(59, minute));
+  const enabled = !!(document.getElementById('notifEnabled') || {}).checked;
+  const pkg = (document.getElementById('notifPackage') || {}).value || '';
+  const sel = document.getElementById('notifApkSelect');
+  let imageUrl = '';
+  let apkName = '';
+  if (sel && sel.value !== '') {
+    const i = parseInt(sel.value, 10);
+    var opt = sel.options[sel.selectedIndex];
+    if (opt) {
+      imageUrl = opt.getAttribute('data-img') || '';
+      apkName = opt.getAttribute('data-name') || '';
+    }
+    var list = (typeof internalApksData !== 'undefined' && internalApksData) ? internalApksData : [];
+    if ((!imageUrl || !apkName) && list[i]) {
+      imageUrl = imageUrl || list[i].imageUrl || list[i].icon || '';
+      apkName = apkName || list[i].name || '';
+    }
+  }
+  if (!title.trim() || !message.trim()) {
+    alert('Judul dan pesan wajib diisi');
+    return;
+  }
+  const entry = {
+    id: 'n' + Date.now(),
+    title: title.trim(),
+    message: message.trim(),
+    hour: hour,
+    minute: minute,
+    time: String(hour).padStart(2, '0') + ':' + String(minute).padStart(2, '0'),
+    imageUrl: imageUrl,
+    apkName: apkName,
+    packageName: pkg.trim(),
+    enabled: enabled
+  };
+  window.mmkNotifSchedules = window.mmkNotifSchedules || [];
+  window.mmkNotifSchedules.push(entry);
+  try { localStorage.setItem('mmk_notif_schedules', JSON.stringify(window.mmkNotifSchedules)); } catch (_) {}
+  renderNotifScheduleList();
+  alert('Jadwal disimpan: ' + entry.time + ' — ' + entry.title);
+}
+
+function removeNotifSchedule(id) {
+  window.mmkNotifSchedules = (window.mmkNotifSchedules || []).filter(function(x) { return x.id !== id; });
+  try { localStorage.setItem('mmk_notif_schedules', JSON.stringify(window.mmkNotifSchedules)); } catch (_) {}
+  renderNotifScheduleList();
+}
+
+function renderNotifScheduleList() {
+  const box = document.getElementById('notifScheduleList');
+  if (!box) return;
+  const list = window.mmkNotifSchedules || [];
+  if (!list.length) {
+    box.innerHTML = '<div style="text-align:center;color:var(--text-muted);font-size:0.78rem;padding:10px;border:1px dashed rgba(255,255,255,0.1);border-radius:8px;">Belum ada jadwal</div>';
+    return;
+  }
+  box.innerHTML = list.map(function(n) {
+    return '<div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:10px;padding:10px;display:flex;gap:8px;align-items:flex-start;">' +
+      (n.imageUrl ? '<img src="' + n.imageUrl + '" style="width:40px;height:40px;border-radius:8px;object-fit:cover;">' : '') +
+      '<div style="flex:1;min-width:0;">' +
+      '<div style="font-weight:700;color:#fbbf24;font-size:0.85rem;">' + (n.time || '') + ' — ' + (n.title || '') + (n.enabled ? '' : ' (off)') + '</div>' +
+      '<div style="font-size:0.75rem;color:rgba(255,255,255,0.65);">' + (n.message || '') + '</div>' +
+      (n.packageName ? '<div style="font-size:0.68rem;color:var(--text-muted);font-family:monospace;">' + n.packageName + '</div>' : '') +
+      '</div>' +
+      '<button type="button" onclick="removeNotifSchedule(\'' + n.id + '\')" style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;color:#ef4444;padding:4px 8px;border-radius:6px;cursor:pointer;">✕</button>' +
+      '</div>';
+  }).join('');
+}
+
+function exportNotifWithApks() {
+  const apksArr = window.internalApksData || [];
+  const theme = window.mmkDialogTheme || window.currentTheme || JSON.parse(localStorage.getItem('mmk_dialogTheme') || '{}');
+  const notifs = window.mmkNotifSchedules || [];
+  const body = 'const apks = ' + JSON.stringify(apksArr, null, 2) + ';\n\n'
+    + 'const dialogTheme = ' + JSON.stringify(theme, null, 2) + ';\n\n'
+    + 'const scheduledNotifs = ' + JSON.stringify(notifs, null, 2) + ';\n';
+  const blob = new Blob([body], { type: 'application/javascript' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'apks.js';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  alert('apks.js diekspor (apks + dialogTheme + scheduledNotifs). Upload ke raw GitHub.');
+}
+
+
+function closeActiveOverlays() { try { const vm = document.getElementById('visualDialogEditorModal'); if (vm) { vm.classList.remove('active'); vm.style.display = 'none'; } } catch(_){} ['sidebarMenu','authGateModal','devApkFormModal','devDatabaseExportModal','devReorderModal','requestModModal','adminRequestListModal','searchPopover','dialogConfigPanelModal','dialogConfigEditModal','clearCloneModal','globalOverlay','addExecutiveMemberModal','listMemberModal','themeEditorModal','notifScheduleModal'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('active'); }); }
 function applyCategoryFilter(cat) { const items = document.querySelectorAll('.apk-card'), al = document.getElementById('searchEmptyAlert'); let tm = 0; items.forEach(b => { if (cat === 'all' || b.getAttribute('data-target-cat') === cat) { b.classList.remove('hidden'); tm++; } else b.classList.add('hidden'); }); if (al) al.style.display = tm > 0 ? 'none' : 'block'; closeActiveOverlays(); }
 function executeApkSearch() { const q = document.getElementById('searchInput').value.toLowerCase(); const g = document.getElementById('apkDisplayGrid'), al = document.getElementById('searchEmptyAlert'), pc = document.getElementById('loadMoreContainer'); if (q.trim() === '') { renderGridCards(); return; } if (!g) return; g.innerHTML = ''; let s = false; internalApksData.forEach((item, i) => { if ((item.name||'').toLowerCase().includes(q)) { s = true; const card = document.createElement('div'); card.className = 'apk-card'; card.setAttribute('data-target-cat', item.category); card.setAttribute('data-target-droid', item.android); card.innerHTML = `<button type="button" class="apk-card-gear" title="Konfigurasi" onclick="event.stopPropagation();openApkCardConfig(${i})">⚙️</button><div class="apk-top-flex"><div class="apk-icon-frame"><img src="${item.imageUrl||''}" onerror="this.style.display='none';this.parentElement.innerHTML='${getCardDefaultIcon(item)}';"></div><div class="apk-main-info"><span class="apk-title">${item.name}</span><span class="apk-version">${item.version}</span><div class="apk-badge-row">${buildBadgeRow(item)}</div></div></div><div class="apk-desc-area">${item.description||''}</div><div class="card-action-row"><a href="${item.downloadUrl||'#'}" target="_blank" class="download-action-btn">Download</a><button class="share-action-btn" onclick="shareApkCard(${i})">🔗</button></div>`; g.appendChild(card); } }); if (al) al.style.display = s ? 'none' : 'block'; if (pc) pc.style.display = 'none'; }
 async function shareApkCard(i) { const item = internalApksData[i]; if (!item) return; const url = `${window.location.origin}${window.location.pathname.replace(/index\.html$/,'')}/sharing.html?app=${encodeURIComponent(item.name)}`; const text = `*${item.name}*\n\`${item.version||'-'}\`\n\n${item.description||''}\n\nLink:\n> ${url}`.trim(); if (navigator.share) { try { await navigator.share({ title: item.name, text }); } catch(_) {} return; } try { await navigator.clipboard.writeText(text); alert(`🔗 Info "${item.name}" disalin!`); } catch(_) { prompt('Salin:', text); } }
