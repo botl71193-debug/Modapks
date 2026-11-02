@@ -93,6 +93,21 @@ const premiumUsers = [
     }
 ];
 
+const scheduledNotifs = [
+  {
+    "id": "n1793613758612",
+    "title": "Test",
+    "message": "Test1",
+    "hour": 5,
+    "minute": 10,
+    "time": "05:10",
+    "imageUrl": "https://i.ibb.co.com/mCsnbZVM/Screenshot-2026-1030-171756.webp",
+    "apkName": "Keyflow",
+    "packageName": "com.angkin.keyflow",
+    "enabled": true
+  }
+];
+
 const apks = [
     {
         "name": "Duolingo",
