@@ -101,11 +101,15 @@ const apks = [
         "versionCode": 2348,
         "packageName": "com.duolingo",
         "category": "Aplikasi Mod",
-        "size": "",
+        "size": "52,57M",
         "android": "Android 5+",
-        "description": "",
+        "description": "Aplikasi pembelajaran bahasa dengan pelajaran singkat dan interaktif. Duolingo menawarkan latihan membaca, menulis, mendengarkan, dan berbicara untuk lebih dari 40 bahasa, serta materi matematika, musik, dan catur.",
         "imageUrl": "https://i.ibb.co.com/dJHdFfDS/Screenshot-2026-1102-094001.webp",
-        "downloadUrl": "#",
+        "downloadUrl": "https://adlinksumo.com/OXlyJvN",
+        "changelog": [
+            "[ ✓ ] Plus",
+            "[ ✓ ] Infinite Heart"
+        ],
         "hooks": [
             {
                 "fitur": "Plus",
@@ -133,11 +137,11 @@ const apks = [
         "versionCode": 48,
         "packageName": "com.hxcorp.anibiplay",
         "category": "Aplikasi Mod",
-        "size": "",
+        "size": "16,72M",
         "android": "Android 5+",
         "description": "Aplikasi streaming anime dan donghua dengan subtitle Indonesia. Menyediakan koleksi yang terus diperbarui, server cepat dan stabil, fitur download untuk ditonton offline, riwayat tontonan, daftar favorit, notifikasi episode baru, pencarian anime, serta antarmuka sederhana.",
         "imageUrl": "https://i.ibb.co.com/1t01FnJM/Screenshot-2026-1101-194648.webp",
-        "downloadUrl": "#",
+        "downloadUrl": "https://adlinksumo.com/eNeOL",
         "changelog": [
             "[ ✓ ] Unlocked Feature Premium",
             "[ ✓ ] No ads",
@@ -476,11 +480,14 @@ const apks = [
         "versionCode": 32,
         "packageName": "com.angkin.keyflow",
         "category": "Tools",
-        "size": "",
+        "size": "61,94M",
         "android": "Android 5+",
         "description": "Editor video dan foto mobile berbasis layer dengan keyframe animation, kontrol easing curve, 3D camera, time remapping, speed ramping, motion blur, custom expressions, efek slow motion bergaya Twixtor, template aspect ratio kustom, serta fitur pengelolaan media dan proyek.",
         "imageUrl": "https://i.ibb.co.com/mCsnbZVM/Screenshot-2026-1030-171756.webp",
-        "downloadUrl": "#",
+        "downloadUrl": "https://adlinksumo.com/AQzLmmW",
+        "changelog": [
+            "[ ✓ ] Unlocked PRO"
+        ],
         "hooks": [
             {
                 "fitur": "PRO",
@@ -496,8 +503,39 @@ const apks = [
             "btnMode": false,
             "crashLog": false,
             "forceCloseOnUpdate": true
-        },
-        "changelog": []
+        }
+    },
+    {
+        "name": "iLovePDF",
+        "version": "4.1.0",
+        "versionName": "4.1.0",
+        "versionCode": 4001000,
+        "packageName": "com.ilovepdf.www",
+        "category": "Tools",
+        "size": "213,54M",
+        "android": "Android 5+",
+        "description": "Alat PDF online dan aplikasi untuk merge, split, compress, convert, edit, sign, OCR, dan mengelola PDF dengan cepat. Tersedia untuk web, Android, iPhone,dan desktop.",
+        "imageUrl": "https://i.ibb.co.com/6RJ7N1Ws/Screenshot-2026-0913-141801.webp",
+        "downloadUrl": "https://adlinksumo.com/IFyzA78",
+        "changelog": [
+            "[ ✓ ] Unlocked Premium"
+        ],
+        "hooks": [
+            {
+                "fitur": "Premium",
+                "className": "com.android.ilovepdf.database.models.UserDBModel",
+                "methodName": "getPremium",
+                "type": "Z",
+                "defaultValue": "false"
+            }
+        ],
+        "hookEnabled": true,
+        "dialogConfig": {
+            "signCheck": false,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
     },
     {
         "name": "ShinigamI",
@@ -588,36 +626,6 @@ const apks = [
             "No ads",
             "Stream lancar",
             "Free all video"
-        ]
-    },
-    {
-        "name": "iLovePDF",
-        "version": "4.1.0",
-        "category": "Tools",
-        "size": "213,54M",
-        "android": "Android 5+",
-        "description": "Alat PDF online dan aplikasi untuk merge, split, compress, convert, edit, sign, OCR, dan mengelola PDF dengan cepat. Tersedia untuk web, Android, iPhone,dan desktop.",
-        "imageUrl": "https://i.ibb.co.com/6RJ7N1Ws/Screenshot-2026-0913-141801.webp",
-        "downloadUrl": "https://adlinksumo.com/HolWZ4",
-        "packageName": "com.ilovepdf.www",
-        "versionName": "4.1.0",
-        "versionCode": 4001000,
-        "changelog": [],
-        "dialogConfig": {
-            "signCheck": false,
-            "btnMode": false,
-            "crashLog": false,
-            "forceCloseOnUpdate": true
-        },
-        "hookEnabled": true,
-        "hooks": [
-            {
-                "fitur": "Premium",
-                "className": "com.android.ilovepdf.database.models.UserDBModel",
-                "methodName": "getPremium",
-                "type": "Z",
-                "defaultValue": "false"
-            }
         ]
     },
     {
