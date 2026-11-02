@@ -95,6 +95,38 @@ const premiumUsers = [
 
 const apks = [
     {
+        "name": "Duolingo",
+        "version": "5.141.12",
+        "versionName": "5.141.12",
+        "versionCode": 2348,
+        "packageName": "com.duolingo",
+        "category": "Aplikasi Mod",
+        "size": "",
+        "android": "Android 5+",
+        "description": "",
+        "imageUrl": "#",
+        "downloadUrl": "#",
+        "hooks": [
+            {
+                "fitur": "Plus",
+                "className": "com.duolingo.shop.Inventory",
+                "methodName": "isPlusSubscription",
+                "type": "Z",
+                "kind": "method",
+                "defaultValue": "true"
+            },
+            {
+                "fitur": "Inf Health",
+                "className": "re.f",
+                "methodName": "b",
+                "type": "I",
+                "kind": "method",
+                "defaultValue": "5"
+            }
+        ],
+        "hookEnabled": true
+    },
+    {
         "name": "Anibiplay",
         "version": "1.5.0",
         "versionName": "1.5.0",
