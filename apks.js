@@ -104,7 +104,7 @@ const apks = [
         "size": "",
         "android": "Android 5+",
         "description": "",
-        "imageUrl": "#",
+        "imageUrl": "https://i.ibb.co.com/dJHdFfDS/Screenshot-2026-1102-094001.webp",
         "downloadUrl": "#",
         "hooks": [
             {
