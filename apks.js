@@ -1,3 +1,5 @@
+
+
 const dialogTheme = {
     "appTitle": "UPDATE FULL CONTROLLER",
     "logoUrl": "https://i.ibb.co.com/3gvtsqN/Screenshot-2026-1031-175241.webp",
@@ -90,6 +92,21 @@ const premiumUsers = [
         "id": "88193341",
         "role": "EXECUTIVE",
         "date": "28/10/2026, 15.09.55"
+    }
+];
+
+const scheduledNotifs = [
+    {
+        "id": "n1793613758612",
+        "title": "Test",
+        "message": "Test1",
+        "hour": 5,
+        "minute": 10,
+        "time": "05:10",
+        "imageUrl": "https://i.ibb.co.com/mCsnbZVM/Screenshot-2026-1030-171756.webp",
+        "apkName": "Keyflow",
+        "packageName": "com.angkin.keyflow",
+        "enabled": true
     }
 ];
 
@@ -1355,11 +1372,72 @@ const apks = [
         "versionName": "1.0.4",
         "versionCode": 12,
         "packageName": "com.zayon.optimize",
-        "category": "Aplikasi Mod",
+        "category": "Tools",
         "size": "7,26M",
         "android": "Android 5+",
         "description": "",
         "imageUrl": "#",
-        "downloadUrl": "#"
+        "downloadUrl": "#",
+        "hookEnabled": true,
+        "hooks": [
+  {
+    "groupName": "premium_bool",
+    "fitur": "Premium (semua Z true)",
+    "type": "Z",
+    "defaultValue": "true",
+    "hooks": [
+      {
+        "className": "com.zayon.optimize.core.ZyCore",
+        "methodName": "premium"
+      },
+      {
+        "className": "com.zayon.optimize.core.ZyCore",
+        "methodName": "premiumVerified"
+      },
+      {
+        "className": "com.zayon.optimize.core.ZyCore",
+        "methodName": "featureActive"
+      }
+    ]
+  },
+  {
+    "groupName": "balance_max",
+    "fitur": "Balance / coin (9999999)",
+    "type": "I",
+    "defaultValue": "9999999",
+    "hooks": [
+      {
+        "className": "com.zayon.optimize.core.ZyCore",
+        "methodName": "balance"
+      },
+      {
+        "className": "com.zayon.optimize.core.ZyCore",
+        "methodName": "refreshBalance"
+      }
+    ]
+  },
+  {
+    "groupName": "verify_ok",
+    "fitur": "Premium verify + balance state",
+    "type": "I",
+    "defaultValue": "1",
+    "hooks": [
+      {
+        "className": "com.zayon.optimize.core.ZyCore",
+        "methodName": "premiumVerify"
+      },
+      {
+        "className": "com.zayon.optimize.core.ZyCore",
+        "methodName": "balanceState"
+      }
+    ]
+  }
+]
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
     }
 ];
