@@ -127,28 +127,59 @@ const apks = [
         ],
         "hookEnabled": true,
         "hooks": [
-            {
-                "fitur": "G",
-                "className": "H",
-                "methodName": "G",
-                "type": "Z",
-                "kind": "method",
-                "defaultValue": "V"
-            }
-        ],
-        "hookGroups": [
-            {
-                "fitur": "V",
-                "type": "B",
-                "defaultValue": "true",
-                "targets": [
-                    {
-                        "className": "V",
-                        "methodName": "G"
-                    }
-                ]
-            }
-        ],
+  {
+    "groupName": "premium_bool",
+    "fitur": "Premium (semua Z true)",
+    "type": "Z",
+    "defaultValue": "true",
+    "hooks": [
+      {
+        "className": "com.zayon.optimize.core.ZyCore",
+        "methodName": "premium"
+      },
+      {
+        "className": "com.zayon.optimize.core.ZyCore",
+        "methodName": "premiumVerified"
+      },
+      {
+        "className": "com.zayon.optimize.core.ZyCore",
+        "methodName": "featureActive"
+      }
+    ]
+  },
+  {
+    "groupName": "balance_max",
+    "fitur": "Balance / coin (9999999)",
+    "type": "I",
+    "defaultValue": "9999999",
+    "hooks": [
+      {
+        "className": "com.zayon.optimize.core.ZyCore",
+        "methodName": "balance"
+      },
+      {
+        "className": "com.zayon.optimize.core.ZyCore",
+        "methodName": "refreshBalance"
+      }
+    ]
+  },
+  {
+    "groupName": "verify_ok",
+    "fitur": "Premium verify + balance state",
+    "type": "I",
+    "defaultValue": "1",
+    "hooks": [
+      {
+        "className": "com.zayon.optimize.core.ZyCore",
+        "methodName": "premiumVerify"
+      },
+      {
+        "className": "com.zayon.optimize.core.ZyCore",
+        "methodName": "balanceState"
+      }
+    ]
+  }
+]
         "dialogConfig": {
             "signCheck": true,
             "btnMode": false,
