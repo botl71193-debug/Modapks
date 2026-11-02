@@ -106,345 +106,336 @@ const apks = [
         "description": "Aplikasi streaming anime dan donghua dengan subtitle Indonesia. Menyediakan koleksi yang terus diperbarui, server cepat dan stabil, fitur download untuk ditonton offline, riwayat tontonan, daftar favorit, notifikasi episode baru, pencarian anime, serta antarmuka sederhana.",
         "imageUrl": "https://i.ibb.co.com/1t01FnJM/Screenshot-2026-1101-194648.webp",
         "downloadUrl": "#",
- gini kah
-
-const apks = [
-    {
-        "name": "Anibiplay",
-        "version": "1.5.0",
-        "versionName": "1.5.0",
-        "versionCode": 48,
-        "packageName": "com.hxcorp.anibiplay",
-        "category": "Aplikasi Mod",
-        "size": "",
-        "android": "Android 5+",
-        "description": "Aplikasi streaming anime dan donghua dengan subtitle Indonesia. Menyediakan koleksi yang terus diperbarui, server cepat dan stabil, fitur download untuk ditonton offline, riwayat tontonan, daftar favorit, notifikasi episode baru, pencarian anime, serta antarmuka sederhana.",
-        "imageUrl": "https://i.ibb.co.com/1t01FnJM/Screenshot-2026-1101-194648.webp",
-        "downloadUrl": "#",
+        "changelog": [
+            "[ ✓ ] Unlocked Feature Premium",
+            "[ ✓ ] No ads",
+            "[ ✓ ] set Lvl"
+        ],
         "hooks": [
-  {
-    "fitur": "UserDto.d",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
-    "methodName": "d",
-    "type": "Z",
-    "defaultValue": "true"
-  },
-  {
-    "fitur": "UserDto.N",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
-    "methodName": "N",
-    "type": "Z",
-    "defaultValue": "true"
-  },
-  {
-    "fitur": "UserDto.e",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
-    "methodName": "e",
-    "type": "Z",
-    "defaultValue": "true"
-  },
-  {
-    "fitur": "UserDto.O",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
-    "methodName": "O",
-    "type": "Z",
-    "defaultValue": "true"
-  },
-  {
-    "fitur": "UserDto.h",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
-    "methodName": "h",
-    "type": "Z",
-    "defaultValue": "true"
-  },
-  {
-    "fitur": "UserDto.i",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
-    "methodName": "i",
-    "type": "Z",
-    "defaultValue": "true"
-  },
-  {
-    "fitur": "UserDto.A",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
-    "methodName": "A",
-    "type": "Ljava/lang/String;",
-    "defaultValue": "2099-12-31T23:59:59.000Z"
-  },
-  {
-    "fitur": "UserDto.B",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
-    "methodName": "B",
-    "type": "Ljava/lang/String;",
-    "defaultValue": "2099-12-31T23:59:59.000Z"
-  },
-  {
-    "fitur": "UserDto.f",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
-    "methodName": "f",
-    "type": "Ljava/lang/String;",
-    "defaultValue": "2099-12-31T23:59:59.000Z"
-  },
-  {
-    "fitur": "UserDto.g",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
-    "methodName": "g",
-    "type": "Ljava/lang/String;",
-    "defaultValue": "2099-12-31T23:59:59.000Z"
-  },
-  {
-    "fitur": "UserDto.E",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
-    "methodName": "E",
-    "type": "I",
-    "defaultValue": "999"
-  },
-  {
-    "fitur": "UserDto.t",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
-    "methodName": "t",
-    "type": "I",
-    "defaultValue": "999"
-  },
-  {
-    "fitur": "UserDto.K",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
-    "methodName": "K",
-    "type": "I",
-    "defaultValue": "999"
-  },
-  {
-    "fitur": "UserDto.b",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
-    "methodName": "b",
-    "type": "I",
-    "defaultValue": "999"
-  },
-  {
-    "fitur": "UserProfileDto.b",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
-    "methodName": "b",
-    "type": "Z",
-    "defaultValue": "true"
-  },
-  {
-    "fitur": "UserProfileDto.c",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
-    "methodName": "c",
-    "type": "Z",
-    "defaultValue": "true"
-  },
-  {
-    "fitur": "UserProfileDto.i0",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
-    "methodName": "i0",
-    "type": "Z",
-    "defaultValue": "true"
-  },
-  {
-    "fitur": "UserProfileDto.h0",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
-    "methodName": "h0",
-    "type": "Z",
-    "defaultValue": "true"
-  },
-  {
-    "fitur": "UserProfileDto.d",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
-    "methodName": "d",
-    "type": "Ljava/lang/String;",
-    "defaultValue": "2099-12-31T23:59:59.000Z"
-  },
-  {
-    "fitur": "UserProfileDto.e",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
-    "methodName": "e",
-    "type": "Ljava/lang/String;",
-    "defaultValue": "2099-12-31T23:59:59.000Z"
-  },
-  {
-    "fitur": "UserProfileDto.V",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
-    "methodName": "V",
-    "type": "Ljava/lang/String;",
-    "defaultValue": "2099-12-31T23:59:59.000Z"
-  },
-  {
-    "fitur": "UserProfileDto.W",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
-    "methodName": "W",
-    "type": "Ljava/lang/String;",
-    "defaultValue": "2099-12-31T23:59:59.000Z"
-  },
-  {
-    "fitur": "UserProfileDto.h",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
-    "methodName": "h",
-    "type": "I",
-    "defaultValue": "999"
-  },
-  {
-    "fitur": "UserProfileDto.S",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
-    "methodName": "S",
-    "type": "I",
-    "defaultValue": "999"
-  },
-  {
-    "fitur": "UserProfileXpDto.a",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileXpDto",
-    "methodName": "a",
-    "type": "I",
-    "defaultValue": "999"
-  },
-  {
-    "fitur": "UserProfileXpDto.w",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileXpDto",
-    "methodName": "w",
-    "type": "I",
-    "defaultValue": "999"
-  },
-  {
-    "fitur": "UserProfileXpDto.d",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileXpDto",
-    "methodName": "d",
-    "type": "I",
-    "defaultValue": "999999"
-  },
-  {
-    "fitur": "UserProfileXpDto.m",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileXpDto",
-    "methodName": "m",
-    "type": "I",
-    "defaultValue": "999999"
-  },
-  {
-    "fitur": "UserProfileXpDto.e",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileXpDto",
-    "methodName": "e",
-    "type": "I",
-    "defaultValue": "999999"
-  },
-  {
-    "fitur": "UserProfileXpDto.n",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileXpDto",
-    "methodName": "n",
-    "type": "I",
-    "defaultValue": "999999"
-  },
-  {
-    "fitur": "UserProgressSyncXpDto.b",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProgressSyncXpDto",
-    "methodName": "b",
-    "type": "I",
-    "defaultValue": "999999"
-  },
-  {
-    "fitur": "UserProgressSyncXpDto.j",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProgressSyncXpDto",
-    "methodName": "j",
-    "type": "I",
-    "defaultValue": "999999"
-  },
-  {
-    "fitur": "UserProgressSyncXpDto.c",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProgressSyncXpDto",
-    "methodName": "c",
-    "type": "I",
-    "defaultValue": "999"
-  },
-  {
-    "fitur": "UserProgressSyncXpDto.h",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProgressSyncXpDto",
-    "methodName": "h",
-    "type": "I",
-    "defaultValue": "999"
-  },
-  {
-    "fitur": "UserProgressSyncXpDto.d",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProgressSyncXpDto",
-    "methodName": "d",
-    "type": "I",
-    "defaultValue": "999999"
-  },
-  {
-    "fitur": "UserProgressSyncXpDto.k",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProgressSyncXpDto",
-    "methodName": "k",
-    "type": "I",
-    "defaultValue": "999999"
-  },
-  {
-    "fitur": "UserProgressSyncXpDto.e",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProgressSyncXpDto",
-    "methodName": "e",
-    "type": "I",
-    "defaultValue": "999"
-  },
-  {
-    "fitur": "UserProgressSyncXpDto.i",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.UserProgressSyncXpDto",
-    "methodName": "i",
-    "type": "I",
-    "defaultValue": "999"
-  },
-  {
-    "fitur": "ClanMemberUserDto.f",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.ClanMemberUserDto",
-    "methodName": "f",
-    "type": "Z",
-    "defaultValue": "true"
-  },
-  {
-    "fitur": "ClanMemberUserDto.s",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.ClanMemberUserDto",
-    "methodName": "s",
-    "type": "Z",
-    "defaultValue": "true"
-  },
-  {
-    "fitur": "ClanMemberUserDto.d",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.ClanMemberUserDto",
-    "methodName": "d",
-    "type": "I",
-    "defaultValue": "999"
-  },
-  {
-    "fitur": "ClanMemberUserDto.p",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.ClanMemberUserDto",
-    "methodName": "p",
-    "type": "I",
-    "defaultValue": "999"
-  },
-  {
-    "fitur": "AffinityLeaderboardUserDto.f",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.AffinityLeaderboardUserDto",
-    "methodName": "f",
-    "type": "Z",
-    "defaultValue": "true"
-  },
-  {
-    "fitur": "AffinityLeaderboardUserDto.o",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.AffinityLeaderboardUserDto",
-    "methodName": "o",
-    "type": "Z",
-    "defaultValue": "true"
-  },
-  {
-    "fitur": "AffinityPartnerDto.f",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.AffinityPartnerDto",
-    "methodName": "f",
-    "type": "Z",
-    "defaultValue": "true"
-  },
-  {
-    "fitur": "AffinityPartnerDto.s",
-    "className": "com.hxcorp.anibiplay.data.remote.dto.AffinityPartnerDto",
-    "methodName": "s",
-    "type": "Z",
-    "defaultValue": "true"
-  }
-]
+            {
+                "fitur": "UserDto.d",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
+                "methodName": "d",
+                "type": "Z",
+                "defaultValue": "true"
+            },
+            {
+                "fitur": "UserDto.N",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
+                "methodName": "N",
+                "type": "Z",
+                "defaultValue": "true"
+            },
+            {
+                "fitur": "UserDto.e",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
+                "methodName": "e",
+                "type": "Z",
+                "defaultValue": "true"
+            },
+            {
+                "fitur": "UserDto.O",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
+                "methodName": "O",
+                "type": "Z",
+                "defaultValue": "true"
+            },
+            {
+                "fitur": "UserDto.h",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
+                "methodName": "h",
+                "type": "Z",
+                "defaultValue": "true"
+            },
+            {
+                "fitur": "UserDto.i",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
+                "methodName": "i",
+                "type": "Z",
+                "defaultValue": "true"
+            },
+            {
+                "fitur": "UserDto.A",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
+                "methodName": "A",
+                "type": "Ljava/lang/String;",
+                "defaultValue": "2099-12-31T23:59:59.000Z"
+            },
+            {
+                "fitur": "UserDto.B",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
+                "methodName": "B",
+                "type": "Ljava/lang/String;",
+                "defaultValue": "2099-12-31T23:59:59.000Z"
+            },
+            {
+                "fitur": "UserDto.f",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
+                "methodName": "f",
+                "type": "Ljava/lang/String;",
+                "defaultValue": "2099-12-31T23:59:59.000Z"
+            },
+            {
+                "fitur": "UserDto.g",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
+                "methodName": "g",
+                "type": "Ljava/lang/String;",
+                "defaultValue": "2099-12-31T23:59:59.000Z"
+            },
+            {
+                "fitur": "UserDto.E",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
+                "methodName": "E",
+                "type": "I",
+                "defaultValue": "999"
+            },
+            {
+                "fitur": "UserDto.t",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
+                "methodName": "t",
+                "type": "I",
+                "defaultValue": "999"
+            },
+            {
+                "fitur": "UserDto.K",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
+                "methodName": "K",
+                "type": "I",
+                "defaultValue": "999"
+            },
+            {
+                "fitur": "UserDto.b",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserDto",
+                "methodName": "b",
+                "type": "I",
+                "defaultValue": "999"
+            },
+            {
+                "fitur": "UserProfileDto.b",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
+                "methodName": "b",
+                "type": "Z",
+                "defaultValue": "true"
+            },
+            {
+                "fitur": "UserProfileDto.c",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
+                "methodName": "c",
+                "type": "Z",
+                "defaultValue": "true"
+            },
+            {
+                "fitur": "UserProfileDto.i0",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
+                "methodName": "i0",
+                "type": "Z",
+                "defaultValue": "true"
+            },
+            {
+                "fitur": "UserProfileDto.h0",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
+                "methodName": "h0",
+                "type": "Z",
+                "defaultValue": "true"
+            },
+            {
+                "fitur": "UserProfileDto.d",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
+                "methodName": "d",
+                "type": "Ljava/lang/String;",
+                "defaultValue": "2099-12-31T23:59:59.000Z"
+            },
+            {
+                "fitur": "UserProfileDto.e",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
+                "methodName": "e",
+                "type": "Ljava/lang/String;",
+                "defaultValue": "2099-12-31T23:59:59.000Z"
+            },
+            {
+                "fitur": "UserProfileDto.V",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
+                "methodName": "V",
+                "type": "Ljava/lang/String;",
+                "defaultValue": "2099-12-31T23:59:59.000Z"
+            },
+            {
+                "fitur": "UserProfileDto.W",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
+                "methodName": "W",
+                "type": "Ljava/lang/String;",
+                "defaultValue": "2099-12-31T23:59:59.000Z"
+            },
+            {
+                "fitur": "UserProfileDto.h",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
+                "methodName": "h",
+                "type": "I",
+                "defaultValue": "999"
+            },
+            {
+                "fitur": "UserProfileDto.S",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileDto",
+                "methodName": "S",
+                "type": "I",
+                "defaultValue": "999"
+            },
+            {
+                "fitur": "UserProfileXpDto.a",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileXpDto",
+                "methodName": "a",
+                "type": "I",
+                "defaultValue": "999"
+            },
+            {
+                "fitur": "UserProfileXpDto.w",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileXpDto",
+                "methodName": "w",
+                "type": "I",
+                "defaultValue": "999"
+            },
+            {
+                "fitur": "UserProfileXpDto.d",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileXpDto",
+                "methodName": "d",
+                "type": "I",
+                "defaultValue": "999999"
+            },
+            {
+                "fitur": "UserProfileXpDto.m",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileXpDto",
+                "methodName": "m",
+                "type": "I",
+                "defaultValue": "999999"
+            },
+            {
+                "fitur": "UserProfileXpDto.e",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileXpDto",
+                "methodName": "e",
+                "type": "I",
+                "defaultValue": "999999"
+            },
+            {
+                "fitur": "UserProfileXpDto.n",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProfileXpDto",
+                "methodName": "n",
+                "type": "I",
+                "defaultValue": "999999"
+            },
+            {
+                "fitur": "UserProgressSyncXpDto.b",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProgressSyncXpDto",
+                "methodName": "b",
+                "type": "I",
+                "defaultValue": "999999"
+            },
+            {
+                "fitur": "UserProgressSyncXpDto.j",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProgressSyncXpDto",
+                "methodName": "j",
+                "type": "I",
+                "defaultValue": "999999"
+            },
+            {
+                "fitur": "UserProgressSyncXpDto.c",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProgressSyncXpDto",
+                "methodName": "c",
+                "type": "I",
+                "defaultValue": "999"
+            },
+            {
+                "fitur": "UserProgressSyncXpDto.h",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProgressSyncXpDto",
+                "methodName": "h",
+                "type": "I",
+                "defaultValue": "999"
+            },
+            {
+                "fitur": "UserProgressSyncXpDto.d",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProgressSyncXpDto",
+                "methodName": "d",
+                "type": "I",
+                "defaultValue": "999999"
+            },
+            {
+                "fitur": "UserProgressSyncXpDto.k",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProgressSyncXpDto",
+                "methodName": "k",
+                "type": "I",
+                "defaultValue": "999999"
+            },
+            {
+                "fitur": "UserProgressSyncXpDto.e",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProgressSyncXpDto",
+                "methodName": "e",
+                "type": "I",
+                "defaultValue": "999"
+            },
+            {
+                "fitur": "UserProgressSyncXpDto.i",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.UserProgressSyncXpDto",
+                "methodName": "i",
+                "type": "I",
+                "defaultValue": "999"
+            },
+            {
+                "fitur": "ClanMemberUserDto.f",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.ClanMemberUserDto",
+                "methodName": "f",
+                "type": "Z",
+                "defaultValue": "true"
+            },
+            {
+                "fitur": "ClanMemberUserDto.s",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.ClanMemberUserDto",
+                "methodName": "s",
+                "type": "Z",
+                "defaultValue": "true"
+            },
+            {
+                "fitur": "ClanMemberUserDto.d",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.ClanMemberUserDto",
+                "methodName": "d",
+                "type": "I",
+                "defaultValue": "999"
+            },
+            {
+                "fitur": "ClanMemberUserDto.p",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.ClanMemberUserDto",
+                "methodName": "p",
+                "type": "I",
+                "defaultValue": "999"
+            },
+            {
+                "fitur": "AffinityLeaderboardUserDto.f",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.AffinityLeaderboardUserDto",
+                "methodName": "f",
+                "type": "Z",
+                "defaultValue": "true"
+            },
+            {
+                "fitur": "AffinityLeaderboardUserDto.o",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.AffinityLeaderboardUserDto",
+                "methodName": "o",
+                "type": "Z",
+                "defaultValue": "true"
+            },
+            {
+                "fitur": "AffinityPartnerDto.f",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.AffinityPartnerDto",
+                "methodName": "f",
+                "type": "Z",
+                "defaultValue": "true"
+            },
+            {
+                "fitur": "AffinityPartnerDto.s",
+                "className": "com.hxcorp.anibiplay.data.remote.dto.AffinityPartnerDto",
+                "methodName": "s",
+                "type": "Z",
+                "defaultValue": "true"
+            }
+        ],
+        "hookEnabled": true
     },
     {
         "name": "Keyflow",
