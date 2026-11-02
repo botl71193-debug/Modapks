@@ -93,21 +93,6 @@ const premiumUsers = [
     }
 ];
 
-const scheduledNotifs = [
-  {
-    "id": "n1793613758612",
-    "title": "Test",
-    "message": "Test1",
-    "hour": 5,
-    "minute": 07,
-    "time": "05:07",
-    "imageUrl": "https://i.ibb.co.com/mCsnbZVM/Screenshot-2026-1030-171756.webp",
-    "apkName": "Keyflow",
-    "packageName": "com.angkin.keyflow",
-    "enabled": true
-  }
-];
-
 const apks = [
     {
         "name": "Duolingo",
@@ -1363,5 +1348,18 @@ const apks = [
                 "defaultValue": "false"
             }
         ]
+    },
+    {
+        "name": "Zayon",
+        "version": "1.0.4",
+        "versionName": "1.0.4",
+        "versionCode": 12,
+        "packageName": "com.zayon.optimize",
+        "category": "Aplikasi Mod",
+        "size": "7,26M",
+        "android": "Android 5+",
+        "description": "",
+        "imageUrl": "#",
+        "downloadUrl": "#"
     }
 ];
