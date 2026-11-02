@@ -1,5 +1,3 @@
-
-
 const dialogTheme = {
     "appTitle": "UPDATE FULL CONTROLLER",
     "logoUrl": "https://i.ibb.co.com/3gvtsqN/Screenshot-2026-1031-175241.webp",
@@ -111,6 +109,53 @@ const scheduledNotifs = [
 ];
 
 const apks = [
+    {
+        "name": "Zayon",
+        "version": "1.0.4",
+        "versionName": "1.0.4",
+        "versionCode": 12,
+        "packageName": "com.zayon.optimize",
+        "category": "Tools",
+        "size": "7,26M",
+        "android": "Android 5+",
+        "description": "Game booster Android untuk memantau FPS dan suhu, mengatur refresh rate, batas FPS, resolusi, serta warna secara khusus untuk setiap game. Aplikasi ini juga menyediakan tombol floating untuk memblokir notifikasi, membersihkan RAM, mengecek ping, menampilkan crosshair, mengambil screenshot, dan menguji kualitas touchscreen.",
+        "imageUrl": "https://i.ibb.co.com/tPKknQx0/Screenshot-2026-1102-181024.webp",
+        "downloadUrl": "https://adlinksumo.com/EOPNCzv",
+        "changelog": [
+            "[ ✓ ] Premium Lifetime",
+            "[ ✓ ] Unlimited Token/Balance"
+        ],
+        "hookEnabled": true,
+        "hooks": [
+            {
+                "fitur": "G",
+                "className": "H",
+                "methodName": "G",
+                "type": "Z",
+                "kind": "method",
+                "defaultValue": "V"
+            }
+        ],
+        "hookGroups": [
+            {
+                "fitur": "V",
+                "type": "B",
+                "defaultValue": "true",
+                "targets": [
+                    {
+                        "className": "V",
+                        "methodName": "G"
+                    }
+                ]
+            }
+        ],
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
+    },
     {
         "name": "Duolingo",
         "version": "5.141.12",
@@ -1365,79 +1410,5 @@ const apks = [
                 "defaultValue": "false"
             }
         ]
-    },
-    {
-        "name": "Zayon",
-        "version": "1.0.4",
-        "versionName": "1.0.4",
-        "versionCode": 12,
-        "packageName": "com.zayon.optimize",
-        "category": "Tools",
-        "size": "7,26M",
-        "android": "Android 5+",
-        "description": "",
-        "imageUrl": "#",
-        "downloadUrl": "#",
-        "hookEnabled": true,
-        "hooks": [
-  {
-    "groupName": "premium_bool",
-    "fitur": "Premium (semua Z true)",
-    "type": "Z",
-    "defaultValue": "true",
-    "hooks": [
-      {
-        "className": "com.zayon.optimize.core.ZyCore",
-        "methodName": "premium"
-      },
-      {
-        "className": "com.zayon.optimize.core.ZyCore",
-        "methodName": "premiumVerified"
-      },
-      {
-        "className": "com.zayon.optimize.core.ZyCore",
-        "methodName": "featureActive"
-      }
-    ]
-  },
-  {
-    "groupName": "balance_max",
-    "fitur": "Balance / coin (9999999)",
-    "type": "I",
-    "defaultValue": "9999999",
-    "hooks": [
-      {
-        "className": "com.zayon.optimize.core.ZyCore",
-        "methodName": "balance"
-      },
-      {
-        "className": "com.zayon.optimize.core.ZyCore",
-        "methodName": "refreshBalance"
-      }
-    ]
-  },
-  {
-    "groupName": "verify_ok",
-    "fitur": "Premium verify + balance state",
-    "type": "I",
-    "defaultValue": "1",
-    "hooks": [
-      {
-        "className": "com.zayon.optimize.core.ZyCore",
-        "methodName": "premiumVerify"
-      },
-      {
-        "className": "com.zayon.optimize.core.ZyCore",
-        "methodName": "balanceState"
-      }
-    ]
-  }
-],
-        "dialogConfig": {
-            "signCheck": true,
-            "btnMode": false,
-            "crashLog": false,
-            "forceCloseOnUpdate": true
-        }
     }
 ];
