@@ -93,8 +93,6 @@ const premiumUsers = [
     }
 ];
 
-const scheduledNotifs = [];
-
 const apks = [
     {
         "name": "Zayon",
@@ -1383,7 +1381,7 @@ const apks = [
             "crashLog": true,
             "forceCloseOnUpdate": true
         },
-        "hookEnabled": true,
+        "hookEnabled": false,
         "hooks": [
             {
                 "fitur": "Premium Status",
