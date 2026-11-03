@@ -102,7 +102,7 @@ const apks = [
         "android": "Android 5+",
         "description": "Aplikasi alternatif pemutar musik Spotify dengan fitur Premium terbuka.",
         "imageUrl": "https://i.ibb.co.com/6R4bXjvW/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/v3op7b",
+        "downloadUrl": "https://adlinksumo.com/WMgdOky",
         "packageName": "com.skiy.lane",
         "versionName": "1.4.7",
         "versionCode": 207,
