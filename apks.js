@@ -107,7 +107,9 @@ const apks = [
         "versionName": "1.4.7",
         "versionCode": 207,
         "changelog": [
-            "[ + ] Penambahan system hook"
+            "[ + ] Premium Lifetime",
+            "[ + ] Support reso audio High",
+            "[ + ] Support Lyric"
         ],
         "dialogConfig": {
             "signCheck": true,
@@ -149,19 +151,20 @@ const apks = [
     },
     {
         "name": "Zayon",
-        "version": "1.0.4",
-        "versionName": "1.0.4",
-        "versionCode": 12,
+        "version": "1.0.5",
+        "versionName": "1.0.5",
+        "versionCode": 13,
         "packageName": "com.zayon.optimize",
         "category": "Tools",
-        "size": "7,26M",
+        "size": "8,73M",
         "android": "Android 5+",
         "description": "Game booster Android untuk memantau FPS dan suhu, mengatur refresh rate, batas FPS, resolusi, serta warna secara khusus untuk setiap game. Aplikasi ini juga menyediakan tombol floating untuk memblokir notifikasi, membersihkan RAM, mengecek ping, menampilkan crosshair, mengambil screenshot, dan menguji kualitas touchscreen.",
         "imageUrl": "https://i.ibb.co.com/tPKknQx0/Screenshot-2026-1102-181024.webp",
-        "downloadUrl": "https://adlinksumo.com/EOPNCzv",
+        "downloadUrl": "https://adlinksumo.com/TDdy",
         "changelog": [
             "[ ✓ ] Premium Lifetime",
-            "[ ✓ ] Unlimited Token/Balance"
+            "[ ✓ ] Unlimited Token/Balance",
+            "[ ✓ ] Bypas Update"
         ],
         "dialogConfig": {
             "signCheck": true,
