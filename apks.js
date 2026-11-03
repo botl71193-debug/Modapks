@@ -170,7 +170,7 @@ const apks = [
             "signCheck": true,
             "btnMode": false,
             "crashLog": false,
-            "forceCloseOnUpdate": true
+            "forceCloseOnUpdate": false
         }
     },
     {
