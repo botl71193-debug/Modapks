@@ -160,7 +160,7 @@ const apks = [
         "android": "Android 5+",
         "description": "Game booster Android untuk memantau FPS dan suhu, mengatur refresh rate, batas FPS, resolusi, serta warna secara khusus untuk setiap game. Aplikasi ini juga menyediakan tombol floating untuk memblokir notifikasi, membersihkan RAM, mengecek ping, menampilkan crosshair, mengambil screenshot, dan menguji kualitas touchscreen.",
         "imageUrl": "https://i.ibb.co.com/tPKknQx0/Screenshot-2026-1102-181024.webp",
-        "downloadUrl": "https://adlinksumo.com/TDdy",
+        "downloadUrl": "https://adlinksumo.com/BkMP2",
         "changelog": [
             "[ ✓ ] Premium Lifetime",
             "[ ✓ ] Unlimited Token/Balance",
