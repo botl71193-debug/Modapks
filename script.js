@@ -1,19 +1,4 @@
 const rahasiaHTML = `
-<style>
-.apk-card{position:relative}
-.apk-card-gear{
-  position:absolute;top:8px;right:8px;z-index:5;
-  width:32px;height:32px;border-radius:8px;cursor:pointer;
-  background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.12);
-  color:#e2e8f0;font-size:16px;display:flex;align-items:center;justify-content:center;
-  transition:all .2s;
-}
-.apk-card-gear:hover{background:rgba(168,85,247,0.35);border-color:#a855f7;color:#fff;transform:rotate(45deg)}
-.hook-group-targets{display:flex;flex-direction:column;gap:6px;margin-top:6px}
-.hook-group-target-row{display:flex;gap:6px;align-items:center}
-.hook-group-target-row input{flex:1;min-width:0}
-</style>
-
 <div class="navbar">
   <div class="navbar-left"><button class="menu-toggle" onclick="handleSidebarDisplay()">☰</button></div>
   <div class="logo-box"><img class="logo" src="https://diverse-aqua-iq7wghij.edgeone.app/M.png" alt="MMK"><span class="main-title">MMK | MODS</span></div>
@@ -56,9 +41,7 @@ const rahasiaHTML = `
   </ul>
   <div class="sidebar-divider"></div>
   <div class="sidebar-label">Interaksi Komunitas</div>
-  <ul class="sidebar-menu-list"><li><div class="sidebar-item-btn" style="border-color: #0ea5e9; background: rgba(14,165,233,0.1);" onclick="openRequestModModal()">Request Mod Aplikasi</div></li>
-    <li class="dev-only-block notif-admin-only" style="display:none;"><div class="sidebar-item-btn" style="border-color: #f59e0b; background: rgba(245,158,11,0.12);" onclick="openNotifScheduleModal()">🔔 Send Notif</div></li>
-</ul>
+  <ul class="sidebar-menu-list"><li><div class="sidebar-item-btn" style="border-color: #0ea5e9; background: rgba(14,165,233,0.1);" onclick="openRequestModModal()">Request Mod Aplikasi</div></li></ul>
   <div class="sidebar-divider dev-only-block"></div>
   <div class="sidebar-label dev-only-block" style="color: var(--dev-color);">Dev Full Database Tool</div>
   <ul class="sidebar-menu-list dev-only-block">
@@ -92,56 +75,7 @@ const rahasiaHTML = `
   <div id="logoutFormState" style="display:none; text-align:center;"><p id="authActiveModeText" style="color:var(--accent); margin-bottom:20px; font-size:0.9rem; font-weight:bold;"></p><button class="download-action-btn" style="background:#ef4444" onclick="processAuthLogout()">LOGOUT</button></div>
 </div>
 
-
-<div class="modal-box" id="notifScheduleModal" style="max-width:480px;width:94%;max-height:90vh;overflow-y:auto;">
-  <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
-  <h3 style="margin-bottom:12px;color:#f59e0b;font-size:1.1rem;border-bottom:1px solid rgba(245,158,11,0.3);padding-bottom:8px;">🔔 Send Notification</h3>
-  <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:12px;line-height:1.4;">Jadwalkan notifikasi ke APK. App akan minta izin notifikasi, lalu menampilkan di status bar sesuai jam.</p>
-  
-  <div class="form-group" style="margin-bottom:10px;">
-    <label>Judul notif</label>
-    <input type="text" id="notifTitle" placeholder="Update tersedia" style="background:#020205;border:1px solid rgba(245,158,11,0.35);border-radius:8px;padding:10px 12px;color:#fff;width:100%;">
-  </div>
-  <div class="form-group" style="margin-bottom:10px;">
-    <label>Pesan</label>
-    <textarea id="notifMessage" rows="3" placeholder="Versi baru siap diunduh..." style="background:#020205;border:1px solid rgba(245,158,11,0.35);border-radius:8px;padding:10px 12px;color:#fff;width:100%;resize:vertical;"></textarea>
-  </div>
-  <div class="form-group" style="margin-bottom:10px;">
-    <label>Jam tampil (jam:menit)</label>
-    <div style="display:flex;gap:8px;align-items:center;">
-      <input type="number" id="notifHour" min="0" max="23" value="9" style="width:72px;background:#020205;border:1px solid rgba(245,158,11,0.35);border-radius:8px;padding:10px;color:#fff;text-align:center;">
-      <span style="color:#fff;font-weight:700;">:</span>
-      <input type="number" id="notifMinute" min="0" max="59" value="0" style="width:72px;background:#020205;border:1px solid rgba(245,158,11,0.35);border-radius:8px;padding:10px;color:#fff;text-align:center;">
-      <span style="font-size:0.72rem;color:var(--text-muted);">24 jam</span>
-    </div>
-  </div>
-  <div class="form-group" style="margin-bottom:10px;">
-    <label>Sematkan APK (opsional — gambar notif)</label>
-    <select id="notifApkSelect" style="background:#020205;border:1px solid rgba(245,158,11,0.35);border-radius:8px;padding:10px 12px;color:#fff;width:100%;">
-      <option value="">— Tidak ada —</option>
-    </select>
-    <div id="notifApkPreview" style="margin-top:8px;display:none;align-items:center;gap:10px;">
-      <img id="notifApkImg" src="" alt="" style="width:48px;height:48px;border-radius:10px;object-fit:cover;background:#111;">
-      <span id="notifApkName" style="font-size:0.82rem;color:#fff;"></span>
-    </div>
-  </div>
-  <div class="form-group" style="margin-bottom:10px;">
-    <label>Package target (kosong = semua APK terdaftar)</label>
-    <input type="text" id="notifPackage" placeholder="com.example.application" style="background:#020205;border:1px solid rgba(245,158,11,0.35);border-radius:8px;padding:10px 12px;color:#fff;width:100%;font-family:monospace;font-size:0.8rem;">
-  </div>
-  <div class="form-group" style="margin-bottom:12px;">
-    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
-      <input type="checkbox" id="notifEnabled" checked>
-      <span>Aktif</span>
-    </label>
-  </div>
-  <button class="download-action-btn" style="background:linear-gradient(135deg,#f59e0b,#d97706);margin-bottom:10px;" onclick="saveNotifSchedule()">💾 Simpan ke jadwal</button>
-  <button class="action-trigger-btn" style="width:100%;margin-bottom:12px;" onclick="exportNotifWithApks()">📤 Ekspor apks.js (+ notif)</button>
-  <div class="theme-section-title" style="margin-top:8px;">Jadwal tersimpan</div>
-  <div id="notifScheduleList" style="display:flex;flex-direction:column;gap:8px;max-height:180px;overflow-y:auto;"></div>
-</div>
-
-<div class="modal-box dev-panel-modal" id="themeEditorModal" style="max-height:94vh;overflow-y:auto;width:96%;max-width:1100px;">
+<div class="modal-box dev-panel-modal" id="themeEditorModal" style="max-height:92vh;overflow-y:auto;width:95%;max-width:600px;">
   <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
   <h3 style="margin-bottom:14px;color:#fbbf24;font-size:1.15rem;border-bottom:1px solid rgba(251,191,36,0.3);padding-bottom:10px;">🎨 Dialog Theme Editor</h3>
   
@@ -151,8 +85,6 @@ const rahasiaHTML = `
       <button class="preview-state-btn" data-pstate="mode2" onclick="changePreviewState('mode2')">Mode 2</button>
       <button class="preview-state-btn" data-pstate="mode3" onclick="changePreviewState('mode3')">Mode 3</button>
       <button class="preview-state-btn" data-pstate="sigWarn" onclick="changePreviewState('sigWarn')">SigWarn</button>
-      <button class="preview-state-btn" data-pstate="fab" onclick="changePreviewState('fab')">FAB</button>
-      <button class="preview-state-btn" data-pstate="panel" onclick="changePreviewState('panel')">Panel</button>
     </div>
     <div id="themePreviewFrame" style="display:flex;justify-content:center;"></div>
   </div>
@@ -160,44 +92,10 @@ const rahasiaHTML = `
   <div class="theme-tab-bar">
     <button id="tabSimple" class="active" onclick="switchThemeTab('simple')">📝 Simpel</button>
     <button id="tabStrings" onclick="switchThemeTab('strings')">🔤 Strings</button>
-    <button id="tabVisual" onclick="switchThemeTab('visual')">🖼️ Visual</button>
     <button id="tabJson" onclick="switchThemeTab('json')">🔧 Advance</button>
   </div>
 
-  <div id="themeVisualTab" style="display:none;">
-    <style>
-      #themePreviewFrame [data-vde]{cursor:pointer;transition:outline .15s}
-      #themePreviewFrame [data-vde]:hover{outline:1px dashed rgba(74,158,255,.5);outline-offset:2px}
-      #themePreviewFrame [data-vde].vde-selected{outline:2px solid #4a9eff!important;outline-offset:2px}
-      .vde-side{background:#0f0f0f;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px;margin-top:10px}
-      .vde-side h4{font-size:12px;color:#4a9eff;margin:0 0 8px}
-      .vde-fld{margin-bottom:8px}
-      .vde-fld label{display:block;font-size:10px;color:rgba(255,255,255,.45);margin-bottom:4px}
-      .vde-fld input[type=text],.vde-fld textarea,.vde-fld select{width:100%;padding:7px 8px;background:#020205;border:1px solid rgba(74,158,255,.3);border-radius:6px;color:#fff;font-size:12px}
-      .vde-fld input[type=color]{width:100%;height:32px;border:1px solid rgba(255,255,255,.1);border-radius:6px;background:transparent}
-      .vde-fld input[type=range]{width:100%;accent-color:#4a9eff}
-      .vde-row{display:flex;gap:8px}
-      .vde-row .vde-fld{flex:1}
-      .vde-rval{color:#4a9eff;font-size:10px;font-weight:600}
-      .vde-actions{display:flex;gap:8px;margin-top:8px}
-      .vde-actions button{flex:1;padding:9px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff}
-      .vde-actions .save{background:rgba(74,158,255,.25);border-color:#4a9eff;color:#93c5fd}
-      .vde-empty{color:rgba(255,255,255,.35);font-size:12px;text-align:center;padding:16px 8px}
-    </style>
-    <p style="font-size:0.78rem;color:var(--text-muted);margin:0 0 8px;line-height:1.4;">
-      Gunakan preview <b>di atas</b> (Mode 1/2/3 / SigWarn / FAB / Panel). Ketuk elemen untuk edit. Lalu Apply ke Theme.
-    </p>
-    <div class="vde-side">
-      <h4 id="vdeEditorSubtitle">No Selection</h4>
-      <div id="vdeEditorBody"><div class="vde-empty">👆 Ketuk elemen di preview atas</div></div>
-      <div class="vde-actions">
-        <button type="button" onclick="vdeResetStyles()">Reset</button>
-        <button type="button" class="save" onclick="vdeApplyToTheme()">💾 Apply ke Theme</button>
-      </div>
-    </div>
-  </div>
-
-<div id="themeSimpleTab">
+  <div id="themeSimpleTab">
     <div class="theme-section-title">🎨 Branding</div>
     <div class="form-group" style="margin-bottom:10px;"><label>App Title</label><input type="text" id="thAppTitle" oninput="renderThemePreview(currentPreviewState)" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;"></div>
     <div class="form-group" style="margin-bottom:10px;"><label>Logo URL</label><input type="text" id="thLogoUrl" oninput="renderThemePreview(currentPreviewState)" style="background:#020205;border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:10px 12px;color:#fff;font-family:monospace;"></div>
@@ -568,314 +466,26 @@ function changePreviewState(state) { currentPreviewState = state; document.query
 function renderThemePreview(state) {
     const frame = document.getElementById('themePreviewFrame'); if (!frame) return; const theme = getThemeFromFormNow();
     frame.style.setProperty('--bg', theme.colorBg); frame.style.setProperty('--card', theme.colorCard); frame.style.setProperty('--accent', theme.colorAccent); frame.style.setProperty('--danger', theme.colorDanger); frame.style.setProperty('--success', theme.colorSuccess); frame.style.setProperty('--warning', theme.colorWarning); frame.style.setProperty('--hook', theme.colorHook); frame.style.setProperty('--gold', theme.colorGold); frame.style.setProperty('--border', theme.colorBorder); frame.style.setProperty('--border-strong', theme.colorBorderStrong); frame.style.setProperty('--text', theme.colorText); frame.style.setProperty('--text-dim', theme.colorTextDim); frame.style.setProperty('--text-muted', theme.colorTextMuted);
-    frame.style.fontFamily = "'" + theme.fontMain + "', system-ui, sans-serif";
-    frame.innerHTML = buildPreviewCard(state, theme);
-    setTimeout(function() {
-      if (typeof vdeApplyStoredStyles === 'function') vdeApplyStoredStyles();
-      if (typeof vdeBindPreviewClicks === 'function') vdeBindPreviewClicks();
-    }, 30);
+    frame.style.fontFamily = "'" + theme.fontMain + "', system-ui, sans-serif"; frame.innerHTML = buildPreviewCard(state, theme);
 }
 function buildPreviewCard(state, theme) {
-    const txt = theme.text || {};
-    const T = (k, fb) => (txt[k] || fb);
-    const logoUrl = theme.logoUrl || 'https://i.ibb.co.com/fdKWDJJT/image.webp';
-    const appName = 'My App Premium', version = 'v2.5.4', oldVersion = 'v2.0.0', pkg = 'com.myapp.premium';
-    const D = (id) => ' data-vde="' + id + '"';
-
-    if (state === 'mode1') return `<div class="theme-prev-card yellow-accent"${D('card')}><div class="theme-prev-header"${D('header')}><div class="theme-prev-logo"${D('logo')}><img src="${logoUrl}" onerror="this.style.display='none'"><div class="theme-prev-badge warn"${D('badge')}>?</div></div><div class="theme-prev-info-block"${D('info')}><div class="theme-prev-title"${D('title')}>${appName}</div><div class="theme-prev-meta"${D('meta')}>${version} • ${pkg}</div></div><div class="theme-prev-pill warn"${D('pill')}>Unknown</div></div><div class="theme-prev-info-box"${D('infobox')}><div class="theme-prev-info-icon"${D('infoicon')}>⚠</div><div class="theme-prev-info-title"${D('infotitle')}>${T('mode1Title','Tidak Terdaftar')}</div><div class="theme-prev-info-desc"${D('infodesc')}>${T('mode1Message','Aplikasi tidak ditemukan dalam database pembaruan.')}</div></div><button class="theme-prev-btn danger" style="width:100%;"${D('btnClose')}>${T('mode1CloseBtn','Tutup (FC)')}</button></div>`;
-
-    if (state === 'mode2') return `<div class="theme-prev-card green-accent"${D('card')}><div class="theme-prev-header"${D('header')}><div class="theme-prev-logo"${D('logo')}><img src="${logoUrl}" onerror="this.style.display='none'"><div class="theme-prev-badge success"${D('badge')}>✓</div></div><div class="theme-prev-info-block"${D('info')}><div class="theme-prev-title"${D('title')}>${appName}</div><div class="theme-prev-meta"${D('meta')}>${version} • ${pkg}</div></div><div class="theme-prev-pill success"${D('pill')}>${T('mode2Status','Latest')}</div></div><div class="theme-prev-section-title"${D('section')}>${T('mode2ChangelogTitle','Changelog')}</div><div class="theme-prev-changelog"${D('changelog')}><div>Fix bug</div><div>New UI</div><div>Android 14 support</div></div><button class="theme-prev-more"${D('btnMore')}>${T('mode2MoreBtn','More')}</button><button class="theme-prev-moreapp"${D('btnMoreApps')}>${T('mode2MoreApps','More Apps')}</button><div class="theme-prev-btnrow"${D('btnrow')}><button class="theme-prev-btn hook"${D('btnHook')}>${T('mode2HookBtn','Hook')}</button><button class="theme-prev-btn ghost"${D('btnJoin')}>${T('mode2JoinBtn','Join')}</button><button class="theme-prev-btn primary"${D('btnClose')}>${T('mode2CloseBtn','Tutup')}</button></div></div>`;
-
-    if (state === 'mode3') return `<div class="theme-prev-card red-accent"${D('card')}><div class="theme-prev-header"${D('header')}><div class="theme-prev-logo"${D('logo')}><img src="${logoUrl}" onerror="this.style.display='none'"><div class="theme-prev-badge danger"${D('badge')}>!</div></div><div class="theme-prev-info-block"${D('info')}><div class="theme-prev-title"${D('title')}>${appName}</div><div class="theme-prev-meta"${D('meta')}>${oldVersion} → <span style="color:var(--success)">${version}</span></div></div><div class="theme-prev-pill danger"${D('pill')}>Update</div></div><div class="theme-prev-info-box"${D('infobox')}><div class="theme-prev-info-icon danger"${D('infoicon')}>↓</div><div class="theme-prev-info-title"${D('infotitle')}>${T('mode3UpdateTitle','Update Tersedia')}</div><div class="theme-prev-info-desc"${D('infodesc')}>${T('mode3UpdateMsg','Versi ' + version + ' siap diunduh')}</div></div><button class="theme-prev-btn primary" style="width:100%;"${D('btnUpdate')}>${T('mode3UpdateBtn','Update ke {version}').replace(/\{version\}/g, version)}</button><button class="theme-prev-btn gold" style="width:100%;margin-top:8px;"${D('btnUpdateV2')}>${T('mode3UpdateV2Btn','Update V2 (Direct)')}</button><div class="theme-prev-btnrow" style="margin-top:8px;"${D('btnrow')}><button class="theme-prev-btn hook"${D('btnHook')}>${T('mode3HookBtn','Hook')}</button><button class="theme-prev-btn ghost"${D('btnJoin')}>${T('mode3JoinBtn','Join')}</button><button class="theme-prev-btn danger"${D('btnClose')}>${T('mode3CloseFCBtn','Closed')}</button></div></div>`;
-
-    if (state === 'sigWarn') return `<div class="theme-prev-card red-accent"${D('card')}><div class="theme-prev-header"${D('header')}><div class="theme-prev-logo"${D('logo')}><div class="theme-prev-icon-big"${D('icon')}>⚠</div><div class="theme-prev-badge danger"${D('badge')}>!</div></div><div class="theme-prev-info-block"${D('info')}><div class="theme-prev-title"${D('title')}>${T('sigWarnTitle','Security Warning')}</div><div class="theme-prev-meta danger"${D('meta')}>${T('sigWarnSubtitle','Invalid App Signature')}</div></div><div class="theme-prev-pill danger"${D('pill')}>${T('sigWarnStatus','Locked')}</div></div><div class="theme-prev-info-box danger-border"${D('infobox')}><div class="theme-prev-info-icon danger"${D('infoicon')}>⚠</div><div class="theme-prev-info-title danger"${D('infotitle')}>${T('sigWarnInfoTitle','Signature Mismatch')}</div><div class="theme-prev-info-desc"${D('infodesc')}>${T('sigWarnInfoText','Aplikasi ini tidak cocok dengan rilis resmi.')}</div></div><div class="theme-prev-btnrow"${D('btnrow')}><button class="theme-prev-btn ghost"${D('btnJoin')}>${T('sigWarnJoinBtn','Join')}</button><button class="theme-prev-btn primary"${D('btnDownload')}>${T('sigWarnDownloadBtn','Download Official')}</button></div></div>`;
-
-    if (state === 'fab') return `<div style="position:relative;width:100%;min-height:180px;background:rgba(255,255,255,0.03);border-radius:12px;border:1px dashed rgba(255,255,255,0.12);"${D('fabStage')}>
-      <div style="position:absolute;bottom:16px;right:16px;width:52px;height:52px;border-radius:50%;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.45);border:2px solid rgba(255,255,255,0.15);"${D('fab')}>
-        <img src="${logoUrl}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.style.background='linear-gradient(135deg,#7c3aed,#2563eb)'"${D('fabImg')}>
-      </div>
-      <div style="padding:16px;color:rgba(255,255,255,0.4);font-size:12px;"${D('fabHint')}>Preview FAB — ketuk lingkaran untuk edit ukuran/warna/border</div>
-    </div>`;
-
-    if (state === 'panel') return `<div class="theme-prev-card"${D('card')} style="max-width:280px;">
-      <div class="theme-prev-header"${D('header')}>
-        <div class="theme-prev-logo"${D('logo')}><img src="${logoUrl}" onerror="this.style.display='none'"><div class="theme-prev-badge success"${D('badge')}>✓</div></div>
-        <div class="theme-prev-info-block"${D('info')}><div class="theme-prev-title"${D('title')}>${appName}</div><div class="theme-prev-meta"${D('meta')}>${version}</div><div class="theme-prev-meta"${D('package')}>${pkg}</div></div>
-      </div>
-      <div class="theme-prev-section-title"${D('section')}>MOD FEATURES</div>
-      <div class="theme-prev-changelog"${D('features')} style="max-height:120px;">
-        <div style="display:flex;justify-content:space-between;padding:6px 0;"${D('feat1')}><span>✓ Premium</span><span style="opacity:.4">Z</span></div>
-        <div style="display:flex;justify-content:space-between;padding:6px 0;"${D('feat2')}><span>✓ Unlimited</span><span style="opacity:.4">J</span></div>
-      </div>
-      <div class="theme-prev-btnrow" style="margin-top:10px;"${D('btnrow')}>
-        <button class="theme-prev-btn primary"${D('btnSave')}>Save</button>
-        <button class="theme-prev-btn ghost"${D('btnClose')}>Tutup</button>
-      </div>
-    </div>`;
-
+    const txt = theme.text || {}; const T = (k, fb) => (txt[k] || fb); const logoUrl = theme.logoUrl || 'https://i.ibb.co.com/fdKWDJJT/image.webp'; const appName = 'My App Premium', version = 'v2.5.4', oldVersion = 'v2.0.0', pkg = 'com.myapp.premium';
+    if (state === 'mode1') return `<div class="theme-prev-card yellow-accent"><div class="theme-prev-header"><div class="theme-prev-logo"><img src="${logoUrl}" onerror="this.style.display='none'"><div class="theme-prev-badge warn">?</div></div><div class="theme-prev-info-block"><div class="theme-prev-title">${appName}</div><div class="theme-prev-meta">${version} • ${pkg}</div></div><div class="theme-prev-pill warn">Unknown</div></div><div class="theme-prev-info-box"><div class="theme-prev-info-icon">⚠</div><div class="theme-prev-info-title">${T('mode1Title','Tidak Terdaftar')}</div><div class="theme-prev-info-desc">${T('mode1Message','Aplikasi tidak ditemukan dalam database pembaruan.')}</div></div><button class="theme-prev-btn danger" style="width:100%;">${T('mode1CloseBtn','Tutup (FC)')}</button></div>`;
+    if (state === 'mode2') return `<div class="theme-prev-card green-accent"><div class="theme-prev-header"><div class="theme-prev-logo"><img src="${logoUrl}" onerror="this.style.display='none'"><div class="theme-prev-badge success">✓</div></div><div class="theme-prev-info-block"><div class="theme-prev-title">${appName}</div><div class="theme-prev-meta">${version} • ${pkg}</div></div><div class="theme-prev-pill success">${T('mode2Status','Latest')}</div></div><div class="theme-prev-section-title">${T('mode2ChangelogTitle','Changelog')}</div><div class="theme-prev-changelog"><div>Fix bug</div><div>New UI</div><div>Android 14 support</div></div><button class="theme-prev-more">${T('mode2MoreBtn','More')}</button><button class="theme-prev-moreapp">${T('mode2MoreApps','More Apps')}</button><div class="theme-prev-btnrow"><button class="theme-prev-btn hook">${T('mode2HookBtn','Hook')}</button><button class="theme-prev-btn ghost">${T('mode2JoinBtn','Join')}</button><button class="theme-prev-btn primary">${T('mode2CloseBtn','Tutup')}</button></div></div>`;
+    if (state === 'mode3') return `<div class="theme-prev-card red-accent"><div class="theme-prev-header"><div class="theme-prev-logo"><img src="${logoUrl}" onerror="this.style.display='none'"><div class="theme-prev-badge danger">!</div></div><div class="theme-prev-info-block"><div class="theme-prev-title">${appName}</div><div class="theme-prev-meta"><span class="dim">${oldVersion}</span> → <span class="success">${version}</span></div></div><div class="theme-prev-pill danger">${T('mode3Status','Update')}</div></div><div class="theme-prev-banner"><div class="theme-prev-banner-icon">⬇</div><div><div class="theme-prev-banner-title">${T('mode3BannerTitle','Update Tersedia')}</div><div class="theme-prev-banner-msg">${T('mode3BannerMsg','Versi {version} siap diunduh').replace(/\{version\}/g, version)}</div></div></div><button class="theme-prev-btn primary" style="width:100%;">${T('mode3UpdateBtn','Update ke {version}').replace(/\{version\}/g, version)}</button><button class="theme-prev-btn gold" style="width:100%;margin-top:8px;">${T('mode3UpdateV2Btn','Update V2 (Direct)')}</button><div class="theme-prev-btnrow" style="margin-top:8px;"><button class="theme-prev-btn hook">${T('mode3HookBtn','Hook')}</button><button class="theme-prev-btn ghost">${T('mode3JoinBtn','Join')}</button><button class="theme-prev-btn danger">${T('mode3CloseFCBtn','Tutup (FC)')}</button></div></div>`;
+    if (state === 'sigWarn') return `<div class="theme-prev-card red-accent"><div class="theme-prev-header"><div class="theme-prev-logo"><div class="theme-prev-icon-big">⚠</div><div class="theme-prev-badge danger">!</div></div><div class="theme-prev-info-block"><div class="theme-prev-title">${T('sigWarnTitle','Security Warning')}</div><div class="theme-prev-meta danger">${T('sigWarnSubtitle','Invalid App Signature')}</div></div><div class="theme-prev-pill danger">${T('sigWarnStatus','Locked')}</div></div><div class="theme-prev-info-box danger-border"><div class="theme-prev-info-icon danger">⚠</div><div class="theme-prev-info-title danger">${T('sigWarnInfoTitle','Signature Mismatch')}</div><div class="theme-prev-info-desc">${T('sigWarnInfoText','Aplikasi ini tidak cocok dengan rilis resmi.')}</div></div><div class="theme-prev-btnrow"><button class="theme-prev-btn ghost">${T('sigWarnJoinBtn','Join')}</button><button class="theme-prev-btn primary">${T('sigWarnDownloadBtn','Download Official')}</button></div></div>`;
     return '';
 }
 
-
-
 let currentThemeTab = 'simple';
-function switchThemeTab(tab) {
-  currentThemeTab = tab;
-  const st = document.getElementById('themeSimpleTab');
-  const str = document.getElementById('themeStringsTab');
-  const vis = document.getElementById('themeVisualTab');
-  const js = document.getElementById('themeJsonTab');
-  if (st) st.style.display = tab === 'simple' ? 'block' : 'none';
-  if (str) str.style.display = tab === 'strings' ? 'block' : 'none';
-  if (vis) vis.style.display = tab === 'visual' ? 'block' : 'none';
-  if (js) js.style.display = tab === 'json' ? 'block' : 'none';
-  var map = { simple: 'tabSimple', strings: 'tabStrings', visual: 'tabVisual', json: 'tabJson' };
-  Object.keys(map).forEach(function(k) {
-    var el = document.getElementById(map[k]);
-    if (el) el.classList.toggle('active', k === tab);
-  });
-  if (tab === 'json') {
-    const ta = document.getElementById('themeJsonTextarea');
-    if (ta) ta.value = JSON.stringify(currentTheme, null, 4);
-  }
-  if (tab === 'visual') vdeInitFromTheme();
-}
-
-
-
-/* ===== Visual Dialog Editor (uses TOP theme preview) ===== */
-window._vdeSelected = null;
-window._vdeStyles = window._vdeStyles || {};
-window._vdeContent = window._vdeContent || {};
-
-function vdeRgbToHex(rgb) {
-  if (!rgb || rgb === 'transparent' || rgb === 'rgba(0, 0, 0, 0)') return '#111111';
-  if (String(rgb).startsWith('#')) return rgb;
-  const m = String(rgb).match(/\d+/g); if (!m) return '#000000';
-  return '#' + [m[0], m[1], m[2]].map(x => (+x).toString(16).padStart(2, '0')).join('');
-}
-
-function vdeStyleKey(el) {
-  const id = el && el.getAttribute('data-vde');
-  const mode = window.currentPreviewState || 'mode1';
-  return mode + '|' + id;
-}
-
-function vdeSelect(el, ev) {
-  try {
-    if (ev) {
-      try { ev.preventDefault(); } catch(_){}
-      try { ev.stopPropagation(); } catch(_){}
-    }
-    // hindari double-trigger touchend + click
-    var now = Date.now();
-    if (window._vdeLastSelect && (now - window._vdeLastSelect) < 350 && window._vdeSelected === el) return;
-    window._vdeLastSelect = now;
-    if (!el) return;
-    if (window.currentThemeTab && window.currentThemeTab !== 'visual') {
-      // auto switch to visual when picking from preview
-      if (typeof switchThemeTab === 'function') switchThemeTab('visual');
-    }
-    if (window._vdeSelected) window._vdeSelected.classList.remove('vde-selected');
-    window._vdeSelected = el;
-    el.classList.add('vde-selected');
-    const sub = document.getElementById('vdeEditorSubtitle');
-    if (sub) sub.textContent = (window.currentPreviewState || 'mode') + ' • ' + (el.getAttribute('data-vde') || '');
-    vdeRenderEditor(el);
-    // scroll editor into view
-    const side = document.querySelector('.vde-side');
-    if (side && side.scrollIntoView) side.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  } catch (err) {
-    console.error('vdeSelect', err);
-    alert('Editor error: ' + err.message);
-  }
-}
-
-function vdeInitFromTheme() {
-  const t = window.currentTheme || window.mmkDialogTheme || {};
-  if (t.elements && typeof t.elements === 'object') {
-    try { window._vdeStyles = JSON.parse(JSON.stringify(t.elements)); } catch (_) { window._vdeStyles = {}; }
-  }
-  if (typeof renderThemePreview === 'function') {
-    renderThemePreview(window.currentPreviewState || 'mode1');
-  }
-  setTimeout(function() {
-    vdeApplyStoredStyles();
-    vdeBindPreviewClicks();
-  }, 60);
-}
-
-function vdeApplyStoredStyles() {
-  const frame = document.getElementById('themePreviewFrame');
-  if (!frame) return;
-  const mode = window.currentPreviewState || 'mode1';
-  frame.querySelectorAll('[data-vde]').forEach(function(el) {
-    const id = el.getAttribute('data-vde');
-    const st = window._vdeStyles[mode + '|' + id] || window._vdeStyles[id];
-    if (!st) return;
-    ['backgroundColor','color','fontSize','fontWeight','padding','marginBottom','borderRadius','borderWidth','borderColor','width','height'].forEach(function(p) {
-      if (st[p]) el.style[p] = st[p];
-    });
-  });
-}
-
-function vdeBindPreviewClicks() {
-  const frame = document.getElementById('themePreviewFrame');
-  if (!frame) return;
-
-  function pick(e) {
-    var t = e.target;
-    if (!t) return;
-    if (t.closest) t = t.closest('[data-vde]');
-    else {
-      while (t && t !== frame && !(t.getAttribute && t.getAttribute('data-vde'))) t = t.parentNode;
-      if (t === frame) t = null;
-    }
-    if (!t || !frame.contains(t)) return;
-    vdeSelect(t, e);
-  }
-
-  if (!frame._vdeDelegated) {
-    frame._vdeDelegated = true;
-    frame.addEventListener('click', pick, true);
-    frame.addEventListener('touchend', function(e) {
-      // Android: tangani tap tanpa menunggu click
-      if (e.changedTouches && e.changedTouches.length > 1) return;
-      pick(e);
-    }, { capture: true, passive: false });
-  }
-  frame.querySelectorAll('[data-vde]').forEach(function(el) {
-    el.style.cursor = 'pointer';
-    el.style.webkitTapHighlightColor = 'rgba(74,158,255,0.25)';
-  });
-}
-
-function vdeRenderEditor(el) {
-  const body = document.getElementById('vdeEditorBody');
-  if (!body) {
-    console.warn('vdeEditorBody missing');
-    return;
-  }
-  // ensure visual tab visible
-  const vis = document.getElementById('themeVisualTab');
-  if (vis) vis.style.display = 'block';
-
-  const cs = window.getComputedStyle(el);
-  const key = el.getAttribute('data-vde') || '';
-  let html = '';
-  const textable = el.childElementCount === 0 || el.tagName === 'BUTTON' || key === 'title' || key === 'infotitle' || key === 'infodesc' || key === 'meta' || key === 'pill';
-  if (textable) {
-    html += '<div class="vde-fld"><label>Text</label><textarea id="vde-e-text">' + (el.textContent || '').trim().replace(/</g,'&lt;') + '</textarea></div>';
-  }
-  if (key === 'logo' || key === 'fab' || key === 'fabImg') {
-    var src = '';
-    if (el.tagName === 'IMG') src = el.getAttribute('src') || '';
-    else {
-      var im = el.querySelector('img');
-      if (im) src = im.getAttribute('src') || '';
-    }
-    html += '<div class="vde-fld"><label>Image / Logo URL</label><input type="text" id="vde-e-logo" value="' + (src || '') + '" placeholder="https://..."></div>';
-  }
-  html += '<div class="vde-row"><div class="vde-fld"><label>Background</label><input type="color" id="vde-e-bg" value="' + vdeRgbToHex(cs.backgroundColor) + '"></div>';
-  html += '<div class="vde-fld"><label>Text Color</label><input type="color" id="vde-e-fg" value="' + vdeRgbToHex(cs.color) + '"></div></div>';
-  html += '<div class="vde-fld"><label>Font Size <span class="vde-rval" id="vde-v-fs">' + (parseInt(cs.fontSize)||14) + 'px</span></label>';
-  html += '<input type="range" id="vde-e-fs" min="8" max="36" value="' + (parseInt(cs.fontSize)||14) + '"></div>';
-  html += '<div class="vde-fld"><label>Font Weight</label><select id="vde-e-fw">';
-  html += '<option value="400">Normal</option><option value="500">Medium</option><option value="600">Semi Bold</option>';
-  html += '<option value="700">Bold</option><option value="800">Extra Bold</option></select></div>';
-  html += '<div class="vde-row"><div class="vde-fld"><label>Padding <span class="vde-rval" id="vde-v-pad">' + (parseInt(cs.paddingTop)||0) + 'px</span></label>';
-  html += '<input type="range" id="vde-e-pad" min="0" max="40" value="' + (parseInt(cs.paddingTop)||0) + '"></div>';
-  html += '<div class="vde-fld"><label>Radius <span class="vde-rval" id="vde-v-rad">' + (parseInt(cs.borderRadius)||0) + 'px</span></label>';
-  html += '<input type="range" id="vde-e-rad" min="0" max="40" value="' + (parseInt(cs.borderRadius)||0) + '"></div></div>';
-  if (key === 'fab') {
-    html += '<div class="vde-fld"><label>Size <span class="vde-rval" id="vde-v-sz">' + (parseInt(cs.width)||52) + 'px</span></label>';
-    html += '<input type="range" id="vde-e-sz" min="36" max="80" value="' + (parseInt(cs.width)||52) + '"></div>';
-  }
-  html += '<div class="vde-fld"><label>Border Color</label><input type="color" id="vde-e-bc" value="' + vdeRgbToHex(cs.borderColor) + '"></div>';
-  body.innerHTML = html;
-  var fw = document.getElementById('vde-e-fw');
-  if (fw) fw.value = String(parseInt(cs.fontWeight) || 400);
-  vdeBindEditor(el);
-}
-
-function vdeBindEditor(el) {
-  const sk = vdeStyleKey(el);
-  const set = function(prop, val) {
-    el.style[prop] = val;
-    window._vdeStyles[sk] = window._vdeStyles[sk] || {};
-    window._vdeStyles[sk][prop] = val;
-    const id = el.getAttribute('data-vde');
-    window._vdeStyles[id] = window._vdeStyles[id] || {};
-    window._vdeStyles[id][prop] = val;
-  };
-  const t = document.getElementById('vde-e-text');
-  if (t) t.oninput = function(e) { el.textContent = e.target.value; };
-  const logo = document.getElementById('vde-e-logo');
-  if (logo) logo.oninput = function(e) {
-    var img = el.tagName === 'IMG' ? el : el.querySelector('img');
-    if (img) img.src = e.target.value;
-    var th = document.getElementById('thLogoUrl');
-    if (th) th.value = e.target.value;
-  };
-  const bg = document.getElementById('vde-e-bg'); if (bg) bg.oninput = function(e) { set('backgroundColor', e.target.value); };
-  const fg = document.getElementById('vde-e-fg'); if (fg) fg.oninput = function(e) { set('color', e.target.value); };
-  const fs = document.getElementById('vde-e-fs'); if (fs) fs.oninput = function(e) { set('fontSize', e.target.value + 'px'); var v=document.getElementById('vde-v-fs'); if(v) v.textContent = e.target.value + 'px'; };
-  const fw = document.getElementById('vde-e-fw'); if (fw) fw.onchange = function(e) { set('fontWeight', e.target.value); };
-  const pad = document.getElementById('vde-e-pad'); if (pad) pad.oninput = function(e) { set('padding', e.target.value + 'px'); var v=document.getElementById('vde-v-pad'); if(v) v.textContent = e.target.value + 'px'; };
-  const rad = document.getElementById('vde-e-rad'); if (rad) rad.oninput = function(e) { set('borderRadius', e.target.value + 'px'); var v=document.getElementById('vde-v-rad'); if(v) v.textContent = e.target.value + 'px'; };
-  const bc = document.getElementById('vde-e-bc'); if (bc) bc.oninput = function(e) { set('borderColor', e.target.value); set('borderStyle', 'solid'); };
-  const sz = document.getElementById('vde-e-sz');
-  if (sz) sz.oninput = function(e) {
-    set('width', e.target.value + 'px');
-    set('height', e.target.value + 'px');
-    var v = document.getElementById('vde-v-sz');
-    if (v) v.textContent = e.target.value + 'px';
-  };
-}
-
-function vdeResetStyles() {
-  window._vdeStyles = {};
-  window._vdeSelected = null;
-  if (typeof renderThemePreview === 'function') renderThemePreview(window.currentPreviewState || 'mode1');
-  const body = document.getElementById('vdeEditorBody');
-  if (body) body.innerHTML = '<div class="vde-empty">Styles reset. Ketuk elemen di preview atas.</div>';
-  const sub = document.getElementById('vdeEditorSubtitle');
-  if (sub) sub.textContent = 'No Selection';
-}
-
-function vdeApplyToTheme() {
-  const thLogo = document.getElementById('thLogoUrl');
-  const thTitle = document.getElementById('thAppTitle');
-  const patch = {
-    logoUrl: (thLogo && thLogo.value) || (window.currentTheme && window.currentTheme.logoUrl) || '',
-    appTitle: (thTitle && thTitle.value) || '',
-    elements: JSON.parse(JSON.stringify(window._vdeStyles || {}))
-  };
-  window.currentTheme = Object.assign({}, window.currentTheme || {}, patch);
-  window.mmkDialogTheme = Object.assign({}, window.mmkDialogTheme || {}, patch);
-  try {
-    localStorage.setItem('mmk_dialogTheme', JSON.stringify(window.mmkDialogTheme));
-    localStorage.setItem('mmk_dialogTheme_draft', JSON.stringify(patch));
-  } catch (_) {}
-  if (typeof renderThemePreview === 'function') renderThemePreview(window.currentPreviewState || 'mode1');
-  setTimeout(vdeApplyStoredStyles, 30);
-  alert('Visual theme diterapkan ke dialogTheme. Ekspor apks.js untuk remote.');
-}
-
-function openVisualDialogEditor() {
-  openThemeEditor();
-  switchThemeTab('visual');
-}
-
+function switchThemeTab(tab) { currentThemeTab = tab; document.getElementById('themeSimpleTab').style.display = tab === 'simple' ? 'block' : 'none'; document.getElementById('themeStringsTab').style.display = tab === 'strings' ? 'block' : 'none'; document.getElementById('themeJsonTab').style.display = tab === 'json' ? 'block' : 'none'; document.getElementById('tabSimple').classList.toggle('active', tab === 'simple'); document.getElementById('tabStrings').classList.toggle('active', tab === 'strings'); document.getElementById('tabJson').classList.toggle('active', tab === 'json'); if (tab === 'json') document.getElementById('themeJsonTextarea').value = JSON.stringify(currentTheme, null, 4); }
 function openThemeEditor() {
     closeActiveOverlays(); const t = currentTheme;
     document.getElementById('thAppTitle').value = t.appTitle || ''; document.getElementById('thLogoUrl').value = t.logoUrl || ''; document.getElementById('thJoinUrl').value = t.joinUrl || ''; document.getElementById('thDownloadUrl').value = t.downloadUrl || ''; document.getElementById('thFontMain').value = t.fontMain || ''; document.getElementById('thGoogleFontsUrl').value = t.googleFontsUrl || '';
     setColorPair('thColorBg', t.colorBg); setColorPair('thColorCard', t.colorCard); setColorPair('thColorCard2', t.colorCard2); setColorPair('thColorSurface', t.colorSurface); setColorPair('thColorBorder', t.colorBorder); setColorPair('thColorBorderStrong', t.colorBorderStrong); setColorPair('thColorText', t.colorText); setColorPair('thColorTextDim', t.colorTextDim); setColorPair('thColorTextMuted', t.colorTextMuted); setColorPair('thColorAccent', t.colorAccent); setColorPair('thColorAccent2', t.colorAccent2); setColorPair('thColorDanger', t.colorDanger); setColorPair('thColorSuccess', t.colorSuccess); setColorPair('thColorWarning', t.colorWarning); setColorPair('thColorHook', t.colorHook); setColorPair('thColorGold', t.colorGold);
     document.getElementById('thFontDisplay').value = t.fontDisplay || ''; document.getElementById('thFontMono').value = t.fontMono || '';
     TEXT_KEYS.forEach(k => { const el = document.getElementById('thTxt_' + k); if (el) el.value = (t.text && t.text[k] !== undefined) ? t.text[k] : ''; });
-    document.getElementById('themeJsonTextarea').value = JSON.stringify(t, null, 4); switchThemeTab('simple'); document.getElementById('globalOverlay').classList.add('active'); document.getElementById('themeEditorModal').classList.add('active');
-    const ov = document.getElementById('globalOverlay'); if (ov) ov.classList.add('active');
-    setTimeout(() => { renderThemePreview(currentPreviewState); if (currentThemeTab === 'visual') vdeInitFromTheme(); }, 80);
+    document.getElementById('themeJsonTextarea').value = JSON.stringify(t, null, 4); switchThemeTab('simple'); document.getElementById('globalOverlay').classList.add('active'); document.getElementById('themeEditorModal').classList.add('active'); setTimeout(() => { renderThemePreview(currentPreviewState); }, 80);
 }
 function setColorPair(idPrefix, value) { const hex = normalizeHex(value || '#000000'); const colorEl = document.getElementById(idPrefix); const textEl = document.getElementById(idPrefix + 'Text'); if (colorEl) colorEl.value = hex; if (textEl) textEl.value = value || hex; if (colorEl) colorEl.oninput = () => { if (textEl) textEl.value = colorEl.value; renderThemePreview(currentPreviewState); }; if (textEl) textEl.oninput = () => { const v = normalizeHex(textEl.value); if (v && colorEl) colorEl.value = v; renderThemePreview(currentPreviewState); }; }
 function normalizeHex(v) { if (!v) return '#000000'; v = String(v).trim(); if (v.match(/^#[0-9a-fA-F]{6}$/)) return v; if (v.match(/^[0-9a-fA-F]{6}$/)) return '#' + v; return '#000000'; }
@@ -883,7 +493,8 @@ function saveThemeSettings() { let newTheme; if (currentThemeTab === 'json') { t
 function resetThemeDefaults() { if (!confirm('Reset semua ke default?')) return; currentTheme = JSON.parse(JSON.stringify(DEFAULT_THEME)); document.getElementById('themeJsonTextarea').value = JSON.stringify(currentTheme, null, 4); alert('✅ Di-reset. Tap SIMPAN untuk apply.'); }
 
 /* ============ GRID & BADGES ============ */
-function buildBadgeRow(item) { const hn = (Array.isArray(item.hooks)?item.hooks.length:0) + (Array.isArray(item.hookGroups)?expandHookGroups(item.hookGroups).length:0); const hb = (hn > 0 && item.hookEnabled !== false) ? `<span class="apk-badge" style="background:rgba(168,85,247,0.15);border-color:#a855f7;color:#a855f7;">⚡ ${hn}</span>` : ''; const cb = (item.dialogConfig) ? `<span class="apk-badge" style="background:rgba(59,130,246,0.15);border-color:#3b82f6;color:#3b82f6;">⚙️ Cfg</span>` : ''; return `<span class="apk-badge">💾 ${item.size||'0 MB'}</span><span class="apk-badge">🤖 ${item.android||'5.0+'}</span><span class="apk-badge">📁 ${item.category||'General'}</span>${hb}${cb}`; }
+function countHooks(item) { return (Array.isArray(item.hooks) ? item.hooks.length : 0) + (Array.isArray(item.hookGroups) ? item.hookGroups.reduce((a, g) => a + ((g && Array.isArray(g.targets)) ? g.targets.length : 0), 0) : 0); }
+function buildBadgeRow(item) { const hb = (countHooks(item) > 0 && item.hookEnabled !== false) ? `<span class="apk-badge" style="background:rgba(168,85,247,0.15);border-color:#a855f7;color:#a855f7;">⚡ ${countHooks(item)}</span>` : ''; const cb = (item.dialogConfig) ? `<span class="apk-badge" style="background:rgba(59,130,246,0.15);border-color:#3b82f6;color:#3b82f6;">⚙️ Cfg</span>` : ''; return `<span class="apk-badge">💾 ${item.size||'0 MB'}</span><span class="apk-badge">🤖 ${item.android||'5.0+'}</span><span class="apk-badge">📁 ${item.category||'General'}</span>${hb}${cb}`; }
 function getCardDefaultIcon(item) { if (item.category === 'Streaming') return '🎬'; if (item.category === 'Games Mod') return '🎮'; if (item.category === 'Music') return '🎵'; if (item.category === 'Tools') return '🛠️'; return '📱'; }
 function renderGridCards() {
     const grid = document.getElementById('apkDisplayGrid'), pag = document.getElementById('loadMoreContainer'), al = document.getElementById('searchEmptyAlert'); if (!grid) return; grid.innerHTML = '';
@@ -892,11 +503,20 @@ function renderGridCards() {
     const start = (currentPage - 1) * itemsPerPage; const slice = internalApksData.slice(start, start + itemsPerPage);
     slice.forEach((item, rel) => {
         const idx = start + rel; const card = document.createElement('div'); card.className = 'apk-card'; card.setAttribute('data-target-cat', item.category); card.setAttribute('data-target-droid', item.android);
-        card.innerHTML = `<button type="button" class="apk-card-gear" title="Konfigurasi" onclick="event.stopPropagation();openApkCardConfig(${idx})">⚙️</button><div class="apk-top-flex"><div class="apk-icon-frame"><img src="${item.imageUrl||''}" onerror="this.style.display='none';this.parentElement.innerHTML='${getCardDefaultIcon(item)}';"></div><div class="apk-main-info"><span class="apk-title">${item.name||'No Name'}</span><span class="apk-version">${item.version||''}</span><div class="apk-badge-row">${buildBadgeRow(item)}</div></div></div><div class="apk-desc-area">${item.description||'Tidak ada deskripsi.'}</div><div class="card-action-row"><a href="${item.downloadUrl||'#'}" target="_blank" class="download-action-btn"> UNDUH </a><button class="share-action-btn" onclick="shareApkCard(${idx})">🔗</button></div>`;
+        card.innerHTML = `<div class="apk-top-flex"><div class="apk-icon-frame"><img src="${item.imageUrl||''}" onerror="this.style.display='none';this.parentElement.innerHTML='${getCardDefaultIcon(item)}';"></div><div class="apk-main-info"><span class="apk-title">${item.name||'No Name'}</span><span class="apk-version">${item.version||''}</span><div class="apk-badge-row">${buildBadgeRow(item)}</div></div></div><div class="apk-desc-area">${item.description||'Tidak ada deskripsi.'}</div><div class="card-action-row"><a href="${item.downloadUrl||'#'}" target="_blank" class="download-action-btn"> UNDUH </a><button class="share-action-btn" onclick="shareApkCard(${idx})">🔗</button></div>`;
+        if ((localStorage.getItem('mmk_sys_role') || 'GUEST') !== 'GUEST') {
+            card.style.position = 'relative';
+            const tf = card.querySelector('.apk-top-flex'); if (tf) tf.style.paddingRight = '38px';
+            const gb = document.createElement('button'); gb.type = 'button'; gb.className = 'card-gear-btn'; gb.title = 'Configuration'; gb.textContent = '\u2699\uFE0F';
+            gb.style.cssText = 'position:absolute;top:10px;right:10px;width:30px;height:30px;padding:0;border-radius:50%;border:1px solid rgba(59,130,246,0.5);background:rgba(59,130,246,0.15);color:#fff;font-size:15px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:3;';
+            gb.onclick = function (e) { e.stopPropagation(); openCardConfig(idx); };
+            card.appendChild(gb);
+        }
         grid.appendChild(card);
     });
     if (pag) { if (totalPages > 1) { pag.style.display = 'block'; let html = '<div style="display:flex;justify-content:center;gap:6px;flex-wrap:wrap;">'; for (let i=1;i<=totalPages;i++) { const a = i===currentPage; html += `<button style="${a?'background:#0ea5e9;color:#fff;border-color:#0ea5e9;':'background:rgba(14,165,233,0.15);color:#0ea5e9;border-color:rgba(14,165,233,0.4);'}font-weight:bold;padding:6px 12px;border-radius:6px;border-width:1px;border-style:solid;cursor:pointer;" onclick="changePage(${i})">${i}</button>`; } pag.innerHTML = html + '</div>'; } else pag.style.display = 'none'; }
 }
+function openCardConfig(idx) { closeActiveOverlays(); document.getElementById('globalOverlay').classList.add('active'); openDialogConfigEdit(idx); }
 function changePage(p) { currentPage = p; renderGridCards(); document.getElementById('mainContainer').scrollIntoView({behavior:'smooth'}); }
 
 /* ============ DIALOG CONFIG & HOOK ============ */
@@ -978,12 +598,11 @@ function saveDialogConfigSettings() {
     
     // Save Hook from Config
     item.hookEnabled = document.getElementById('dcHookEnabled').checked;
-    const dcHooks = dcHookRowsData.filter(h => h.fitur && h.className && h.methodName);
-    const dcg = cleanHookGroups(dcHookGroupRowsData);
-    if (item.hookEnabled && (dcHooks.length > 0 || dcg.length > 0)) {
-        if (dcHooks.length > 0) item.hooks = dcHooks; else delete item.hooks;
-        if (dcg.length > 0) item.hookGroups = dcg; else delete item.hookGroups;
-    } else { delete item.hooks; delete item.hookEnabled; delete item.hookGroups; }
+    item.hooks = dcHookRowsData.filter(h => h.fitur && h.className && h.methodName);
+    const dcg = cleanHookGroups(dcHookGroupRowsData); const dcOn = item.hookEnabled;
+    if (item.hooks.length === 0) delete item.hooks;
+    if (dcg.length > 0) item.hookGroups = dcg; else delete item.hookGroups;
+    if (!item.hooks && !item.hookGroups) delete item.hookEnabled; else item.hookEnabled = !!dcOn;
 
     if (arm64 || arm32) { item.links = {}; if (arm64) item.links.Arm64 = arm64; if (arm32) item.links.Arm32 = arm32; item.multiDownload = true; } else { delete item.links; delete item.multiDownload; }
     localStorage.setItem('mmk_local_apks', JSON.stringify(internalApksData)); pushHistoryState(); alert('✅ Tersimpan.'); closeActiveOverlays(); setTimeout(openDialogConfigPanel, 100);
@@ -1001,8 +620,8 @@ function importUserDB(input) { const file = input.files[0]; if (!file) return; c
 
 /* ============ APK FORM & BULK IMPORT ============ */
 function openAddApkFormModal() { closeActiveOverlays(); document.getElementById('formModalTitle').textContent = 'Format Edit/Tambah App'; document.getElementById('formEditIndex').value = ''; ['formApkName','formApkVersion','formApkVersionName','formApkVersionCode','formApkPackageName','formApkChangelog','formApkSize','formApkDesc','formApkImg','formApkLink','formApkLinkArm64','formApkLinkArm32'].forEach(id => document.getElementById(id).value = ''); loadHooksIntoForm([], false); const row = document.getElementById('existingApkSelectorRow'), sel = document.getElementById('formExistingApkSelect'); row.style.setProperty('display','flex','important'); sel.innerHTML = '<option value="">-- Buat Baru Dari Awal --</option>'; internalApksData.forEach((item, i) => { const o = document.createElement('option'); o.value = i; o.textContent = `${item.name} (${item.version})`; sel.appendChild(o); }); document.getElementById('globalOverlay').classList.add('active'); document.getElementById('devApkFormModal').classList.add('active'); }
-function handleLoadExistingApkData() { const si = document.getElementById('formExistingApkSelect').value; if (si === '') return; const t = internalApksData[parseInt(si)]; if (!t) return; document.getElementById('formApkName').value = t.name||''; document.getElementById('formApkVersion').value = t.version||''; document.getElementById('formApkVersionName').value = t.versionName||t.version||''; document.getElementById('formApkVersionCode').value = t.versionCode!=null?t.versionCode:''; document.getElementById('formApkPackageName').value = t.packageName||''; document.getElementById('formApkChangelog').value = Array.isArray(t.changelog)?t.changelog.join('\n'):(t.changelog||''); document.getElementById('formApkCategory').value = t.category||'Aplikasi Mod'; document.getElementById('formApkSize').value = t.size||''; document.getElementById('formApkAndroid').value = t.android||'Android 5+'; document.getElementById('formApkDesc').value = t.description||''; document.getElementById('formApkImg').value = t.imageUrl||''; document.getElementById('formApkLink').value = t.downloadUrl||''; const links = t.links||{}; document.getElementById('formApkLinkArm64').value = links.Arm64||links.arm64||''; document.getElementById('formApkLinkArm32').value = links.Arm32||links.arm32||''; loadHooksIntoForm(t.hooks||[], !!((t.hooks && t.hooks.length) || (t.hookGroups && t.hookGroups.length)) && t.hookEnabled !== false, t.hookGroups); }
-function openEditApkFormModal(index) { closeActiveOverlays(); const t = internalApksData[index]; if (!t) return; document.getElementById('formModalTitle').textContent = '✏️ SUNTING DATA APK'; document.getElementById('formEditIndex').value = index; document.getElementById('existingApkSelectorRow').style.setProperty('display','none','important'); document.getElementById('formApkName').value = t.name||''; document.getElementById('formApkVersion').value = t.version||''; document.getElementById('formApkVersionName').value = t.versionName||t.version||''; document.getElementById('formApkVersionCode').value = t.versionCode!=null?t.versionCode:''; document.getElementById('formApkPackageName').value = t.packageName||''; document.getElementById('formApkChangelog').value = Array.isArray(t.changelog)?t.changelog.join('\n'):(t.changelog||''); document.getElementById('formApkCategory').value = t.category||'Aplikasi Mod'; document.getElementById('formApkSize').value = t.size||''; document.getElementById('formApkAndroid').value = t.android||'Android 5+'; document.getElementById('formApkDesc').value = t.description||''; document.getElementById('formApkImg').value = t.imageUrl||''; document.getElementById('formApkLink').value = t.downloadUrl||''; const links = t.links||{}; document.getElementById('formApkLinkArm64').value = links.Arm64||links.arm64||''; document.getElementById('formApkLinkArm32').value = links.Arm32||links.arm32||''; loadHooksIntoForm(t.hooks||[], !!((t.hooks && t.hooks.length) || (t.hookGroups && t.hookGroups.length)) && t.hookEnabled !== false, t.hookGroups); document.getElementById('globalOverlay').classList.add('active'); document.getElementById('devApkFormModal').classList.add('active'); }
+function handleLoadExistingApkData() { const si = document.getElementById('formExistingApkSelect').value; if (si === '') return; const t = internalApksData[parseInt(si)]; if (!t) return; document.getElementById('formApkName').value = t.name||''; document.getElementById('formApkVersion').value = t.version||''; document.getElementById('formApkVersionName').value = t.versionName||t.version||''; document.getElementById('formApkVersionCode').value = t.versionCode!=null?t.versionCode:''; document.getElementById('formApkPackageName').value = t.packageName||''; document.getElementById('formApkChangelog').value = Array.isArray(t.changelog)?t.changelog.join('\n'):(t.changelog||''); document.getElementById('formApkCategory').value = t.category||'Aplikasi Mod'; document.getElementById('formApkSize').value = t.size||''; document.getElementById('formApkAndroid').value = t.android||'Android 5+'; document.getElementById('formApkDesc').value = t.description||''; document.getElementById('formApkImg').value = t.imageUrl||''; document.getElementById('formApkLink').value = t.downloadUrl||''; const links = t.links||{}; document.getElementById('formApkLinkArm64').value = links.Arm64||links.arm64||''; document.getElementById('formApkLinkArm32').value = links.Arm32||links.arm32||''; loadHooksIntoForm(t.hooks||[], ((t.hooks && t.hooks.length) || (t.hookGroups && t.hookGroups.length)) && t.hookEnabled !== false, t.hookGroups); }
+function openEditApkFormModal(index) { closeActiveOverlays(); const t = internalApksData[index]; if (!t) return; document.getElementById('formModalTitle').textContent = '✏️ SUNTING DATA APK'; document.getElementById('formEditIndex').value = index; document.getElementById('existingApkSelectorRow').style.setProperty('display','none','important'); document.getElementById('formApkName').value = t.name||''; document.getElementById('formApkVersion').value = t.version||''; document.getElementById('formApkVersionName').value = t.versionName||t.version||''; document.getElementById('formApkVersionCode').value = t.versionCode!=null?t.versionCode:''; document.getElementById('formApkPackageName').value = t.packageName||''; document.getElementById('formApkChangelog').value = Array.isArray(t.changelog)?t.changelog.join('\n'):(t.changelog||''); document.getElementById('formApkCategory').value = t.category||'Aplikasi Mod'; document.getElementById('formApkSize').value = t.size||''; document.getElementById('formApkAndroid').value = t.android||'Android 5+'; document.getElementById('formApkDesc').value = t.description||''; document.getElementById('formApkImg').value = t.imageUrl||''; document.getElementById('formApkLink').value = t.downloadUrl||''; const links = t.links||{}; document.getElementById('formApkLinkArm64').value = links.Arm64||links.arm64||''; document.getElementById('formApkLinkArm32').value = links.Arm32||links.arm32||''; loadHooksIntoForm(t.hooks||[], ((t.hooks && t.hooks.length) || (t.hookGroups && t.hookGroups.length)) && t.hookEnabled !== false, t.hookGroups); document.getElementById('globalOverlay').classList.add('active'); document.getElementById('devApkFormModal').classList.add('active'); }
 function compareApkVersions(v1, v2) { if(!v1)v1='0'; if(!v2)v2='0'; const c1 = v1.replace(/[^0-9.]/g,'').split('.').map(Number); const c2 = v2.replace(/[^0-9.]/g,'').split('.').map(Number); const len = Math.max(c1.length, c2.length); for(let i=0;i<len;i++){ const a=c1[i]||0,b=c2[i]||0; if(a>b)return 1; if(a<b)return -1; } return 0; }
 function findApkClonesToRemove() { const groups = {}; internalApksData.forEach(i => { const k = (i.name||'').trim().toLowerCase(); if(!k)return; if(!groups[k])groups[k]=[]; groups[k].push(i); }); const rm = []; Object.values(groups).forEach(g => { if(g.length<2)return; let h=g[0]; g.forEach(i=>{if(compareApkVersions(i.version,h.version)>0)h=i;}); g.forEach(i=>{if(i!==h && compareApkVersions(i.version,h.version)<0)rm.push(i);}); }); return rm; }
 function openClearCloneModal() { closeActiveOverlays(); pendingCloneRemovals = findApkClonesToRemove(); const c = document.getElementById('clearCloneListContainer'); c.innerHTML = ''; if (pendingCloneRemovals.length === 0) c.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:10px;">✅ Tidak ada apk duplikat.</p>'; else pendingCloneRemovals.forEach(i => { const r = document.createElement('div'); r.style.cssText = 'background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:10px 12px;font-size:0.85rem;color:#fff;'; r.innerHTML = `> <strong>${i.name}</strong> versi <span style="color:#f59e0b;">${i.version}</span>`; c.appendChild(r); }); document.getElementById('globalOverlay').classList.add('active'); document.getElementById('clearCloneModal').classList.add('active'); }
@@ -1010,31 +629,16 @@ function executeClearClone() { if (pendingCloneRemovals.length === 0) { closeAct
 function saveApkFormSubmission() {
     const name = document.getElementById('formApkName').value.trim(); const version = document.getElementById('formApkVersion').value.trim(); const versionName = document.getElementById('formApkVersionName').value.trim() || version; const vcRaw = document.getElementById('formApkVersionCode').value.trim(); const vc = vcRaw === '' ? undefined : parseInt(vcRaw, 10); const pkg = document.getElementById('formApkPackageName').value.trim(); const clRaw = document.getElementById('formApkChangelog').value.trim(); const cl = clRaw ? clRaw.split(/\r?\n/).map(s=>s.trim()).filter(Boolean) : undefined; const cat = document.getElementById('formApkCategory').value; const size = document.getElementById('formApkSize').value.trim(); const android = document.getElementById('formApkAndroid').value; const desc = document.getElementById('formApkDesc').value.trim(); const img = document.getElementById('formApkImg').value.trim(); const dl = document.getElementById('formApkLink').value.trim(); const a64 = document.getElementById('formApkLinkArm64').value.trim(); const a32 = document.getElementById('formApkLinkArm32').value.trim(); const hookEnabled = document.getElementById('formApkHookEnabled').checked;
     let hooks = []; try { hooks = JSON.parse(document.getElementById('formApkHooks').value || '[]'); } catch(_) { hooks = []; } hooks = hooks.filter(h => h.fitur && h.className && h.methodName);
-    if (!name || !dl) { alert('Nama & Link wajib!'); return; } if (!pkg) { alert('packageName wajib!'); return; } if (vcRaw === '' || isNaN(vc)) { alert('versionCode wajib!'); return; } const hookGroupsClean = cleanHookGroups(hookGroupRowsData); if (hookEnabled && hooks.length === 0 && hookGroupsClean.length === 0) { alert('Hook aktif tapi kosong.'); return; }
+    if (!name || !dl) { alert('Nama & Link wajib!'); return; } if (!pkg) { alert('packageName wajib!'); return; } if (vcRaw === '' || isNaN(vc)) { alert('versionCode wajib!'); return; } if (hookEnabled && hooks.length === 0 && cleanHookGroups(hookGroupRowsData).length === 0) { alert('Hook aktif tapi kosong.'); return; }
     const editIdx = document.getElementById('formEditIndex').value; const payload = { name, version, versionName, versionCode: vc, packageName: pkg, category: cat, size, android, description: desc, imageUrl: img, downloadUrl: dl };
-    if (cl && cl.length) payload.changelog = cl; if (a64 || a32) { payload.links = {}; if (a64) payload.links.Arm64 = a64; if (a32) payload.links.Arm32 = a32; payload.multiDownload = true; } if (hookEnabled && (hooks.length > 0 || hookGroupsClean.length > 0)) { payload.hookEnabled = true; if (hooks.length > 0) payload.hooks = hooks; if (hookGroupsClean.length > 0) payload.hookGroups = hookGroupsClean; }
+    if (cl && cl.length) payload.changelog = cl; if (a64 || a32) { payload.links = {}; if (a64) payload.links.Arm64 = a64; if (a32) payload.links.Arm32 = a32; payload.multiDownload = true; } { const hg = cleanHookGroups(hookGroupRowsData); if (hooks.length > 0 || hg.length > 0) { if (hooks.length > 0) payload.hooks = hooks; if (hg.length > 0) payload.hookGroups = hg; payload.hookEnabled = !!hookEnabled; } }
     if (editIdx !== '') { const ex = internalApksData[parseInt(editIdx)]; if (ex && ex.dialogConfig) payload.dialogConfig = ex.dialogConfig; internalApksData[parseInt(editIdx)] = payload; } else { const exIdx = internalApksData.findIndex(a => a.name.trim().toLowerCase() === name.toLowerCase()); if (exIdx !== -1 && compareApkVersions(version, internalApksData[exIdx].version) > 0) internalApksData.splice(exIdx, 1); internalApksData.unshift(payload); }
     localStorage.setItem('mmk_local_apks', JSON.stringify(internalApksData)); pushHistoryState(); closeActiveOverlays(); renderGridCards();
 }
 
 /* ============ API EXPORT / IMPORT ============ */
-function processImportApks(input) { const f = input.files[0]; if (!f) return; const r = new FileReader(); r.onload = e => { try { var text = e.target.result; var fn = new Function(text + '\nreturn {apks: (typeof apks !== "undefined" ? apks : null), premiumUsers: (typeof premiumUsers !== "undefined" ? premiumUsers : []), dialogTheme: (typeof dialogTheme !== "undefined" ? dialogTheme : null), scheduledNotifs: (typeof scheduledNotifs !== "undefined" ? scheduledNotifs : null)};'); var result = fn(); if (Array.isArray(result.apks)) { internalApksData = result.apks; localStorage.setItem('mmk_local_apks', JSON.stringify(internalApksData)); if (Array.isArray(result.premiumUsers) && result.premiumUsers.length > 0) localStorage.setItem('mmk_users', JSON.stringify(result.premiumUsers)); if (result.dialogTheme && typeof result.dialogTheme === 'object') { currentTheme = mergeTheme(result.dialogTheme); localStorage.setItem(THEME_KEY, JSON.stringify(currentTheme)); } if (Array.isArray(result.scheduledNotifs)) { window.mmkNotifSchedules = result.scheduledNotifs; try { localStorage.setItem('mmk_notif_schedules', JSON.stringify(result.scheduledNotifs)); } catch (_) {} if (typeof renderNotifScheduleList === 'function') renderNotifScheduleList(); } pushHistoryState(); renderGridCards(); alert('✅ Berhasil diimpor!'); closeActiveOverlays(); } else alert('❌ Format tidak valid.'); } catch(err) { alert('❌ Gagal: ' + err.message); } input.value = ''; }; r.readAsText(f); }
-
-function getScheduledNotifs() {
-  var list = window.mmkNotifSchedules;
-  if (!Array.isArray(list)) { try { list = JSON.parse(localStorage.getItem('mmk_notif_schedules') || '[]'); } catch (_) { list = []; } }
-  return list;
-}
-function buildApksJsExport(apksArr) {
-  var theme = (typeof currentTheme !== 'undefined' && currentTheme) ? currentTheme : (window.mmkDialogTheme || JSON.parse(localStorage.getItem('mmk_dialogTheme') || '{}'));
-  var users = []; try { users = JSON.parse(localStorage.getItem('mmk_users') || '[]'); } catch (_) {}
-  return 'const dialogTheme = ' + JSON.stringify(theme, null, 4) + ';\n\n'
-    + 'const premiumUsers = ' + JSON.stringify(users, null, 4) + ';\n\n'
-    + 'const scheduledNotifs = ' + JSON.stringify(getScheduledNotifs(), null, 4) + ';\n\n'
-    + 'const apks = ' + JSON.stringify(apksArr || internalApksData, null, 4) + ';\n';
-}
-
-function exportCurrentApksFile(mode) { closeActiveOverlays(); const tc = document.getElementById('exportTextareaContainer'), mt = document.getElementById('exportModalMainTitle'); if (!tc) return; if (mode === 'apksOnly') { mt.textContent = '💾 EXPORT FULL DATABASE'; tc.value = buildApksJsExport(internalApksData); } document.getElementById('globalOverlay').classList.add('active'); document.getElementById('devDatabaseExportModal').classList.add('active'); }
+function processImportApks(input) { const f = input.files[0]; if (!f) return; const r = new FileReader(); r.onload = e => { try { var text = e.target.result; var fn = new Function(text + '\nreturn {apks: (typeof apks !== "undefined" ? apks : null), premiumUsers: (typeof premiumUsers !== "undefined" ? premiumUsers : []), dialogTheme: (typeof dialogTheme !== "undefined" ? dialogTheme : null)};'); var result = fn(); if (Array.isArray(result.apks)) { internalApksData = result.apks; localStorage.setItem('mmk_local_apks', JSON.stringify(internalApksData)); if (Array.isArray(result.premiumUsers) && result.premiumUsers.length > 0) localStorage.setItem('mmk_users', JSON.stringify(result.premiumUsers)); if (result.dialogTheme && typeof result.dialogTheme === 'object') { currentTheme = mergeTheme(result.dialogTheme); localStorage.setItem(THEME_KEY, JSON.stringify(currentTheme)); } pushHistoryState(); renderGridCards(); alert('✅ Berhasil diimpor!'); closeActiveOverlays(); } else alert('❌ Format tidak valid.'); } catch(err) { alert('❌ Gagal: ' + err.message); } input.value = ''; }; r.readAsText(f); }
+function exportCurrentApksFile(mode) { closeActiveOverlays(); const tc = document.getElementById('exportTextareaContainer'), mt = document.getElementById('exportModalMainTitle'); if (!tc) return; if (mode === 'apksOnly') { const users = JSON.parse(localStorage.getItem('mmk_users') || '[]'); mt.textContent = '💾 EXPORT FULL DATABASE'; tc.value = 'const dialogTheme = ' + JSON.stringify(currentTheme, null, 4) + ';\n\nconst premiumUsers = ' + JSON.stringify(users, null, 4) + ';\n\nconst apks = ' + JSON.stringify(internalApksData, null, 4) + ';'; } document.getElementById('globalOverlay').classList.add('active'); document.getElementById('devDatabaseExportModal').classList.add('active'); }
 function copyExportedTextToClipboard() { const tc = document.getElementById('exportTextareaContainer'); if (!tc) return; tc.select(); document.execCommand('copy'); alert('📋 Disalin!'); closeActiveOverlays(); }
 
 /* ============ MOD REQUEST ============ */
@@ -1048,7 +652,7 @@ function executeReorder() { const ci = parseInt(document.getElementById('reorder
 /* ============ UTILS & UI ============ */
 function handleSidebarDisplay() { const sb = document.getElementById('sidebarMenu'), ov = document.getElementById('globalOverlay'); if (sb && ov) { sb.classList.toggle('active'); ov.classList.toggle('active'); } }
 function handleSearchToggle() { const c = document.getElementById('searchPopover'); if (!c) return; c.classList.toggle('active'); if (c.classList.contains('active')) document.getElementById('searchInput').focus(); }
-function syncSecurityAccessState() { const ar = localStorage.getItem('mmk_sys_role') || 'GUEST'; const badge = document.getElementById('userSignBadge'), btn = document.getElementById('authTriggerBtn'); const he = document.querySelectorAll('.hidden-exec-item'), db = document.querySelectorAll('.dev-only-block'); const ur = document.getElementById('devUndoRedoControls'), rs = document.getElementById('devRoleSwitcher'); if (rs) rs.style.display = localStorage.getItem('mmk_ever_dev') === 'true' ? 'block' : 'none'; if (ar === 'DEVELOPER') { if (badge) { badge.textContent = 'Developer Mode'; badge.className = 'sidebar-sign-text dev-badge'; } if (btn) { btn.innerHTML = '🔒 Logout'; btn.classList.add('active-control'); } he.forEach(e => e.style.setProperty('display','block','important')); db.forEach(e => e.style.setProperty('display','block','important')); if (ur) ur.style.setProperty('display','flex','important'); } else if (ar === 'EXECUTIVE') { if (badge) { badge.textContent = 'Executive Member'; badge.className = 'sidebar-sign-text exec-badge'; } if (btn) { btn.innerHTML = '🔒 Logout'; btn.classList.add('active-control'); } he.forEach(e => e.style.setProperty('display','block','important')); db.forEach(e => e.style.setProperty('display','none','important')); document.querySelectorAll('.notif-admin-only').forEach(e => e.style.setProperty('display','block','important')); if (ur) ur.style.setProperty('display','none','important'); } else { if (badge) { badge.textContent = 'Guest Mode'; badge.className = 'sidebar-sign-text'; } if (btn) { btn.innerHTML = '⚙️ Sign In'; btn.classList.remove('active-control'); } he.forEach(e => e.style.setProperty('display','none','important')); db.forEach(e => e.style.setProperty('display','none','important')); if (ur) ur.style.setProperty('display','none','important'); } }
+function syncSecurityAccessState() { const ar = localStorage.getItem('mmk_sys_role') || 'GUEST'; const badge = document.getElementById('userSignBadge'), btn = document.getElementById('authTriggerBtn'); const he = document.querySelectorAll('.hidden-exec-item'), db = document.querySelectorAll('.dev-only-block'); const ur = document.getElementById('devUndoRedoControls'), rs = document.getElementById('devRoleSwitcher'); if (rs) rs.style.display = localStorage.getItem('mmk_ever_dev') === 'true' ? 'block' : 'none'; if (ar === 'DEVELOPER') { if (badge) { badge.textContent = 'Developer Mode'; badge.className = 'sidebar-sign-text dev-badge'; } if (btn) { btn.innerHTML = '🔒 Logout'; btn.classList.add('active-control'); } he.forEach(e => e.style.setProperty('display','block','important')); db.forEach(e => e.style.setProperty('display','block','important')); if (ur) ur.style.setProperty('display','flex','important'); } else if (ar === 'EXECUTIVE') { if (badge) { badge.textContent = 'Executive Member'; badge.className = 'sidebar-sign-text exec-badge'; } if (btn) { btn.innerHTML = '🔒 Logout'; btn.classList.add('active-control'); } he.forEach(e => e.style.setProperty('display','block','important')); db.forEach(e => e.style.setProperty('display','none','important')); if (ur) ur.style.setProperty('display','none','important'); } else { if (badge) { badge.textContent = 'Guest Mode'; badge.className = 'sidebar-sign-text'; } if (btn) { btn.innerHTML = '⚙️ Sign In'; btn.classList.remove('active-control'); } he.forEach(e => e.style.setProperty('display','none','important')); db.forEach(e => e.style.setProperty('display','none','important')); if (ur) ur.style.setProperty('display','none','important'); } }
 function handleAuthModalDisplay() { closeActiveOverlays(); const ar = localStorage.getItem('mmk_sys_role') || 'GUEST'; document.getElementById('globalOverlay').classList.add('active'); document.getElementById('authGateModal').classList.add('active'); if (ar !== 'GUEST') { document.getElementById('loginFormState').style.display = 'none'; document.getElementById('logoutFormState').style.display = 'block'; document.getElementById('authActiveModeText').textContent = `Status: [ ${ar} ]`; } else { document.getElementById('loginFormState').style.display = 'block'; document.getElementById('logoutFormState').style.display = 'none'; document.getElementById('devKeyInput').value = ''; } }
 function processAuthVerification() { const t = document.getElementById('devKeyInput').value.trim(); if (t === TOKEN_DEVELOPER) { localStorage.setItem('mmk_sys_role','DEVELOPER'); localStorage.setItem('mmk_ever_dev','true'); alert('🔐 Developer!'); location.reload(); } else if (t === TOKEN_EXECUTIVE) { localStorage.setItem('mmk_sys_role','EXECUTIVE'); alert('🔮 Executive!'); location.reload(); } else alert('❌ Token salah!'); }
 function switchRoleDirect(r) { if (localStorage.getItem('mmk_ever_dev') !== 'true') return; if (!['GUEST','EXECUTIVE','DEVELOPER'].includes(r)) return; localStorage.setItem('mmk_sys_role', r); location.reload(); }
@@ -1067,330 +671,58 @@ function renderHookRows() { const c = document.getElementById('hookRowsContainer
 function syncHookHiddenInput() { const e = document.getElementById('formApkHooks'); if (e) e.value = JSON.stringify(hookRowsData); }
 function loadHooksIntoForm(h, en, grp) { hookRowsData = Array.isArray(h) ? h.map(x => ({...x})) : []; renderHookRows(); hookGroupRowsData = Array.isArray(grp) ? grp.map(x => newHookGroup(x)) : []; renderHookGroupRows(); setHookEnabled(en === true); }
 
-/* ============ HOOK GROUP (method / judul yang sama) ============ */
-
-/* ============ HOOK GROUP v2: type sama + banyak class/method = satu toggle ============ */
+/* ============ HOOK GROUP (type sama -> satu kontrol, banyak class/method) ============ */
+const HOOK_GROUP_EMPTY = '<div style="text-align:center;color:var(--text-muted);font-size:0.78rem;padding:8px;border:1px dashed rgba(34,197,94,0.25);border-radius:8px;">Belum ada hook group.</div>';
 function newHookGroup(d) {
-  d = d || {};
-  const targets = Array.isArray(d.targets) ? d.targets.map(t => ({
-    className: (t && t.className) || '',
-    methodName: (t && t.methodName) || ''
-  })) : [];
-  // migrasi format lama matchBy/matchValue → 1 target kosong
-  if (targets.length === 0 && d.matchValue) {
-    targets.push({ className: '', methodName: String(d.matchValue) });
-  }
-  if (targets.length === 0) targets.push({ className: '', methodName: '' });
-  return {
-    fitur: d.fitur || '',
-    type: d.type || 'Z',
-    defaultValue: d.defaultValue != null ? String(d.defaultValue) : (d.type === 'Z' || !d.type ? 'true' : ''),
-    targets: targets
-  };
+    d = d || {};
+    const tg = (Array.isArray(d.targets) ? d.targets : []).map(t => ({ className: (t && t.className) || '', methodName: (t && t.methodName) || '' }));
+    if (tg.length === 0) tg.push({ className: '', methodName: '' });
+    return { fitur: d.fitur || '', type: d.type || 'Z', kind: (d.kind === 'field' || d.kind === 'invoke') ? d.kind : 'method', defaultValue: d.defaultValue != null ? String(d.defaultValue) : '', targets: tg };
 }
 function cleanHookGroups(arr) {
-  return (Array.isArray(arr) ? arr : []).map(g => newHookGroup(g)).filter(g => {
-    if (!g.fitur || !String(g.fitur).trim()) return false;
-    g.targets = (g.targets || []).filter(t => (t.className && t.className.trim()) || (t.methodName && t.methodName.trim()));
-    return g.targets.length > 0;
-  }).map(g => ({
-    fitur: g.fitur.trim(),
-    type: g.type || 'Z',
-    defaultValue: g.defaultValue != null ? String(g.defaultValue) : '',
-    targets: g.targets.map(t => ({ className: String(t.className||'').trim(), methodName: String(t.methodName||'').trim() }))
-  }));
+    return (Array.isArray(arr) ? arr : []).map(g => ({
+        fitur: String(g.fitur || '').trim(), type: g.type || 'Z', kind: (g.kind === 'field' || g.kind === 'invoke') ? g.kind : 'method',
+        defaultValue: g.defaultValue != null ? String(g.defaultValue) : '',
+        targets: (Array.isArray(g.targets) ? g.targets : []).map(t => ({ className: String(t.className || '').trim(), methodName: String(t.methodName || '').trim() })).filter(t => t.className && t.methodName)
+    })).filter(g => g.fitur && g.targets.length > 0);
 }
-/** Expand group → daftar hook individual (untuk dialog / apply) */
-function expandHookGroups(groups) {
-  const out = [];
-  (Array.isArray(groups) ? groups : []).forEach(g => {
-    const type = g.type || 'Z';
-    const def = g.defaultValue != null ? String(g.defaultValue) : (type === 'Z' ? 'true' : '');
-    const fitur = g.fitur || 'Group';
-    (g.targets || []).forEach(t => {
-      if (!t) return;
-      const cn = (t.className || '').trim();
-      const mn = (t.methodName || '').trim();
-      if (!cn && !mn) return;
-      out.push({
-        fitur: fitur,
-        className: cn,
-        methodName: mn,
-        type: type,
-        kind: 'method',
-        defaultValue: def,
-        group: fitur
-      });
-    });
-  });
-  return out;
+function buildHookGroupCard(g, i, P) {
+    const inp = 'background:#020205;border:1px solid rgba(34,197,94,0.35);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;width:100%;';
+    const opts = HOOK_TYPES.map(t => `<option value="${t.v}" ${g.type===t.v?'selected':''}>${t.label}</option>`).join('');
+    const kinds = [['method','Method (override return)'],['field','Field (iget / sget)'],['invoke','Invoke (invoke-* + move-result)']].map(k => `<option value="${k[0]}" ${g.kind===k[0]?'selected':''}>Jenis: ${k[1]}</option>`).join('');
+    const trg = g.targets.map((t, ti) => `<div style="border-top:1px solid rgba(34,197,94,0.25);padding-top:6px;display:flex;gap:6px;align-items:flex-start;"><div style="flex:1;display:flex;flex-direction:column;gap:5px;min-width:0;"><input type="text" placeholder="Class (com.app.Foo)" value="${escapeHtml(t.className)}" oninput="update${P}HookGroupTarget(${i},${ti},'className',this.value)" style="${inp}font-family:monospace;"><input type="text" placeholder="Method (isVip / isVip()Z) atau nama Field" value="${escapeHtml(t.methodName)}" oninput="update${P}HookGroupTarget(${i},${ti},'methodName',this.value)" style="${inp}font-family:monospace;"></div><button type="button" onclick="remove${P}HookGroupTarget(${i},${ti})" style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;color:#ef4444;padding:4px 8px;border-radius:5px;font-size:0.72rem;cursor:pointer;">\u2715</button></div>`).join('');
+    const r = document.createElement('div');
+    r.style.cssText = 'background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.3);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px;';
+    r.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;"><strong style="color:#22c55e;font-size:0.78rem;">Grup ${i+1}</strong><button type="button" onclick="remove${P}HookGroupRow(${i})" style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;color:#ef4444;padding:2px 8px;border-radius:5px;font-size:0.72rem;cursor:pointer;">\u{1F5D1}\uFE0F</button></div>`
+      + `<select onchange="update${P}HookGroupField(${i},'type',this.value)" style="${inp}">${opts}</select>`
+      + `<select onchange="update${P}HookGroupField(${i},'kind',this.value)" style="${inp}">${kinds}</select>`
+      + `<input type="text" placeholder="Nama grup (tampil di menu), mis. premium" value="${escapeHtml(g.fitur)}" oninput="update${P}HookGroupField(${i},'fitur',this.value)" style="${inp}">`
+      + `<input type="text" placeholder="Default value" value="${escapeHtml(g.defaultValue)}" oninput="update${P}HookGroupField(${i},'defaultValue',this.value)" style="${inp}">`
+      + trg
+      + `<button type="button" onclick="add${P}HookGroupTarget(${i})" style="background:rgba(34,197,94,0.12);border:1px dashed #22c55e;color:#22c55e;padding:6px;border-radius:6px;font-size:0.74rem;cursor:pointer;">+ TAMBAH TARGET (class + method)</button>`
+      + `<div style="font-size:0.7rem;color:var(--text-muted);line-height:1.4;">Semua target dalam grup ini memakai type yang sama dan dikontrol satu toggle/input di menu.</div>`;
+    return r;
 }
-/** Saat toggle group ON/OFF di dialog: set semua target */
-function applyHookGroupToggle(group, isOn, setHookFn) {
-  if (!group || !Array.isArray(group.targets)) return;
-  const type = group.type || 'Z';
-  let val;
-  if (type === 'Z') val = isOn ? 'true' : 'false';
-  else if (isOn) val = group.defaultValue != null ? String(group.defaultValue) : '';
-  else val = '';
-  group.targets.forEach(t => {
-    const cn = (t.className || '').trim();
-    const mn = (t.methodName || '').trim();
-    if (!cn || !mn) return;
-    if (typeof setHookFn === 'function') setHookFn(cn, mn, type, val);
-    else if (window.Android && Android.setHookValue) {
-      try { Android.setHookValue(cn, mn, type, val); } catch (e) {}
-    }
-  });
-}
-const HOOK_GROUP_EMPTY = '<div style="text-align:center;color:var(--text-muted);font-size:0.78rem;padding:8px;border:1px dashed rgba(34,197,94,0.25);border-radius:8px;">Belum ada hook group. Type sama bisa digabung 1 toggle.</div>';
-
-function buildHookGroupCard(g, i, updFn, rmFn, addTargetFn, rmTargetFn, updTargetFn) {
-  g = newHookGroup(g);
-  const opts = HOOK_TYPES.map(t => `<option value="${t.v}" ${g.type===t.v?'selected':''}>${t.label}</option>`).join('');
-  const inp = 'background:#020205;border:1px solid rgba(34,197,94,0.35);border-radius:6px;padding:7px 10px;color:#fff;font-size:0.82rem;';
-  const targetsHtml = (g.targets || []).map((t, ti) =>
-    `<div class="hook-group-target-row">
-      <input type="text" placeholder="Class" value="${escapeHtml(t.className||'')}" oninput="${updTargetFn}(${i},${ti},'className',this.value)" style="${inp}font-family:monospace;">
-      <input type="text" placeholder="Method" value="${escapeHtml(t.methodName||'')}" oninput="${updTargetFn}(${i},${ti},'methodName',this.value)" style="${inp}font-family:monospace;">
-      <button type="button" onclick="${rmTargetFn}(${i},${ti})" style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;color:#ef4444;padding:4px 8px;border-radius:5px;cursor:pointer;font-size:0.75rem;">✕</button>
-    </div>`
-  ).join('');
-  const r = document.createElement('div');
-  r.style.cssText = 'background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.3);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px;';
-  r.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;"><strong style="color:#22c55e;font-size:0.78rem;">Group #${i+1} — 1 toggle untuk semua target</strong><button type="button" onclick="${rmFn}(${i})" style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;color:#ef4444;padding:2px 8px;border-radius:5px;font-size:0.72rem;cursor:pointer;">🗑️</button></div>`
-    + `<input type="text" placeholder="Nama Group (tampil di menu, mis. Premium)" value="${escapeHtml(g.fitur)}" oninput="${updFn}(${i},'fitur',this.value)" style="${inp}">`
-    + `<select onchange="${updFn}(${i},'type',this.value)" style="${inp}">${opts}</select>`
-    + `<input type="text" placeholder="Default value (Z: true / J: 4102444800000)" value="${escapeHtml(g.defaultValue)}" oninput="${updFn}(${i},'defaultValue',this.value)" style="${inp}">`
-    + `<div style="font-size:0.72rem;color:#22c55e;font-weight:600;margin-top:4px;">Targets (class + method) — type: ${escapeHtml(g.type||'Z')}</div>`
-    + `<div class="hook-group-targets">${targetsHtml}</div>`
-    + `<button type="button" onclick="${addTargetFn}(${i})" style="margin-top:4px;padding:6px;border-radius:6px;border:1px dashed rgba(34,197,94,0.5);background:rgba(34,197,94,0.08);color:#22c55e;cursor:pointer;font-size:0.75rem;">+ Tambah Class / Method</button>`
-    + `<div style="font-size:0.68rem;color:var(--text-muted);line-height:1.4;">Di dialog APK: 1 baris toggle <b>${escapeHtml(g.fitur||'Group')}</b> ON = aktifkan semua target di atas.</div>`;
-  return r;
-}
-
-/* --- form APK groups --- */
+/* --- form APK --- */
 function addHookGroupRow(d) { hookGroupRowsData.push(newHookGroup(d)); renderHookGroupRows(); }
-function removeHookGroupRow(i) { hookGroupRowsData.splice(i,1); renderHookGroupRows(); }
-function updateHookGroupField(i, f, v) { if (hookGroupRowsData[i]) { hookGroupRowsData[i][f] = v; if (f==='type') renderHookGroupRows(); } }
-function addHookGroupTarget(gi) { if (!hookGroupRowsData[gi]) return; if (!hookGroupRowsData[gi].targets) hookGroupRowsData[gi].targets=[]; hookGroupRowsData[gi].targets.push({className:'',methodName:''}); renderHookGroupRows(); }
-function removeHookGroupTarget(gi, ti) { if (!hookGroupRowsData[gi]||!hookGroupRowsData[gi].targets) return; hookGroupRowsData[gi].targets.splice(ti,1); if (hookGroupRowsData[gi].targets.length===0) hookGroupRowsData[gi].targets.push({className:'',methodName:''}); renderHookGroupRows(); }
-function updateHookGroupTarget(gi, ti, f, v) { if (hookGroupRowsData[gi]&&hookGroupRowsData[gi].targets&&hookGroupRowsData[gi].targets[ti]) hookGroupRowsData[gi].targets[ti][f]=v; }
-function renderHookGroupRows() {
-  const c = document.getElementById('hookGroupRowsContainer'); if (!c) return; c.innerHTML = '';
-  if (hookGroupRowsData.length === 0) { c.innerHTML = HOOK_GROUP_EMPTY; return; }
-  hookGroupRowsData.forEach((g, i) => c.appendChild(buildHookGroupCard(g, i, 'updateHookGroupField', 'removeHookGroupRow', 'addHookGroupTarget', 'removeHookGroupTarget', 'updateHookGroupTarget')));
-}
-
-/* --- dialog config groups --- */
+function removeHookGroupRow(i) { hookGroupRowsData.splice(i, 1); renderHookGroupRows(); }
+function updateHookGroupField(i, f, v) { if (hookGroupRowsData[i]) hookGroupRowsData[i][f] = v; }
+function addHookGroupTarget(i) { if (hookGroupRowsData[i]) { hookGroupRowsData[i].targets.push({ className: '', methodName: '' }); renderHookGroupRows(); } }
+function removeHookGroupTarget(i, t) { const g = hookGroupRowsData[i]; if (!g) return; g.targets.splice(t, 1); if (g.targets.length === 0) g.targets.push({ className: '', methodName: '' }); renderHookGroupRows(); }
+function updateHookGroupTarget(i, t, f, v) { const g = hookGroupRowsData[i]; if (g && g.targets[t]) g.targets[t][f] = v; }
+function renderHookGroupRows() { const c = document.getElementById('hookGroupRowsContainer'); if (!c) return; c.innerHTML = ''; if (hookGroupRowsData.length === 0) { c.innerHTML = HOOK_GROUP_EMPTY; return; } hookGroupRowsData.forEach((g, i) => c.appendChild(buildHookGroupCard(g, i, ''))); }
+/* --- dialog config --- */
 function addDcHookGroupRow(d) { dcHookGroupRowsData.push(newHookGroup(d)); renderDcHookGroupRows(); }
-function removeDcHookGroupRow(i) { dcHookGroupRowsData.splice(i,1); renderDcHookGroupRows(); }
-function updateDcHookGroupField(i, f, v) { if (dcHookGroupRowsData[i]) { dcHookGroupRowsData[i][f] = v; if (f==='type') renderDcHookGroupRows(); } }
-function addDcHookGroupTarget(gi) { if (!dcHookGroupRowsData[gi]) return; if (!dcHookGroupRowsData[gi].targets) dcHookGroupRowsData[gi].targets=[]; dcHookGroupRowsData[gi].targets.push({className:'',methodName:''}); renderDcHookGroupRows(); }
-function removeDcHookGroupTarget(gi, ti) { if (!dcHookGroupRowsData[gi]||!dcHookGroupRowsData[gi].targets) return; dcHookGroupRowsData[gi].targets.splice(ti,1); if (dcHookGroupRowsData[gi].targets.length===0) dcHookGroupRowsData[gi].targets.push({className:'',methodName:''}); renderDcHookGroupRows(); }
-function updateDcHookGroupTarget(gi, ti, f, v) { if (dcHookGroupRowsData[gi]&&dcHookGroupRowsData[gi].targets&&dcHookGroupRowsData[gi].targets[ti]) dcHookGroupRowsData[gi].targets[ti][f]=v; }
-function renderDcHookGroupRows() {
-  const c = document.getElementById('dcHookGroupRowsContainer'); if (!c) return; c.innerHTML = '';
-  if (dcHookGroupRowsData.length === 0) { c.innerHTML = HOOK_GROUP_EMPTY; return; }
-  dcHookGroupRowsData.forEach((g, i) => c.appendChild(buildHookGroupCard(g, i, 'updateDcHookGroupField', 'removeDcHookGroupRow', 'addDcHookGroupTarget', 'removeDcHookGroupTarget', 'updateDcHookGroupTarget')));
-}
+function removeDcHookGroupRow(i) { dcHookGroupRowsData.splice(i, 1); renderDcHookGroupRows(); }
+function updateDcHookGroupField(i, f, v) { if (dcHookGroupRowsData[i]) dcHookGroupRowsData[i][f] = v; }
+function addDcHookGroupTarget(i) { if (dcHookGroupRowsData[i]) { dcHookGroupRowsData[i].targets.push({ className: '', methodName: '' }); renderDcHookGroupRows(); } }
+function removeDcHookGroupTarget(i, t) { const g = dcHookGroupRowsData[i]; if (!g) return; g.targets.splice(t, 1); if (g.targets.length === 0) g.targets.push({ className: '', methodName: '' }); renderDcHookGroupRows(); }
+function updateDcHookGroupTarget(i, t, f, v) { const g = dcHookGroupRowsData[i]; if (g && g.targets[t]) g.targets[t][f] = v; }
+function renderDcHookGroupRows() { const c = document.getElementById('dcHookGroupRowsContainer'); if (!c) return; c.innerHTML = ''; if (dcHookGroupRowsData.length === 0) { c.innerHTML = HOOK_GROUP_EMPTY; return; } dcHookGroupRowsData.forEach((g, i) => c.appendChild(buildHookGroupCard(g, i, 'Dc'))); }
 
-function openApkCardConfig(idx) {
-  const item = internalApksData[idx];
-  if (!item) return;
-  const role = localStorage.getItem('mmk_sys_role') || 'GUEST';
-  if (role === 'DEVELOPER' || role === 'EXECUTIVE') {
-    if (typeof openEditApkFormModal === 'function') { openEditApkFormModal(idx); return; }
-    if (typeof openEditApkForm === 'function') { openEditApkForm(idx); return; }
-    if (typeof openAddApkFormModal === 'function') {
-      openAddApkFormModal();
-      const sel = document.getElementById('formExistingApkSelect');
-      if (sel) { sel.value = String(idx); if (typeof handleLoadExistingApkData === 'function') handleLoadExistingApkData(); }
-      return;
-    }
-  }
-  alert((item.name || 'APK') + '\nHook: ' + ((item.hooks&&item.hooks.length)||0) + ' | Groups: ' + ((item.hookGroups&&item.hookGroups.length)||0));
-}
-
-
-
-
-
-/* ===== Scheduled Notifications (web → apks.js → APK) ===== */
-window.mmkNotifSchedules = window.mmkNotifSchedules || JSON.parse(localStorage.getItem('mmk_notif_schedules') || '[]');
-
-function openNotifScheduleModal() {
-  var role = localStorage.getItem('mmk_sys_role') || 'GUEST';
-  if (role !== 'DEVELOPER' && role !== 'EXECUTIVE') {
-    alert('Fitur notifikasi hanya untuk Executive / Developer.');
-    return;
-  }
-  closeActiveOverlays();
-  populateNotifApkSelect();
-  renderNotifScheduleList();
-  const m = document.getElementById('notifScheduleModal');
-  if (m) m.classList.add('active');
-  const ov = document.getElementById('globalOverlay');
-  if (ov) ov.classList.add('active');
-}
-
-function populateNotifApkSelect() {
-  const sel = document.getElementById('notifApkSelect');
-  if (!sel) return;
-  const cur = sel.value;
-  sel.innerHTML = '<option value="">— Tidak ada —</option>';
-  // pakai variabel katalog (bukan window.*)
-  var data = [];
-  try {
-    if (typeof internalApksData !== 'undefined' && Array.isArray(internalApksData) && internalApksData.length)
-      data = internalApksData;
-    else if (window.internalApksData && window.internalApksData.length)
-      data = window.internalApksData;
-    else if (typeof apks !== 'undefined' && Array.isArray(apks))
-      data = apks;
-    else {
-      var saved = localStorage.getItem('mmk_local_apks');
-      if (saved) data = JSON.parse(saved) || [];
-    }
-  } catch (e) { data = []; }
-
-  if (!data.length) {
-    var empty = document.createElement('option');
-    empty.disabled = true;
-    empty.textContent = '(Belum ada APK di katalog — tambah/impor dulu)';
-    sel.appendChild(empty);
-  }
-
-  data.forEach(function(item, i) {
-    if (!item) return;
-    var opt = document.createElement('option');
-    opt.value = String(i);
-    var pkg = item.packageName || item.package || item.pkg || '';
-    opt.textContent = (item.name || item.title || 'APK #' + (i+1)) + (pkg ? ' (' + pkg + ')' : '');
-    opt.setAttribute('data-img', item.imageUrl || item.icon || item.logo || '');
-    opt.setAttribute('data-pkg', pkg);
-    opt.setAttribute('data-name', item.name || item.title || '');
-    sel.appendChild(opt);
-  });
-
-  if (cur) sel.value = cur;
-
-  sel.onchange = function() {
-    var i = parseInt(sel.value, 10);
-    var box = document.getElementById('notifApkPreview');
-    var img = document.getElementById('notifApkImg');
-    var nm = document.getElementById('notifApkName');
-    var opt = sel.options[sel.selectedIndex];
-    if (!sel.value || isNaN(i) || !opt) {
-      if (box) box.style.display = 'none';
-      return;
-    }
-    var imageUrl = opt.getAttribute('data-img') || (data[i] && (data[i].imageUrl || data[i].icon)) || '';
-    var name = opt.getAttribute('data-name') || (data[i] && data[i].name) || '';
-    var pkg = opt.getAttribute('data-pkg') || '';
-    if (box) box.style.display = 'flex';
-    if (img) {
-      img.src = imageUrl;
-      img.style.display = imageUrl ? 'block' : 'none';
-    }
-    if (nm) nm.textContent = name;
-    var pkgInput = document.getElementById('notifPackage');
-    if (pkgInput && pkg) pkgInput.value = pkg;
-  };
-}
-
-function saveNotifSchedule() {
-  const title = (document.getElementById('notifTitle') || {}).value || '';
-  const message = (document.getElementById('notifMessage') || {}).value || '';
-  let hour = parseInt((document.getElementById('notifHour') || {}).value, 10);
-  let minute = parseInt((document.getElementById('notifMinute') || {}).value, 10);
-  if (isNaN(hour)) hour = 9;
-  if (isNaN(minute)) minute = 0;
-  hour = Math.max(0, Math.min(23, hour));
-  minute = Math.max(0, Math.min(59, minute));
-  const enabled = !!(document.getElementById('notifEnabled') || {}).checked;
-  const pkg = (document.getElementById('notifPackage') || {}).value || '';
-  const sel = document.getElementById('notifApkSelect');
-  let imageUrl = '';
-  let apkName = '';
-  if (sel && sel.value !== '') {
-    const i = parseInt(sel.value, 10);
-    var opt = sel.options[sel.selectedIndex];
-    if (opt) {
-      imageUrl = opt.getAttribute('data-img') || '';
-      apkName = opt.getAttribute('data-name') || '';
-    }
-    var list = (typeof internalApksData !== 'undefined' && internalApksData) ? internalApksData : [];
-    if ((!imageUrl || !apkName) && list[i]) {
-      imageUrl = imageUrl || list[i].imageUrl || list[i].icon || '';
-      apkName = apkName || list[i].name || '';
-    }
-  }
-  if (!title.trim() || !message.trim()) {
-    alert('Judul dan pesan wajib diisi');
-    return;
-  }
-  const entry = {
-    id: 'n' + Date.now(),
-    title: title.trim(),
-    message: message.trim(),
-    hour: hour,
-    minute: minute,
-    time: String(hour).padStart(2, '0') + ':' + String(minute).padStart(2, '0'),
-    imageUrl: imageUrl,
-    apkName: apkName,
-    packageName: pkg.trim(),
-    enabled: enabled
-  };
-  window.mmkNotifSchedules = window.mmkNotifSchedules || [];
-  window.mmkNotifSchedules.push(entry);
-  try { localStorage.setItem('mmk_notif_schedules', JSON.stringify(window.mmkNotifSchedules)); } catch (_) {}
-  renderNotifScheduleList();
-  alert('Jadwal disimpan: ' + entry.time + ' — ' + entry.title + '\nTercatat di apks.js (scheduledNotifs). Ekspor lalu upload ke raw GitHub.');
-}
-
-function removeNotifSchedule(id) {
-  window.mmkNotifSchedules = (window.mmkNotifSchedules || []).filter(function(x) { return x.id !== id; });
-  try { localStorage.setItem('mmk_notif_schedules', JSON.stringify(window.mmkNotifSchedules)); } catch (_) {}
-  renderNotifScheduleList();
-}
-
-function renderNotifScheduleList() {
-  const box = document.getElementById('notifScheduleList');
-  if (!box) return;
-  const list = window.mmkNotifSchedules || [];
-  if (!list.length) {
-    box.innerHTML = '<div style="text-align:center;color:var(--text-muted);font-size:0.78rem;padding:10px;border:1px dashed rgba(255,255,255,0.1);border-radius:8px;">Belum ada jadwal</div>';
-    return;
-  }
-  box.innerHTML = list.map(function(n) {
-    return '<div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:10px;padding:10px;display:flex;gap:8px;align-items:flex-start;">' +
-      (n.imageUrl ? '<img src="' + n.imageUrl + '" style="width:40px;height:40px;border-radius:8px;object-fit:cover;">' : '') +
-      '<div style="flex:1;min-width:0;">' +
-      '<div style="font-weight:700;color:#fbbf24;font-size:0.85rem;">' + (n.time || '') + ' — ' + (n.title || '') + (n.enabled ? '' : ' (off)') + '</div>' +
-      '<div style="font-size:0.75rem;color:rgba(255,255,255,0.65);">' + (n.message || '') + '</div>' +
-      (n.packageName ? '<div style="font-size:0.68rem;color:var(--text-muted);font-family:monospace;">' + n.packageName + '</div>' : '') +
-      '</div>' +
-      '<button type="button" onclick="removeNotifSchedule(\'' + n.id + '\')" style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;color:#ef4444;padding:4px 8px;border-radius:6px;cursor:pointer;">✕</button>' +
-      '</div>';
-  }).join('');
-}
-
-function exportNotifWithApks() {
-  const body = buildApksJsExport(window.internalApksData || internalApksData);
-  const blob = new Blob([body], { type: 'application/javascript' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'apks.js';
-  a.click();
-  URL.revokeObjectURL(a.href);
-  alert('apks.js diekspor (dialogTheme + premiumUsers + scheduledNotifs + apks). Upload ke raw GitHub.');
-}
-
-
-function closeActiveOverlays() { try { const vm = document.getElementById('visualDialogEditorModal'); if (vm) { vm.classList.remove('active'); vm.style.display = 'none'; } } catch(_){} ['sidebarMenu','authGateModal','devApkFormModal','devDatabaseExportModal','devReorderModal','requestModModal','adminRequestListModal','searchPopover','dialogConfigPanelModal','dialogConfigEditModal','clearCloneModal','globalOverlay','addExecutiveMemberModal','listMemberModal','themeEditorModal','notifScheduleModal'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('active'); }); }
+function closeActiveOverlays() { ['sidebarMenu','authGateModal','devApkFormModal','devDatabaseExportModal','devReorderModal','requestModModal','adminRequestListModal','searchPopover','dialogConfigPanelModal','dialogConfigEditModal','clearCloneModal','globalOverlay','addExecutiveMemberModal','listMemberModal','themeEditorModal'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('active'); }); }
 function applyCategoryFilter(cat) { const items = document.querySelectorAll('.apk-card'), al = document.getElementById('searchEmptyAlert'); let tm = 0; items.forEach(b => { if (cat === 'all' || b.getAttribute('data-target-cat') === cat) { b.classList.remove('hidden'); tm++; } else b.classList.add('hidden'); }); if (al) al.style.display = tm > 0 ? 'none' : 'block'; closeActiveOverlays(); }
-function executeApkSearch() { const q = document.getElementById('searchInput').value.toLowerCase(); const g = document.getElementById('apkDisplayGrid'), al = document.getElementById('searchEmptyAlert'), pc = document.getElementById('loadMoreContainer'); if (q.trim() === '') { renderGridCards(); return; } if (!g) return; g.innerHTML = ''; let s = false; internalApksData.forEach((item, i) => { if ((item.name||'').toLowerCase().includes(q)) { s = true; const card = document.createElement('div'); card.className = 'apk-card'; card.setAttribute('data-target-cat', item.category); card.setAttribute('data-target-droid', item.android); card.innerHTML = `<button type="button" class="apk-card-gear" title="Konfigurasi" onclick="event.stopPropagation();openApkCardConfig(${i})">⚙️</button><div class="apk-top-flex"><div class="apk-icon-frame"><img src="${item.imageUrl||''}" onerror="this.style.display='none';this.parentElement.innerHTML='${getCardDefaultIcon(item)}';"></div><div class="apk-main-info"><span class="apk-title">${item.name}</span><span class="apk-version">${item.version}</span><div class="apk-badge-row">${buildBadgeRow(item)}</div></div></div><div class="apk-desc-area">${item.description||''}</div><div class="card-action-row"><a href="${item.downloadUrl||'#'}" target="_blank" class="download-action-btn">Download</a><button class="share-action-btn" onclick="shareApkCard(${i})">🔗</button></div>`; g.appendChild(card); } }); if (al) al.style.display = s ? 'none' : 'block'; if (pc) pc.style.display = 'none'; }
+function executeApkSearch() { const q = document.getElementById('searchInput').value.toLowerCase(); const g = document.getElementById('apkDisplayGrid'), al = document.getElementById('searchEmptyAlert'), pc = document.getElementById('loadMoreContainer'); if (q.trim() === '') { renderGridCards(); return; } if (!g) return; g.innerHTML = ''; let s = false; internalApksData.forEach((item, i) => { if ((item.name||'').toLowerCase().includes(q)) { s = true; const card = document.createElement('div'); card.className = 'apk-card'; card.setAttribute('data-target-cat', item.category); card.setAttribute('data-target-droid', item.android); card.innerHTML = `<div class="apk-top-flex"><div class="apk-icon-frame"><img src="${item.imageUrl||''}" onerror="this.style.display='none';this.parentElement.innerHTML='${getCardDefaultIcon(item)}';"></div><div class="apk-main-info"><span class="apk-title">${item.name}</span><span class="apk-version">${item.version}</span><div class="apk-badge-row">${buildBadgeRow(item)}</div></div></div><div class="apk-desc-area">${item.description||''}</div><div class="card-action-row"><a href="${item.downloadUrl||'#'}" target="_blank" class="download-action-btn">Download</a><button class="share-action-btn" onclick="shareApkCard(${i})">🔗</button></div>`; g.appendChild(card); } }); if (al) al.style.display = s ? 'none' : 'block'; if (pc) pc.style.display = 'none'; }
 async function shareApkCard(i) { const item = internalApksData[i]; if (!item) return; const url = `${window.location.origin}${window.location.pathname.replace(/index\.html$/,'')}/sharing.html?app=${encodeURIComponent(item.name)}`; const text = `*${item.name}*\n\`${item.version||'-'}\`\n\n${item.description||''}\n\nLink:\n> ${url}`.trim(); if (navigator.share) { try { await navigator.share({ title: item.name, text }); } catch(_) {} return; } try { await navigator.clipboard.writeText(text); alert(`🔗 Info "${item.name}" disalin!`); } catch(_) { prompt('Salin:', text); } }
 function handleModderProfileModal() { alert('MMK Modder Engine\n\nLead Software Modificator\nEkosistem Aplikasi Android internal MMK Team.'); }
 
