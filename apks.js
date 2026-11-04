@@ -112,7 +112,7 @@ const apks = [
             "[ + ] Support Lyric"
         ],
         "dialogConfig": {
-            "signCheck": true,
+            "signCheck": false,
             "btnMode": false,
             "crashLog": false,
             "forceCloseOnUpdate": false
