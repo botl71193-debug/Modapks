@@ -1329,7 +1329,7 @@ const apks = [
             "crashLog": true,
             "forceCloseOnUpdate": true
         },
-        "hookEnabled": false,
+        "hookEnabled": true,
         "hooks": [
             {
                 "fitur": "Premium Status",
@@ -1372,6 +1372,20 @@ const apks = [
                 "methodName": "isLoggedIn",
                 "type": "Z",
                 "defaultValue": "false"
+            }
+        ],
+        "hookGroups": [
+            {
+                "fitur": "Pkg name",
+                "type": "Z",
+                "kind": "method",
+                "defaultValue": "",
+                "targets": [
+                    {
+                        "className": "com.Cd.a4$WebAppInterface",
+                        "methodName": "getPackageName"
+                    }
+                ]
             }
         ]
     }
