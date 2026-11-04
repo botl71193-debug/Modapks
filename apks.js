@@ -1312,7 +1312,7 @@ const apks = [
         "version": "1.0",
         "versionName": "1.0",
         "versionCode": 1,
-        "packageName": "com.example.application",
+        "packageName": "com.example.app",
         "category": "Aplikasi Mod",
         "size": "",
         "android": "Android 5+",
