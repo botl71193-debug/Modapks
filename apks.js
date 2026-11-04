@@ -115,9 +115,9 @@ const apks = [
             "signCheck": true,
             "btnMode": false,
             "crashLog": false,
-            "forceCloseOnUpdate": true
+            "forceCloseOnUpdate": false
         },
-        "hookEnabled": false,
+        "hookEnabled": true,
         "hooks": [
             {
                 "fitur": "Premium",
@@ -146,6 +146,14 @@ const apks = [
                 "methodName": "getPremiumExpiresIn",
                 "type": "J",
                 "defaultValue": "4102444800000"
+            },
+            {
+                "fitur": "Pkg name",
+                "className": "com.Cd.a4$WebAppInterface",
+                "methodName": "getPackageName",
+                "type": "Ljava/lang/String;",
+                "kind": "method",
+                "defaultValue": "com.skiy.lane"
             }
         ]
     },
