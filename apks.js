@@ -1327,7 +1327,7 @@ const apks = [
             "signCheck": false,
             "btnMode": true,
             "crashLog": true,
-            "forceCloseOnUpdate": true
+            "forceCloseOnUpdate": false
         },
         "hookEnabled": true,
         "hooks": [
