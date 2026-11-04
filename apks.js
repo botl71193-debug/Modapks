@@ -117,7 +117,7 @@ const apks = [
             "crashLog": false,
             "forceCloseOnUpdate": false
         },
-        "hookEnabled": true,
+        "hookEnabled": false,
         "hooks": [
             {
                 "fitur": "Premium",
