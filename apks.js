@@ -1312,7 +1312,7 @@ const apks = [
         "version": "1.0",
         "versionName": "1.0",
         "versionCode": 1,
-        "packageName": "com.exampel.app",
+        "packageName": "com.example.app",
         "category": "Aplikasi Mod",
         "size": "",
         "android": "Android 5+",
@@ -1396,5 +1396,18 @@ const apks = [
                 ]
             }
         ]
+    },
+    {
+        "name": "NUX Launcher",
+        "version": "1.0.0",
+        "versionName": "1.0.0",
+        "versionCode": 17,
+        "packageName": "com.israadev.nuxlauncher",
+        "category": "Aplikasi Mod",
+        "size": "283,18M",
+        "android": "Android 5+",
+        "description": "aplikasi Minecraft Launcher modern yang dirancang untuk menjalankan game Minecraft di platform Windows PC dan smartphone Android. Launcher ini memungkinkan pemain untuk menikmati gameplay dengan sinkronisasi data yang mulus antar perangkat (cross-play) serta kontrol layar sentuh yang presisi untuk pengguna HP.",
+        "imageUrl": "https://i.ibb.co.com/DH6vwtJD/Screenshot-2026-0927-125311.webp",
+        "downloadUrl": "https://adlinksumo.com/y1Tbcpw"
     }
 ];
