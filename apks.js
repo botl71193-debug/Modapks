@@ -95,6 +95,38 @@ const premiumUsers = [
 
 const apks = [
     {
+        "name": "Keyflow",
+        "version": "1.5.8",
+        "versionName": "1.5.8",
+        "versionCode": 38,
+        "packageName": "com.angkin.keyflow",
+        "category": "Tools",
+        "size": "30,51M",
+        "android": "Android 5+",
+        "description": "Editor video dan foto mobile berbasis layer dengan keyframe animation, kontrol easing curve, 3D camera, time remapping, speed ramping, motion blur, custom expressions, efek slow motion bergaya Twixtor, template aspect ratio kustom, serta fitur pengelolaan media dan proyek.",
+        "imageUrl": "https://i.ibb.co.com/mCsnbZVM/Screenshot-2026-1030-171756.webp",
+        "downloadUrl": "https://adlinksumo.com/mxpLI0",
+        "changelog": [
+            "[ ✓ ] Unlocked PRO"
+        ],
+        "hooks": [
+            {
+                "fitur": "PRO",
+                "className": "TG6Ll",
+                "methodName": "jqhLupq",
+                "type": "Z",
+                "defaultValue": "false"
+            }
+        ],
+        "hookEnabled": false,
+        "dialogConfig": {
+            "signCheck": false,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
+    },
+    {
         "name": "Dongha",
         "version": "1.6.2",
         "versionName": "1.6.2",
@@ -603,38 +635,6 @@ const apks = [
             }
         ],
         "hookEnabled": true
-    },
-    {
-        "name": "Keyflow",
-        "version": "1.4.8",
-        "versionName": "1.4.8",
-        "versionCode": 32,
-        "packageName": "com.angkin.keyflow",
-        "category": "Tools",
-        "size": "61,94M",
-        "android": "Android 5+",
-        "description": "Editor video dan foto mobile berbasis layer dengan keyframe animation, kontrol easing curve, 3D camera, time remapping, speed ramping, motion blur, custom expressions, efek slow motion bergaya Twixtor, template aspect ratio kustom, serta fitur pengelolaan media dan proyek.",
-        "imageUrl": "https://i.ibb.co.com/mCsnbZVM/Screenshot-2026-1030-171756.webp",
-        "downloadUrl": "https://adlinksumo.com/AQzLmmW",
-        "changelog": [
-            "[ ✓ ] Unlocked PRO"
-        ],
-        "hooks": [
-            {
-                "fitur": "PRO",
-                "className": "TG6Ll",
-                "methodName": "jqhLupq",
-                "type": "Z",
-                "defaultValue": "false"
-            }
-        ],
-        "hookEnabled": true,
-        "dialogConfig": {
-            "signCheck": false,
-            "btnMode": false,
-            "crashLog": false,
-            "forceCloseOnUpdate": true
-        }
     },
     {
         "name": "iLovePDF",
