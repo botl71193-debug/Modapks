@@ -95,6 +95,30 @@ const premiumUsers = [
 
 const apks = [
     {
+        "name": "Dongha",
+        "version": "1.6.2",
+        "versionName": "1.6.2",
+        "versionCode": 6627,
+        "packageName": "com.epemini.dongha",
+        "category": "Streaming",
+        "size": "61,33M",
+        "android": "Android 8+",
+        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
+        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
+        "downloadUrl": "https://adlinksumo.com/xQQqMz8C",
+        "changelog": [
+            "[ + ] Premium lifetime unlocked",
+            "[ + ] No ads",
+            "[ + ] Unlock all fitur Premium"
+        ],
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
+    },
+    {
         "name": "NUX Launcher",
         "version": "1.1.6",
         "versionName": "1.1.6",
@@ -683,24 +707,6 @@ const apks = [
         "downloadUrl": "https://adlinksumo.com/MQHPFu7",
         "changelog": [
             "[ + ] Unlock all Feature"
-        ]
-    },
-    {
-        "name": "Dongha",
-        "version": "1.4.2",
-        "versionName": "1.4.2",
-        "versionCode": 6622,
-        "packageName": "com.epemini.dongha",
-        "category": "Streaming",
-        "size": "44,67M",
-        "android": "Android 8+",
-        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
-        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
-        "downloadUrl": "https://adlinksumo.com/BiMi",
-        "changelog": [
-            "[ + ] Premium lifetime unlocked",
-            "[ + ] No ads",
-            "[ + ] Unlock all fitur Premium"
         ]
     },
     {
