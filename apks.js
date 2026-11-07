@@ -1411,7 +1411,7 @@ const apks = [
         "hookGroups": [
             {
                 "fitur": "Pkg name",
-                "type": "Z",
+                "type": "Ljava/lang/String;",
                 "kind": "method",
                 "defaultValue": "",
                 "targets": [
