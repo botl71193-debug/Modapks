@@ -95,216 +95,17 @@ const premiumUsers = [
 
 const apks = [
     {
-        "name": "Keyflow",
-        "version": "1.5.8",
-        "versionName": "1.5.8",
-        "versionCode": 38,
-        "packageName": "com.angkin.keyflow",
-        "category": "Tools",
-        "size": "30,51M",
-        "android": "Android 5+",
-        "description": "Editor video dan foto mobile berbasis layer dengan keyframe animation, kontrol easing curve, 3D camera, time remapping, speed ramping, motion blur, custom expressions, efek slow motion bergaya Twixtor, template aspect ratio kustom, serta fitur pengelolaan media dan proyek.",
-        "imageUrl": "https://i.ibb.co.com/mCsnbZVM/Screenshot-2026-1030-171756.webp",
-        "downloadUrl": "https://adlinksumo.com/mxpLI0",
-        "changelog": [
-            "[ ✓ ] Unlocked PRO"
-        ],
-        "hooks": [
-            {
-                "fitur": "PRO",
-                "className": "TG6Ll",
-                "methodName": "jqhLupq",
-                "type": "Z",
-                "defaultValue": "false"
-            }
-        ],
-        "hookEnabled": false,
-        "dialogConfig": {
-            "signCheck": false,
-            "btnMode": false,
-            "crashLog": false,
-            "forceCloseOnUpdate": true
-        }
-    },
-    {
-        "name": "Dongha",
-        "version": "1.6.2",
-        "versionName": "1.6.2",
-        "versionCode": 6627,
-        "packageName": "com.epemini.dongha",
-        "category": "Streaming",
-        "size": "61,33M",
-        "android": "Android 8+",
-        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
-        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
-        "downloadUrl": "https://adlinksumo.com/xQQqMz8C",
-        "changelog": [
-            "[ + ] Premium lifetime unlocked",
-            "[ + ] No ads",
-            "[ + ] Unlock all fitur Premium"
-        ],
-        "dialogConfig": {
-            "signCheck": true,
-            "btnMode": false,
-            "crashLog": false,
-            "forceCloseOnUpdate": true
-        }
-    },
-    {
-        "name": "NUX Launcher",
-        "version": "1.1.6",
-        "versionName": "1.1.6",
-        "versionCode": 17,
-        "packageName": "com.israadev.nuxlauncher",
-        "category": "Aplikasi Mod",
-        "size": "255,73M",
-        "android": "Android 5+",
-        "description": "aplikasi Minecraft Launcher modern yang dirancang untuk menjalankan game Minecraft di platform Windows PC dan smartphone Android. Launcher ini memungkinkan pemain untuk menikmati gameplay dengan sinkronisasi data yang mulus antar perangkat (cross-play) serta kontrol layar sentuh yang presisi untuk pengguna HP.",
-        "imageUrl": "https://i.ibb.co.com/DH6vwtJD/Screenshot-2026-0927-125311.webp",
-        "downloadUrl": "https://adlinksumo.com/hDQ6rQE",
-        "changelog": [],
-        "dialogConfig": {
-            "signCheck": true,
-            "btnMode": false,
-            "crashLog": false,
-            "forceCloseOnUpdate": true
-        }
-    },
-    {
-        "name": "Lane",
-        "version": "1.4.7",
-        "category": "Music",
-        "size": "75,23M",
-        "android": "Android 5+",
-        "description": "Aplikasi alternatif pemutar musik Spotify dengan fitur Premium terbuka.",
-        "imageUrl": "https://i.ibb.co.com/6R4bXjvW/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/WMgdOky",
-        "packageName": "com.skiy.lane",
-        "versionName": "1.4.7",
-        "versionCode": 207,
-        "changelog": [
-            "[ + ] Premium Lifetime",
-            "[ + ] Support reso audio High",
-            "[ + ] Support Lyric"
-        ],
-        "dialogConfig": {
-            "signCheck": false,
-            "btnMode": false,
-            "crashLog": false,
-            "forceCloseOnUpdate": false
-        },
-        "hookEnabled": false,
-        "hooks": [
-            {
-                "fitur": "Premium",
-                "className": "com.skiy.lane.domain.model.PremiumActivatedEvent",
-                "methodName": "isPremium",
-                "type": "Z",
-                "defaultValue": "false"
-            },
-            {
-                "fitur": "Expired Premium",
-                "className": "com.skiy.lane.domain.model.PremiumActivatedEvent",
-                "methodName": "getPremiumExpiresIn",
-                "type": "J",
-                "defaultValue": "4102444800000"
-            },
-            {
-                "fitur": "Expired Premium ",
-                "className": "com.skiy.lane.domain.model.User",
-                "methodName": "getPremiumExpiresIn",
-                "type": "J",
-                "defaultValue": "4102444800000"
-            },
-            {
-                "fitur": "Expired Premium ",
-                "className": "com.skiy.lane.domain.model.UserInfo",
-                "methodName": "getPremiumExpiresIn",
-                "type": "J",
-                "defaultValue": "4102444800000"
-            },
-            {
-                "fitur": "Pkg name",
-                "className": "com.Cd.a4$WebAppInterface",
-                "methodName": "getPackageName",
-                "type": "Ljava/lang/String;",
-                "kind": "method",
-                "defaultValue": "com.skiy.lane"
-            }
-        ]
-    },
-    {
-        "name": "Zayon",
-        "version": "1.0.5",
-        "versionName": "1.0.5",
-        "versionCode": 13,
-        "packageName": "com.zayon.optimize",
-        "category": "Tools",
-        "size": "8,73M",
-        "android": "Android 5+",
-        "description": "Game booster Android untuk memantau FPS dan suhu, mengatur refresh rate, batas FPS, resolusi, serta warna secara khusus untuk setiap game. Aplikasi ini juga menyediakan tombol floating untuk memblokir notifikasi, membersihkan RAM, mengecek ping, menampilkan crosshair, mengambil screenshot, dan menguji kualitas touchscreen.",
-        "imageUrl": "https://i.ibb.co.com/tPKknQx0/Screenshot-2026-1102-181024.webp",
-        "downloadUrl": "https://adlinksumo.com/BkMP2",
-        "changelog": [
-            "[ ✓ ] Premium Lifetime",
-            "[ ✓ ] Unlimited Token/Balance",
-            "[ ✓ ] Bypas Update"
-        ],
-        "dialogConfig": {
-            "signCheck": true,
-            "btnMode": false,
-            "crashLog": false,
-            "forceCloseOnUpdate": false
-        }
-    },
-    {
-        "name": "Duolingo",
-        "version": "5.141.12",
-        "versionName": "5.141.12",
-        "versionCode": 2348,
-        "packageName": "com.duolingo",
-        "category": "Aplikasi Mod",
-        "size": "52,57M",
-        "android": "Android 5+",
-        "description": "Aplikasi pembelajaran bahasa dengan pelajaran singkat dan interaktif. Duolingo menawarkan latihan membaca, menulis, mendengarkan, dan berbicara untuk lebih dari 40 bahasa, serta materi matematika, musik, dan catur.",
-        "imageUrl": "https://i.ibb.co.com/dJHdFfDS/Screenshot-2026-1102-094001.webp",
-        "downloadUrl": "https://adlinksumo.com/OXlyJvN",
-        "changelog": [
-            "[ ✓ ] Plus",
-            "[ ✓ ] Infinite Heart"
-        ],
-        "hooks": [
-            {
-                "fitur": "Plus",
-                "className": "com.duolingo.shop.Inventory",
-                "methodName": "isPlusSubscription",
-                "type": "Z",
-                "kind": "method",
-                "defaultValue": "true"
-            },
-            {
-                "fitur": "Inf Health",
-                "className": "re.f",
-                "methodName": "b",
-                "type": "I",
-                "kind": "method",
-                "defaultValue": "5"
-            }
-        ],
-        "hookEnabled": true
-    },
-    {
         "name": "Anibiplay",
-        "version": "1.5.0",
-        "versionName": "1.5.0",
-        "versionCode": 48,
+        "version": "1.5.2",
+        "versionName": "1.5.2",
+        "versionCode": 52,
         "packageName": "com.hxcorp.anibiplay",
-        "category": "Aplikasi Mod",
-        "size": "16,72M",
+        "category": "Streaming",
+        "size": "31,10M",
         "android": "Android 5+",
         "description": "Aplikasi streaming anime dan donghua dengan subtitle Indonesia. Menyediakan koleksi yang terus diperbarui, server cepat dan stabil, fitur download untuk ditonton offline, riwayat tontonan, daftar favorit, notifikasi episode baru, pencarian anime, serta antarmuka sederhana.",
         "imageUrl": "https://i.ibb.co.com/1t01FnJM/Screenshot-2026-1101-194648.webp",
-        "downloadUrl": "https://adlinksumo.com/eNeOL",
+        "downloadUrl": "https://adlinksumo.com/spnBkwC",
         "changelog": [
             "[ ✓ ] Unlocked Feature Premium",
             "[ ✓ ] No ads",
@@ -632,6 +433,211 @@ const apks = [
                 "methodName": "s",
                 "type": "Z",
                 "defaultValue": "true"
+            }
+        ],
+        "hookEnabled": false,
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
+    },
+    {
+        "name": "Keyflow",
+        "version": "1.5.8",
+        "versionName": "1.5.8",
+        "versionCode": 38,
+        "packageName": "com.angkin.keyflow",
+        "category": "Tools",
+        "size": "30,51M",
+        "android": "Android 5+",
+        "description": "Editor video dan foto mobile berbasis layer dengan keyframe animation, kontrol easing curve, 3D camera, time remapping, speed ramping, motion blur, custom expressions, efek slow motion bergaya Twixtor, template aspect ratio kustom, serta fitur pengelolaan media dan proyek.",
+        "imageUrl": "https://i.ibb.co.com/mCsnbZVM/Screenshot-2026-1030-171756.webp",
+        "downloadUrl": "https://adlinksumo.com/mxpLI0",
+        "changelog": [
+            "[ ✓ ] Unlocked PRO"
+        ],
+        "hooks": [
+            {
+                "fitur": "PRO",
+                "className": "TG6Ll",
+                "methodName": "jqhLupq",
+                "type": "Z",
+                "defaultValue": "false"
+            }
+        ],
+        "hookEnabled": false,
+        "dialogConfig": {
+            "signCheck": false,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
+    },
+    {
+        "name": "Dongha",
+        "version": "1.6.2",
+        "versionName": "1.6.2",
+        "versionCode": 6627,
+        "packageName": "com.epemini.dongha",
+        "category": "Streaming",
+        "size": "61,33M",
+        "android": "Android 8+",
+        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
+        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
+        "downloadUrl": "https://adlinksumo.com/xQQqMz8C",
+        "changelog": [
+            "[ + ] Premium lifetime unlocked",
+            "[ + ] No ads",
+            "[ + ] Unlock all fitur Premium"
+        ],
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
+    },
+    {
+        "name": "NUX Launcher",
+        "version": "1.1.6",
+        "versionName": "1.1.6",
+        "versionCode": 17,
+        "packageName": "com.israadev.nuxlauncher",
+        "category": "Aplikasi Mod",
+        "size": "255,73M",
+        "android": "Android 5+",
+        "description": "aplikasi Minecraft Launcher modern yang dirancang untuk menjalankan game Minecraft di platform Windows PC dan smartphone Android. Launcher ini memungkinkan pemain untuk menikmati gameplay dengan sinkronisasi data yang mulus antar perangkat (cross-play) serta kontrol layar sentuh yang presisi untuk pengguna HP.",
+        "imageUrl": "https://i.ibb.co.com/DH6vwtJD/Screenshot-2026-0927-125311.webp",
+        "downloadUrl": "https://adlinksumo.com/hDQ6rQE",
+        "changelog": [],
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
+    },
+    {
+        "name": "Lane",
+        "version": "1.4.7",
+        "category": "Music",
+        "size": "75,23M",
+        "android": "Android 5+",
+        "description": "Aplikasi alternatif pemutar musik Spotify dengan fitur Premium terbuka.",
+        "imageUrl": "https://i.ibb.co.com/6R4bXjvW/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/WMgdOky",
+        "packageName": "com.skiy.lane",
+        "versionName": "1.4.7",
+        "versionCode": 207,
+        "changelog": [
+            "[ + ] Premium Lifetime",
+            "[ + ] Support reso audio High",
+            "[ + ] Support Lyric"
+        ],
+        "dialogConfig": {
+            "signCheck": false,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": false
+        },
+        "hookEnabled": false,
+        "hooks": [
+            {
+                "fitur": "Premium",
+                "className": "com.skiy.lane.domain.model.PremiumActivatedEvent",
+                "methodName": "isPremium",
+                "type": "Z",
+                "defaultValue": "false"
+            },
+            {
+                "fitur": "Expired Premium",
+                "className": "com.skiy.lane.domain.model.PremiumActivatedEvent",
+                "methodName": "getPremiumExpiresIn",
+                "type": "J",
+                "defaultValue": "4102444800000"
+            },
+            {
+                "fitur": "Expired Premium ",
+                "className": "com.skiy.lane.domain.model.User",
+                "methodName": "getPremiumExpiresIn",
+                "type": "J",
+                "defaultValue": "4102444800000"
+            },
+            {
+                "fitur": "Expired Premium ",
+                "className": "com.skiy.lane.domain.model.UserInfo",
+                "methodName": "getPremiumExpiresIn",
+                "type": "J",
+                "defaultValue": "4102444800000"
+            },
+            {
+                "fitur": "Pkg name",
+                "className": "com.Cd.a4$WebAppInterface",
+                "methodName": "getPackageName",
+                "type": "Ljava/lang/String;",
+                "kind": "method",
+                "defaultValue": "com.skiy.lane"
+            }
+        ]
+    },
+    {
+        "name": "Zayon",
+        "version": "1.0.5",
+        "versionName": "1.0.5",
+        "versionCode": 13,
+        "packageName": "com.zayon.optimize",
+        "category": "Tools",
+        "size": "8,73M",
+        "android": "Android 5+",
+        "description": "Game booster Android untuk memantau FPS dan suhu, mengatur refresh rate, batas FPS, resolusi, serta warna secara khusus untuk setiap game. Aplikasi ini juga menyediakan tombol floating untuk memblokir notifikasi, membersihkan RAM, mengecek ping, menampilkan crosshair, mengambil screenshot, dan menguji kualitas touchscreen.",
+        "imageUrl": "https://i.ibb.co.com/tPKknQx0/Screenshot-2026-1102-181024.webp",
+        "downloadUrl": "https://adlinksumo.com/BkMP2",
+        "changelog": [
+            "[ ✓ ] Premium Lifetime",
+            "[ ✓ ] Unlimited Token/Balance",
+            "[ ✓ ] Bypas Update"
+        ],
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": false
+        }
+    },
+    {
+        "name": "Duolingo",
+        "version": "5.141.12",
+        "versionName": "5.141.12",
+        "versionCode": 2348,
+        "packageName": "com.duolingo",
+        "category": "Aplikasi Mod",
+        "size": "52,57M",
+        "android": "Android 5+",
+        "description": "Aplikasi pembelajaran bahasa dengan pelajaran singkat dan interaktif. Duolingo menawarkan latihan membaca, menulis, mendengarkan, dan berbicara untuk lebih dari 40 bahasa, serta materi matematika, musik, dan catur.",
+        "imageUrl": "https://i.ibb.co.com/dJHdFfDS/Screenshot-2026-1102-094001.webp",
+        "downloadUrl": "https://adlinksumo.com/OXlyJvN",
+        "changelog": [
+            "[ ✓ ] Plus",
+            "[ ✓ ] Infinite Heart"
+        ],
+        "hooks": [
+            {
+                "fitur": "Plus",
+                "className": "com.duolingo.shop.Inventory",
+                "methodName": "isPlusSubscription",
+                "type": "Z",
+                "kind": "method",
+                "defaultValue": "true"
+            },
+            {
+                "fitur": "Inf Health",
+                "className": "re.f",
+                "methodName": "b",
+                "type": "I",
+                "kind": "method",
+                "defaultValue": "5"
             }
         ],
         "hookEnabled": true
