@@ -95,6 +95,31 @@ const premiumUsers = [
 
 const apks = [
     {
+        "name": "ShinigamI",
+        "version": "1.0.5",
+        "versionName": "1.0.5",
+        "versionCode": 105,
+        "packageName": "com.azbaktech.maxcall",
+        "category": "Aplikasi Mod",
+        "size": "10,48M",
+        "android": "Android 5+",
+        "description": "Aplikasi baca komik Bahasa Indonesia untuk manga, manhwa, manhua, dan komik lokal. Katalog komik update harian, bookmark, baca online gratis, dan tersedia juga versi web/PWA untuk dibuka lewat browser.",
+        "imageUrl": "https://i.ibb.co.com/qMSpp0bQ/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/yM855",
+        "changelog": [
+            "[ + ] Xp Point 9999+",
+            "[ + ] Lvl 9999+",
+            "[ + ] Read Chap 9999+",
+            "[ + ] VIP unlocked"
+        ],
+        "dialogConfig": {
+            "signCheck": false,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": false
+        }
+    },
+    {
         "name": "Anibiplay",
         "version": "1.5.2",
         "versionName": "1.5.2",
@@ -672,31 +697,6 @@ const apks = [
             "btnMode": false,
             "crashLog": false,
             "forceCloseOnUpdate": true
-        }
-    },
-    {
-        "name": "ShinigamI",
-        "version": "1.0.5",
-        "versionName": "1.0.5",
-        "versionCode": 105,
-        "packageName": "com.azbaktech.maxcall",
-        "category": "Aplikasi Mod",
-        "size": "10,48M",
-        "android": "Android 5+",
-        "description": "Aplikasi baca komik Bahasa Indonesia untuk manga, manhwa, manhua, dan komik lokal. Katalog komik update harian, bookmark, baca online gratis, dan tersedia juga versi web/PWA untuk dibuka lewat browser.",
-        "imageUrl": "https://i.ibb.co.com/qMSpp0bQ/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/FgshUiV",
-        "changelog": [
-            "[ + ] Xp Point 9999+",
-            "[ + ] Lvl 9999+",
-            "[ + ] Read Chap 9999+",
-            "[ + ] VIP unlocked"
-        ],
-        "dialogConfig": {
-            "signCheck": false,
-            "btnMode": true,
-            "crashLog": false,
-            "forceCloseOnUpdate": false
         }
     },
     {
