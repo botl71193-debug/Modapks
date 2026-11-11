@@ -95,6 +95,28 @@ const premiumUsers = [
 
 const apks = [
     {
+        "name": "TrueCaller",
+        "version": "26.43.5",
+        "versionName": "26.43.5",
+        "versionCode": 2643005,
+        "packageName": "com.truecaller",
+        "category": "Aplikasi Mod",
+        "size": "96,48M",
+        "android": "Android 5+",
+        "description": "Aplikasi identifikasi penelepon dan pemblokir panggilan spam. Truecaller membantu mengenali nomor tidak dikenal, memblokir telemarketer, robocall, penipuan, dan nomor yang tidak diinginkan. Aplikasi ini juga menyediakan pencarian nomor terbalik, perlindungan SMS penipuan, riwayat panggilan dengan identitas penelepon, serta fitur perekaman panggilan.",
+        "imageUrl": "https://i.ibb.co.com/v8Sr072/Screenshot-2026-1111-200210.webp",
+        "downloadUrl": "https://adlinksumo.com/wne6W",
+        "changelog": [
+            "[ ✓ ] Premium GOLD Unlocked"
+        ],
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
+    },
+    {
         "name": "ShinigamI",
         "version": "1.0.5",
         "versionName": "1.0.5",
