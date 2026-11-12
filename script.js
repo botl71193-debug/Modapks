@@ -1,3 +1,31 @@
+// ================= FIREBASE CONFIG =================
+const FIREBASE_URL = "https://mmkmodz-6a617-default-rtdb.firebaseio.com";
+let apkVisits = {};
+
+// Fetch data kunjungan saat aplikasi dimuat
+async function fetchVisits() {
+    try {
+        const res = await fetch(FIREBASE_URL + "/apk_visits.json");
+        const data = await res.json();
+        if (data) apkVisits = data;
+        renderGridCards();
+    } catch (e) {
+        console.log("Gagal load visits", e);
+    }
+}
+
+// Fungsi menambah hitungan kunjungan
+function incrementVisit(key) {
+    if(!key) return;
+    let current = apkVisits[key] || 0;
+    apkVisits[key] = current + 1;
+    
+    fetch(FIREBASE_URL + `/apk_visits/${key}.json`, {
+        method: 'PUT',
+        body: JSON.stringify(apkVisits[key])
+    }).catch(e => console.log("Gagal update visit", e));
+}
+
 const rahasiaHTML = `
 <div class="navbar">
   <div class="navbar-left"><button class="menu-toggle" onclick="handleSidebarDisplay()">☰</button></div>
@@ -42,9 +70,11 @@ const rahasiaHTML = `
   <div class="sidebar-divider"></div>
   <div class="sidebar-label">Interaksi Komunitas</div>
   <ul class="sidebar-menu-list"><li><div class="sidebar-item-btn" style="border-color: #0ea5e9; background: rgba(14,165,233,0.1);" onclick="openRequestModModal()">Request Mod Aplikasi</div></li></ul>
+  
   <div class="sidebar-divider dev-only-block"></div>
   <div class="sidebar-label dev-only-block" style="color: var(--dev-color);">Dev Full Database Tool</div>
   <ul class="sidebar-menu-list dev-only-block">
+    <li><div class="sidebar-item-btn" style="border-color: #0ea5e9; background: rgba(14,165,233,0.1);" onclick="openDevRequestListModal()">📬 Daftar Request Mod</div></li>
     <li><div class="sidebar-item-btn" style="border-color: #fbbf24; background: rgba(251,191,36,0.1);" onclick="openThemeEditor()">🎨 Dialog Theme</div></li>
     <li><div class="sidebar-item-btn" style="border-color: #3b82f6; background: rgba(59,130,246,0.12);" onclick="openDialogConfigPanel()">⚙️ Configuration Dialog</div></li>
     <li><div class="sidebar-item-btn" style="border-color: rgba(244,63,94,0.3); background: rgba(244,63,94,0.05);" onclick="exportCurrentApksFile('apksOnly')">💾 Ekspor apks.js</div></li>
@@ -73,6 +103,13 @@ const rahasiaHTML = `
   <h3 style="margin-bottom: 10px; color:#fff;">🛡️ SIGN IN</h3>
   <div id="loginFormState"><input type="password" id="devKeyInput" style="background:#020205; border:1px solid var(--border); border-radius:8px; padding:12px; color:#fff; width:100%; margin-bottom:15px; text-align:center; letter-spacing:4px; outline:none;" placeholder=" ✎﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏ "><button class="download-action-btn" onclick="processAuthVerification()">VERIFIKASI AKSES</button></div>
   <div id="logoutFormState" style="display:none; text-align:center;"><p id="authActiveModeText" style="color:var(--accent); margin-bottom:20px; font-size:0.9rem; font-weight:bold;"></p><button class="download-action-btn" style="background:#ef4444" onclick="processAuthLogout()">LOGOUT</button></div>
+</div>
+
+<div class="modal-box dev-panel-modal" id="devRequestListModal" style="max-height:85vh;overflow-y:auto;">
+  <span class="modal-close-btn" onclick="closeActiveOverlays()">×</span>
+  <h3 style="margin-bottom: 15px; color:#fff; font-size: 1.15rem; border-bottom: 1px solid rgba(14,165,233,0.3); padding-bottom: 10px;">📬 Daftar Request Mod (Server)</h3>
+  <div id="devRequestListContainer" style="display:flex;flex-direction:column;gap:8px;"></div>
+  <div class="form-btn-row" style="margin-top: 15px;"><button class="download-action-btn" style="background:#334155;" onclick="closeActiveOverlays()">TUTUP</button></div>
 </div>
 
 <div class="modal-box dev-panel-modal" id="themeEditorModal" style="max-height:92vh;overflow-y:auto;width:95%;max-width:600px;">
@@ -377,7 +414,7 @@ const rahasiaHTML = `
   <div class="apk-grid" id="apkDisplayGrid"></div>
   <div id="loadMoreContainer" style="text-align: center; margin-top: 25px; display: none;"></div>
   <div class="no-results-alert" id="searchEmptyAlert">❌ Berkas Mod tidak ditemukan.</div>
-  <div class="footer-notice"><p style="color:var(--text-muted); font-size:0.85rem;">Platform Architecture Crafted By <strong>Khenzo</strong></p><div class="notice-danger-card">⚠️ PERINGATAN: SELURUH LAYANAN MMK 100% GRATIS!</div></div>
+  <div class="footer-notice"><p style="color:var(--text-muted); font-size:0.85rem;">Platform Architecture Crafted By <strong>Khenzo</strong></p><div class="notice-danger-card"> </div></div>
 </div>
 
 <div class="floating-profile-trigger" onclick="handleModderProfileModal()">👤</div>
@@ -387,7 +424,7 @@ document.body.insertAdjacentHTML('afterbegin', rahasiaHTML);
 
 /* ============ CONSTANTS ============ */
 const TOKEN_EXECUTIVE = "-..- . -.-. ..- - .. ...-";
-const TOKEN_DEVELOPER = "--- .-- -. . .-. / -- -- -.-";
+const TOKEN_DEVELOPER = "";
 const DEVICE_ID_KEY = 'mmk_device_id';
 const THEME_KEY = 'mmk_dialog_theme';
 
@@ -448,6 +485,9 @@ function initializeCatalogueEngine() {
     if (typeof dialogTheme !== 'undefined' && dialogTheme && typeof dialogTheme === 'object') { currentTheme = mergeTheme(dialogTheme); localStorage.setItem(THEME_KEY, JSON.stringify(currentTheme)); }
     else { const savedTheme = localStorage.getItem(THEME_KEY); if (savedTheme) try { currentTheme = mergeTheme(JSON.parse(savedTheme)); } catch(e) {} }
     currentPage = 1; displayDeviceId(); renderGridCards(); apksHistory = []; currentHistoryIndex = -1; pushHistoryState();
+    
+    // Panggil fungsi fetch data kunjungan dari Firebase
+    fetchVisits();
 }
 
 /* ============ THEME PREVIEW ============ */
@@ -494,7 +534,14 @@ function resetThemeDefaults() { if (!confirm('Reset semua ke default?')) return;
 
 /* ============ GRID & BADGES ============ */
 function countHooks(item) { return (Array.isArray(item.hooks) ? item.hooks.length : 0) + (Array.isArray(item.hookGroups) ? item.hookGroups.reduce((a, g) => a + ((g && Array.isArray(g.targets)) ? g.targets.length : 0), 0) : 0); }
-function buildBadgeRow(item) { const hb = (countHooks(item) > 0 && item.hookEnabled !== false) ? `<span class="apk-badge" style="background:rgba(168,85,247,0.15);border-color:#a855f7;color:#a855f7;">⚡ ${countHooks(item)}</span>` : ''; const cb = (item.dialogConfig) ? `<span class="apk-badge" style="background:rgba(59,130,246,0.15);border-color:#3b82f6;color:#3b82f6;">⚙️ Cfg</span>` : ''; return `<span class="apk-badge">💾 ${item.size||'0 MB'}</span><span class="apk-badge">🤖 ${item.android||'5.0+'}</span><span class="apk-badge">📁 ${item.category||'General'}</span>${hb}${cb}`; }
+function buildBadgeRow(item) { 
+    const hb = (countHooks(item) > 0 && item.hookEnabled !== false) ? `<span class="apk-badge" style="background:rgba(168,85,247,0.15);border-color:#a855f7;color:#a855f7;">⚡ ${countHooks(item)}</span>` : ''; 
+    const cb = (item.dialogConfig) ? `<span class="apk-badge" style="background:rgba(59,130,246,0.15);border-color:#3b82f6;color:#3b82f6;">⚙️ Cfg</span>` : ''; 
+    const key = (item.packageName || item.name).replace(/\./g, '_');
+    const visits = apkVisits[key] || 0;
+    const vb = `<span class="apk-badge" style="background:rgba(245,158,11,0.15);border-color:#f59e0b;color:#f59e0b;">🔥 ${visits}</span>`;
+    return `<span class="apk-badge">💾 ${item.size||'0 MB'}</span><span class="apk-badge">🤖 ${item.android||'5.0+'}</span><span class="apk-badge">📁 ${item.category||'General'}</span>${vb}${hb}${cb}`; 
+}
 function getCardDefaultIcon(item) { if (item.category === 'Streaming') return '🎬'; if (item.category === 'Games Mod') return '🎮'; if (item.category === 'Music') return '🎵'; if (item.category === 'Tools') return '🛠️'; return '📱'; }
 function renderGridCards() {
     const grid = document.getElementById('apkDisplayGrid'), pag = document.getElementById('loadMoreContainer'), al = document.getElementById('searchEmptyAlert'); if (!grid) return; grid.innerHTML = '';
@@ -502,8 +549,10 @@ function renderGridCards() {
     const totalPages = Math.ceil(internalApksData.length / itemsPerPage); if (currentPage > totalPages) currentPage = totalPages || 1;
     const start = (currentPage - 1) * itemsPerPage; const slice = internalApksData.slice(start, start + itemsPerPage);
     slice.forEach((item, rel) => {
-        const idx = start + rel; const card = document.createElement('div'); card.className = 'apk-card'; card.setAttribute('data-target-cat', item.category); card.setAttribute('data-target-droid', item.android);
-        card.innerHTML = `<div class="apk-top-flex"><div class="apk-icon-frame"><img src="${item.imageUrl||''}" onerror="this.style.display='none';this.parentElement.innerHTML='${getCardDefaultIcon(item)}';"></div><div class="apk-main-info"><span class="apk-title">${item.name||'No Name'}</span><span class="apk-version">${item.version||''}</span><div class="apk-badge-row">${buildBadgeRow(item)}</div></div></div><div class="apk-desc-area">${item.description||'Tidak ada deskripsi.'}</div><div class="card-action-row"><a href="${item.downloadUrl||'#'}" target="_blank" class="download-action-btn"> UNDUH </a><button class="share-action-btn" onclick="shareApkCard(${idx})">🔗</button></div>`;
+        const idx = start + rel; 
+        const pkgKey = (item.packageName || item.name || '').replace(/\./g, '_');
+        const card = document.createElement('div'); card.className = 'apk-card'; card.setAttribute('data-target-cat', item.category); card.setAttribute('data-target-droid', item.android);
+        card.innerHTML = `<div class="apk-top-flex"><div class="apk-icon-frame"><img src="${item.imageUrl||''}" onerror="this.style.display='none';this.parentElement.innerHTML='${getCardDefaultIcon(item)}';"></div><div class="apk-main-info"><span class="apk-title">${item.name||'No Name'}</span><span class="apk-version">${item.version||''}</span><div class="apk-badge-row">${buildBadgeRow(item)}</div></div></div><div class="apk-desc-area">${item.description||'Tidak ada deskripsi.'}</div><div class="card-action-row"><a href="${item.downloadUrl||'#'}" target="_blank" onclick="incrementVisit('${pkgKey}')" class="download-action-btn"> UNDUH </a><button class="share-action-btn" onclick="shareApkCard(${idx})">🔗</button></div>`;
         if ((localStorage.getItem('mmk_sys_role') || 'GUEST') !== 'GUEST') {
             card.style.position = 'relative';
             const tf = card.querySelector('.apk-top-flex'); if (tf) tf.style.paddingRight = '38px';
@@ -516,6 +565,88 @@ function renderGridCards() {
     });
     if (pag) { if (totalPages > 1) { pag.style.display = 'block'; let html = '<div style="display:flex;justify-content:center;gap:6px;flex-wrap:wrap;">'; for (let i=1;i<=totalPages;i++) { const a = i===currentPage; html += `<button style="${a?'background:#0ea5e9;color:#fff;border-color:#0ea5e9;':'background:rgba(14,165,233,0.15);color:#0ea5e9;border-color:rgba(14,165,233,0.4);'}font-weight:bold;padding:6px 12px;border-radius:6px;border-width:1px;border-style:solid;cursor:pointer;" onclick="changePage(${i})">${i}</button>`; } pag.innerHTML = html + '</div>'; } else pag.style.display = 'none'; }
 }
+
+/* ============ DEV REQUEST LIST (FIREBASE) ============ */
+function openDevRequestListModal() {
+    closeActiveOverlays();
+    document.getElementById('globalOverlay').classList.add('active');
+    document.getElementById('devRequestListModal').classList.add('active');
+    fetchAndRenderRequests();
+}
+
+function fetchAndRenderRequests() {
+    const container = document.getElementById('devRequestListContainer');
+    container.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:20px;">Memuat data dari server...</p>';
+    
+    fetch(FIREBASE_URL + "/app_requests.json")
+    .then(res => res.json())
+    .then(data => {
+        container.innerHTML = '';
+        if(!data) { container.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:20px;">Belum ada request dari user.</p>'; return; }
+        
+        const sortedKeys = Object.keys(data).sort((a,b) => (data[b].timestamp||0) - (data[a].timestamp||0));
+        
+        sortedKeys.forEach(key => {
+            const req = data[key];
+            const div = document.createElement('div');
+            div.style.cssText = 'background:rgba(14,165,233,0.05);padding:12px;border-radius:8px;border:1px solid rgba(14,165,233,0.2);';
+            div.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                <div>
+                    <strong style="color:#fff;font-size:0.95rem;">${req.name}</strong><br>
+                    <a href="${req.playstoreUrl}" target="_blank" style="font-size:0.8rem;color:#0ea5e9;text-decoration:none;display:inline-block;margin-top:4px;">🔗 Buka Link Source</a><br>
+                    <span style="font-size:0.7rem;color:#64748b;display:inline-block;margin-top:4px;">🕒 ${req.date}</span>
+                </div>
+                <button onclick="deleteRequest('${key}')" class="action-trigger-btn" style="padding:4px 10px;font-size:0.7rem;background:rgba(239,68,68,0.15);border-color:#ef4444;color:#ef4444;">🗑️</button>
+            </div>`;
+            container.appendChild(div);
+        });
+    }).catch(e => {
+        container.innerHTML = '<p style="text-align:center;color:var(--danger);padding:20px;">Gagal memuat data. Cek koneksi internet.</p>';
+    });
+}
+
+function deleteRequest(key) {
+    if(!confirm('Hapus request ini dari database?')) return;
+    fetch(FIREBASE_URL + `/app_requests/${key}.json`, { method: 'DELETE' })
+    .then(() => fetchAndRenderRequests());
+}
+
+/* ============ REQUEST MOD SUBMIT ============ */
+function openRequestModModal() { closeActiveOverlays(); document.getElementById('reqAppName').value = ''; document.getElementById('reqAppPlaystore').value = ''; document.getElementById('globalOverlay').classList.add('active'); document.getElementById('requestModModal').classList.add('active'); }
+function submitUserModRequest() { 
+    const n = document.getElementById('reqAppName').value.trim(), p = document.getElementById('reqAppPlaystore').value.trim(); 
+    if (!n || !p) { alert('Isi nama & link!'); return; } 
+    
+    const btn = document.querySelector('#requestModModal .download-action-btn[onclick="submitUserModRequest()"]');
+    const oldText = btn.innerHTML;
+    btn.innerHTML = 'Mengirim...';
+    btn.disabled = true;
+
+    const payload = {
+        name: n,
+        playstoreUrl: p,
+        date: new Date().toLocaleString('id-ID'),
+        timestamp: Date.now()
+    };
+
+    fetch(FIREBASE_URL + "/app_requests.json", {
+        method: 'POST',
+        body: JSON.stringify(payload)
+    }).then(res => {
+        if(res.ok) {
+            alert('✅ Request berhasil dikirim ke Developer!');
+            closeActiveOverlays();
+        } else {
+            alert('❌ Gagal mengirim request.');
+        }
+    }).catch(err => {
+        alert('❌ Error koneksi: ' + err);
+    }).finally(() => {
+        btn.innerHTML = oldText;
+        btn.disabled = false;
+    });
+}
+
 function openCardConfig(idx) { closeActiveOverlays(); document.getElementById('globalOverlay').classList.add('active'); openDialogConfigEdit(idx); }
 function changePage(p) { currentPage = p; renderGridCards(); document.getElementById('mainContainer').scrollIntoView({behavior:'smooth'}); }
 
@@ -641,10 +772,6 @@ function processImportApks(input) { const f = input.files[0]; if (!f) return; co
 function exportCurrentApksFile(mode) { closeActiveOverlays(); const tc = document.getElementById('exportTextareaContainer'), mt = document.getElementById('exportModalMainTitle'); if (!tc) return; if (mode === 'apksOnly') { const users = JSON.parse(localStorage.getItem('mmk_users') || '[]'); mt.textContent = '💾 EXPORT FULL DATABASE'; tc.value = 'const dialogTheme = ' + JSON.stringify(currentTheme, null, 4) + ';\n\nconst premiumUsers = ' + JSON.stringify(users, null, 4) + ';\n\nconst apks = ' + JSON.stringify(internalApksData, null, 4) + ';'; } document.getElementById('globalOverlay').classList.add('active'); document.getElementById('devDatabaseExportModal').classList.add('active'); }
 function copyExportedTextToClipboard() { const tc = document.getElementById('exportTextareaContainer'); if (!tc) return; tc.select(); document.execCommand('copy'); alert('📋 Disalin!'); closeActiveOverlays(); }
 
-/* ============ MOD REQUEST ============ */
-function openRequestModModal() { closeActiveOverlays(); document.getElementById('reqAppName').value = ''; document.getElementById('reqAppPlaystore').value = ''; document.getElementById('globalOverlay').classList.add('active'); document.getElementById('requestModModal').classList.add('active'); }
-function submitUserModRequest() { const n = document.getElementById('reqAppName').value.trim(), p = document.getElementById('reqAppPlaystore').value.trim(); if (!n || !p) { alert('Isi nama & link!'); return; } const re = JSON.parse(localStorage.getItem('mmk_mod_requests') || '[]'); re.push({ id: Date.now(), name: n, playstoreUrl: p, date: new Date().toLocaleString('id-ID') }); localStorage.setItem('mmk_mod_requests', JSON.stringify(re)); const s = encodeURIComponent(`Request: ${n}`), b = encodeURIComponent(`Nama: ${n}\nLink: ${p}`); window.location.href = `mailto:mrkhenzoofficial@gmail.com?subject=${s}&body=${b}`; alert('✅ Request disimpan.'); closeActiveOverlays(); }
-
 /* ============ REORDER ============ */
 function openReorderModal(index) { closeActiveOverlays(); const a = internalApksData[index]; if (!a) return; document.getElementById('reorderCurrentIndex').value = index; document.getElementById('reorderApkNameDisplay').textContent = a.name; document.getElementById('reorderMaxPos').textContent = internalApksData.length; document.getElementById('reorderTargetPos').value = index + 1; document.getElementById('reorderTargetPos').max = internalApksData.length; document.getElementById('globalOverlay').classList.add('active'); document.getElementById('devReorderModal').classList.add('active'); }
 function executeReorder() { const ci = parseInt(document.getElementById('reorderCurrentIndex').value); let tp = parseInt(document.getElementById('reorderTargetPos').value); if (isNaN(tp) || tp < 1 || tp > internalApksData.length) { alert('Posisi invalid!'); return; } const ti = tp - 1; if (ci === ti) { closeActiveOverlays(); return; } const item = internalApksData.splice(ci, 1)[0]; internalApksData.splice(ti, 0, item); localStorage.setItem('mmk_local_apks', JSON.stringify(internalApksData)); pushHistoryState(); closeActiveOverlays(); renderGridCards(); }
@@ -720,10 +847,21 @@ function removeDcHookGroupTarget(i, t) { const g = dcHookGroupRowsData[i]; if (!
 function updateDcHookGroupTarget(i, t, f, v) { const g = dcHookGroupRowsData[i]; if (g && g.targets[t]) g.targets[t][f] = v; }
 function renderDcHookGroupRows() { const c = document.getElementById('dcHookGroupRowsContainer'); if (!c) return; c.innerHTML = ''; if (dcHookGroupRowsData.length === 0) { c.innerHTML = HOOK_GROUP_EMPTY; return; } dcHookGroupRowsData.forEach((g, i) => c.appendChild(buildHookGroupCard(g, i, 'Dc'))); }
 
-function closeActiveOverlays() { ['sidebarMenu','authGateModal','devApkFormModal','devDatabaseExportModal','devReorderModal','requestModModal','adminRequestListModal','searchPopover','dialogConfigPanelModal','dialogConfigEditModal','clearCloneModal','globalOverlay','addExecutiveMemberModal','listMemberModal','themeEditorModal'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('active'); }); }
+function closeActiveOverlays() { ['sidebarMenu','authGateModal','devApkFormModal','devDatabaseExportModal','devReorderModal','requestModModal','adminRequestListModal','searchPopover','dialogConfigPanelModal','dialogConfigEditModal','clearCloneModal','globalOverlay','addExecutiveMemberModal','listMemberModal','themeEditorModal','devRequestListModal'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('active'); }); }
 function applyCategoryFilter(cat) { const items = document.querySelectorAll('.apk-card'), al = document.getElementById('searchEmptyAlert'); let tm = 0; items.forEach(b => { if (cat === 'all' || b.getAttribute('data-target-cat') === cat) { b.classList.remove('hidden'); tm++; } else b.classList.add('hidden'); }); if (al) al.style.display = tm > 0 ? 'none' : 'block'; closeActiveOverlays(); }
-function executeApkSearch() { const q = document.getElementById('searchInput').value.toLowerCase(); const g = document.getElementById('apkDisplayGrid'), al = document.getElementById('searchEmptyAlert'), pc = document.getElementById('loadMoreContainer'); if (q.trim() === '') { renderGridCards(); return; } if (!g) return; g.innerHTML = ''; let s = false; internalApksData.forEach((item, i) => { if ((item.name||'').toLowerCase().includes(q)) { s = true; const card = document.createElement('div'); card.className = 'apk-card'; card.setAttribute('data-target-cat', item.category); card.setAttribute('data-target-droid', item.android); card.innerHTML = `<div class="apk-top-flex"><div class="apk-icon-frame"><img src="${item.imageUrl||''}" onerror="this.style.display='none';this.parentElement.innerHTML='${getCardDefaultIcon(item)}';"></div><div class="apk-main-info"><span class="apk-title">${item.name}</span><span class="apk-version">${item.version}</span><div class="apk-badge-row">${buildBadgeRow(item)}</div></div></div><div class="apk-desc-area">${item.description||''}</div><div class="card-action-row"><a href="${item.downloadUrl||'#'}" target="_blank" class="download-action-btn">Download</a><button class="share-action-btn" onclick="shareApkCard(${i})">🔗</button></div>`; g.appendChild(card); } }); if (al) al.style.display = s ? 'none' : 'block'; if (pc) pc.style.display = 'none'; }
+function executeApkSearch() { const q = document.getElementById('searchInput').value.toLowerCase(); const g = document.getElementById('apkDisplayGrid'), al = document.getElementById('searchEmptyAlert'), pc = document.getElementById('loadMoreContainer'); if (q.trim() === '') { renderGridCards(); return; } if (!g) return; g.innerHTML = ''; let s = false; internalApksData.forEach((item, i) => { if ((item.name||'').toLowerCase().includes(q)) { s = true; const card = document.createElement('div'); card.className = 'apk-card'; card.setAttribute('data-target-cat', item.category); card.setAttribute('data-target-droid', item.android); card.innerHTML = `<div class="apk-top-flex"><div class="apk-icon-frame"><img src="${item.imageUrl||''}" onerror="this.style.display='none';this.parentElement.innerHTML='${getCardDefaultIcon(item)}';"></div><div class="apk-main-info"><span class="apk-title">${item.name}</span><span class="apk-version">${item.version}</span><div class="apk-badge-row">${buildBadgeRow(item)}</div></div></div><div class="apk-desc-area">${item.description||''}</div><div class="card-action-row"><a href="${item.downloadUrl||'#'}" target="_blank" onclick="incrementVisit('${(item.packageName || item.name || '').replace(/\./g, '_')}')" class="download-action-btn">Download</a><button class="share-action-btn" onclick="shareApkCard(${i})">🔗</button></div>`; g.appendChild(card); } }); if (al) al.style.display = s ? 'none' : 'block'; if (pc) pc.style.display = 'none'; }
 async function shareApkCard(i) { const item = internalApksData[i]; if (!item) return; const url = `${window.location.origin}${window.location.pathname.replace(/index\.html$/,'')}/sharing.html?app=${encodeURIComponent(item.name)}`; const text = `*${item.name}*\n\`${item.version||'-'}\`\n\n${item.description||''}\n\nLink:\n> ${url}`.trim(); if (navigator.share) { try { await navigator.share({ title: item.name, text }); } catch(_) {} return; } try { await navigator.clipboard.writeText(text); alert(`🔗 Info "${item.name}" disalin!`); } catch(_) { prompt('Salin:', text); } }
 function handleModderProfileModal() { alert('MMK Modder Engine\n\nLead Software Modificator\nEkosistem Aplikasi Android internal MMK Team.'); }
 
 window.addEventListener('DOMContentLoaded', () => { initializeCatalogueEngine(); syncSecurityAccessState(); });
+
+// === FORCE_CLEAN_SIDEBAR ===
+// Script ini berjalan otomatis untuk menghapus semua warna di sidebar
+document.addEventListener('DOMContentLoaded', function() {
+    setInterval(() => {
+        document.querySelectorAll('.sidebar-item-btn').forEach(el => {
+            el.removeAttribute('style');
+        });
+    }, 500);
+});
+
