@@ -1,4 +1,4 @@
-// ================= FIREBASE CONFIG =================
+// ================ FIREBASE CONFIG =================
 const FIREBASE_URL = "https://mmkmodz-6a617-default-rtdb.firebaseio.com";
 let apkVisits = {};
 
