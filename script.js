@@ -433,7 +433,7 @@ document.body.insertAdjacentHTML('afterbegin', rahasiaHTML);
 
 /* ============ CONSTANTS ============ */
 const TOKEN_EXECUTIVE = "-..- . -.-. ..- - .. ...-";
-const TOKEN_DEVELOPER = "";
+const TOKEN_DEVELOPER = "**";
 const DEVICE_ID_KEY = 'mmk_device_id';
 const THEME_KEY = 'mmk_dialog_theme';
 
