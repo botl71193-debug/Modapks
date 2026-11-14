@@ -237,58 +237,378 @@ body {
 }
 
 /* ==========================================
-   FIX BUG LAYAR HITAM SAAT BUKA SIDEBAR
+   STYLING TOMBOL PASTE DI FORM APK
    ========================================== */
-
-/* 1. Matikan semua efek kaca/blur di overlay dan sidebar (Penyebab utama glitch) */
-.overlay-mask {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    background: rgba(0, 0, 0, 0.75) !important;
-    z-index: 9998 !important; /* Di bawah sidebar */
+.input-with-paste {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    align-items: center;
 }
 
-/* 2. Paksa Sidebar menjadi Solid Gelap & Muncul di Atas */
-.sidebar {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    background: #141415 !important; /* Warna solid, bukan transparan */
-    z-index: 9999 !important; /* Paling atas, mengalahkan overlay */
-    box-shadow: 10px 0 30px rgba(0,0,0,0.9) !important;
-    display: block !important;
-    opacity: 1 !important;
-    border-right: 1px solid rgba(255,255,255,0.1) !important;
+.input-with-paste input {
+    flex: 1;
+    min-width: 0; /* Mencegah input melebar keluar batas */
 }
 
-/* 3. Pastikan saat aktif, posisinya benar-benar masuk ke layar */
-.sidebar.active {
-    left: 15px !important;
-    transform: translateX(0) !important;
+.btn-paste {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-strong);
+    color: #a1a1aa;
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    text-transform: uppercase;
 }
 
-/* 4. Paksa teks di dalam sidebar tetap terang */
-.sidebar-item-btn, .sidebar-brand-title, .sidebar-label {
-    color: #f4f4f5 !important;
+.btn-paste:hover {
+    background: #d4d4d8;
+    color: #09090b;
+    border-color: #d4d4d8;
 }
 
 /* ==========================================
-   STYLING UNTUK IKON SHARE SVG BARU
+   STYLING KONTROL API INLINE (DEV MODE)
    ========================================== */
-.share-action-btn {
+.dev-visit-control {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.dev-visit-control button {
+    background: transparent;
+    border: none;
+    color: #a1a1aa;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0 4px;
+    transition: color 0.2s;
+}
+
+.dev-visit-control button:hover {
+    color: #ffffff;
+}
+
+.dev-visit-control input {
+    width: 45px;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    outline: none;
+    padding: 0;
+    -moz-appearance: textfield; /* Sembunyikan panah bawaan input number */
+}
+
+/* Sembunyikan panah bawaan input type number di Chrome/Safari */
+.dev-visit-control input::-webkit-outer-spin-button,
+.dev-visit-control input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.dev-visit-control span {
+    font-size: 12px;
+    margin-left: 2px;
+}
+
+/* ==========================================
+   STYLING KONTROL API INLINE (DEV MODE)
+   ========================================== */
+.dev-visit-control {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.dev-visit-control button {
+    background: transparent;
+    border: none;
+    color: #a1a1aa;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0 4px;
+    transition: color 0.2s;
+}
+
+.dev-visit-control button:hover {
+    color: #ffffff;
+}
+
+.dev-visit-control input {
+    width: 45px;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    outline: none;
+    padding: 0;
+    -moz-appearance: textfield; /* Sembunyikan panah bawaan input number */
+}
+
+/* Sembunyikan panah bawaan input type number di Chrome/Safari */
+.dev-visit-control input::-webkit-outer-spin-button,
+.dev-visit-control input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.dev-visit-control span {
+    font-size: 12px;
+    margin-left: 2px;
+}
+
+/* ==========================================
+   STYLING KONTROL API INLINE (DEV MODE)
+   ========================================== */
+.dev-visit-control {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.dev-visit-control button {
+    background: transparent;
+    border: none;
+    color: #a1a1aa;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0 4px;
+    transition: color 0.2s;
+}
+
+.dev-visit-control button:hover {
+    color: #ffffff;
+}
+
+.dev-visit-control input {
+    width: 45px;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    outline: none;
+    padding: 0;
+    -moz-appearance: textfield; /* Sembunyikan panah bawaan input number */
+}
+
+/* Sembunyikan panah bawaan input type number di Chrome/Safari */
+.dev-visit-control input::-webkit-outer-spin-button,
+.dev-visit-control input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.dev-visit-control span {
+    font-size: 12px;
+    margin-left: 2px;
+}
+
+/* ==========================================
+   STYLING KONTROL API INLINE (DEV MODE)
+   ========================================== */
+.dev-visit-control {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.dev-visit-control button {
+    background: transparent;
+    border: none;
+    color: #a1a1aa;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0 4px;
+    transition: color 0.2s;
+}
+
+.dev-visit-control button:hover {
+    color: #ffffff;
+}
+
+.dev-visit-control input {
+    width: 45px;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    outline: none;
+    padding: 0;
+    -moz-appearance: textfield; /* Sembunyikan panah bawaan input number */
+}
+
+/* Sembunyikan panah bawaan input type number di Chrome/Safari */
+.dev-visit-control input::-webkit-outer-spin-button,
+.dev-visit-control input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.dev-visit-control span {
+    font-size: 12px;
+    margin-left: 2px;
+}
+
+/* ==========================================
+   STYLING KONTROL API INLINE (DEV MODE)
+   ========================================== */
+.dev-visit-control {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.dev-visit-control button {
+    background: transparent;
+    border: none;
+    color: #a1a1aa;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0 4px;
+    transition: color 0.2s;
+}
+
+.dev-visit-control button:hover {
+    color: #ffffff;
+}
+
+.dev-visit-control input {
+    width: 45px;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    outline: none;
+    padding: 0;
+    -moz-appearance: textfield; /* Sembunyikan panah bawaan input number */
+}
+
+/* Sembunyikan panah bawaan input type number di Chrome/Safari */
+.dev-visit-control input::-webkit-outer-spin-button,
+.dev-visit-control input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.dev-visit-control span {
+    font-size: 12px;
+    margin-left: 2px;
+}
+
+/* ==========================================
+   FIX TAMPILAN DAFTAR APK (CONFIG DIALOG DEV)
+   ========================================== */
+.config-app-row-h {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 12px !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 12px !important;
+    margin-bottom: 8px !important;
+    cursor: pointer !important;
+    transition: background 0.2s !important;
+}
+
+.config-app-row-h:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* KUNCI UKURAN IKON APK */
+.config-app-icon {
+    width: 45px !important;
+    height: 45px !important;
+    flex-shrink: 0 !important; /* Mencegah ikon mengecil/melebar */
+    border-radius: 10px !important;
+    background: #141415 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 0 !important; /* Hapus padding bawaan tombol */
+    overflow: hidden !important; /* Memotong gambar jika kepanjangan */
+    font-size: 1.5rem !important;
 }
 
-.share-action-btn svg {
-    width: 20px !important;
-    height: 20px !important;
-    fill: #a1a1aa !important; /* Warna abu-abu (silver) */
-    transition: fill 0.3s ease !important;
+.config-app-icon img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* Memastikan gambar tidak gepeng */
 }
 
-/* Saat tombol di-hover, ikon berubah jadi putih bersih */
-.share-action-btn:hover svg {
-    fill: #ffffff !important;
+/* TEKS INFO APK */
+.config-app-info {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 !important;
+    min-width: 0 !important; /* Penting agar teks bisa dipotong dengan ellipsis (...) */
+}
+
+.config-app-name {
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.config-app-meta {
+    font-size: 0.7rem !important;
+    color: #a1a1aa !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    margin-top: 2px !important;
+}
+
+/* TOMBOL GERIGI */
+.config-app-settings-btn {
+    flex-shrink: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    font-size: 1.2rem !important;
+    cursor: pointer !important;
+    padding: 5px !important;
 }
