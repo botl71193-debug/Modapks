@@ -1,4 +1,4 @@
-// ================ FIREBASE CONFIG =================
+// ================= FIREBASE CONFIG =================
 const FIREBASE_URL = "https://mmkmodz-6a617-default-rtdb.firebaseio.com";
 let apkVisits = {};
 
@@ -317,7 +317,16 @@ const rahasiaHTML = `
   
   <div class="header stagger" style="margin-bottom:16px;">
     <div class="apk-icon-frame" id="dialogConfigAppIcon" style="border-color:#3b82f6;"></div>
-    <div class="apk-main-info"><span class="apk-title" id="dialogConfigAppName">-</span><span class="apk-version" id="dialogConfigAppVersion">-</span><div class="apk-badge-row"><span class="apk-badge" style="color:#3b82f6;border-color:rgba(59,130,246,0.3);background:rgba(59,130,246,0.08);" id="dialogConfigAppPkg">-</span></div></div>
+    <div class="apk-main-info"><span class="apk-title" id="dialogConfigAppName">-</span><span class="apk-version" id="dialogConfigAppVersion">-</span><div class="apk-badge-row" style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+            <span class="apk-badge" style="color:#3b82f6;border-color:rgba(59,130,246,0.3);background:rgba(59,130,246,0.08);" id="dialogConfigAppPkg">-</span>
+            <!-- KONTROL API INLINE -->
+            <div class="dev-visit-control">
+                <button type="button" onclick="adjustDevVisits(-1)">&lt;</button>
+                <input type="number" id="dcVisitsInline" value="0">
+                <span>🔥</span>
+                <button type="button" onclick="adjustDevVisits(1)">&gt;</button>
+            </div>
+        </div></div>
   </div>
 
   <div class="config-section-divider">📝 Info Dasar</div>
@@ -414,7 +423,7 @@ const rahasiaHTML = `
   <div class="apk-grid" id="apkDisplayGrid"></div>
   <div id="loadMoreContainer" style="text-align: center; margin-top: 25px; display: none;"></div>
   <div class="no-results-alert" id="searchEmptyAlert">❌ Berkas Mod tidak ditemukan.</div>
-  <div class="footer-notice"><p style="color:var(--text-muted); font-size:0.85rem;">Platform Architecture Crafted By <strong>Khenzo</strong></p><div class="notice-danger-card"> </div></div>
+  <div class="footer-notice"><p style="color:var(--text-muted); font-size:0.85rem;">Platform Architecture Crafted By <strong>Khenzo</strong></p><div class="notice-danger-card"></div></div>
 </div>
 
 <div class="floating-profile-trigger" onclick="handleModderProfileModal()">👤</div>
@@ -713,30 +722,89 @@ function openDialogConfigEdit(index) {
     onDcHookToggleChange();
     renderDcHookRows();
 
+    // --- LOAD API KE INPUT INLINE ---
+    const pkgKeyForVisit = (item.packageName || item.name).replace(/\./g, '_');
+    const visitsEl = document.getElementById('dcVisitsInline');
+    if (visitsEl) {
+        visitsEl.value = apkVisits[pkgKeyForVisit] || 0;
+    }
+    // --------------------------------
+
     document.getElementById('dialogConfigPanelModal').classList.remove('active'); document.getElementById('dialogConfigEditModal').classList.add('active');
 }
 function saveDialogConfigSettings() {
     const index = parseInt(document.getElementById('dialogConfigEditIndex').value, 10);
     if (isNaN(index) || !internalApksData[index]) { alert('APK tidak valid'); return; }
     const item = internalApksData[index];
-    const name = document.getElementById('dcName').value.trim(); const pkg = document.getElementById('dcPkg').value.trim(); const version = document.getElementById('dcVersion').value.trim(); const vcRaw = document.getElementById('dcVersionCode').value.trim(); const vc = vcRaw === '' ? undefined : parseInt(vcRaw, 10);
-    if (!name || !pkg || vcRaw === '' || isNaN(vc)) { alert('Nama, packageName, versionCode wajib!'); return; }
-    item.name = name; item.packageName = pkg; item.version = version; item.versionName = version; item.versionCode = vc;
-    item.category = document.getElementById('dcCategory').value; item.size = document.getElementById('dcSize').value.trim(); item.android = document.getElementById('dcAndroid').value; item.description = document.getElementById('dcDesc').value.trim(); item.imageUrl = document.getElementById('dcImage').value.trim(); item.downloadUrl = document.getElementById('dcShortUrl').value.trim();
-    const arm64 = document.getElementById('dcArm64').value.trim(); const arm32 = document.getElementById('dcArm32').value.trim();
-    const clRaw = document.getElementById('dcChangelog').value.trim(); item.changelog = clRaw ? clRaw.split(/\r?\n/).map(s => s.trim()).filter(Boolean) : [];
-    const cfg = {}; ['signCheck','btnMode','crashLog','forceCloseOnUpdate'].forEach(key => { const pair = document.querySelector(`.toggle-pair[data-key="${key}"]`); cfg[key] = pair && pair.getAttribute('data-value') === 'true'; }); item.dialogConfig = cfg;
     
-    // Save Hook from Config
+    const name = document.getElementById('dcName').value.trim(); 
+    const pkg = document.getElementById('dcPkg').value.trim(); 
+    const version = document.getElementById('dcVersion').value.trim(); 
+    const vcRaw = document.getElementById('dcVersionCode').value.trim(); 
+    const vc = vcRaw === '' ? undefined : parseInt(vcRaw, 10);
+    
+    if (!name || !pkg || vcRaw === '' || isNaN(vc)) { alert('Nama, packageName, versionCode wajib!'); return; }
+    
+    item.name = name; item.packageName = pkg; item.version = version; item.versionName = version; item.versionCode = vc;
+    item.category = document.getElementById('dcCategory').value; 
+    item.size = document.getElementById('dcSize').value.trim(); 
+    item.android = document.getElementById('dcAndroid').value; 
+    item.description = document.getElementById('dcDesc').value.trim(); 
+    item.imageUrl = document.getElementById('dcImage').value.trim(); 
+    item.downloadUrl = document.getElementById('dcShortUrl').value.trim();
+    
+    const arm64 = document.getElementById('dcArm64').value.trim(); 
+    const arm32 = document.getElementById('dcArm32').value.trim();
+    const clRaw = document.getElementById('dcChangelog').value.trim(); 
+    item.changelog = clRaw ? clRaw.split(/\r?\n/).map(s => s.trim()).filter(Boolean) : [];
+    
+    const cfg = {}; 
+    ['signCheck','btnMode','crashLog','forceCloseOnUpdate'].forEach(key => { 
+        const pair = document.querySelector(`.toggle-pair[data-key="${key}"]`); 
+        cfg[key] = pair && pair.getAttribute('data-value') === 'true'; 
+    }); 
+    item.dialogConfig = cfg;
+    
     item.hookEnabled = document.getElementById('dcHookEnabled').checked;
     item.hooks = dcHookRowsData.filter(h => h.fitur && h.className && h.methodName);
-    const dcg = cleanHookGroups(dcHookGroupRowsData); const dcOn = item.hookEnabled;
+    const dcg = cleanHookGroups(dcHookGroupRowsData); 
+    const dcOn = item.hookEnabled;
     if (item.hooks.length === 0) delete item.hooks;
     if (dcg.length > 0) item.hookGroups = dcg; else delete item.hookGroups;
     if (!item.hooks && !item.hookGroups) delete item.hookEnabled; else item.hookEnabled = !!dcOn;
 
     if (arm64 || arm32) { item.links = {}; if (arm64) item.links.Arm64 = arm64; if (arm32) item.links.Arm32 = arm32; item.multiDownload = true; } else { delete item.links; delete item.multiDownload; }
-    localStorage.setItem('mmk_local_apks', JSON.stringify(internalApksData)); pushHistoryState(); alert('✅ Tersimpan.'); closeActiveOverlays(); setTimeout(openDialogConfigPanel, 100);
+
+    // ==========================================
+    // SIMPAN API (🔥) KE FIREBASE & MEMORI LOKAL
+    // ==========================================
+    const visitsInput = document.getElementById('dcVisitsInline');
+    if (visitsInput) {
+        const newVisits = parseInt(visitsInput.value, 10) || 0;
+        const pkgKeyToSave = (pkg || name).replace(/\./g, '_');
+        
+        // 1. Ubah angka di memori lokal agar langsung berubah saat di-render
+        apkVisits[pkgKeyToSave] = newVisits;
+        
+        // 2. Kirim ke Firebase
+        fetch(FIREBASE_URL + '/apk_visits/' + pkgKeyToSave + '.json', {
+            method: 'PUT',
+            body: String(newVisits)
+        }).then(res => {
+            if(!res.ok) console.error('Gagal sync visit ke Firebase');
+        }).catch(e => console.error('Error sync visit:', e));
+    }
+    // ==========================================
+
+    localStorage.setItem('mmk_local_apks', JSON.stringify(internalApksData)); 
+    pushHistoryState(); 
+    
+    // Render ulang grid agar angka 🔥 di luar langsung terupdate
+    renderGridCards(); 
+    
+    alert('✅ Tersimpan & API berhasil disinkronkan.'); 
+    closeActiveOverlays(); 
+    setTimeout(openDialogConfigPanel, 100);
 }
 function openReorderFromConfig() { const i = parseInt(document.getElementById('dialogConfigEditIndex').value, 10); if (!isNaN(i)) { closeActiveOverlays(); setTimeout(() => openReorderModal(i), 100); } }
 function deleteApkFromConfig() { const i = parseInt(document.getElementById('dialogConfigEditIndex').value, 10); if (isNaN(i) || !internalApksData[i]) return; if (!confirm(`Hapus "${internalApksData[i].name}"?`)) return; internalApksData.splice(i, 1); localStorage.setItem('mmk_local_apks', JSON.stringify(internalApksData)); pushHistoryState(); closeActiveOverlays(); renderGridCards(); alert('Aplikasi dihapus.'); }
@@ -865,3 +933,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 500);
 });
 
+
+function adjustDevVisits(change) {
+    const input = document.getElementById('dcVisitsInline');
+    if(input) {
+        let val = parseInt(input.value) || 0;
+        val = Math.max(0, val + change); // Tidak boleh minus
+        input.value = val;
+    }
+}
