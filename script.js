@@ -1,4 +1,4 @@
-// =============== FIREBASE CONFIG =================
+// ================= FIREBASE CONFIG =================
 const FIREBASE_URL = "https://mmkmodz-6a617-default-rtdb.firebaseio.com";
 let apkVisits = {};
 
@@ -323,7 +323,7 @@ const rahasiaHTML = `
             <div class="dev-visit-control">
                 <button type="button" onclick="adjustDevVisits(-1)">&lt;</button>
                 <input type="number" id="dcVisitsInline" value="0">
-                <span>🔥</span>
+                <span>⎙</span>
                 <button type="button" onclick="adjustDevVisits(1)">&gt;</button>
             </div>
         </div></div>
@@ -548,7 +548,7 @@ function buildBadgeRow(item) {
     const cb = (item.dialogConfig) ? `<span class="apk-badge" style="background:rgba(59,130,246,0.15);border-color:#3b82f6;color:#3b82f6;">⚙️ Cfg</span>` : ''; 
     const key = (item.packageName || item.name).replace(/\./g, '_');
     const visits = apkVisits[key] || 0;
-    const vb = `<span class="apk-badge" style="background:rgba(245,158,11,0.15);border-color:#f59e0b;color:#f59e0b;">🔥 ${visits}</span>`;
+    const vb = `<span class="apk-badge" style="background:rgba(245,158,11,0.15);border-color:#f59e0b;color:#f59e0b;">⎙ ${visits}</span>`;
     return `<span class="apk-badge">💾 ${item.size||'0 MB'}</span><span class="apk-badge">🤖 ${item.android||'5.0+'}</span><span class="apk-badge">📁 ${item.category||'General'}</span>${vb}${hb}${cb}`; 
 }
 function getCardDefaultIcon(item) { if (item.category === 'Streaming') return '🎬'; if (item.category === 'Games Mod') return '🎮'; if (item.category === 'Music') return '🎵'; if (item.category === 'Tools') return '🛠️'; return '📱'; }
@@ -776,7 +776,7 @@ function saveDialogConfigSettings() {
     if (arm64 || arm32) { item.links = {}; if (arm64) item.links.Arm64 = arm64; if (arm32) item.links.Arm32 = arm32; item.multiDownload = true; } else { delete item.links; delete item.multiDownload; }
 
     // ==========================================
-    // SIMPAN API (🔥) KE FIREBASE & MEMORI LOKAL
+    // SIMPAN API (⎙) KE FIREBASE & MEMORI LOKAL
     // ==========================================
     const visitsInput = document.getElementById('dcVisitsInline');
     if (visitsInput) {
@@ -799,7 +799,7 @@ function saveDialogConfigSettings() {
     localStorage.setItem('mmk_local_apks', JSON.stringify(internalApksData)); 
     pushHistoryState(); 
     
-    // Render ulang grid agar angka 🔥 di luar langsung terupdate
+    // Render ulang grid agar angka ⎙ di luar langsung terupdate
     renderGridCards(); 
     
     alert('✅ Tersimpan & API berhasil disinkronkan.'); 
