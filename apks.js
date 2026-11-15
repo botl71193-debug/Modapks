@@ -95,6 +95,32 @@ const premiumUsers = [
 
 const apks = [
     {
+        "name": "Zayon",
+        "version": "1.0.7",
+        "versionName": "1.0.7",
+        "versionCode": 15,
+        "packageName": "com.zayon.optimize",
+        "category": "Tools",
+        "size": "25,13M",
+        "android": "Android 5+",
+        "description": "Game booster Android untuk memantau FPS dan suhu, mengatur refresh rate, batas FPS, resolusi, serta warna secara khusus untuk setiap game. Aplikasi ini juga menyediakan tombol floating untuk memblokir notifikasi, membersihkan RAM, mengecek ping, menampilkan crosshair, mengambil screenshot, dan menguji kualitas touchscreen.",
+        "imageUrl": "https://i.ibb.co.com/tPKknQx0/Screenshot-2026-1102-181024.webp",
+        "downloadUrl": "https://move2link.co/Z1a0y7on",
+        "changelog": [
+            "[ ✓ ] Premium Lifetime",
+            "[ ✓ ] Lvl Max",
+            "[ ✓ ] Fix isue Jaringan",
+            "[ ✓ ] Unlimited Token/Balance",
+            "[ ✓ ] Bypas Update"
+        ],
+        "dialogConfig": {
+            "signCheck": false,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
+    },
+    {
         "name": "TrueCaller",
         "version": "26.43.5",
         "versionName": "26.43.5",
@@ -628,30 +654,6 @@ const apks = [
                 "defaultValue": "com.skiy.lane"
             }
         ]
-    },
-    {
-        "name": "Zayon",
-        "version": "1.0.5",
-        "versionName": "1.0.5",
-        "versionCode": 13,
-        "packageName": "com.zayon.optimize",
-        "category": "Tools",
-        "size": "8,73M",
-        "android": "Android 5+",
-        "description": "Game booster Android untuk memantau FPS dan suhu, mengatur refresh rate, batas FPS, resolusi, serta warna secara khusus untuk setiap game. Aplikasi ini juga menyediakan tombol floating untuk memblokir notifikasi, membersihkan RAM, mengecek ping, menampilkan crosshair, mengambil screenshot, dan menguji kualitas touchscreen.",
-        "imageUrl": "https://i.ibb.co.com/tPKknQx0/Screenshot-2026-1102-181024.webp",
-        "downloadUrl": "https://adlinksumo.com/BkMP2",
-        "changelog": [
-            "[ ✓ ] Premium Lifetime",
-            "[ ✓ ] Unlimited Token/Balance",
-            "[ ✓ ] Bypas Update"
-        ],
-        "dialogConfig": {
-            "signCheck": false,
-            "btnMode": false,
-            "crashLog": false,
-            "forceCloseOnUpdate": true
-        }
     },
     {
         "name": "Duolingo",
