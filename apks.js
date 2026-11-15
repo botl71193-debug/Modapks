@@ -647,10 +647,10 @@ const apks = [
             "[ ✓ ] Bypas Update"
         ],
         "dialogConfig": {
-            "signCheck": true,
+            "signCheck": false,
             "btnMode": false,
             "crashLog": false,
-            "forceCloseOnUpdate": false
+            "forceCloseOnUpdate": true
         }
     },
     {
