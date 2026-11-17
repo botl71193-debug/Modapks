@@ -95,6 +95,30 @@ const premiumUsers = [
 
 const apks = [
     {
+        "name": "Dongha",
+        "version": "1.6.2",
+        "versionName": "1.6.2",
+        "versionCode": 6627,
+        "packageName": "com.epemini.dongha",
+        "category": "Streaming",
+        "size": "61,33M",
+        "android": "Android 8+",
+        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
+        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
+        "downloadUrl": "https://adlinksumo.com/5ck9oER",
+        "changelog": [
+            "[ + ] Premium lifetime unlocked",
+            "[ + ] No ads",
+            "[ + ] Unlock all fitur Premium"
+        ],
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
+    },
+    {
         "name": "Zayon",
         "version": "1.0.7",
         "versionName": "1.0.7",
@@ -543,30 +567,6 @@ const apks = [
         "hookEnabled": false,
         "dialogConfig": {
             "signCheck": false,
-            "btnMode": false,
-            "crashLog": false,
-            "forceCloseOnUpdate": true
-        }
-    },
-    {
-        "name": "Dongha",
-        "version": "1.6.2",
-        "versionName": "1.6.2",
-        "versionCode": 6627,
-        "packageName": "com.epemini.dongha",
-        "category": "Streaming",
-        "size": "61,33M",
-        "android": "Android 8+",
-        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
-        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
-        "downloadUrl": "https://adlinksumo.com/xQQqMz8C",
-        "changelog": [
-            "[ + ] Premium lifetime unlocked",
-            "[ + ] No ads",
-            "[ + ] Unlock all fitur Premium"
-        ],
-        "dialogConfig": {
-            "signCheck": true,
             "btnMode": false,
             "crashLog": false,
             "forceCloseOnUpdate": true
