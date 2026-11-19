@@ -193,20 +193,21 @@ const apks = [
     },
     {
         "name": "Anibiplay",
-        "version": "1.5.2",
-        "versionName": "1.5.2",
-        "versionCode": 52,
+        "version": "1.5.6",
+        "versionName": "1.5.6",
+        "versionCode": 57,
         "packageName": "com.hxcorp.anibiplay",
         "category": "Streaming",
-        "size": "31,10M",
+        "size": "31,44M",
         "android": "Android 5+",
         "description": "Aplikasi streaming anime dan donghua dengan subtitle Indonesia. Menyediakan koleksi yang terus diperbarui, server cepat dan stabil, fitur download untuk ditonton offline, riwayat tontonan, daftar favorit, notifikasi episode baru, pencarian anime, serta antarmuka sederhana.",
         "imageUrl": "https://i.ibb.co.com/1t01FnJM/Screenshot-2026-1101-194648.webp",
-        "downloadUrl": "https://adlinksumo.com/spnBkwC",
+        "downloadUrl": "https://adlinksumo.com/V5K3",
         "changelog": [
             "[ ✓ ] Unlocked Feature Premium",
             "[ ✓ ] No ads",
-            "[ ✓ ] set Lvl"
+            "[ ✓ ] set Lvl",
+            "[ ✓ ] bypas signature"
         ],
         "hooks": [
             {
