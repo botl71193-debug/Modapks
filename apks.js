@@ -96,12 +96,12 @@ const premiumUsers = [
 const apks = [
     {
         "name": "Dongha",
-        "version": "1.6.2",
-        "versionName": "1.6.2",
-        "versionCode": 6627,
+        "version": "1.7.2",
+        "versionName": "1.7.2",
+        "versionCode": 6637,
         "packageName": "com.epemini.dongha",
         "category": "Streaming",
-        "size": "61,33M",
+        "size": "84,87M",
         "android": "Android 8+",
         "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
         "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
