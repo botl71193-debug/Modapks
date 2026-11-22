@@ -95,6 +95,58 @@ const premiumUsers = [
 
 const apks = [
     {
+        "name": "Duolingo",
+        "version": "5.141.12",
+        "versionName": "5.141.12",
+        "versionCode": 2348,
+        "packageName": "com.duolingo",
+        "category": "Aplikasi Mod",
+        "size": "52,57M",
+        "android": "Android 5+",
+        "description": "Aplikasi pembelajaran bahasa dengan pelajaran singkat dan interaktif. Duolingo menawarkan latihan membaca, menulis, mendengarkan, dan berbicara untuk lebih dari 40 bahasa, serta materi matematika, musik, dan catur.",
+        "imageUrl": "https://i.ibb.co.com/dJHdFfDS/Screenshot-2026-1102-094001.webp",
+        "downloadUrl": "https://adlinksumo.com/OXlyJvN",
+        "changelog": [
+            "[ ✓ ] Plus",
+            "[ ✓ ] Infinite Heart"
+        ],
+        "hooks": [
+            {
+                "fitur": "Plus",
+                "className": "com.duolingo.shop.Inventory",
+                "methodName": "isPlusSubscription",
+                "type": "Z",
+                "kind": "method",
+                "defaultValue": "true"
+            },
+            {
+                "fitur": "Inf Health",
+                "className": "re.f",
+                "methodName": "b",
+                "type": "I",
+                "kind": "method",
+                "defaultValue": "5"
+            }
+        ],
+        "hookEnabled": true
+    },
+    {
+        "name": "Efiko",
+        "version": "1.6.2",
+        "versionName": "1.6.2",
+        "versionCode": 31,
+        "packageName": "com.changpeng.instafilter",
+        "category": "Editor",
+        "size": "23,00M",
+        "android": "Android 5+",
+        "description": "Editor video & foto gratis dengan 400+ efek & filter aesthetic populer. Akses filter tahun 90-an glows & glitters, sparkle star, efek Glitch, gaya IG, dan filter estetika keren untuk foto dan video. Gratis tanpa biaya tambahan, editor terbaik untuk kebutuhan editing semua",
+        "imageUrl": "https://i.ibb.co.com/2YpGb10z/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/MQHPFu7",
+        "changelog": [
+            "[ + ] Unlock all Feature"
+        ]
+    },
+    {
         "name": "Dongha",
         "version": "1.7.2",
         "versionName": "1.7.2",
@@ -657,42 +709,6 @@ const apks = [
         ]
     },
     {
-        "name": "Duolingo",
-        "version": "5.141.12",
-        "versionName": "5.141.12",
-        "versionCode": 2348,
-        "packageName": "com.duolingo",
-        "category": "Aplikasi Mod",
-        "size": "52,57M",
-        "android": "Android 5+",
-        "description": "Aplikasi pembelajaran bahasa dengan pelajaran singkat dan interaktif. Duolingo menawarkan latihan membaca, menulis, mendengarkan, dan berbicara untuk lebih dari 40 bahasa, serta materi matematika, musik, dan catur.",
-        "imageUrl": "https://i.ibb.co.com/dJHdFfDS/Screenshot-2026-1102-094001.webp",
-        "downloadUrl": "https://adlinksumo.com/OXlyJvN",
-        "changelog": [
-            "[ ✓ ] Plus",
-            "[ ✓ ] Infinite Heart"
-        ],
-        "hooks": [
-            {
-                "fitur": "Plus",
-                "className": "com.duolingo.shop.Inventory",
-                "methodName": "isPlusSubscription",
-                "type": "Z",
-                "kind": "method",
-                "defaultValue": "true"
-            },
-            {
-                "fitur": "Inf Health",
-                "className": "re.f",
-                "methodName": "b",
-                "type": "I",
-                "kind": "method",
-                "defaultValue": "5"
-            }
-        ],
-        "hookEnabled": true
-    },
-    {
         "name": "iLovePDF",
         "version": "4.1.0",
         "versionName": "4.1.0",
@@ -723,22 +739,6 @@ const apks = [
             "crashLog": false,
             "forceCloseOnUpdate": true
         }
-    },
-    {
-        "name": "Efiko",
-        "version": "1.6.2",
-        "versionName": "1.6.2",
-        "versionCode": 31,
-        "packageName": "com.changpeng.instafilter",
-        "category": "Editor",
-        "size": "23,00M",
-        "android": "Android 5+",
-        "description": "Editor video & foto gratis dengan 400+ efek & filter aesthetic populer. Akses filter tahun 90-an glows & glitters, sparkle star, efek Glitch, gaya IG, dan filter estetika keren untuk foto dan video. Gratis tanpa biaya tambahan, editor terbaik untuk kebutuhan editing semua",
-        "imageUrl": "https://i.ibb.co.com/2YpGb10z/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/MQHPFu7",
-        "changelog": [
-            "[ + ] Unlock all Feature"
-        ]
     },
     {
         "name": "GB WhatsApp",
