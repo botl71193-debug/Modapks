@@ -128,7 +128,13 @@ const apks = [
                 "defaultValue": "5"
             }
         ],
-        "hookEnabled": true
+        "hookEnabled": false,
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
     },
     {
         "name": "Efiko",
