@@ -95,6 +95,69 @@ const premiumUsers = [
 
 const apks = [
     {
+        "name": "Lane",
+        "version": "1.4.7",
+        "category": "Music",
+        "size": "75,23M",
+        "android": "Android 5+",
+        "description": "Aplikasi alternatif pemutar musik Spotify dengan fitur Premium terbuka.",
+        "imageUrl": "https://i.ibb.co.com/6R4bXjvW/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/WMgdOky",
+        "packageName": "com.skiy.lane",
+        "versionName": "1.4.7",
+        "versionCode": 207,
+        "changelog": [
+            "[ + ] Premium Lifetime",
+            "[ + ] Support reso audio High",
+            "[ + ] Support Lyric"
+        ],
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": false
+        },
+        "hookEnabled": false,
+        "hooks": [
+            {
+                "fitur": "Premium",
+                "className": "com.skiy.lane.domain.model.PremiumActivatedEvent",
+                "methodName": "isPremium",
+                "type": "Z",
+                "defaultValue": "false"
+            },
+            {
+                "fitur": "Expired Premium",
+                "className": "com.skiy.lane.domain.model.PremiumActivatedEvent",
+                "methodName": "getPremiumExpiresIn",
+                "type": "J",
+                "defaultValue": "4102444800000"
+            },
+            {
+                "fitur": "Expired Premium ",
+                "className": "com.skiy.lane.domain.model.User",
+                "methodName": "getPremiumExpiresIn",
+                "type": "J",
+                "defaultValue": "4102444800000"
+            },
+            {
+                "fitur": "Expired Premium ",
+                "className": "com.skiy.lane.domain.model.UserInfo",
+                "methodName": "getPremiumExpiresIn",
+                "type": "J",
+                "defaultValue": "4102444800000"
+            },
+            {
+                "fitur": "Pkg name",
+                "className": "com.Cd.a4$WebAppInterface",
+                "methodName": "getPackageName",
+                "type": "Ljava/lang/String;",
+                "kind": "method",
+                "defaultValue": "com.skiy.lane"
+            }
+        ]
+    },
+    {
         "name": "Duolingo",
         "version": "5.141.12",
         "versionName": "5.141.12",
@@ -632,6 +695,16 @@ const apks = [
         }
     },
     {
+        "name": "Joytify",
+        "version": "1.6.6",
+        "category": "Music",
+        "size": "19,53M",
+        "android": "Android 5+",
+        "description": "Aplikasi streaming musik modern tanpa batas dengan fitur premium unlocked. Strim lagu, explore playlist curated dari seluruh dunia, tanpa iklan, tanpa biaya tambahan, download musik offline, kualitas audio tinggi, dan pengalaman streaming musik optimal.",
+        "imageUrl": "https://i.ibb.co.com/fY4xyXPy/icon.webp",
+        "downloadUrl": "https://adlinksumo.com/TwgcRU"
+    },
+    {
         "name": "NUX Launcher",
         "version": "1.1.6",
         "versionName": "1.1.6",
@@ -650,69 +723,6 @@ const apks = [
             "crashLog": false,
             "forceCloseOnUpdate": true
         }
-    },
-    {
-        "name": "Lane",
-        "version": "1.4.7",
-        "category": "Music",
-        "size": "75,23M",
-        "android": "Android 5+",
-        "description": "Aplikasi alternatif pemutar musik Spotify dengan fitur Premium terbuka.",
-        "imageUrl": "https://i.ibb.co.com/6R4bXjvW/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/WMgdOky",
-        "packageName": "com.skiy.lane",
-        "versionName": "1.4.7",
-        "versionCode": 207,
-        "changelog": [
-            "[ + ] Premium Lifetime",
-            "[ + ] Support reso audio High",
-            "[ + ] Support Lyric"
-        ],
-        "dialogConfig": {
-            "signCheck": false,
-            "btnMode": false,
-            "crashLog": false,
-            "forceCloseOnUpdate": false
-        },
-        "hookEnabled": false,
-        "hooks": [
-            {
-                "fitur": "Premium",
-                "className": "com.skiy.lane.domain.model.PremiumActivatedEvent",
-                "methodName": "isPremium",
-                "type": "Z",
-                "defaultValue": "false"
-            },
-            {
-                "fitur": "Expired Premium",
-                "className": "com.skiy.lane.domain.model.PremiumActivatedEvent",
-                "methodName": "getPremiumExpiresIn",
-                "type": "J",
-                "defaultValue": "4102444800000"
-            },
-            {
-                "fitur": "Expired Premium ",
-                "className": "com.skiy.lane.domain.model.User",
-                "methodName": "getPremiumExpiresIn",
-                "type": "J",
-                "defaultValue": "4102444800000"
-            },
-            {
-                "fitur": "Expired Premium ",
-                "className": "com.skiy.lane.domain.model.UserInfo",
-                "methodName": "getPremiumExpiresIn",
-                "type": "J",
-                "defaultValue": "4102444800000"
-            },
-            {
-                "fitur": "Pkg name",
-                "className": "com.Cd.a4$WebAppInterface",
-                "methodName": "getPackageName",
-                "type": "Ljava/lang/String;",
-                "kind": "method",
-                "defaultValue": "com.skiy.lane"
-            }
-        ]
     },
     {
         "name": "iLovePDF",
@@ -847,16 +857,6 @@ const apks = [
         "description": "Platform dan situs donghua sub Indo untuk streaming, download episode, serta update seri donghua populer. Tersedia juga komunitas Telegram, bot, dan halaman anime per judul",
         "imageUrl": "https://i.ibb.co.com/n8DmdxpN/Screenshot-2026-0924-192635.webp",
         "downloadUrl": "https://adlinksumo.com/AYb44m"
-    },
-    {
-        "name": "Joytify",
-        "version": "1.6.6",
-        "category": "Music",
-        "size": "19,53M",
-        "android": "Android 5+",
-        "description": "Aplikasi streaming musik modern tanpa batas dengan fitur premium unlocked. Strim lagu, explore playlist curated dari seluruh dunia, tanpa iklan, tanpa biaya tambahan, download musik offline, kualitas audio tinggi, dan pengalaman streaming musik optimal.",
-        "imageUrl": "https://i.ibb.co.com/fY4xyXPy/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/TwgcRU"
     },
     {
         "name": "ibisPaint X",
