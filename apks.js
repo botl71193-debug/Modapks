@@ -95,6 +95,26 @@ const premiumUsers = [
 
 const apks = [
     {
+        "name": "Auralys",
+        "version": "4.3.6",
+        "versionName": "4.3.6",
+        "versionCode": 459,
+        "packageName": "com.auralyst.app",
+        "category": "Music",
+        "size": "42,75M",
+        "android": "Android 5+",
+        "description": "Aplikasi pemutar musik alternatif Spotify dengan koleksi lagu lengkap dan tampilan yang simpel. Auralys menawarkan pencarian lagu, pembuatan playlist, pemutaran musik di background, serta rekomendasi lagu sesuai selera.",
+        "imageUrl": "https://i.ibb.co.com/XrXQkkKJ/Screenshot-2026-1125-165607.webp",
+        "downloadUrl": "Z",
+        "changelog": [],
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
+    },
+    {
         "name": "Lane",
         "version": "1.4.7",
         "category": "Music",
