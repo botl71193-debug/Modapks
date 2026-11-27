@@ -95,6 +95,30 @@ const premiumUsers = [
 
 const apks = [
     {
+        "name": "Dongha",
+        "version": "1.7.2",
+        "versionName": "1.7.2",
+        "versionCode": 6637,
+        "packageName": "com.epemini.dongha",
+        "category": "Streaming",
+        "size": "84,87M",
+        "android": "Android 8+",
+        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
+        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
+        "downloadUrl": "https://adlinksumo.com/2lwV4tXV",
+        "changelog": [
+            "[ + ] Premium lifetime unlocked",
+            "[ + ] No ads",
+            "[ + ] Unlock all fitur Premium"
+        ],
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
+    },
+    {
         "name": "Auralys",
         "version": "4.3.6",
         "versionName": "4.3.6",
@@ -234,30 +258,6 @@ const apks = [
         "changelog": [
             "[ + ] Unlock all Feature"
         ]
-    },
-    {
-        "name": "Dongha",
-        "version": "1.7.2",
-        "versionName": "1.7.2",
-        "versionCode": 6637,
-        "packageName": "com.epemini.dongha",
-        "category": "Streaming",
-        "size": "84,87M",
-        "android": "Android 8+",
-        "description": "Aplikasi nonton anime dan donghua terlengkap dengan sub Indo, kualitas HD, update setiap hari, streaming gratis tanpa iklan mengganggu.",
-        "imageUrl": "https://i.ibb.co.com/ZPxn8c7/dongha.webp",
-        "downloadUrl": "https://adlinksumo.com/5ck9oER",
-        "changelog": [
-            "[ + ] Premium lifetime unlocked",
-            "[ + ] No ads",
-            "[ + ] Unlock all fitur Premium"
-        ],
-        "dialogConfig": {
-            "signCheck": true,
-            "btnMode": false,
-            "crashLog": false,
-            "forceCloseOnUpdate": true
-        }
     },
     {
         "name": "Zayon",
