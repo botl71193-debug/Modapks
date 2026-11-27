@@ -95,6 +95,28 @@ const premiumUsers = [
 
 const apks = [
     {
+        "name": "YuMoon+",
+        "version": "2.1.0",
+        "versionName": "2.1.0",
+        "versionCode": 4,
+        "packageName": "com.rapsync.yumoon",
+        "category": "Streaming",
+        "size": "8,32M",
+        "android": "Android 5+",
+        "description": "Aplikasi hiburan all-in-one untuk streaming anime, donghua, dan drama, mendengarkan musik, membaca komik, serta mengakses konten 18+. Aplikasi ini menggabungkan beberapa jenis konten hiburan dalam satu aplikasi Android.",
+        "imageUrl": "https://i.ibb.co.com/WNwWw4Yf/FS.webp",
+        "downloadUrl": "https://move2link.co/ef4e1f5",
+        "changelog": [
+            "Aplikasi hiburan all-in-one untuk streaming anime, donghua, dan drama, mendengarkan musik, membaca komik, serta mengakses konten 18+. Aplikasi ini menggabungkan beberapa jenis konten hiburan dalam satu aplikasi Android."
+        ],
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
+    },
+    {
         "name": "Dongha",
         "version": "1.7.2",
         "versionName": "1.7.2",
