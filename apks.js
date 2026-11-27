@@ -105,7 +105,7 @@ const apks = [
         "android": "Android 5+",
         "description": "Aplikasi pemutar musik alternatif Spotify dengan koleksi lagu lengkap dan tampilan yang simpel. Auralys menawarkan pencarian lagu, pembuatan playlist, pemutaran musik di background, serta rekomendasi lagu sesuai selera.",
         "imageUrl": "https://i.ibb.co.com/XrXQkkKJ/Screenshot-2026-1125-165607.webp",
-        "downloadUrl": "Z",
+        "downloadUrl": "https://adlinksumo.com/jYuRCRe",
         "changelog": [],
         "dialogConfig": {
             "signCheck": true,
