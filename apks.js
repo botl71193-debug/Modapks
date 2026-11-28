@@ -1507,5 +1507,18 @@ const apks = [
                 ]
             }
         ]
+    },
+    {
+        "name": "Riyu Exambro",
+        "version": "1.0.16",
+        "versionName": "1.0.16",
+        "versionCode": 17,
+        "packageName": "com.riyuteknologi.exam_browser",
+        "category": "Aplikasi Mod",
+        "size": "26,88M",
+        "android": "Android 5+",
+        "description": "",
+        "imageUrl": "*",
+        "downloadUrl": "*"
     }
 ];
