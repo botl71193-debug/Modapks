@@ -276,10 +276,16 @@ const apks = [
         "android": "Android 5+",
         "description": "Editor video & foto gratis dengan 400+ efek & filter aesthetic populer. Akses filter tahun 90-an glows & glitters, sparkle star, efek Glitch, gaya IG, dan filter estetika keren untuk foto dan video. Gratis tanpa biaya tambahan, editor terbaik untuk kebutuhan editing semua",
         "imageUrl": "https://i.ibb.co.com/2YpGb10z/icon.webp",
-        "downloadUrl": "https://adlinksumo.com/MQHPFu7",
+        "downloadUrl": "https://move2link.co/deea0fe",
         "changelog": [
             "[ + ] Unlock all Feature"
-        ]
+        ],
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
     },
     {
         "name": "Zayon",
