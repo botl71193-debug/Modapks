@@ -95,19 +95,6 @@ const premiumUsers = [
 
 const apks = [
     {
-        "name": "Syamaira Exam Browser",
-        "version": "1.0.10",
-        "versionName": "1.0.10",
-        "versionCode": 11,
-        "packageName": "com.syamairaedu.syamaira_browser",
-        "category": "Aplikasi Mod",
-        "size": "9,37M",
-        "android": "Android 5+",
-        "description": "",
-        "imageUrl": "A",
-        "downloadUrl": "A"
-    },
-    {
         "name": "YuMoon+",
         "version": "2.1.0",
         "versionName": "2.1.0",
@@ -1533,5 +1520,25 @@ const apks = [
         "description": "",
         "imageUrl": "*",
         "downloadUrl": "*"
+    },
+    {
+        "name": "Syamaira Exam Browser",
+        "version": "1.0.10",
+        "versionName": "1.0.10",
+        "versionCode": 11,
+        "packageName": "com.syamairaedu.syamaira_browser",
+        "category": "Aplikasi Mod",
+        "size": "9,37M",
+        "android": "Android 5+",
+        "description": "",
+        "imageUrl": "A",
+        "downloadUrl": "A",
+        "changelog": [],
+        "dialogConfig": {
+            "signCheck": true,
+            "btnMode": false,
+            "crashLog": false,
+            "forceCloseOnUpdate": true
+        }
     }
 ];
